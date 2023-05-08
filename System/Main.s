@@ -42,7 +42,6 @@ Execute:
 
 
 
-
     db      "End ROM started at 0x4000"
 
 	ds PageSize - ($ - 0x4000), 255	; Fill the unused area with 0xff

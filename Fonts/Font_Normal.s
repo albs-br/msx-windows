@@ -1,6 +1,8 @@
 ; ---- Original IBM PC font
 
-        DB 01111110 b  ;Use to be a space ?????
+FONT_NORMAL:
+
+        DB 01111110 b
         DB 01000010 b
         DB 01000010 b
         DB 01000010 b
@@ -288,10 +290,11 @@
         DB 00000000 b
         DB 00000000 b
  
-        ENDC 
+         
  
 ; Characters $20 -  $3f
  
+.SPACE:
         DB 00000000 b
         DB 00000000 b
         DB 00000000 b
@@ -436,6 +439,7 @@
         DB 10000000 b
         DB 00000000 b
  
+ .ZERO:
         DB 01111100 b
         DB 11000110 b
         DB 11001110 b
@@ -580,7 +584,7 @@
         DB 00110000 b
         DB 00000000 b
  
-        ENDC 
+         
  
 ; Characters $40 -  $5f
  
@@ -593,6 +597,7 @@
         DB 01111000 b
         DB 00000000 b
  
+ .UPPERCASE_A:
         DB 00110000 b
         DB 01111000 b
         DB 11001100 b
@@ -872,7 +877,7 @@
         DB 00000000 b
         DB 11111111 b
  
-        ENDC 
+         
  
 ; Characters $60 -  $7f
  
@@ -885,6 +890,7 @@
         DB 00000000 b
         DB 00000000 b
  
+ .LOWERCASE_A:
         DB 00000000 b
         DB 00000000 b
         DB 01111000 b
@@ -1164,7 +1170,7 @@
         DB 00000000 b
         DB 00000000 b
  
-        ENDC 
+         
  
 ; Characters $80 -  $9f
  
@@ -1456,7 +1462,7 @@
         DB 00110000 b
         DB 11100000 b
  
-        ENDC 
+         
  
 ; Characters $a0 -  $bf
  
@@ -1748,7 +1754,7 @@
         DB 00010000 b
         DB 00010000 b
  
-        ENDC 
+         
  
 ; Characters $c0 -  $df
  
@@ -2040,7 +2046,7 @@
         DB 00000000 b
         DB 00000000 b
  
-        ENDC 
+         
  
 ; Characters $e0 -  $ff
  
