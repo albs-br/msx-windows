@@ -10,6 +10,9 @@ PageSize:	    equ	0x4000	        ; 16kB
     INCLUDE "../Include/MsxConstants.s"
     INCLUDE "../Include/CommonRoutines.s"
 
+
+    INCLUDE "../System/Constants.s"
+
 ; Assets
     INCLUDE "../Fonts/Font_Normal.s"
 

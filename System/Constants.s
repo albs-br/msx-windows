@@ -1,0 +1,12 @@
+; Constants
+WINDOW_TITLE_BAR:           equ 0001 0000 b     ;
+WINDOW_TITLE_BTN_MINIMIZE:  equ 0010 0000 b     ;
+WINDOW_TITLE_BTN_RESTORE:   equ 0011 0000 b     ;
+WINDOW_TITLE_BTN_MAXIMIZE:  equ 0100 0000 b     ;
+WINDOW_RESIZE_CORNER:       equ 0101 0000 b     ;
+
+
+WINDOW_STATE:
+.MINIMIZED:     equ 1
+.RESTORED:      equ 2
+.MAXIZED:       equ 3

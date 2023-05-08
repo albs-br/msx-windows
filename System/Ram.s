@@ -17,10 +17,13 @@ OS:
 .currentDate:	        rb 3			; BCD encoded date dd/mm/yyyy
 .timeCounter	        rb 1			; 0-59 JIFFY based counter to increment time/date (0-49 on PAL machines)
 
+
+
 ; TODO: this can be moved to the free VRAM area (addr 7040)
 .screenMapping: 	    rb 32*24		; used to map each tile to a window/desktop (useful on mouse click/over). 
                                         ; 255: desktop, 254: bottom bar;
-                                        ; 4 high bits: window title buttons/resize corner, 4 lower bits (0-15): process id
+                                        ; 4 high bits: window title buttons/resize corner (don't use 1111b as it would crash with the 255/254 values)
+                                        ; 4 lower bits (0-15): process id
 
 .currentProcessAddr:    rw 1
 
@@ -38,17 +41,19 @@ Process_struct:
 .minHeight:		        rb 1
 
 .windowTitle:	        rb 16
-.isFixedSize:	        rb 1
-.vertScrollbarEnabled:	rb 1
+.isFixedSize:	        rb 1            ; 0: no, 1: yes
+.vertScrollbarEnabled:	rb 1            ; 0: no, 1: yes
 .vertScrollbarPosition:	rb 1
 
 
+; these addresses are fixed and come from App header
 .openAddr:		        rw 1
 .workAddr:		        rw 1
 .drawAddr:		        rw 1
 .clickAddr:		        rw 1
 .closeAddr:		        rw 1
 
+; these RAM and VRAM addresses are dinamically defined by OS on app startup
 .ramStartAddr:	        rw 1
 .ramSize:		        rw 1
 
