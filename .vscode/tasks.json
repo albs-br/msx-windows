@@ -1,0 +1,74 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "assembly",
+            "type": "shell",
+            "command": "C:\\Program Files\\tniasm045\\tniasm.exe",
+                "args": [
+                    {
+                      "value": "System\\Main.s",
+                      //"value": "${file}",
+                      "quoting": "strong"
+                    }
+                ],
+            "problemMatcher": [],
+            "group": "build",
+            "presentation": {
+                "reveal": "always"
+            }
+        },
+        {
+            "command": "C:\\Program Files\\openMSX\\openmsx.exe",
+                "args": [
+                    {
+                        "value": "${workspaceFolder}\\msx-windows.rom",
+                        //"value": "${fileBasenameNoExtension}.rom",
+                        "quoting": "strong"
+                    },
+                    {
+                        // When changing this, it's necessary to first save this file before build, it will not work with
+                        // the "auto save all unsaved files before build" feature of VS Code (it executes this file before save)
+                        
+                        "value": "-machine Gradiente_Expert_GPC-1",     // MSX 1
+                        //"value": "-machine Yamaha_CX11",                // MSX 1 with V9938
+                        //"value": "-machine Sony_HB-F1XD",               // MSX 2
+                        //"value": "-machine Sony_HB-F1XDJ",                // MSX 2+
+                        //"value": "-machine Panasonic_FS-A1WSX",         // MSX 2+ with turbo
+                        //"value": "-machine Panasonic_FS-A1GT",          // MSX Turbo R
+                        
+                        "quoting": "escape"
+                    },
+                    // {
+                    //     "value": "-romtype ASCII16",
+                    //     //"value": "-romtype ASCII8",
+                    //     "quoting": "escape"
+                    // },
+                    // {
+                    //     //"value": "-script ${workspaceFolder}\\msx-wings_debug.tcl",
+                    //     "value": "-script ${workspaceFolder}\\profiler.tcl",
+                    //     "quoting": "escape"
+                    // },
+                    // {
+                    //     "value": "-script ${workspaceFolder}\\msx-wings_debug.tcl",
+                    //     "quoting": "escape"
+                    // }
+                ],
+            "label": "run openmsx",
+            "type": "shell",
+            "dependsOn": [
+                "assembly"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always"
+            }
+        }
+    ]
+}

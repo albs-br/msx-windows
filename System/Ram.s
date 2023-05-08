@@ -1,3 +1,7 @@
+RamStart:
+
+Seed:                   rw 1
+
 OS:
 
 .mouseY:		        rb 1
@@ -15,7 +19,7 @@ OS:
 
 .currentTime:	        rb 3			; BCD encoded time hh:mm:ss
 .currentDate:	        rb 3			; BCD encoded date dd/mm/yyyy
-.timeCounter	        rb 1			; 0-59 JIFFY based counter to increment time/date (0-49 on PAL machines)
+.timeCounter:	        rb 1			; 0-59 JIFFY based counter to increment time/date (0-49 on PAL machines)
 
 
 
@@ -63,3 +67,4 @@ Process_struct:
 
 .size: equ $ - Process_struct
 
+RamEnd:

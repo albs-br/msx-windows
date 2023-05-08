@@ -26,17 +26,17 @@ Notepad:
 
 
 .Open:
-    INCLUDE "../Notepad/Open.s"
+    INCLUDE "Apps/Notepad/Open.s"
 
 .Work:
-    INCLUDE "../Notepad/Work.s"
+    INCLUDE "Apps/Notepad/Work.s"
 
 .Draw:
-    INCLUDE "../Notepad/Draw.s"
+    INCLUDE "Apps/Notepad/Draw.s"
 
 .Click:
-    INCLUDE "../Notepad/Click.s"
+    INCLUDE "Apps/Notepad/Click.s"
 
 .Close:
-    INCLUDE "../Notepad/Close.s"
+    INCLUDE "Apps/Notepad/Close.s"
 
