@@ -10,8 +10,9 @@ PageSize:	    equ	0x4000	        ; 16kB
     INCLUDE "Include/MsxConstants.s"
     INCLUDE "Include/CommonRoutines.s"
 
-
+; System
     INCLUDE "System/Constants.s"
+    INCLUDE "System/Init.s"
 
 ; Assets
     INCLUDE "Fonts/Font_Normal.s"
@@ -24,19 +25,17 @@ PageSize:	    equ	0x4000	        ; 16kB
 
 
 Execute:
-    ; define screen colors
-    ld 		a, 15      	            ; Foreground color
-    ld 		(BIOS_FORCLR), a    
-    ld 		a, 10  		            ; Background color
-    ld 		(BIOS_BAKCLR), a     
-    ld 		a, 13      	            ; Border color
-    ld 		(BIOS_BDRCLR), a    
-    call 	BIOS_CHGCLR        		; Change Screen Color
 
+    ; routines named in uppercase means they are OS rotines
+    ; _ on start means private routines while absence of underline means public routines
 
+    call    _INIT
 
+    ; DEBUG
+    ; call    _DRAW_WINDOW
+    ; call    _DRAW_WINDOW_TITLE
 
-    ; code here
+    ; DEBUG
     jp $
 
 
