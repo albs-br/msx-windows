@@ -29,7 +29,8 @@ OS:
                                         ; 4 high bits: window title buttons/resize corner (don't use 1111b as it would crash with the 255/254 values)
                                         ; 4 lower bits (0-15): process id
 
-.currentProcessAddr:    rw 1
+.currentProcessAddr:            rw 1
+.nextAvailableProcessAddr:      rw 1
 
 .processes:		        rb Process_struct.size * 4 ; maybe 6 in the future
 
