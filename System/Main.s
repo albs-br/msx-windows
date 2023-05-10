@@ -32,6 +32,10 @@ Execute:
     call    _INIT
 
     ; DEBUG
+    ; ld      hl, Notepad.Header
+    ; call    _LOAD_PROCESS
+
+    ; DEBUG
     ; call    _DRAW_WINDOW
     ; call    _DRAW_WINDOW_TITLE
 

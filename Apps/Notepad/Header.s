@@ -1,6 +1,8 @@
 Notepad:
 
+; fixed values for app initialization
 .Header:
+
 .processId:		        db 0		    ; 255: empty (this will be defined by the OS on app startup)
 .windowState:	        db WINDOW_STATE.RESTORED
 .x:			            db 8
@@ -16,13 +18,13 @@ Notepad:
 .vertScrollbarPosition:	db 0
 
 
-; these addresses are fixed and come from App header
 .openAddr:		        dw .Open
 .workAddr:		        dw .Work
 .drawAddr:		        dw .Draw
 .clickAddr:		        dw .Click
 .closeAddr:		        dw .Close
 
+.ramSize:		        dw 1024     ; RAM space reserved for variables of this app
 
 
 .Open:

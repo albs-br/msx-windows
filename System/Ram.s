@@ -57,10 +57,10 @@ Process_struct:
 .clickAddr:		        rw 1
 .closeAddr:		        rw 1
 
+.ramSize:		        rw 1     ; RAM space reserved for variables of this app
+
 ; these RAM and VRAM addresses are dinamically defined by OS on app startup
 .ramStartAddr:	        rw 1
-.ramSize:		        rw 1
-
 .vramStartTileAddr:	    rw 1
 
 .screenTilesBehind:	    rb 32*24

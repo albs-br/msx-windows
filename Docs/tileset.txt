@@ -1,0 +1,45 @@
+52	26 alpha x 2
+10	numbers
+10	others ()
+
+based on standard msx charset:
+96 alphanumeric + specials
+80 alphanumeric reversed, for title bar (*)
+
+
+80 remainder:
+13 for window borders
+3 for title bar buttons
+
+? for button borders
+? for scroll bar
+? for system bottom bar
+
+(*) alternativelly, may be only 26 lower case (plus maybe first letter uppercase)
+
+
+
+96+26+16 = 138
+
+
+
+---------
+
+minesweeper:
+
+1-9
+
+(untouched cell
+empty cell)
+or
+(bomb
+bomb red)
+
+total: 11
+
+
+--------
+
+tiles reserved for apps:
+12 per app
+6 apps = 72
