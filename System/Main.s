@@ -16,6 +16,7 @@ PageSize:	    equ	0x4000	        ; 16kB
 
 ; Assets
     INCLUDE "Fonts/Font_Normal.s"
+    INCLUDE "Graphics/Tiles.s"
 
 
 ; Apps
