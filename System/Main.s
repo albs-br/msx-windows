@@ -36,6 +36,7 @@ Execute:
     ; call    _LOAD_PROCESS
 
     ; DEBUG
+    ; ld      hl, (OS.currentProcessAddr)
     ; call    _DRAW_WINDOW
     ; call    _DRAW_WINDOW_TITLE
 
