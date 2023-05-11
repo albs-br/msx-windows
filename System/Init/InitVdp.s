@@ -8,6 +8,8 @@ SPRATR:     equ 0x1b00  ; to 0x1b7f (128 bytes)
 
 _INIT_VDP:
 
+    call    BIOS_DISSCR
+
     ; define screen colors
     ld 		a, 15      	            ; Foreground color
     ld 		(BIOS_FORCLR), a    
@@ -17,10 +19,9 @@ _INIT_VDP:
     ld 		(BIOS_BDRCLR), a    
     call 	BIOS_CHGCLR        		; Change Screen Color
 
-    call    BIOS_INIGRP
+    call    BIOS_INIGRP             ; screen 2
     
 
-    call    BIOS_DISSCR
     
     ; --------------------- init VRAM -----------
 
