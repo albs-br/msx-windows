@@ -36,6 +36,16 @@ _INIT_VDP:
     ld		bc, TILE_PATTERNS.size	; Block length
     call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
 
+    ld		hl, TILE_PATTERNS       ; RAM address (source)
+    ld		de, PATTBL + (256 * 8)  ; VRAM address (destiny)
+    ld		bc, TILE_PATTERNS.size	; Block length
+    call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
+
+    ld		hl, TILE_PATTERNS       ; RAM address (source)
+    ld		de, PATTBL + (512 * 8)  ; VRAM address (destiny)
+    ld		bc, TILE_PATTERNS.size	; Block length
+    call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
+
     ; fill COLTBL 
     ld      a, 0x1f             ; value
     ld      bc, 256 * 8 * 3     ; size
@@ -62,17 +72,17 @@ NAMTBL_TEST:
     db TILE_WINDOW_TITLE_MIDDLE_TOP
     db TILE_WINDOW_TITLE_MIDDLE_TOP
     db TILE_WINDOW_TITLE_MIDDLE_TOP
-    db TILE_WINDOW_TITLE_MIDDLE_TOP
+    db TILE_WINDOW_TOP_RIGHT_CORNER_TOP
     db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
     db TILE_EMPTY
     db TILE_EMPTY
     db TILE_WINDOW_TITLE_BOTTOM_LEFT
     db TILE_WINDOW_TITLE_MIDDLE_BOTTOM
-    db TILE_WINDOW_TITLE_MIDDLE_BOTTOM
-    db TILE_WINDOW_TITLE_MIDDLE_BOTTOM
-    db TILE_WINDOW_TITLE_MIDDLE_BOTTOM
-    db TILE_WINDOW_TITLE_MIDDLE_BOTTOM
+    db TILE_WINDOW_MINIMIZE_BUTTON
+    db TILE_WINDOW_MAXIMIZE_BUTTON
+    db TILE_WINDOW_CLOSE_BUTTON
+    db TILE_WINDOW_TOP_RIGHT_CORNER_BOTTOM
     db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
     db TILE_EMPTY
