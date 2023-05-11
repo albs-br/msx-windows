@@ -132,16 +132,18 @@ _DRAW_WINDOW:
 ;   HL = linear addr (0-767)
 _CONVERT_COL_LINE_TO_LINEAR:
 	
+	; from:
 	;
 	; |           Register H            |           Register L            |
 	; |   0   0   0  Y4  Y3  Y2  Y1  Y0 |   0   0   0  X4  X3  X2  X1  X0 |
 	;
-	; to
+	; to:
 	;
 	; |           Register H            |           Register L            |
+	; |   0   0   0   0   0   0  Y4  Y3 |  Y2  Y1  Y0  X4  X3  X2  X1  X0 |
 	; |   0   0   0   0   0   0  A9  A8 |  A7  A6  A5  A4  A3  A2  A1  A0 |
 
-    xor     a
+    xor     a           ; A = 0
 
     srl     h           ; shift right n, bit 0 goes to carry flag and bit 7 zeroed.
     rra                 ; rotates A to the right with the carry put into bit 7 and bit 0 put into the carry flag. 
@@ -150,7 +152,8 @@ _CONVERT_COL_LINE_TO_LINEAR:
     srl     h
     rra
 
-    or      l           ; joins A7-A5 in A register with A4-A0 in L register
+    or      l           ; joins A7-A5 in A register to A4-A0 in L register
+    ld      l, a
 
     ret
 
