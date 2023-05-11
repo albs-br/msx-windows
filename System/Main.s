@@ -13,6 +13,7 @@ PageSize:	    equ	0x4000	        ; 16kB
 ; System
     INCLUDE "System/Constants.s"
     INCLUDE "System/Init/Init.s"
+    INCLUDE "System/Window/Window.s"
 
 ; Assets
     INCLUDE "Fonts/Font_Normal.s"
@@ -38,124 +39,17 @@ Execute:
 
     ; DEBUG
     ; ld      hl, (OS.currentProcessAddr)
+    ld      l, 10       ; col number (0-31)
+    ld      h, 0       ; line number (0-23)
     call    _DRAW_WINDOW
-    ; call    _DRAW_WINDOW_TITLE
+
+    ld      l, 5       ; col number (0-31)
+    ld      h, 6       ; line number (0-23)
+    call    _DRAW_WINDOW
 
     ; DEBUG
     jp $
 
-; TODO: put on a separate file
-_DRAW_WINDOW:
-    ; ld		hl, NAMTBL_TEST       ; RAM address (source)
-    ; ld		de, NAMTBL		        ; VRAM address (destiny)
-    ; ld		bc, NAMTBL_TEST.size	; Block length
-    ; call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
-
-    ; 9918 need 29 cycles apart from each OUT
-
-    ; --------------- draw window title bar -----------------------
-    
-    ; ; debug
-    ; ld      l, 10       ; col number (0-31)
-    ; ld      h, 20       ; line number (0-23)
-    ; call    _CONVERT_COL_LINE_TO_LINEAR
-    
-    ; ld      bc, NAMTBL
-    ; add     hl, bc
-
-
-
-    ; first line of title bar
-    ld  hl, NAMTBL + 10 + (20 * 32) ; DEBUG x=10, y=20
-    push    hl
-        call    BIOS_SETWRT
-        
-        ld      a, TILE_WINDOW_TITLE_TOP_LEFT
-        out     (PORT_0), a
-
-        ld      b, 16       ; debug (window width)
-    .loop_1:    
-        ld      a, TILE_WINDOW_TITLE_MIDDLE_TOP
-        out     (PORT_0), a
-        djnz    .loop_1
-
-        nop
-        nop
-        ld      a, TILE_WINDOW_TOP_RIGHT_CORNER_TOP
-        out     (PORT_0), a
-
-    pop     hl
-    ld      de, 32
-    add     hl, de
-   
-    ; second line of title bar
-    call    BIOS_SETWRT
-    ld      a, TILE_WINDOW_TITLE_BOTTOM_LEFT
-    out     (PORT_0), a
-    ld      b, 16 - 3       ; debug (window width)
-.loop_2:
-    ld      a, TILE_WINDOW_TITLE_MIDDLE_BOTTOM
-    out     (PORT_0), a
-    djnz    .loop_2
-
-    nop
-    nop
-    ld      a, TILE_WINDOW_MINIMIZE_BUTTON
-    out     (PORT_0), a
-
-    nop
-    nop
-    ld      a, TILE_WINDOW_MAXIMIZE_BUTTON
-    out     (PORT_0), a
-
-    nop
-    nop
-    ld      a, TILE_WINDOW_CLOSE_BUTTON
-    out     (PORT_0), a
-
-    nop
-    nop
-    ld      a, TILE_WINDOW_TOP_RIGHT_CORNER_BOTTOM
-    out     (PORT_0), a
-
-    ; -------------------------------------------------------------
-
-    ret
-
-
-
-; Convert (col, line) in LH to linear addr (0-767), ie: (line * 32) + col
-; Inputs:
-;   L = column (0-31)
-;   H = line (0-23)
-; Output:
-;   HL = linear addr (0-767)
-_CONVERT_COL_LINE_TO_LINEAR:
-	
-	; from:
-	;
-	; |           Register H            |           Register L            |
-	; |   0   0   0  Y4  Y3  Y2  Y1  Y0 |   0   0   0  X4  X3  X2  X1  X0 |
-	;
-	; to:
-	;
-	; |           Register H            |           Register L            |
-	; |   0   0   0   0   0   0  Y4  Y3 |  Y2  Y1  Y0  X4  X3  X2  X1  X0 |
-	; |   0   0   0   0   0   0  A9  A8 |  A7  A6  A5  A4  A3  A2  A1  A0 |
-
-    xor     a           ; A = 0
-
-    srl     h           ; shift right n, bit 0 goes to carry flag and bit 7 zeroed.
-    rra                 ; rotates A to the right with the carry put into bit 7 and bit 0 put into the carry flag. 
-    srl     h
-    rra
-    srl     h
-    rra
-
-    or      l           ; joins A7-A5 in A register to A4-A0 in L register
-    ld      l, a
-
-    ret
 
 
     db      "End ROM started at 0x4000"

@@ -1,0 +1,186 @@
+_DRAW_WINDOW:
+    ; ld		hl, NAMTBL_TEST       ; RAM address (source)
+    ; ld		de, NAMTBL		        ; VRAM address (destiny)
+    ; ld		bc, NAMTBL_TEST.size	; Block length
+    ; call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
+
+    ; 9918 need 29 cycles apart from each OUT
+
+    ; --------------- draw window title bar -----------------------
+    
+    ; ; debug
+    ; ld      l, 10       ; col number (0-31)
+    ; ld      h, 0       ; line number (0-23)
+    call    _CONVERT_COL_LINE_TO_LINEAR
+    
+    ld      bc, NAMTBL
+    add     hl, bc
+
+
+
+    ; first line of title bar
+    ;ld  hl, NAMTBL + 10 + (0 * 32) ; DEBUG x=10, y=1
+    push    hl
+        call    BIOS_SETWRT
+        
+        ld      a, TILE_WINDOW_TITLE_TOP_LEFT
+        out     (PORT_0), a
+
+        ld      b, 16       ; debug (window width)
+    .loop_1:    
+        ld      a, TILE_WINDOW_TITLE_MIDDLE_TOP
+        out     (PORT_0), a
+        djnz    .loop_1
+
+        nop
+        nop
+        ld      a, TILE_WINDOW_TOP_RIGHT_CORNER_TOP
+        out     (PORT_0), a
+    pop     hl
+    
+    ; second line of title bar
+    ld      de, 32
+    add     hl, de
+   
+    push    hl
+        call    BIOS_SETWRT
+        ld      a, TILE_WINDOW_TITLE_BOTTOM_LEFT
+        out     (PORT_0), a
+        ld      b, 16 - 3       ; debug (window width)
+    .loop_2:
+        ld      a, TILE_WINDOW_TITLE_MIDDLE_BOTTOM
+        out     (PORT_0), a
+        djnz    .loop_2
+
+        nop
+        nop
+        ld      a, TILE_WINDOW_MINIMIZE_BUTTON
+        out     (PORT_0), a
+
+        nop
+        nop
+        ld      a, TILE_WINDOW_MAXIMIZE_BUTTON
+        out     (PORT_0), a
+
+        nop
+        nop
+        ld      a, TILE_WINDOW_CLOSE_BUTTON
+        out     (PORT_0), a
+
+        nop
+        nop
+        ld      a, TILE_WINDOW_TOP_RIGHT_CORNER_BOTTOM
+        out     (PORT_0), a
+    pop     hl
+
+    ; --------------- draw window middle borders and empty background -----------------------
+
+    ld      b, 10 - 2 ; debug (window height)
+.loop_height:
+    push    bc
+
+        ld      de, 32
+        add     hl, de
+    
+        push    hl
+            call    BIOS_SETWRT
+            ld      a, TILE_WINDOW_BORDER_LEFT
+            out     (PORT_0), a
+            ld      b, 16       ; debug (window width)
+        .loop_3:
+            ld      a, TILE_EMPTY
+            out     (PORT_0), a
+            djnz    .loop_3
+
+            nop
+            nop
+            ld      a, TILE_WINDOW_BORDER_RIGHT
+            out     (PORT_0), a
+        pop     hl
+
+    pop     bc
+    djnz    .loop_height
+
+    ; --------------- draw window bottom border and empty background -----------------------
+
+    ; first line of window bottom
+    ld      de, 32
+    add     hl, de
+   
+    push    hl
+        call    BIOS_SETWRT
+        ld      a, TILE_WINDOW_BORDER_LEFT
+        out     (PORT_0), a
+        ld      b, 16       ; debug (window width)
+    .loop_4:
+        ld      a, TILE_EMPTY
+        out     (PORT_0), a
+        djnz    .loop_4
+
+        nop
+        nop
+        ld      a, TILE_WINDOW_RESIZE_CORNER_TOP
+        out     (PORT_0), a
+    pop     hl
+
+    ; second line of window bottom
+    ld      de, 32
+    add     hl, de
+   
+    push    hl
+        call    BIOS_SETWRT
+        ld      a, TILE_WINDOW_BORDER_BOTTOM_LEFT
+        out     (PORT_0), a
+        ld      b, 16 - 1       ; debug (window width)
+    .loop_5:
+        ld      a, TILE_WINDOW_BORDER_MIDDLE_BOTTOM
+        out     (PORT_0), a
+        djnz    .loop_5
+
+        nop
+        nop
+        ld      a, TILE_WINDOW_RESIZE_CORNER_LEFT
+        out     (PORT_0), a
+
+        nop
+        nop
+        ld      a, TILE_WINDOW_RESIZE_CORNER_RIGHT
+        out     (PORT_0), a
+    pop     hl
+
+    ret
+
+
+
+; Convert (col, line) in LH to linear addr (0-767), ie: (line * 32) + col
+; Inputs:
+;   L = column (0-31)
+;   H = line (0-23)
+; Output:
+;   HL = linear addr (0-767)
+_CONVERT_COL_LINE_TO_LINEAR:
+	
+	; from:
+	;
+	; |           Register H            |           Register L            |
+	; |   0   0   0  Y4  Y3  Y2  Y1  Y0 |   0   0   0  X4  X3  X2  X1  X0 |
+	;
+	; to:
+	;
+	; |           Register H            |           Register L            |
+	; |   0   0   0   0   0   0  Y4  Y3 |  Y2  Y1  Y0  X4  X3  X2  X1  X0 |
+	; |   0   0   0   0   0   0  A9  A8 |  A7  A6  A5  A4  A3  A2  A1  A0 |
+
+    xor     a           ; A = 0
+
+    srl     h           ; shift right n, bit 0 goes to carry flag and bit 7 zeroed.
+    rra                 ; rotates A to the right with the carry put into bit 7 and bit 0 put into the carry flag. 
+    srl     h
+    rra
+    srl     h
+    rra
+
+    or      l           ; joins A7-A5 in A register to A4-A0 in L register
+    ld      l, a
+
+    ret
