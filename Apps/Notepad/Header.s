@@ -26,6 +26,7 @@ Notepad:
 
 .ramSize:		        dw 1024     ; RAM space reserved for variables of this app
 
+.StartProgramCode:
 
 .Open:
     INCLUDE "Apps/Notepad/Open.s"
