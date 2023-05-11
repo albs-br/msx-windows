@@ -14,6 +14,7 @@ PageSize:	    equ	0x4000	        ; 16kB
     INCLUDE "System/Constants.s"
     INCLUDE "System/Init/Init.s"
     INCLUDE "System/Window/Window.s"
+    INCLUDE "System/Process/Process.s"
 
 ; Assets
     INCLUDE "Fonts/Font_Normal.s"
@@ -34,18 +35,22 @@ Execute:
     call    _INIT
 
     ; DEBUG
-    ; ld      hl, Notepad.Header
-    ; call    _LOAD_PROCESS
+    ld      hl, Notepad.Header
+    call    _LOAD_PROCESS
 
-    ; DEBUG
-    ; ld      hl, (OS.currentProcessAddr)
-    ld      l, 10       ; col number (0-31)
-    ld      h, 0       ; line number (0-23)
-    call    _DRAW_WINDOW
+    ; ; DEBUG
+    ; ; ld      hl, (OS.currentProcessAddr)
+    ; ld      l, 10       ; col number (0-31)
+    ; ld      h, 0       ; line number (0-23)
+    ; call    _DRAW_WINDOW
 
-    ld      l, 5       ; col number (0-31)
-    ld      h, 6       ; line number (0-23)
-    call    _DRAW_WINDOW
+    ; ld      l, 5       ; col number (0-31)
+    ; ld      h, 6       ; line number (0-23)
+    ; call    _DRAW_WINDOW
+
+    ; ld      l, 0       ; col number (0-31)
+    ; ld      h, 12       ; line number (0-23)
+    ; call    _DRAW_WINDOW
 
     ; DEBUG
     jp $

@@ -1,20 +1,25 @@
+; Input
+;   HL = addr of process header 
 _DRAW_WINDOW:
-    ; ld		hl, NAMTBL_TEST       ; RAM address (source)
-    ; ld		de, NAMTBL		        ; VRAM address (destiny)
-    ; ld		bc, NAMTBL_TEST.size	; Block length
-    ; call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
-
-    ; 9918 need 29 cycles apart from each OUT
-
-    ; --------------- draw window title bar -----------------------
+    ; info: 9918 needs 29 cycles apart from each OUT
+    
+    ; get variables from process
+    push    hl
+    pop     ix
+    ld      l, (ix + 2) ; process.x
+    ld      h, (ix + 3) ; process.y
     
     ; ; debug
     ; ld      l, 10       ; col number (0-31)
     ; ld      h, 0       ; line number (0-23)
+
     call    _CONVERT_COL_LINE_TO_LINEAR
     
     ld      bc, NAMTBL
     add     hl, bc
+
+    ; --------------- draw window title bar -----------------------
+    
 
 
 
@@ -26,7 +31,8 @@ _DRAW_WINDOW:
         ld      a, TILE_WINDOW_TITLE_TOP_LEFT
         out     (PORT_0), a
 
-        ld      b, 16       ; debug (window width)
+        ld      b, (ix + 4) ; process.width
+        ;ld      b, 16       ; debug (window width)
     .loop_1:    
         ld      a, TILE_WINDOW_TITLE_MIDDLE_TOP
         out     (PORT_0), a
@@ -46,7 +52,11 @@ _DRAW_WINDOW:
         call    BIOS_SETWRT
         ld      a, TILE_WINDOW_TITLE_BOTTOM_LEFT
         out     (PORT_0), a
-        ld      b, 16 - 3       ; debug (window width)
+        
+        ld      a, (ix + 4) ; process.width
+        sub     3
+        ld      b, a
+        ;ld      b, 16 - 3       ; debug (window width)
     .loop_2:
         ld      a, TILE_WINDOW_TITLE_MIDDLE_BOTTOM
         out     (PORT_0), a
@@ -75,7 +85,10 @@ _DRAW_WINDOW:
 
     ; --------------- draw window middle borders and empty background -----------------------
 
-    ld      b, 10 - 2 ; debug (window height)
+    ld      a, (ix + 5) ; process.height
+    sub     2
+    ld      b, a
+    ;ld      b, 10 - 2 ; debug (window height)
 .loop_height:
     push    bc
 
@@ -86,7 +99,9 @@ _DRAW_WINDOW:
             call    BIOS_SETWRT
             ld      a, TILE_WINDOW_BORDER_LEFT
             out     (PORT_0), a
-            ld      b, 16       ; debug (window width)
+
+            ld      b, (ix + 4) ; process.width
+            ;ld      b, 16       ; debug (window width)
         .loop_3:
             ld      a, TILE_EMPTY
             out     (PORT_0), a
@@ -111,7 +126,9 @@ _DRAW_WINDOW:
         call    BIOS_SETWRT
         ld      a, TILE_WINDOW_BORDER_LEFT
         out     (PORT_0), a
-        ld      b, 16       ; debug (window width)
+        
+        ld      b, (ix + 4) ; process.width
+        ;ld      b, 16       ; debug (window width)
     .loop_4:
         ld      a, TILE_EMPTY
         out     (PORT_0), a
@@ -131,7 +148,10 @@ _DRAW_WINDOW:
         call    BIOS_SETWRT
         ld      a, TILE_WINDOW_BORDER_BOTTOM_LEFT
         out     (PORT_0), a
-        ld      b, 16 - 1       ; debug (window width)
+        
+        ld      b, (ix + 4) ; process.width
+        dec     b
+        ;ld      b, 16 - 1       ; debug (window width)
     .loop_5:
         ld      a, TILE_WINDOW_BORDER_MIDDLE_BOTTOM
         out     (PORT_0), a

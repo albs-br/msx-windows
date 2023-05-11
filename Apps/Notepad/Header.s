@@ -6,9 +6,9 @@ Notepad:
 .processId:		        db 0		    ; 255: empty (this will be defined by the OS on app startup)
 .windowState:	        db WINDOW_STATE.RESTORED
 .x:			            db 8
-.y:			            db 4
-.width:		            db 20
-.height:		        db 12
+.y:			            db 1
+.width:		            db 10
+.height:		        db 20
 .minWidth:		        db 16
 .minHeight:		        db 8
 
