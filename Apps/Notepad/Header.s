@@ -42,3 +42,4 @@ Notepad:
 .Close:
     INCLUDE "Apps/Notepad/Close.s"
 
+.EndProgramCode:                ; this may be useful on future for code dinamically relocatable
