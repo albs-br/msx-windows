@@ -1,5 +1,3 @@
-
-
 ; Default VRAM tables for Screen 2
 NAMTBL:     equ 0x1800  ; to 0x1aff (768 bytes)
 PATTBL:     equ 0x0000  ; to 0x17ff (6144 bytes)
@@ -8,8 +6,7 @@ SPRPAT:     equ 0x3800  ; to 0x3fff (2048 bytes)
 SPRATR:     equ 0x1b00  ; to 0x1b7f (128 bytes)
 
 
-_INIT:
-
+_INIT_VDP:
 
     ; define screen colors
     ld 		a, 15      	            ; Foreground color
@@ -54,7 +51,6 @@ _INIT:
     call    BIOS_ENASCR
 
     ret
-
 
 NAMTBL_TEST:
     db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0

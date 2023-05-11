@@ -33,7 +33,7 @@ OS:
 .nextAvailableProcessAddr:      rw 1
 
 .processes:		        rb Process_struct.size * 4 ; maybe 6 in the future
-
+.processes_size: equ $ - .processes
 
 Process_struct:
 .processId:		        rb 1		    ; 255: empty

@@ -12,7 +12,7 @@ PageSize:	    equ	0x4000	        ; 16kB
 
 ; System
     INCLUDE "System/Constants.s"
-    INCLUDE "System/Init.s"
+    INCLUDE "System/Init/Init.s"
 
 ; Assets
     INCLUDE "Fonts/Font_Normal.s"
