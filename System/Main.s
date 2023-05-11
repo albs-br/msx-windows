@@ -55,6 +55,16 @@ _DRAW_WINDOW:
 
     ; --------------- draw window title bar -----------------------
     
+    ; ; debug
+    ; ld      l, 10       ; col number (0-31)
+    ; ld      h, 20       ; line number (0-23)
+    ; call    _CONVERT_COL_LINE_TO_LINEAR
+    
+    ; ld      bc, NAMTBL
+    ; add     hl, bc
+
+
+
     ; first line of title bar
     ld  hl, NAMTBL + 10 + (20 * 32) ; DEBUG x=10, y=20
     push    hl
@@ -109,6 +119,38 @@ _DRAW_WINDOW:
     out     (PORT_0), a
 
     ; -------------------------------------------------------------
+
+    ret
+
+
+
+; Convert (col, line) in LH to linear addr (0-767), ie: (line * 32) + col
+; Inputs:
+;   L = column (0-31)
+;   H = line (0-23)
+; Output:
+;   HL = linear addr (0-767)
+_CONVERT_COL_LINE_TO_LINEAR:
+	
+	;
+	; |           Register H            |           Register L            |
+	; |   0   0   0  Y4  Y3  Y2  Y1  Y0 |   0   0   0  X4  X3  X2  X1  X0 |
+	;
+	; to
+	;
+	; |           Register H            |           Register L            |
+	; |   0   0   0   0   0   0  A9  A8 |  A7  A6  A5  A4  A3  A2  A1  A0 |
+
+    xor     a
+
+    srl     h           ; shift right n, bit 0 goes to carry flag and bit 7 zeroed.
+    rra                 ; rotates A to the right with the carry put into bit 7 and bit 0 put into the carry flag. 
+    srl     h
+    rra
+    srl     h
+    rra
+
+    or      l           ; joins A7-A5 in A register with A4-A0 in L register
 
     ret
 
