@@ -21,7 +21,9 @@ _INIT_VDP:
     ;call    BIOS_INIGRP             ; screen 2
     ld      a, 2
     call    BIOS_CHGMOD
-    
+
+    call    SetSprites16x16
+
     call    BIOS_DISSCR
 
     
@@ -56,14 +58,33 @@ _INIT_VDP:
     call    BIOS_FILVRM
 
     ; load NAMTBL
-    ld		hl, NAMTBL_TEST       ; RAM address (source)
+    ld		hl, NAMTBL_TEST         ; RAM address (source)
     ld		de, NAMTBL		        ; VRAM address (destiny)
     ld		bc, NAMTBL_TEST.size	; Block length
     call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
 
+    ; load SPRPAT
+    ld		hl, SPRITE_PATTERNS         ; RAM address (source)
+    ld		de, SPRPAT		            ; VRAM address (destiny)
+    ld		bc, SPRITE_PATTERNS.size    ; Block length
+    call 	BIOS_LDIRVM        	        ; Block transfer to VRAM from memory
+
+    ; load SPRATR
+    ld		hl, SPRATR_TEST         ; RAM address (source)
+    ld		de, SPRATR		            ; VRAM address (destiny)
+    ld		bc, SPRATR_TEST.size    ; Block length
+    call 	BIOS_LDIRVM        	        ; Block transfer to VRAM from memory
+
     call    BIOS_ENASCR
 
     ret
+
+SPRATR_TEST:
+    ; Y, X, patterm, color
+    db 100, 100, 0 * 4, 1
+    db 100, 100, 1 * 4, 15
+    db 208, 0  , 0    ,0        ; 208 on Y value hides this sprite and all afterwards
+.size: equ $ - SPRATR_TEST
 
 NAMTBL_TEST:
     db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0

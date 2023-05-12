@@ -51,10 +51,10 @@
                     //     "value": "-script ${workspaceFolder}\\profiler.tcl",
                     //     "quoting": "escape"
                     // },
-                    // {
-                    //     "value": "-script ${workspaceFolder}\\msx-wings_debug.tcl",
-                    //     "quoting": "escape"
-                    // }
+                    {
+                        "value": "-script ${workspaceFolder}\\msx-windows_debug.tcl",
+                        "quoting": "escape"
+                    }
                 ],
             "label": "run openmsx",
             "type": "shell",
