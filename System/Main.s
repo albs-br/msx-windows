@@ -17,7 +17,7 @@ PageSize:	    equ	0x4000	        ; 16kB
     INCLUDE "System/Process/Process.s"
 
 ; Assets
-    INCLUDE "Fonts/Font_Normal.s"
+    ; INCLUDE "Fonts/Atari_Regular.s"
     INCLUDE "Graphics/Tiles.s"
     INCLUDE "Graphics/Sprites.s"
 
