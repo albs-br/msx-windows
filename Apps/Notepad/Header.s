@@ -6,13 +6,30 @@ Notepad:
 .processId:		        db 0		    ; 255: empty (this will be defined by the OS on app startup)
 .windowState:	        db WINDOW_STATE.RESTORED
 .x:			            db 8
-.y:			            db 1
-.width:		            db 10
-.height:		        db 20
-.minWidth:		        db 16
+.y:			            db 16
+.width:		            db 11
+.height:		        db 8
+.minWidth:		        db 10
 .minHeight:		        db 8
 
-.windowTitle:	        db 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33  ; 16 chars fixed
+.windowTitle:
+                        db TILE_FONT_REVERSED_LOWERCASE_A + 13 ; 'n'
+                        db TILE_FONT_REVERSED_LOWERCASE_A + 14 ; 'o'
+                        db TILE_FONT_REVERSED_LOWERCASE_A + 19 ; 't'
+                        db TILE_FONT_REVERSED_LOWERCASE_A + 4  ; 'e'
+                        db TILE_FONT_REVERSED_LOWERCASE_A + 15 ; 'p'
+                        db TILE_FONT_REVERSED_LOWERCASE_A + 0  ; 'a'
+                        db TILE_FONT_REVERSED_LOWERCASE_A + 3  ; 'd'
+                        db 0 ; end of string
+                        db 33
+                        db 33
+                        db 33
+                        db 33
+                        db 33
+                        db 33
+                        db 33
+                        db 33
+                        
 .isFixedSize:	        db 0
 .vertScrollbarEnabled:	db 0
 .vertScrollbarPosition:	db 0
