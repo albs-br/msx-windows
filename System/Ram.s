@@ -4,6 +4,7 @@ Seed:                   rw 1
 
 OS:
 
+.mouseSpriteAttributes:
 .mouseY:		        rb 1
 .mouseX:		        rb 1
 .mousePattern:	        rb 1
@@ -13,6 +14,9 @@ OS:
 .mousePattern_1:	    rb 1
 .mouseColor_1:	        rb 1
 
+.mouseButton_1:         rb 1
+.mouseButton_2:         rb 1
+
 .keyboardMatrix:	    rb 10			; https://map.grauw.nl/articles/keymatrix.php
 
 .ticksSinceLastInput:	rw 1		    ; used to trigger screen saver
@@ -21,6 +25,8 @@ OS:
 .currentDate:	        rb 3			; BCD encoded date dd/mm/yyyy
 .timeCounter:	        rb 1			; 0-59 JIFFY based counter to increment time/date (0-49 on PAL machines)
 
+.storeOldInterruptHook: rb 6
+.interruptBusy:         rb 1
 
 
 ; TODO: this can be moved to the free VRAM area (addr 7040)

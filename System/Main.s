@@ -12,8 +12,10 @@ PageSize:	    equ	0x4000	        ; 16kB
 
 ; System
     INCLUDE "System/Constants.s"
+    INCLUDE "System/Interrupt.s"
     INCLUDE "System/Init/Init.s"
     INCLUDE "System/Window/Window.s"
+    INCLUDE "System/Mouse/Mouse.s"
     INCLUDE "System/Process/Process.s"
 
 ; Assets
@@ -53,8 +55,14 @@ Execute:
     ; ld      h, 12       ; line number (0-23)
     ; call    _DRAW_WINDOW
 
-    ; DEBUG
-    jp $
+.OS_MainLoop:
+
+    call    _DRAW_MOUSE_CURSOR
+
+    ; TODO:
+    ; run current processes "Work" event
+
+    jp      .OS_MainLoop
 
 
 
