@@ -17,6 +17,7 @@ PageSize:	    equ	0x4000	        ; 16kB
     INCLUDE "System/Window/Window.s"
     INCLUDE "System/Mouse/Mouse.s"
     INCLUDE "System/Process/Process.s"
+    INCLUDE "System/Time/Time.s"
 
 ; Assets
     ; INCLUDE "Fonts/Atari_Regular.s"

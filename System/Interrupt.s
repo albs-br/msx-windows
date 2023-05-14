@@ -39,8 +39,8 @@ HANDLER:
     ld      a, 255
     ld      (os.interruptBusy), a
 
-    ; TODO
     ; update system time
+    call    _UPDATE_SYSTEM_TIME
  
     ; ---------------- read mouse ------------
 	ld      de, 0x1310 ; mouse on joyport 1
@@ -79,6 +79,7 @@ HANDLER:
     ld      a, (os.mouseY)
     ld      h, a ; current Y
     call    CLIPADD
+    
     ld      a, l
     ld      (os.mouseX), a
     ld      (os.mouseX_1), a

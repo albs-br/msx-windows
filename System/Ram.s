@@ -21,9 +21,18 @@ OS:
 
 .ticksSinceLastInput:	rw 1		    ; used to trigger screen saver
 
-.currentTime:	        rb 3			; BCD encoded time hh:mm:ss
+
+
+.currentTime:	        			    ; BCD encoded time hh:mm:ss
+.currentTime_Hours:     rb 1
+.currentTime_Minutes:   rb 1
+.currentTime_Seconds:   rb 1
+
 .currentDate:	        rb 3			; BCD encoded date dd/mm/yyyy
+
 .timeCounter:	        rb 1			; 0-59 JIFFY based counter to increment time/date (0-49 on PAL machines)
+
+
 
 .storeOldInterruptHook: rb 6
 .interruptBusy:         rb 1

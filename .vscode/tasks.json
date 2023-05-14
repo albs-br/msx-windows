@@ -32,8 +32,8 @@
                         // When changing this, it's necessary to first save this file before build, it will not work with
                         // the "auto save all unsaved files before build" feature of VS Code (it executes this file before save)
                         
-                        "value": "-machine Gradiente_Expert_GPC-1",     // MSX 1
-                        //"value": "-machine Yamaha_CX11",                // MSX 1 with V9938
+                        //"value": "-machine Gradiente_Expert_GPC-1",     // MSX 1
+                        "value": "-machine Yamaha_CX11",                // MSX 1 with V9938
                         //"value": "-machine Sony_HB-F1XD",               // MSX 2
                         //"value": "-machine Sony_HB-F1XDJ",                // MSX 2+
                         //"value": "-machine Panasonic_FS-A1WSX",         // MSX 2+ with turbo
