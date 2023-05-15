@@ -18,6 +18,13 @@ _DRAW_WINDOW:
     ld      bc, NAMTBL
     add     hl, bc
 
+    ; TODO:
+    ; update process.screenTilesBehind
+
+    ; TODO:
+    ; update OS.screenMapping
+
+
     ; --------------- draw window title bar -----------------------
     
 
@@ -186,6 +193,10 @@ _DRAW_WINDOW:
         ld      a, TILE_WINDOW_RESIZE_CORNER_RIGHT
         out     (PORT_0), a
     pop     hl
+
+    ; ---------------------------------------------
+
+
 
     ret
 

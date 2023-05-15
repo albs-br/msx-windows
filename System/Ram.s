@@ -5,6 +5,8 @@
 ; process variables space       4 * ? bytes =        ? bytes
 
 
+; end of RAM: 0xF380 (or 0xe5ff ?)
+
 RamStart:
 
 ; --------------------------------------------------------------------------------------------

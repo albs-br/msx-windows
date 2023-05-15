@@ -6,20 +6,35 @@ based on standard msx charset:
 96 alphanumeric + specials
 36 alphanumeric reversed (only lowercase) + digits, for title bar (*)
 
-96 + 36 = 132
+96 + 36 = 132 (124 remainder)
 
-256 - 132 = 124 remainder
+tiles reserved for processes: 12 per process
+12 * 4 = 48
+
+132 + 48 = 180 (76 remainder)
+
+; desktop (tile patterns different for each third):
+
+24x24 icon = 9 tiles
+    9 * 3 = 27      <--- this will be the choice
+
+16x16 icon = 4 tiles
+    4 * 3 = 12
+
 
 ------------
 
 13 for window borders (will be less)
 3 for title bar buttons
 
-9 for button borders
+9 for line borders (can be used to make buttons, tabs, etc)
 6 for scroll bar (vert/horiz)
-? for system bottom bar
+1 for system bottom bar
 
 
+? for app menubar
+
+total = 32
 
 
 

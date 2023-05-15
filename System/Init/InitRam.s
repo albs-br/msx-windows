@@ -3,6 +3,7 @@ _INIT_RAM:
     ; TODO: clear all ram up to the stack
     ; clear RAM
     xor     a
+    ld      (RamStart), a
     ld      hl, RamStart
     ld      de, RamStart + 1
     ld      bc, RamEnd - RamStart - 1
@@ -39,5 +40,8 @@ _INIT_RAM:
     ld      (OS.mouseColor), a
     ld      a, 15 ; white
     ld      (OS.mouseColor_1), a
+
+    ; TODO
+    ; init OS.screenMapping
 
     ret
