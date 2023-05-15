@@ -1,4 +1,13 @@
+; ------------------- RAM usage
+
+; OS variables                                     810 bytes
+; process slots                 4 * 811 bytes =   3244 bytes
+; process variables space       4 * ? bytes =        ? bytes
+
+
 RamStart:
+
+; --------------------------------------------------------------------------------------------
 
 Seed:                   rw 1
 
@@ -47,8 +56,13 @@ OS:
 .currentProcessAddr:            rw 1
 .nextAvailableProcessAddr:      rw 1
 
-.processes:		        rb Process_struct.size * 4 ; maybe 6 in the future
+; --------------------------------------------------------------------------------------------
+
+.processes:		        rb Process_struct.size * (MAX_PROCESS_ID + 1) 
+.processes_end:
 .processes_size: equ $ - .processes
+
+; --------------------------------------------------------------------------------------------
 
 Process_struct:
 .processId:		        rb 1		    ; 255: empty
@@ -64,6 +78,13 @@ Process_struct:
 .isFixedSize:	        rb 1            ; 0: no, 1: yes
 .vertScrollbarEnabled:	rb 1            ; 0: no, 1: yes
 .vertScrollbarPosition:	rb 1
+;TODO:
+; .horizScrollbarEnabled:	rb 1            ; 0: no, 1: yes
+; .horizScrollbarPosition:	rb 1
+
+; ---- or
+; .vertScrollbar:	        rb 1            ; 255: disabled, other values meaning position
+; .horizScrollbar:	        rb 1            ; 255: disabled, other values meaning position
 
 
 ; these addresses are fixed and come from App header
