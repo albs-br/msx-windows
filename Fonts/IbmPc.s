@@ -1,6 +1,6 @@
 ; ---- Original IBM PC font
 
-FONT_NORMAL:
+IBM_PC_FONT:
 
         DB 01111110 b
         DB 01000010 b

@@ -24,4 +24,20 @@ _INIT_RAM:
     ld      hl, 0
     ld      (OS.currentProcessAddr), hl
 
+    ; init mouse cursor variables
+    ld      a, 128 - 8
+    ld      (OS.mouseY), a
+    ld      (OS.mouseY_1), a
+    ld      a, 96 - 8
+    ld      (OS.mouseX), a
+    ld      (OS.mouseX_1), a
+    ld      a, SPRITE_INDEX_CURSOR_0
+    ld      (OS.mousePattern), a
+    ld      a, SPRITE_INDEX_CURSOR_1
+    ld      (OS.mousePattern_1), a
+    ld      a, 1 ; black
+    ld      (OS.mouseColor), a
+    ld      a, 15 ; white
+    ld      (OS.mouseColor_1), a
+
     ret

@@ -1,5 +1,6 @@
 SPRITE_PATTERNS:
 
+SPRITE_INDEX_CURSOR_0: equ 0 * 4
     ; --- mouse cursor sprite
     ; color 1
     DB 10000000b
@@ -34,6 +35,7 @@ SPRITE_PATTERNS:
     DB 00000000b
     DB 00000000b
     DB 00000000b
+SPRITE_INDEX_CURSOR_1: equ 1 * 4
     ; color 15
     DB 00000000b
     DB 00000000b

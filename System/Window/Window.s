@@ -83,10 +83,29 @@ _DRAW_WINDOW:
         out     (PORT_0), a
     pop     hl
 
+    ; draw name of process on window title
+    push    hl, ix
+        ; ld      bc, 32 - 1
+        ; xor     a ; clear carry flag
+        ; sbc     hl, bc
+        inc     hl
+        call    BIOS_SETWRT
+        
+        ld      b, 16 ; max size of string
+    .loop_10:
+        ld      a, (ix + 8) ; process.windowTitle
+        or      a
+        jp      z, .endLoop_10
+        out     (PORT_0), a
+        inc     ix
+        djnz    .loop_10
+    .endLoop_10:
+    pop     ix, hl
+
     ; --------------- draw window middle borders and empty background -----------------------
 
     ld      a, (ix + 5) ; process.height
-    sub     2
+    sub     4           ; subtract 4 (2 from title and 2 from bottom)
     ld      b, a
     ;ld      b, 10 - 2 ; debug (window height)
 .loop_height:

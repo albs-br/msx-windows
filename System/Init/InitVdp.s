@@ -51,10 +51,26 @@ _INIT_VDP:
     ld		bc, TILE_PATTERNS.size	; Block length
     call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
 
-    ; fill COLTBL 
+    ; fill COLTBL with black on white bg
     ld      a, 0x1f             ; value
     ld      bc, 256 * 8 * 3     ; size
     ld      hl, COLTBL          ; start VRAM address
+    call    BIOS_FILVRM
+
+    ; fill COLTBL for lowercase font reversed (first part)
+    ld      a, 0xf1                                         ; value
+    ld      bc, TILE_FONT_REVERSED_LOWERCASE_PATTERNS.size  ; size
+    ld      hl, COLTBL + (TILE_FONT_REVERSED_LOWERCASE_PATTERNS - TILE_PATTERNS)         ; start VRAM address
+    call    BIOS_FILVRM
+    ; fill COLTBL for lowercase font reversed (second part)
+    ld      a, 0xf1                                         ; value
+    ld      bc, TILE_FONT_REVERSED_LOWERCASE_PATTERNS.size  ; size
+    ld      hl, COLTBL + (256 * 8) + (TILE_FONT_REVERSED_LOWERCASE_PATTERNS - TILE_PATTERNS)         ; start VRAM address
+    call    BIOS_FILVRM
+    ; fill COLTBL for lowercase font reversed (third part)
+    ld      a, 0xf1                                         ; value
+    ld      bc, TILE_FONT_REVERSED_LOWERCASE_PATTERNS.size  ; size
+    ld      hl, COLTBL + (512 * 8) + (TILE_FONT_REVERSED_LOWERCASE_PATTERNS - TILE_PATTERNS)         ; start VRAM address
     call    BIOS_FILVRM
 
     ; load NAMTBL
@@ -102,7 +118,7 @@ NAMTBL_TEST:
     db TILE_EMPTY
     db TILE_EMPTY
     db TILE_WINDOW_TITLE_BOTTOM_LEFT
-    db TILE_WINDOW_TITLE_MIDDLE_BOTTOM
+    db TILE_FONT_REVERSED_LOWERCASE_A ;TILE_WINDOW_TITLE_MIDDLE_BOTTOM
     db TILE_WINDOW_MINIMIZE_BUTTON
     db TILE_WINDOW_MAXIMIZE_BUTTON
     db TILE_WINDOW_CLOSE_BUTTON
@@ -122,10 +138,10 @@ NAMTBL_TEST:
     db TILE_EMPTY
     db TILE_EMPTY
     db TILE_WINDOW_BORDER_LEFT
-    db TILE_EMPTY
-    db TILE_EMPTY
-    db TILE_EMPTY
-    db TILE_EMPTY
+    db TILE_FONT_REVERSED_LOWERCASE_A 
+    db TILE_FONT_REVERSED_LOWERCASE_A + 1
+    db TILE_FONT_REVERSED_LOWERCASE_A + 2
+    db TILE_FONT_REVERSED_LOWERCASE_A + 3
     db TILE_WINDOW_BORDER_RIGHT
     db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
