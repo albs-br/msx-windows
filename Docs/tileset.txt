@@ -4,22 +4,25 @@
 
 based on standard msx charset:
 96 alphanumeric + specials
-80 alphanumeric reversed, for title bar (*)
+36 alphanumeric reversed (only lowercase) + digits, for title bar (*)
 
+96 + 36 = 132
 
-80 remainder:
-13 for window borders
+256 - 132 = 124 remainder
+
+------------
+
+13 for window borders (will be less)
 3 for title bar buttons
 
-? for button borders
-? for scroll bar
+9 for button borders
+6 for scroll bar (vert/horiz)
 ? for system bottom bar
 
-(*) alternativelly, may be only 26 lower case (plus maybe first letter uppercase)
 
 
 
-96+26+16 = 138
+
 
 
 

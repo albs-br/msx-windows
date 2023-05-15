@@ -1,3 +1,5 @@
+; source: https://github.com/a8bit/EightBit-Atari-Fonts/blob/master/Original%20Files/PNG/ATARIPL.png
+
 ; -------------------- char #0
 db 00000000 b
 db 00000000 b
