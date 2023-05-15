@@ -30,26 +30,26 @@ _LOAD_PROCESS:
 
 
 
-    ; -----debug (set some fake process ids)
-    ld      bc, Process_struct.size
+    ; ; -----debug (set some fake process ids)
+    ; ld      bc, Process_struct.size
     
-    ld      hl, OS.processes
-    ld      a, 3
-    ld      (hl), a
+    ; ld      hl, OS.processes
+    ; ld      a, 3
+    ; ld      (hl), a
     
-    add     hl, bc
-    ld      a, 0
-    ld      (hl), a
+    ; add     hl, bc
+    ; ld      a, 0
+    ; ld      (hl), a
 
-    add     hl, bc
-    ld      a, 1
-    ld      (hl), a
+    ; add     hl, bc
+    ; ld      a, 1
+    ; ld      (hl), a
 
-    add     hl, bc
-    ld      a, 2
-    ld      (hl), a
+    ; add     hl, bc
+    ; ld      a, 2
+    ; ld      (hl), a
 
-    ; -----
+    ; ; -----
 
 
     ; set processId
