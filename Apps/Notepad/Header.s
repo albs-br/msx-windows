@@ -3,7 +3,7 @@ Notepad:
 ; fixed values for app initialization
 .Header:
 
-.processId:		        db 0		    ; 255: empty (this will be defined by the OS on app startup)
+.processId:		        db 255		    ; on app header must be always 255 (will be given an id by the OS at app load)
 .windowState:	        db WINDOW_STATE.RESTORED
 .x:			            db 8
 .y:			            db 16
