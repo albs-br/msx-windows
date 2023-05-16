@@ -8,11 +8,21 @@ _LOAD_PROCESS:
     ; TODO
     ; if ((OS.nextAvailableProcessAddr) == 0xffff) alert('Max process limit exceeded')
 
+
+    ; ; TODO
+    ; ; clear this process slot (fill with 0xff)
+    ; ld      a, 0xff
+    ; ld      (OS.nextAvailableProcessAddr), a
+    ; ld      hl, OS.processes
+    ; ld      de, OS.processes + 1
+    ; ld      bc, OS.processes_size - 1
+    ; ldir
+
     ; copy header from source to next empty process slot
-    ;ld      hl, ???                                        ; source
-    ld      de, (OS.nextAvailableProcessAddr)               ; destiny
-    ld      bc, Process_struct.size                         ; size
-    ldir                                                    ; Copy BC bytes from HL to DE
+    ;ld      hl, ???                                            ; source
+    ld      de, (OS.nextAvailableProcessAddr)                   ; destiny
+    ld      bc, Process_struct.size_without_screenTilesBehind   ; size
+    ldir                                                        ; Copy BC bytes from HL to DE
 
     ; set current process to this
     ld      hl, (OS.nextAvailableProcessAddr)
@@ -141,3 +151,8 @@ _GET_NEXT_AVAILABLE_PROCESS_ID:
     ld      ixh, 255
 
     ret
+
+
+; TODO:
+;_GET_NEXT_AVAILABLE_PROCESS_ADDR:
+;    ret

@@ -1,10 +1,13 @@
-ram_watch   add     0xC326      -type word       -desc currProcAddr      -format dec
+ram_watch   add     0xC326      -type word       -desc currProcAddr      -format hex
 
-ram_watch   add     0xC328      -type word       -desc nextAvaiProcAddr      -format dec
+ram_watch   add     0xC328      -type word       -desc nextAvaiProcAddr      -format hex
 
 ram_watch   add     0xC01A      -type byte       -desc currTimeSec      -format hex
 
 ram_watch   add     0xC32a      -type byte       -desc p0_id      -format hex
+ram_watch   add     50773       -type byte       -desc p1_id      -format hex
+ram_watch   add     51584       -type byte       -desc p2_id      -format hex
+ram_watch   add     52395       -type byte       -desc p3_id      -format hex
 
 # OS.processes: equ 0C32Ah ; last def. pass 3
 

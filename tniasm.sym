@@ -277,6 +277,7 @@ BIOS_TEMPST: equ 0F67Ah ; last def. pass 3
 BIOS_PRMFLG: equ 0F7B4h ; last def. pass 3
 Execute_VDP_HMMM.vdpReady: equ 04208h ; last def. pass 3
 INTERRUPT: equ 04316h ; last def. pass 3
+Process_struct.size_without_screenTilesBehind: equ 02Bh ; last def. pass 3
 VDP_COMMAND_HMMC: equ 0F0h ; last def. pass 3
 BIOS_WRPRIM: equ 0F385h ; last def. pass 3
 BIOS_FNKFLG: equ 0FBCEh ; last def. pass 3

@@ -56,7 +56,7 @@
                         "quoting": "escape"
                     },
                     {
-                        "value": "-script C:\\Users\\albs_\\source\\repos\\msx-tests\\add_mouse.tcl",
+                        "value": "-script ${workspaceFolder}\\add_mouse.tcl",
                         "quoting": "escape"
                     }
 

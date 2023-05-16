@@ -102,6 +102,8 @@ Process_struct:
 .ramStartAddr:	        rw 1
 .vramStartTileAddr:	    rw 1
 
+.size_without_screenTilesBehind: equ $ - Process_struct
+
 .screenTilesBehind:	    rb 32*24
 
 .size: equ $ - Process_struct
