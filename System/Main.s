@@ -33,8 +33,8 @@ PageSize:	    equ	0x4000	        ; 16kB
 
 Execute:
 
-    ; routines named in uppercase means they are OS rotines
-    ; _ on start means private routines while absence of underline means public routines
+    ; routines named in uppercase means they are OS rotines (unless started by "BIOS_")
+    ; _ on start means private routines (internal to the OS) while absence of underline means public routines (can be called by apps)
 
     call    _INIT
 
@@ -61,7 +61,7 @@ Execute:
     call    _DRAW_MOUSE_CURSOR
 
     ; TODO:
-    ; run current processes "Work" event
+    ; run current process "Work" event
 
     jp      .OS_MainLoop
 

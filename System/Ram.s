@@ -112,14 +112,14 @@ Process_struct:
 ; constants for using Process_struct with (ix + n) addressing
 
 PROCESS_STRUCT_IX:
-.processId:		        equ - Process_struct + Process_struct.processId
-.windowState:	        equ - Process_struct + Process_struct.windowState
-.x:			            equ - Process_struct + Process_struct.x
-.y:			            equ - Process_struct + Process_struct.y
-.width:		            equ - Process_struct + Process_struct.width
-.height:		        equ - Process_struct + Process_struct.height
-.minWidth:		        equ - Process_struct + Process_struct.minWidth
-.minHeight:		        equ - Process_struct + Process_struct.minHeight
-
+.processId:		        equ Process_struct.processId    - Process_struct
+.windowState:	        equ Process_struct.windowState  - Process_struct
+.x:			            equ Process_struct.x            - Process_struct
+.y:			            equ Process_struct.y            - Process_struct
+.width:		            equ Process_struct.width        - Process_struct
+.height:		        equ Process_struct.height       - Process_struct
+.minWidth:		        equ Process_struct.minWidth     - Process_struct
+.minHeight:		        equ Process_struct.minHeight    - Process_struct
+; TODO: other properties
 
 RamEnd:

@@ -79,11 +79,18 @@ _LOAD_PROCESS:
     call    _DRAW_WINDOW
 
     ; TODO
-    ; call process.Work event
+    ; call process.Init event
     ; ld        hl, (ix + n)    ; process.Work addr
     ; ; simulate call      (hl)
     ; push      hl
     ; jp        (hl)
+
+    ; other method to emulate call (hl):
+    
+    ; ; Simply "jp [hl]", but can be used to emulate the instruction "call [hl]"
+    ; ; param hl: address
+    ; JP_HL:
+	;     jp	[hl]
 
 
 

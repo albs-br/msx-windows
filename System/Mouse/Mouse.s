@@ -10,7 +10,7 @@ _DRAW_MOUSE_CURSOR:
     ld      b, 8
 .loop_1:
     outi
-    jp      nz, .loop_1 ; this use exactly 29 cycles (t-states)
+    jp      nz, .loop_1 ; this uses exactly 29 cycles (t-states)
 
     nop
     nop
