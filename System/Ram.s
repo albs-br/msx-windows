@@ -108,4 +108,18 @@ Process_struct:
 
 .size: equ $ - Process_struct
 
+; ------------------------------------
+; constants for using Process_struct with (ix + n) addressing
+
+PROCESS_STRUCT_IX:
+.processId:		        equ - Process_struct + Process_struct.processId
+.windowState:	        equ - Process_struct + Process_struct.windowState
+.x:			            equ - Process_struct + Process_struct.x
+.y:			            equ - Process_struct + Process_struct.y
+.width:		            equ - Process_struct + Process_struct.width
+.height:		        equ - Process_struct + Process_struct.height
+.minWidth:		        equ - Process_struct + Process_struct.minWidth
+.minHeight:		        equ - Process_struct + Process_struct.minHeight
+
+
 RamEnd:

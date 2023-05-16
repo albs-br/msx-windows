@@ -272,10 +272,13 @@ BIOS_TEMP3: equ 0F69Dh ; last def. pass 3
 Notepad.Close: equ 04923h ; last def. pass 3
 _DRAW_WINDOW.endLoop_10: equ 045C5h ; last def. pass 3
 BIOS_H_ISRE: equ 0FF2Ah ; last def. pass 3
+PROCESS_STRUCT_IX.y: equ 03h ; last def. pass 3
 WAIT1: equ 0Ah ; last def. pass 3
 BIOS_TEMPST: equ 0F67Ah ; last def. pass 3
 BIOS_PRMFLG: equ 0F7B4h ; last def. pass 3
 Execute_VDP_HMMM.vdpReady: equ 04208h ; last def. pass 3
+PROCESS_STRUCT_IX: equ 0D301h ; last def. pass 3
+PROCESS_STRUCT_IX.x: equ 02h ; last def. pass 3
 INTERRUPT: equ 04316h ; last def. pass 3
 Process_struct.size_without_screenTilesBehind: equ 02Bh ; last def. pass 3
 VDP_COMMAND_HMMC: equ 0F0h ; last def. pass 3
@@ -304,6 +307,7 @@ TILE_FONT_REVERSED_LOWERCASE_PATTERNS: equ 047E8h ; last def. pass 3
 Process_struct.x: equ 0CFD8h ; last def. pass 3
 PORT_2: equ 09Ah ; last def. pass 3
 BIOS_LOWLIM: equ 0FCA4h ; last def. pass 3
+PROCESS_STRUCT_IX.processId: equ 00h ; last def. pass 3
 Notepad: equ 048F8h ; last def. pass 3
 BIOS_PRMLEN: equ 0F6E6h ; last def. pass 3
 BIOS_LOGOPR: equ 0FB02h ; last def. pass 3
@@ -564,6 +568,7 @@ BIOS_H_NAME: equ 0FDF9h ; last def. pass 3
 BIOS_H_CHRG: equ 0FF48h ; last def. pass 3
 BIOS_RSLREG: equ 0138h ; last def. pass 3
 BIOS_ENDFOR: equ 0F6A1h ; last def. pass 3
+PROCESS_STRUCT_IX.minWidth: equ 06h ; last def. pass 3
 BIOS_VDPSTA: equ 0131h ; last def. pass 3
 BIOS_DATPTR: equ 0F6C8h ; last def. pass 3
 BIOS_H_DSKI: equ 0FE17h ; last def. pass 3
@@ -659,6 +664,7 @@ VDP_LOGIC_OPERATION_TOR: equ 0Ah ; last def. pass 3
 LoadPalette.loop: equ 04067h ; last def. pass 3
 BIOS_RDVDP: equ 013Eh ; last def. pass 3
 BIOS_RG6SAV: equ 0F3E5h ; last def. pass 3
+PROCESS_STRUCT_IX.minHeight: equ 07h ; last def. pass 3
 BIOS_CPCSUM: equ 0F93Dh ; last def. pass 3
 HKEYI: equ 0FD9Ah ; last def. pass 3
 Notepad.vertScrollbarPosition: equ 04912h ; last def. pass 3
@@ -706,6 +712,7 @@ BIOS_BUF: equ 0F55Eh ; last def. pass 3
 BIOS_GTPAD: equ 0DBh ; last def. pass 3
 BIOS_CHGET: equ 09Fh ; last def. pass 3
 PORT_3: equ 09Bh ; last def. pass 3
+PROCESS_STRUCT_IX.windowState: equ 01h ; last def. pass 3
 _UPDATE_SYSTEM_TIME: equ 04748h ; last def. pass 3
 BIOS_CSAVEM: equ 0F944h ; last def. pass 3
 BIOS_CODSAV: equ 0FBCCh ; last def. pass 3
@@ -722,6 +729,7 @@ GTOFST: equ 0468Dh ; last def. pass 3
 BIOS_ENASCR: equ 044h ; last def. pass 3
 BIOS_H_ERAF: equ 0FDB8h ; last def. pass 3
 BIOS_COMMSK: equ 0FB1Eh ; last def. pass 3
+PROCESS_STRUCT_IX.width: equ 04h ; last def. pass 3
 BIOS_H_DEVN: equ 0FEC1h ; last def. pass 3
 RamStart: equ 0C000h ; last def. pass 3
 BIOS_CLIKFL: equ 0FBD9h ; last def. pass 3
@@ -748,6 +756,7 @@ BIOS_INITIO: equ 03Bh ; last def. pass 3
 Notepad.y: equ 048FBh ; last def. pass 3
 Process_struct.closeAddr: equ 0CFF9h ; last def. pass 3
 REG0SAV: equ 0F3DFh ; last def. pass 3
+PROCESS_STRUCT_IX.height: equ 05h ; last def. pass 3
 OS.mousePattern_1: equ 0C008h ; last def. pass 3
 BIOS_VOICBQ: equ 0F9F5h ; last def. pass 3
 BIOS_H_KEYC: equ 0FDCCh ; last def. pass 3

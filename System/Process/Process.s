@@ -78,6 +78,15 @@ _LOAD_PROCESS:
     ld      hl, (OS.currentProcessAddr)
     call    _DRAW_WINDOW
 
+    ; TODO
+    ; call process.Work event
+    ; ld        hl, (ix + n)    ; process.Work addr
+    ; ; simulate call      (hl)
+    ; push      hl
+    ; jp        (hl)
+
+
+
     ret
 
 .maxProcessLimitReached:

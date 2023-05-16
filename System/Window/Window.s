@@ -6,7 +6,7 @@ _DRAW_WINDOW:
     ; get variables from process
     push    hl
     pop     ix
-    ld      l, (ix + 2) ; process.x
+    ld      l, (ix + 2) ; process.x     TODO: replace all (ix + n) by (ix + PROCESS_STRUCT_IX.xxxx)
     ld      h, (ix + 3) ; process.y
     
     ; ; debug
