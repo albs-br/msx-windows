@@ -14,6 +14,7 @@ PageSize:	    equ	0x4000	        ; 16kB
     INCLUDE "System/Constants.s"
     INCLUDE "System/Interrupt.s"
     INCLUDE "System/Init/Init.s"
+    INCLUDE "System/Desktop/Desktop.s"
     INCLUDE "System/Window/Window.s"
     INCLUDE "System/Mouse/Mouse.s"
     INCLUDE "System/Process/Process.s"

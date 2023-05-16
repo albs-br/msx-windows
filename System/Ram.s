@@ -50,10 +50,14 @@ OS:
 
 
 ; TODO: this can be moved to the free VRAM area (addr 7040)
-.screenMapping: 	    rb 32*24		; used to map each tile to a window/desktop (useful on mouse click/over). 
-                                        ; 255: desktop, 254: bottom bar;
-                                        ; 4 high bits: window title buttons/resize corner (don't use 1111b as it would crash with the 255/254 values)
-                                        ; 4 lower bits (0-15): process id
+
+; used to map each tile to a window/desktop (useful on mouse click/over). 
+; 255: desktop, 254: task bar;
+; 4 high bits: 
+;   window title buttons/resize corner (don't use 1111b as it would crash with the 255/254 values)
+;   0000 on high bits means the inner of process window (neither title nor borders)
+; 4 lower bits (0-15): process id
+.screenMapping: 	    rb 32*24
 
 .currentProcessAddr:            rw 1
 .nextAvailableProcessAddr:      rw 1

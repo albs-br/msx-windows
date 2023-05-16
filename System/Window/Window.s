@@ -1,5 +1,5 @@
 ; Input
-;   HL = addr of process header 
+;   HL = addr of process header
 _DRAW_WINDOW:
     ; info: 9918 needs 29 cycles apart from each OUT
     

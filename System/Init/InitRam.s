@@ -41,7 +41,39 @@ _INIT_RAM:
     ld      a, 15 ; white
     ld      (OS.mouseColor_1), a
 
-    ; TODO
-    ; init OS.screenMapping
+;     ; TODO: use LDIR (faster)
+;     ; ------- init OS.screenMapping
+;     ld      hl, (OS.screenMapping)
+;     ld      bc, 32 * 23             ; size of desktop (23 lines)
+; .loop_1:
+;     ld      a, 255
+;     ld      (hl), a
+    
+;     inc     hl
+    
+;     dec     bc
+;     ld      a, c
+;     or      b
+;     jp      nz, .loop_1
+
+
+;     ld      a, 254
+;     ld      b, 32                   ; size of task bar (last line)
+; .loop_2:
+;     ld      (hl), a
+;     inc     hl
+;     djnz    .loop_2
+;     ; -------
 
     ret
+
+
+; constants (refer to Ram.s (OS.screenMapping) for explanation)
+SCREEN_MAPPING_DESKTOP:     equ 255
+SCREEN_MAPPING_TASKBAR:     equ 254
+
+SCREEN_MAPPING_WINDOWS_TITLE_BAR:           equ 0001 0000 b
+SCREEN_MAPPING_WINDOWS_MINIMIZE_BUTTON:     equ 0010 0000 b
+SCREEN_MAPPING_WINDOWS_RESTORE_BUTTON:      equ 0011 0000 b
+SCREEN_MAPPING_WINDOWS_MAXIMIZE_BUTTON:     equ 0100 0000 b
+SCREEN_MAPPING_WINDOWS_RESIZE_CORNER:       equ 0101 0000 b

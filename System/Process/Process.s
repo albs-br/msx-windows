@@ -80,7 +80,8 @@ _LOAD_PROCESS:
 
     ; TODO
     ; call process.Init event
-    ; ld        hl, (ix + n)    ; process.Work addr
+    ; ld        l, (ix + n)    ; process.Init addr
+    ; ld        h, (ix + n + 1)    ; process.Init addr + 1
     ; ; simulate call      (hl)
     ; push      hl
     ; jp        (hl)

@@ -1197,3 +1197,37 @@ SNSMAT_NO_DI_EI:
 	out	(PPI.C), a
 	in	a, (PPI.B)
 	ret
+
+
+; ------------ functions for indirect calls
+; source: https://www.msx.org/forum/msx-talk/development/indirect-calls-with-the-z80?page=0
+
+; Simply "jp [hl]", but can be used to emulate the instruction "call [hl]"
+; param hl: address
+JP_HL:
+	jp	(hl)
+JP_BC:
+	push bc
+	ret
+JP_DE:
+	push de
+	ret
+JP_IX:
+	jp	(ix)
+JP_IY:
+	jp	(iy)
+JP_HL_S:
+	exx
+	push hl
+	exx
+	ret
+JP_BC_S:
+	exx
+	push bc
+	exx
+	ret
+JP_DE_S:
+	exx
+	push de
+	exx
+	ret
