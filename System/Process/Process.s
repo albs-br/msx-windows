@@ -79,9 +79,9 @@ _LOAD_PROCESS:
     call    _DRAW_WINDOW
 
     ; TODO
-    ; call process.Init event
-    ; ld        l, (ix + n)    ; process.Init addr
-    ; ld        h, (ix + n + 1)    ; process.Init addr + 1
+    ; call process.Open event
+    ; ld        l, (ix + n)    ; process.Open addr
+    ; ld        h, (ix + n + 1)    ; process.Open addr + 1
     ; ; simulate call      (hl)
     ; push      hl
     ; jp        (hl)
@@ -170,6 +170,28 @@ _GET_NEXT_AVAILABLE_PROCESS_ID:
     ret
 
 
-; TODO:
-;_GET_NEXT_AVAILABLE_PROCESS_ADDR:
-;    ret
+; TODO: test:
+; ; Input: nothing
+; ; Output:
+; ;   HL: addr of process slot, if available
+; ;   A = 0, process slot found
+; ;   A = 255, no process slot available
+; _GET_NEXT_AVAILABLE_PROCESS_ADDR:
+
+;     ld      hl, OS.processes
+;     ld      de, Process_struct.size
+;     ld      b, MAX_PROCESS_ID + 1
+; .loop:
+;     ld      a, (hl)
+;     ; process id = 255 means that this process slot is available
+;     inc     a       ; if (A == 255) return
+;     ret     z
+
+;     add     hl, de
+
+;     djnz    .loop
+
+;     ; if no process slot available return A = 255
+;     ld      a, 255
+
+;     ret
