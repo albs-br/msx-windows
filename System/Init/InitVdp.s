@@ -73,9 +73,26 @@ _INIT_VDP:
     ld      hl, COLTBL + (512 * 8) + (TILE_FONT_REVERSED_PATTERNS - TILE_PATTERNS)         ; start VRAM address
     call    BIOS_FILVRM
 
-    ; load NAMTBL
-    ld		hl, NAMTBL_TEST         ; RAM address (source)
+    ; ; load NAMTBL
+    ; ld		hl, NAMTBL_INIT         ; RAM address (source)
+    ; ld		de, NAMTBL		        ; VRAM address (destiny)
+    ; ld		bc, NAMTBL_INIT.size	; Block length
+    ; call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
+
+    ; DEBUG
+    ; load NAMTBL (1st)
+    ld		hl, NAMTBL_TEST        ; RAM address (source)
     ld		de, NAMTBL		        ; VRAM address (destiny)
+    ld		bc, NAMTBL_TEST.size	; Block length
+    call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
+    ; load NAMTBL (2nd)
+    ld		hl, NAMTBL_TEST        ; RAM address (source)
+    ld		de, NAMTBL + 256		        ; VRAM address (destiny)
+    ld		bc, NAMTBL_TEST.size	; Block length
+    call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
+    ; load NAMTBL (3rd)
+    ld		hl, NAMTBL_TEST        ; RAM address (source)
+    ld		de, NAMTBL + 512		        ; VRAM address (destiny)
     ld		bc, NAMTBL_TEST.size	; Block length
     call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
 
@@ -104,8 +121,6 @@ _INIT_VDP:
 
 ; debug: small window to test teles
 NAMTBL_TEST:
-    db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    
     db TILE_EMPTY
     db TILE_EMPTY
     db TILE_WINDOW_TITLE_TOP_LEFT
@@ -165,5 +180,7 @@ NAMTBL_TEST:
     db TILE_WINDOW_RESIZE_CORNER_LEFT
     db TILE_WINDOW_RESIZE_CORNER_RIGHT
     db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+    db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 .size: equ $ - NAMTBL_TEST
