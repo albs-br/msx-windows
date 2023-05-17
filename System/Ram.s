@@ -124,6 +124,17 @@ PROCESS_STRUCT_IX:
 .height:		        equ Process_struct.height       - Process_struct
 .minWidth:		        equ Process_struct.minWidth     - Process_struct
 .minHeight:		        equ Process_struct.minHeight    - Process_struct
-; TODO: other properties
+
+.windowTitle:	        equ Process_struct.windowTitle 	           - Process_struct
+.isFixedSize:	        equ Process_struct.isFixedSize	           - Process_struct
+.vertScrollbarEnabled:  equ Process_struct.vertScrollbarEnabled    - Process_struct
+.vertScrollbarPosition: equ Process_struct.vertScrollbarPosition   - Process_struct
+
+.openAddr:		        equ Process_struct.openAddr    - Process_struct
+.workAddr:		        equ Process_struct.workAddr    - Process_struct
+.drawAddr:		        equ Process_struct.drawAddr    - Process_struct
+.clickAddr:		        equ Process_struct.clickAddr   - Process_struct
+.closeAddr:		        equ Process_struct.closeAddr   - Process_struct
+
 
 RamEnd:

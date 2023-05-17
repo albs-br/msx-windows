@@ -6,8 +6,8 @@ _DRAW_WINDOW:
     ; get variables from process
     push    hl
     pop     ix
-    ld      l, (ix + 2) ; process.x     TODO: replace all (ix + n) by (ix + PROCESS_STRUCT_IX.xxxx)
-    ld      h, (ix + 3) ; process.y
+    ld      l, (ix + PROCESS_STRUCT_IX.x) ; process.x
+    ld      h, (ix + PROCESS_STRUCT_IX.y) ; process.y
     
     ; ; debug
     ; ld      l, 10       ; col number (0-31)
@@ -38,7 +38,7 @@ _DRAW_WINDOW:
         ld      a, TILE_WINDOW_TITLE_TOP_LEFT
         out     (PORT_0), a
 
-        ld      b, (ix + 4) ; process.width
+        ld      b, (ix + PROCESS_STRUCT_IX.width) ; process.width
         ;ld      b, 16       ; debug (window width)
     .loop_1:    
         ld      a, TILE_WINDOW_TITLE_MIDDLE_TOP
@@ -60,7 +60,7 @@ _DRAW_WINDOW:
         ld      a, TILE_WINDOW_TITLE_BOTTOM_LEFT
         out     (PORT_0), a
         
-        ld      a, (ix + 4) ; process.width
+        ld      a, (ix + PROCESS_STRUCT_IX.width) ; process.width
         sub     3
         ld      b, a
         ;ld      b, 16 - 3       ; debug (window width)
@@ -100,7 +100,7 @@ _DRAW_WINDOW:
         
         ld      b, 16 ; max size of string
     .loop_10:
-        ld      a, (ix + 8) ; process.windowTitle
+        ld      a, (ix + PROCESS_STRUCT_IX.windowTitle) ; process.windowTitle
         or      a
         jp      z, .endLoop_10
         out     (PORT_0), a
@@ -111,7 +111,7 @@ _DRAW_WINDOW:
 
     ; --------------- draw window middle borders and empty background -----------------------
 
-    ld      a, (ix + 5) ; process.height
+    ld      a, (ix + PROCESS_STRUCT_IX.height) ; process.height
     sub     4           ; subtract 4 (2 from title and 2 from bottom)
     ld      b, a
     ;ld      b, 10 - 2 ; debug (window height)
@@ -126,7 +126,7 @@ _DRAW_WINDOW:
             ld      a, TILE_WINDOW_BORDER_LEFT
             out     (PORT_0), a
 
-            ld      b, (ix + 4) ; process.width
+            ld      b, (ix + PROCESS_STRUCT_IX.width) ; process.width
             ;ld      b, 16       ; debug (window width)
         .loop_3:
             ld      a, TILE_EMPTY
@@ -153,7 +153,7 @@ _DRAW_WINDOW:
         ld      a, TILE_WINDOW_BORDER_LEFT
         out     (PORT_0), a
         
-        ld      b, (ix + 4) ; process.width
+        ld      b, (ix + PROCESS_STRUCT_IX.width) ; process.width
         ;ld      b, 16       ; debug (window width)
     .loop_4:
         ld      a, TILE_EMPTY
@@ -175,7 +175,7 @@ _DRAW_WINDOW:
         ld      a, TILE_WINDOW_BORDER_BOTTOM_LEFT
         out     (PORT_0), a
         
-        ld      b, (ix + 4) ; process.width
+        ld      b, (ix + PROCESS_STRUCT_IX.width) ; process.width
         dec     b
         ;ld      b, 16 - 1       ; debug (window width)
     .loop_5:

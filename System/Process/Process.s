@@ -87,8 +87,14 @@ _LOAD_PROCESS:
     ld      hl, (OS.currentProcessAddr)
     call    _DRAW_WINDOW
 
-    ; TODO
     ; call process.Open event
+    ld      hl, (OS.currentProcessAddr)
+    ld      e, (ix + PROCESS_STRUCT_IX.openAddr)         ; process.Open addr (low)
+    ld      d, (ix + PROCESS_STRUCT_IX.openAddr + 1)     ; process.Open addr (high)
+    call    JP_DE
+
+
+
     ; ld        l, (ix + n)    ; process.Open addr
     ; ld        h, (ix + n + 1)    ; process.Open addr + 1
     ; ; simulate call      (hl)
