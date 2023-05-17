@@ -59,7 +59,7 @@ OS:
 ; 4 lower bits (0-15): process id
 .screenMapping: 	    rb 32*24
 
-.currentProcessAddr:            rw 1
+.currentProcessAddr:            rw 1    ; 0x0000 means empty current process
 .nextAvailableProcessAddr:      rw 1
 
 ; --------------------------------------------------------------------------------------------

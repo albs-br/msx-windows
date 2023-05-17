@@ -61,8 +61,15 @@ Execute:
 
     call    _DRAW_MOUSE_CURSOR
 
-    ; TODO:
     ; run current process "Work" event
+    ld      hl, (OS.currentProcessAddr)
+    ld      a, l
+    or      h
+    jp      z, .noCurrentProcess     ; if (OS.currentProcessAddr == 0x0000) .noCurrentProcess
+    ld      e, (ix + PROCESS_STRUCT_IX.workAddr)         ; process.Work addr (low)
+    ld      d, (ix + PROCESS_STRUCT_IX.workAddr + 1)     ; process.Work addr (high)
+    call    JP_DE
+ .noCurrentProcess:
 
     jp      .OS_MainLoop
 

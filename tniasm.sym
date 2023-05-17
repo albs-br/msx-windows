@@ -137,7 +137,7 @@ VDP_LOGIC_OPERATION_OR: equ 02h ; last def. pass 3
 BIOS_YSAVE: equ 0FB00h ; last def. pass 3
 BIOS_DECTM2: equ 0F7F2h ; last def. pass 3
 BIOS_H_RSET: equ 0FE26h ; last def. pass 3
-Execute.OS_MainLoop: equ 04C25h ; last def. pass 3
+Execute.OS_MainLoop: equ 04C42h ; last def. pass 3
 OS.mouseX: equ 0C003h ; last def. pass 3
 SPRITE_INDEX_CURSOR_0: equ 00h ; last def. pass 3
 WINDOW_TITLE_BTN_RESTORE: equ 030h ; last def. pass 3
@@ -155,12 +155,12 @@ BIOS_PROCNM: equ 0FD89h ; last def. pass 3
 TILE_EMPTY: equ 00h ; last def. pass 3
 VDP_COMMAND_LMMM: equ 090h ; last def. pass 3
 REG1SAV: equ 0F3E0h ; last def. pass 3
-Notepad.Draw: equ 04C19h ; last def. pass 3
+Notepad.Draw: equ 04C36h ; last def. pass 3
 BIOS_KILBUF: equ 0156h ; last def. pass 3
 BIOS_DRWFLG: equ 0FCBBh ; last def. pass 3
 BIOS_DOT: equ 0F6B5h ; last def. pass 3
 BIOS_VOICCQ: equ 0FA75h ; last def. pass 3
-Execute: equ 04C1Ch ; last def. pass 3
+Execute: equ 04C39h ; last def. pass 3
 BIOS_ESTBLS: equ 0FB1Dh ; last def. pass 3
 BIOS_CYOFF: equ 0F947h ; last def. pass 3
 Process_struct.ramStartAddr: equ 0CFFDh ; last def. pass 3
@@ -283,7 +283,7 @@ WINDOW_STATE.RESTORED: equ 02h ; last def. pass 3
 ClearVram_MSX2.loop_2: equ 04103h ; last def. pass 3
 BIOS_OLDINT: equ 0FB12h ; last def. pass 3
 BIOS_TEMP3: equ 0F69Dh ; last def. pass 3
-Notepad.Close: equ 04C1Bh ; last def. pass 3
+Notepad.Close: equ 04C38h ; last def. pass 3
 _DRAW_WINDOW.endLoop_10: equ 0462Ah ; last def. pass 3
 BIOS_H_ISRE: equ 0FF2Ah ; last def. pass 3
 PROCESS_STRUCT_IX.y: equ 03h ; last def. pass 3
@@ -609,7 +609,7 @@ REG8SAV: equ 0FFE7h ; last def. pass 3
 ClearRam: equ 04010h ; last def. pass 3
 BIOS_RG0SAV: equ 0F3DFh ; last def. pass 3
 BIOS_LINL40: equ 0F3AEh ; last def. pass 3
-Notepad.Click: equ 04C1Ah ; last def. pass 3
+Notepad.Click: equ 04C37h ; last def. pass 3
 BIOS_CURLIN: equ 0F41Ch ; last def. pass 3
 BIOS_H_NULO: equ 0FE5Dh ; last def. pass 3
 EnableSprites: equ 0416Eh ; last def. pass 3
@@ -628,7 +628,7 @@ REG6SAV: equ 0F3E5h ; last def. pass 3
 SetVdp_Write: equ 040C3h ; last def. pass 3
 BIOS_CLMLST: equ 0F3B2h ; last def. pass 3
 Execute_VDP_LINE: equ 0423Fh ; last def. pass 3
-Notepad.EndProgramCode: equ 04C1Ch ; last def. pass 3
+Notepad.EndProgramCode: equ 04C39h ; last def. pass 3
 SNSMAT_NO_DI_EI: equ 042DFh ; last def. pass 3
 BIOS_FLAGS: equ 0FB1Ch ; last def. pass 3
 OS.screenMapping: equ 0C026h ; last def. pass 3
@@ -849,6 +849,7 @@ BIOS_H_LSET: equ 0FE21h ; last def. pass 3
 DisableSprites: equ 04162h ; last def. pass 3
 BIOS_CSRY: equ 0F3DCh ; last def. pass 3
 BIOS_CSRX: equ 0F3DDh ; last def. pass 3
+Execute.noCurrentProcess: equ 04C56h ; last def. pass 3
 EnableRomPage2: equ 04074h ; last def. pass 3
 BIOS_ERRFLG: equ 0F414h ; last def. pass 3
 BIOS_H_COPY: equ 0FE08h ; last def. pass 3
