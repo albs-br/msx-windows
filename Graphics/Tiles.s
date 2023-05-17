@@ -1,6 +1,6 @@
 TILE_PATTERNS:
 
-;---------------------- window tiles -------------------------
+;---------------------- system tiles (windows, taskbar, etc) -------------------------
 
 TILE_EMPTY: equ 0
     DB 00000000b
@@ -235,9 +235,112 @@ TILE_HOME_ICON: equ 18
 
 BASE_INDEX_TILE_FONT: equ 19
 
+TILE_FONT_REVERSED_PATTERNS:
+
+; --- numbers
+
+TILE_FONT_REVERSED_NUMBERS_PATTERNS:
+
+TILE_FONT_REVERSED_NUMBERS_0: equ BASE_INDEX_TILE_FONT + 0
+
+    ; -------------------- char #16
+    db 00000000 b
+    db 00111100 b
+    db 01100110 b
+    db 01101110 b
+    db 01110110 b
+    db 01100110 b
+    db 00111100 b
+    db 00000000 b
+    ; -------------------- char #17
+    db 00000000 b
+    db 00011000 b
+    db 00111000 b
+    db 00011000 b
+    db 00011000 b
+    db 00011000 b
+    db 01111110 b
+    db 00000000 b
+    ; -------------------- char #18
+    db 00000000 b
+    db 00111100 b
+    db 01100110 b
+    db 00001100 b
+    db 00011000 b
+    db 00110000 b
+    db 01111110 b
+    db 00000000 b
+    ; -------------------- char #19
+    db 00000000 b
+    db 01111110 b
+    db 00001100 b
+    db 00011000 b
+    db 00001100 b
+    db 01100110 b
+    db 00111100 b
+    db 00000000 b
+    ; -------------------- char #20
+    db 00000000 b
+    db 00001100 b
+    db 00011100 b
+    db 00111100 b
+    db 01101100 b
+    db 01111110 b
+    db 00001100 b
+    db 00000000 b
+    ; -------------------- char #21
+    db 00000000 b
+    db 01111110 b
+    db 01100000 b
+    db 01111100 b
+    db 00000110 b
+    db 01100110 b
+    db 00111100 b
+    db 00000000 b
+    ; -------------------- char #22
+    db 00000000 b
+    db 00111100 b
+    db 01100000 b
+    db 01111100 b
+    db 01100110 b
+    db 01100110 b
+    db 00111100 b
+    db 00000000 b
+    ; -------------------- char #23
+    db 00000000 b
+    db 01111110 b
+    db 00000110 b
+    db 00001100 b
+    db 00011000 b
+    db 00110000 b
+    db 00110000 b
+    db 00000000 b
+    ; -------------------- char #24
+    db 00000000 b
+    db 00111100 b
+    db 01100110 b
+    db 00111100 b
+    db 01100110 b
+    db 01100110 b
+    db 00111100 b
+    db 00000000 b
+    ; -------------------- char #25
+    db 00000000 b
+    db 00111100 b
+    db 01100110 b
+    db 00111110 b
+    db 00000110 b
+    db 00001100 b
+    db 00111000 b
+    db 00000000 b
+
+
+; ---
+
+
 TILE_FONT_REVERSED_LOWERCASE_PATTERNS:
 
-TILE_FONT_REVERSED_LOWERCASE_A: equ BASE_INDEX_TILE_FONT + 0
+TILE_FONT_REVERSED_LOWERCASE_A: equ TILE_FONT_REVERSED_NUMBERS_0 + 10
 
     ; -------------------- char #97
     db 00000000 b
@@ -475,5 +578,29 @@ TILE_FONT_REVERSED_LOWERCASE_A: equ BASE_INDEX_TILE_FONT + 0
     db 00000000 b
 
 TILE_FONT_REVERSED_LOWERCASE_PATTERNS.size: equ $ - TILE_FONT_REVERSED_LOWERCASE_PATTERNS
+
+; ------
+
+TILE_FONT_REVERSED_SYMBOLS_PATTERNS:
+
+TILE_FONT_REVERSED_SYMBOLS: equ TILE_FONT_REVERSED_LOWERCASE_A + 26
+
+    ; -------------------- char #26
+    db 00000000 b
+    db 00000000 b
+    db 00011000 b
+    db 00011000 b
+    db 00000000 b
+    db 00011000 b
+    db 00011000 b
+    db 00000000 b
+
+; -----
+
+
+TILE_FONT_REVERSED_PATTERNS.SIZE: equ $ - TILE_FONT_REVERSED_PATTERNS
+
+
+; -----
 
 TILE_PATTERNS.size: equ $ - TILE_PATTERNS

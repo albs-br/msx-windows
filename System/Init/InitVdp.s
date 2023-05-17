@@ -57,20 +57,20 @@ _INIT_VDP:
     ld      hl, COLTBL          ; start VRAM address
     call    BIOS_FILVRM
 
-    ; fill COLTBL for lowercase font reversed (first part)
+    ; fill COLTBL for font reversed (first part)
     ld      a, 0xf1                                         ; value
-    ld      bc, TILE_FONT_REVERSED_LOWERCASE_PATTERNS.size  ; size
-    ld      hl, COLTBL + (TILE_FONT_REVERSED_LOWERCASE_PATTERNS - TILE_PATTERNS)         ; start VRAM address
+    ld      bc, TILE_FONT_REVERSED_PATTERNS.size  ; size
+    ld      hl, COLTBL + (TILE_FONT_REVERSED_PATTERNS - TILE_PATTERNS)         ; start VRAM address
     call    BIOS_FILVRM
-    ; fill COLTBL for lowercase font reversed (second part)
+    ; fill COLTBL for font reversed (second part)
     ld      a, 0xf1                                         ; value
-    ld      bc, TILE_FONT_REVERSED_LOWERCASE_PATTERNS.size  ; size
-    ld      hl, COLTBL + (256 * 8) + (TILE_FONT_REVERSED_LOWERCASE_PATTERNS - TILE_PATTERNS)         ; start VRAM address
+    ld      bc, TILE_FONT_REVERSED_PATTERNS.size  ; size
+    ld      hl, COLTBL + (256 * 8) + (TILE_FONT_REVERSED_PATTERNS - TILE_PATTERNS)         ; start VRAM address
     call    BIOS_FILVRM
-    ; fill COLTBL for lowercase font reversed (third part)
+    ; fill COLTBL for font reversed (third part)
     ld      a, 0xf1                                         ; value
-    ld      bc, TILE_FONT_REVERSED_LOWERCASE_PATTERNS.size  ; size
-    ld      hl, COLTBL + (512 * 8) + (TILE_FONT_REVERSED_LOWERCASE_PATTERNS - TILE_PATTERNS)         ; start VRAM address
+    ld      bc, TILE_FONT_REVERSED_PATTERNS.size  ; size
+    ld      hl, COLTBL + (512 * 8) + (TILE_FONT_REVERSED_PATTERNS - TILE_PATTERNS)         ; start VRAM address
     call    BIOS_FILVRM
 
     ; load NAMTBL
@@ -85,23 +85,24 @@ _INIT_VDP:
     ld		bc, SPRITE_PATTERNS.size    ; Block length
     call 	BIOS_LDIRVM        	        ; Block transfer to VRAM from memory
 
-    ; load SPRATR
-    ld		hl, SPRATR_TEST         ; RAM address (source)
-    ld		de, SPRATR		            ; VRAM address (destiny)
-    ld		bc, SPRATR_TEST.size    ; Block length
-    call 	BIOS_LDIRVM        	        ; Block transfer to VRAM from memory
+    ; ; load SPRATR
+    ; ld		hl, SPRATR_TEST         ; RAM address (source)
+    ; ld		de, SPRATR		            ; VRAM address (destiny)
+    ; ld		bc, SPRATR_TEST.size    ; Block length
+    ; call 	BIOS_LDIRVM        	        ; Block transfer to VRAM from memory
 
     call    BIOS_ENASCR
 
     ret
 
-SPRATR_TEST:
-    ; Y, X, patterm, color
-    db 100, 100, 0 * 4, 1
-    db 100, 100, 1 * 4, 15
-    db 208, 0  , 0    ,0        ; 208 on Y value hides this sprite and all afterwards
-.size: equ $ - SPRATR_TEST
+; SPRATR_TEST:
+;     ; Y, X, patterm, color
+;     db 100, 100, 0 * 4, 1
+;     db 100, 100, 1 * 4, 15
+;     db 208, 0  , 0    ,0        ; 208 on Y value hides this sprite and all afterwards
+; .size: equ $ - SPRATR_TEST
 
+; debug: small window to test teles
 NAMTBL_TEST:
     db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     
@@ -118,7 +119,7 @@ NAMTBL_TEST:
     db TILE_EMPTY
     db TILE_EMPTY
     db TILE_WINDOW_TITLE_BOTTOM_LEFT
-    db TILE_FONT_REVERSED_LOWERCASE_A ;TILE_WINDOW_TITLE_MIDDLE_BOTTOM
+    db TILE_WINDOW_TITLE_MIDDLE_BOTTOM
     db TILE_WINDOW_MINIMIZE_BUTTON
     db TILE_WINDOW_MAXIMIZE_BUTTON
     db TILE_WINDOW_CLOSE_BUTTON
@@ -138,7 +139,7 @@ NAMTBL_TEST:
     db TILE_EMPTY
     db TILE_EMPTY
     db TILE_WINDOW_BORDER_LEFT
-    db TILE_FONT_REVERSED_LOWERCASE_A 
+    db TILE_FONT_REVERSED_LOWERCASE_A + 0
     db TILE_FONT_REVERSED_LOWERCASE_A + 1
     db TILE_FONT_REVERSED_LOWERCASE_A + 2
     db TILE_FONT_REVERSED_LOWERCASE_A + 3
@@ -148,10 +149,10 @@ NAMTBL_TEST:
     db TILE_EMPTY
     db TILE_EMPTY
     db TILE_WINDOW_BORDER_LEFT
-    db TILE_EMPTY
-    db TILE_EMPTY
-    db TILE_EMPTY
-    db TILE_EMPTY
+    db TILE_FONT_REVERSED_SYMBOLS
+    db TILE_FONT_REVERSED_NUMBERS_0 + 8
+    db TILE_FONT_REVERSED_NUMBERS_0 + 3
+    db TILE_FONT_REVERSED_NUMBERS_0 + 7
     db TILE_WINDOW_RESIZE_CORNER_TOP
     db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
