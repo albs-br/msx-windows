@@ -58,7 +58,7 @@ _INIT_RAM:
 
 
 ;     ld      a, 254
-;     ld      b, 32                   ; size of task bar (last line)
+;     ld      b, 32                   ; size of taskbar (last line)
 ; .loop_2:
 ;     ld      (hl), a
 ;     inc     hl

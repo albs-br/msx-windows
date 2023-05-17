@@ -52,7 +52,7 @@ OS:
 ; TODO: this can be moved to the free VRAM area (addr 7040)
 
 ; used to map each tile to a window/desktop (useful on mouse click/over). 
-; 255: desktop, 254: task bar;
+; 255: desktop, 254: taskbar;
 ; 4 high bits: 
 ;   window title buttons/resize corner (don't use 1111b as it would crash with the 255/254 values)
 ;   0000 on high bits means the inner of process window (neither title nor borders)

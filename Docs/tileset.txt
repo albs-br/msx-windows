@@ -31,7 +31,7 @@ tiles reserved for processes: 12 per process
 
 9 for line borders (can be used to make buttons, tabs, etc)
 6 for scroll bar (vert/horiz)
-1 for system task bar
+1 for system taskbar
 
 
 ? for app menubar

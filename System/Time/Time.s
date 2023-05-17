@@ -30,25 +30,33 @@ _UPDATE_SYSTEM_TIME:
 
     ld      a, (os.timeCounter)
     inc     a
+    ld      (os.timeCounter), a
     cp      SYSTEM_HERTZ_RATE
-    jp      nz, .dontUpdate
+    ret     nz
 
+    ; reset timeCounter
+    xor     a
+    ld      (os.timeCounter), a
 
+    ld      b, 0x01     ; 1 in BCD format
 
     ; update clock (add 1 second)
-    ld      b, 0x01     ; 1 second in BCD format
     ld      a, (OS.currentTime_Seconds)
     add     a, b
     daa
     ld      (OS.currentTime_Seconds), a
 
-    ; update minute
-    ;cp      0x60
-
-    ; reset timeCounter
+    ; update minute if seconds == 60
+    cp      0x60
+    ret     nz
+    ld      a, (OS.currentTime_Minutes)
+    add     a, b
+    daa
+    ld      (OS.currentTime_Minutes), a
+    ; reset seconds
     xor     a
+    ld      (OS.currentTime_Seconds), a
 
-.dontUpdate:
-    ld      (os.timeCounter), a
+
 
     ret

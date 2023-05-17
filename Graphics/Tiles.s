@@ -175,7 +175,7 @@ TILE_WINDOW_BORDER_RIGHT: equ 16
     DB 00011110b
     DB 00011110b
 
-TASKBAR_TOP: equ 17
+TILE_TASKBAR_TOP: equ 17
     DB 00000000 b
     DB 00000000 b
     DB 00000000 b
@@ -184,6 +184,16 @@ TASKBAR_TOP: equ 17
     DB 00000000 b
     DB 11111111 b
     DB 11111111 b
+
+TILE_HOME_ICON: equ 18
+    DB 11100111 b
+    DB 11011011 b
+    DB 10111101 b
+    DB 01100110 b
+    DB 11000011 b
+    DB 10000001 b
+    DB 10011001 b
+    DB 10011001 b
 
     ; ; 
     ; ; --- Slot 3
@@ -223,7 +233,7 @@ TASKBAR_TOP: equ 17
 
 ; ------------------------ font ------------------------
 
-BASE_INDEX_TILE_FONT: equ 18
+BASE_INDEX_TILE_FONT: equ 19
 
 TILE_FONT_REVERSED_LOWERCASE_PATTERNS:
 
