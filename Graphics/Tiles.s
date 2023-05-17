@@ -195,6 +195,16 @@ TILE_HOME_ICON: equ 18
     DB 10011001 b
     DB 10011001 b
 
+TILE_SHOW_DESKTOP_ICON: equ 19
+    DB 10011001 b
+    DB 10111101 b
+    DB 11111111 b
+    DB 11111111 b
+    DB 11111111 b
+    DB 10111101 b
+    DB 10011001 b
+    DB 11111111 b
+
     ; ; 
     ; ; --- Slot 3
     ; ; color 1
@@ -233,7 +243,7 @@ TILE_HOME_ICON: equ 18
 
 ; ------------------------ font ------------------------
 
-BASE_INDEX_TILE_FONT: equ 19
+BASE_INDEX_TILE_FONT: equ 20
 
 TILE_FONT_REVERSED_PATTERNS:
 
