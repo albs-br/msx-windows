@@ -175,6 +175,15 @@ TILE_WINDOW_BORDER_RIGHT: equ 16
     DB 00011110b
     DB 00011110b
 
+TASKBAR_TOP: equ 17
+    DB 00000000 b
+    DB 00000000 b
+    DB 00000000 b
+    DB 00000000 b
+    DB 00000000 b
+    DB 00000000 b
+    DB 11111111 b
+    DB 11111111 b
 
     ; ; 
     ; ; --- Slot 3
@@ -214,7 +223,7 @@ TILE_WINDOW_BORDER_RIGHT: equ 16
 
 ; ------------------------ font ------------------------
 
-BASE_INDEX_TILE_FONT: equ 17
+BASE_INDEX_TILE_FONT: equ 18
 
 TILE_FONT_REVERSED_LOWERCASE_PATTERNS:
 

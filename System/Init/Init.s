@@ -16,7 +16,7 @@ _INIT:
 
     ; TODO:
     ; call    _DRAW_DESKTOP
-    ; call    _DRAW_TASKBAR
+    call    _DRAW_TASKBAR
 
     ret
 

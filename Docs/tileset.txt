@@ -22,9 +22,11 @@ tiles reserved for processes: 12 per process
     4 * 3 = 12
 
 
+76 - 27 = 49
+
 ------------
 
-13 for window borders (will be less)
+13 for window borders
 3 for title bar buttons
 
 9 for line borders (can be used to make buttons, tabs, etc)
