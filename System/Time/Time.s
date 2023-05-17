@@ -38,11 +38,11 @@ _UPDATE_SYSTEM_TIME:
     xor     a
     ld      (os.timeCounter), a
 
-    ld      b, 0x01     ; 1 in BCD format
+    ;ld      b, 0x01     ; 1 in BCD format
 
     ; update clock (add 1 second)
     ld      a, (OS.currentTime_Seconds)
-    add     a, b
+    inc     a ;add     a, b
     daa
     ld      (OS.currentTime_Seconds), a
 
@@ -50,12 +50,29 @@ _UPDATE_SYSTEM_TIME:
     cp      0x60
     ret     nz
     ld      a, (OS.currentTime_Minutes)
-    add     a, b
+    inc     a ;add     a, b
     daa
     ld      (OS.currentTime_Minutes), a
     ; reset seconds
     xor     a
     ld      (OS.currentTime_Seconds), a
+
+    ; update hour if minutes == 60
+    ld      a, (OS.currentTime_Minutes)
+    cp      0x60
+    ret     nz
+    ld      a, (OS.currentTime_Hours)
+    inc     a
+    daa
+
+    cp      0x13 ; if (Hours == 0x13) hours = 0x00
+    jp      nz, .not13Hours
+    xor     a
+.not13Hours:
+    ld      (OS.currentTime_Hours), a
+    ; reset minutes
+    xor     a
+    ld      (OS.currentTime_Minutes), a
 
 
 
