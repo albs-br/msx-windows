@@ -21,7 +21,7 @@ _INIT_RAM:
     ld      hl, OS.processes
     ld      (OS.nextAvailableProcessAddr), hl
 
-    ; set current process to null
+    ; set current process to 0x0000 (null)
     ld      hl, 0
     ld      (OS.currentProcessAddr), hl
 
@@ -43,8 +43,8 @@ _INIT_RAM:
 
 ;     ; TODO: use LDIR (faster)
 ;     ; ------- init OS.screenMapping
-;     ld      hl, (OS.screenMapping)
-;     ld      bc, 32 * 23             ; size of desktop (23 lines)
+;     ld      hl, OS.screenMapping
+;     ld      bc, 32 * 22             ; size of desktop (22 lines)
 ; .loop_1:
 ;     ld      a, 255
 ;     ld      (hl), a
@@ -58,7 +58,7 @@ _INIT_RAM:
 
 
 ;     ld      a, 254
-;     ld      b, 32                   ; size of taskbar (last line)
+;     ld      b, 32 * 2                   ; size of taskbar (2 last lines)
 ; .loop_2:
 ;     ld      (hl), a
 ;     inc     hl
