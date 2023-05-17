@@ -5,18 +5,26 @@ MAX_PROCESS_ID: equ 3 ; max 4 processes available (maybe 6 in the future)
 ;   HL = addr of process header 
 _LOAD_PROCESS:
 
-    ; TODO
-    ; if ((OS.nextAvailableProcessAddr) == 0xffff) alert('Max process limit exceeded')
-
+;     ; TODO
+;     ; if ((OS.nextAvailableProcessAddr) == 0xffff) alert('Max process limit exceeded')
+;     ld      de, (OS.nextAvailableProcessAddr)
+;     ld      a, 0xff
+;     cp      d
+;     jp      nz, .skip_1:
+;     cp      e
+;     jp      z, .showAlertMaxProcessLimitReached
+; .skip_1:
 
     ; ; TODO
     ; ; clear this process slot (fill with 0xff)
-    ; ld      a, 0xff
-    ; ld      (OS.nextAvailableProcessAddr), a
-    ; ld      hl, OS.processes
-    ; ld      de, OS.processes + 1
-    ; ld      bc, OS.processes_size - 1
-    ; ldir
+    ; push    hl
+    ;       ld      a, 0xff
+    ;       ld      (OS.nextAvailableProcessAddr), a
+    ;       ld      hl, OS.processes
+    ;       ld      de, OS.processes + 1
+    ;       ld      bc, OS.processes_size - 1
+    ;       ldir
+    ; pop     hl
 
     ; copy header from source to next empty process slot
     ;ld      hl, ???                                            ; source
@@ -30,6 +38,7 @@ _LOAD_PROCESS:
 
 
     ; update next empty process slot to the next
+    ; TODO: chancge by _GET_NEXT_AVAILABLE_PROCESS_ADDR
     ld      hl, (OS.nextAvailableProcessAddr)
     ld      bc, Process_struct.size
     add     hl, bc
