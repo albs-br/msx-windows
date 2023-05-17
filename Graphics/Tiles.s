@@ -237,7 +237,7 @@ BASE_INDEX_TILE_FONT: equ 19
 
 TILE_FONT_REVERSED_PATTERNS:
 
-; --- numbers
+; --- numbers reversed
 
 TILE_FONT_REVERSED_NUMBERS_PATTERNS:
 
@@ -335,7 +335,7 @@ TILE_FONT_REVERSED_NUMBERS_0: equ BASE_INDEX_TILE_FONT + 0
     db 00000000 b
 
 
-; ---
+; --- text lowercase reversed
 
 
 TILE_FONT_REVERSED_LOWERCASE_PATTERNS:
@@ -579,7 +579,8 @@ TILE_FONT_REVERSED_LOWERCASE_A: equ TILE_FONT_REVERSED_NUMBERS_0 + 10
 
 TILE_FONT_REVERSED_LOWERCASE_PATTERNS.size: equ $ - TILE_FONT_REVERSED_LOWERCASE_PATTERNS
 
-; ------
+
+; ------ symbols reversed
 
 TILE_FONT_REVERSED_SYMBOLS_PATTERNS:
 
@@ -602,5 +603,251 @@ TILE_FONT_REVERSED_PATTERNS.SIZE: equ $ - TILE_FONT_REVERSED_PATTERNS
 
 
 ; -----
+
+; --- text lowercase
+
+
+TILE_FONT_LOWERCASE_PATTERNS:
+
+TILE_FONT_LOWERCASE_A: equ TILE_FONT_REVERSED_SYMBOLS + 1
+
+    ; -------------------- char #97
+    db 00000000 b
+    db 00000000 b
+    db 00111100 b
+    db 00000110 b
+    db 00111110 b
+    db 01100110 b
+    db 00111110 b
+    db 00000000 b
+    ; -------------------- char #98
+    db 00000000 b
+    db 01100000 b
+    db 01100000 b
+    db 01111100 b
+    db 01100110 b
+    db 01100110 b
+    db 01111100 b
+    db 00000000 b
+    ; -------------------- char #99
+    db 00000000 b
+    db 00000000 b
+    db 00111100 b
+    db 01100000 b
+    db 01100000 b
+    db 01100000 b
+    db 00111100 b
+    db 00000000 b
+    ; -------------------- char #100
+    db 00000000 b
+    db 00000110 b
+    db 00000110 b
+    db 00111110 b
+    db 01100110 b
+    db 01100110 b
+    db 00111110 b
+    db 00000000 b
+    ; -------------------- char #101
+    db 00000000 b
+    db 00000000 b
+    db 00111100 b
+    db 01100110 b
+    db 01111110 b
+    db 01100000 b
+    db 00111100 b
+    db 00000000 b
+    ; -------------------- char #102
+    db 00000000 b
+    db 00001110 b
+    db 00011000 b
+    db 00111110 b
+    db 00011000 b
+    db 00011000 b
+    db 00011000 b
+    db 00000000 b
+    ; -------------------- char #103
+    db 00000000 b
+    db 00000000 b
+    db 00111110 b
+    db 01100110 b
+    db 01100110 b
+    db 00111110 b
+    db 00000110 b
+    db 01111100 b
+    ; -------------------- char #104
+    db 00000000 b
+    db 01100000 b
+    db 01100000 b
+    db 01111100 b
+    db 01100110 b
+    db 01100110 b
+    db 01100110 b
+    db 00000000 b
+    ; -------------------- char #105
+    db 00000000 b
+    db 00011000 b
+    db 00000000 b
+    db 00111000 b
+    db 00011000 b
+    db 00011000 b
+    db 00111100 b
+    db 00000000 b
+    ; -------------------- char #106
+    db 00000000 b
+    db 00000110 b
+    db 00000000 b
+    db 00000110 b
+    db 00000110 b
+    db 00000110 b
+    db 00000110 b
+    db 00111100 b
+    ; -------------------- char #107
+    db 00000000 b
+    db 01100000 b
+    db 01100000 b
+    db 01101100 b
+    db 01111000 b
+    db 01101100 b
+    db 01100110 b
+    db 00000000 b
+    ; -------------------- char #108
+    db 00000000 b
+    db 00111000 b
+    db 00011000 b
+    db 00011000 b
+    db 00011000 b
+    db 00011000 b
+    db 00111100 b
+    db 00000000 b
+    ; -------------------- char #109
+    db 00000000 b
+    db 00000000 b
+    db 01100110 b
+    db 01111111 b
+    db 01111111 b
+    db 01101011 b
+    db 01100011 b
+    db 00000000 b
+    ; -------------------- char #110
+    db 00000000 b
+    db 00000000 b
+    db 01111100 b
+    db 01100110 b
+    db 01100110 b
+    db 01100110 b
+    db 01100110 b
+    db 00000000 b
+    ; -------------------- char #111
+    db 00000000 b
+    db 00000000 b
+    db 00111100 b
+    db 01100110 b
+    db 01100110 b
+    db 01100110 b
+    db 00111100 b
+    db 00000000 b
+    ; -------------------- char #112
+    db 00000000 b
+    db 00000000 b
+    db 01111100 b
+    db 01100110 b
+    db 01100110 b
+    db 01111100 b
+    db 01100000 b
+    db 01100000 b
+    ; -------------------- char #113
+    db 00000000 b
+    db 00000000 b
+    db 00111110 b
+    db 01100110 b
+    db 01100110 b
+    db 00111110 b
+    db 00000110 b
+    db 00000110 b
+    ; -------------------- char #114
+    db 00000000 b
+    db 00000000 b
+    db 01111100 b
+    db 01100110 b
+    db 01100000 b
+    db 01100000 b
+    db 01100000 b
+    db 00000000 b
+    ; -------------------- char #115
+    db 00000000 b
+    db 00000000 b
+    db 00111110 b
+    db 01100000 b
+    db 00111100 b
+    db 00000110 b
+    db 01111100 b
+    db 00000000 b
+    ; -------------------- char #116
+    db 00000000 b
+    db 00011000 b
+    db 01111110 b
+    db 00011000 b
+    db 00011000 b
+    db 00011000 b
+    db 00001110 b
+    db 00000000 b
+    ; -------------------- char #117
+    db 00000000 b
+    db 00000000 b
+    db 01100110 b
+    db 01100110 b
+    db 01100110 b
+    db 01100110 b
+    db 00111110 b
+    db 00000000 b
+    ; -------------------- char #118
+    db 00000000 b
+    db 00000000 b
+    db 01100110 b
+    db 01100110 b
+    db 01100110 b
+    db 00111100 b
+    db 00011000 b
+    db 00000000 b
+    ; -------------------- char #119
+    db 00000000 b
+    db 00000000 b
+    db 01100011 b
+    db 01101011 b
+    db 01111111 b
+    db 00111110 b
+    db 00110110 b
+    db 00000000 b
+    ; -------------------- char #120
+    db 00000000 b
+    db 00000000 b
+    db 01100110 b
+    db 00111100 b
+    db 00011000 b
+    db 00111100 b
+    db 01100110 b
+    db 00000000 b
+    ; -------------------- char #121
+    db 00000000 b
+    db 00000000 b
+    db 01100110 b
+    db 01100110 b
+    db 01100110 b
+    db 00111110 b
+    db 00001100 b
+    db 01111000 b
+    ; -------------------- char #122
+    db 00000000 b
+    db 00000000 b
+    db 01111110 b
+    db 00001100 b
+    db 00011000 b
+    db 00110000 b
+    db 01111110 b
+    db 00000000 b
+
+TILE_FONT_LOWERCASE_PATTERNS.size: equ $ - TILE_FONT_LOWERCASE_PATTERNS
+
+
 
 TILE_PATTERNS.size: equ $ - TILE_PATTERNS
