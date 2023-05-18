@@ -15,14 +15,30 @@ _DRAW_WINDOW:
 
     call    _CONVERT_COL_LINE_TO_LINEAR
     
+    ; TODO:
+    ; update OS.screenMapping
+    push    hl
+        ex      de, hl
+        ld      hl, OS.screenMapping
+        add     hl, de
+        
+
+
+        ld      b, (ix + PROCESS_STRUCT_IX.width) ; process.width
+    .loop_20:
+        ld      a, 0x0a ; debug
+        ld      (hl), a
+        inc     hl
+        djnz    .loop_20
+    pop     hl
+
+    ; set HL to NAMTBL position of window top left
     ld      bc, NAMTBL
     add     hl, bc
 
-    ; TODO:
-    ; update process.screenTilesBehind
 
     ; TODO:
-    ; update OS.screenMapping
+    ; update process.screenTilesBehind
 
 
     ; --------------- draw window title bar -----------------------
