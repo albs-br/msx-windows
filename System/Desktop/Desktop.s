@@ -64,13 +64,19 @@ _DRAW_TASKBAR_CLOCK:
     srl     a ; shift right n, bit 7 = 0, carry = 0
     srl     a ; shift right n, bit 7 = 0, carry = 0
     srl     a ; shift right n, bit 7 = 0, carry = 0
-    add     b
+    or      a
+    jp      z, .skipTensOfHours ; if tens of hours == 0 not print 
+    add     b ; convert digit in BCD to tile number
+    jp      .continue
+.skipTensOfHours:
+    ld      a, TILE_EMPTY_BLACK
+.continue:
     out     (c), a
-    
+
     ; units of hours digit
     ld      a, (OS.currentTime_Hours)
     and     0000 1111 b
-    add     b
+    add     b ; convert digit in BCD to tile number
     out     (c), a
 
     ; write char ':'
@@ -85,13 +91,13 @@ _DRAW_TASKBAR_CLOCK:
     srl     a ; shift right n, bit 7 = 0, carry = 0
     srl     a ; shift right n, bit 7 = 0, carry = 0
     srl     a ; shift right n, bit 7 = 0, carry = 0
-    add     b
+    add     b ; convert digit in BCD to tile number
     out     (c), a
     
     ; units of hours digit
     ld      a, (OS.currentTime_Minutes)
     and     0000 1111 b
-    add     b
+    add     b ; convert digit in BCD to tile number
     out     (c), a
 
     ret
