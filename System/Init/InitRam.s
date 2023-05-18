@@ -41,29 +41,29 @@ _INIT_RAM:
     ld      a, 15 ; white
     ld      (OS.mouseColor_1), a
 
-;     ; TODO: use LDIR (faster)
-;     ; ------- init OS.screenMapping
-;     ld      hl, OS.screenMapping
-;     ld      bc, 32 * 22             ; size of desktop (22 lines)
-; .loop_1:
-;     ld      a, 255
-;     ld      (hl), a
+    ; TODO: use LDIR (faster)
+    ; ------- init OS.screenMapping
+    ld      hl, OS.screenMapping
+    ld      bc, 32 * 22             ; size of desktop (22 lines)
+.loop_1:
+    ld      a, SCREEN_MAPPING_DESKTOP ; 255
+    ld      (hl), a
     
-;     inc     hl
+    inc     hl
     
-;     dec     bc
-;     ld      a, c
-;     or      b
-;     jp      nz, .loop_1
+    dec     bc
+    ld      a, c
+    or      b
+    jp      nz, .loop_1
 
 
-;     ld      a, 254
-;     ld      b, 32 * 2                   ; size of taskbar (2 last lines)
-; .loop_2:
-;     ld      (hl), a
-;     inc     hl
-;     djnz    .loop_2
-;     ; -------
+    ld      a, SCREEN_MAPPING_TASKBAR ; 254
+    ld      b, 32 * 2                   ; size of taskbar (2 last lines)
+.loop_2:
+    ld      (hl), a
+    inc     hl
+    djnz    .loop_2
+    ; -------
 
     ret
 

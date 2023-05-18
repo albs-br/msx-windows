@@ -1,3 +1,3 @@
 plug joyporta mouse
-# set grabinput on
-set grabinput off
+set grabinput on
+# set grabinput off

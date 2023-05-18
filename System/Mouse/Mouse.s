@@ -17,6 +17,39 @@ _DRAW_MOUSE_CURSOR:
     ld      a, 208
     out     (c), a    ; hide all other sprites
 
+
+
+    ; check mouse position on screen (OS.screenMapping)
+    ld      a, (OS.mouseX) ; mouse x in pixels (0-255)
+    ; divide by 8 to convert to columns (0-31)
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    ld      l, a
+
+    ld      a, (OS.mouseY) ; mouse y in pixels (0-191)
+    ; divide by 8 to convert to lines (0-23)
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    ld      h, a
+
+    call    _CONVERT_COL_LINE_TO_LINEAR
+
+    ld      bc, OS.screenMapping
+    add     hl, bc
+
+    ld      a, (hl)
+    cp      SCREEN_MAPPING_TASKBAR
+    jp      z, .mouseOverTaskbar
+
+
+
+
+    ret
+
+.mouseOverTaskbar:
+    call    BIOS_BEEP
     ret
 
 WAIT1:  equ   10              ; Short delay value

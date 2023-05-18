@@ -119,10 +119,9 @@ HANDLER:
 
     jp      os.storeOldInterruptHook
 
+; TODO: show alert message "No mouse detected"
 .noMouse:
-	;ld     a, 65
-    ;call   CHPUT
-    call    BIOS_BEEP
+    ; call    BIOS_BEEP
     ret
 
 ; .triggerScreenSaver:
