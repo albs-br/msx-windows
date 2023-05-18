@@ -4,8 +4,12 @@
 ; process slots                 4 * 811 bytes =   3244 bytes
 ; process variables space       4 * ? bytes =        ? bytes
 
+; start of RAM: 0xc000 (49152)
+; end of RAM: 0xF380 (62336)  [ or 0xe5ff (58879) ? ]
 
-; end of RAM: 0xF380 (or 0xe5ff ?)
+; BIOS variables:
+	; BOTTOM:   equ $fc48 ; Address of the beginning of the available RAM area
+	; HIMEM:    equ $fc4a ; High free RAM address available (init stack with)
 
 RamStart:
 

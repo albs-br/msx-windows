@@ -42,9 +42,20 @@ HANDLER:
     ; update system time
     call    _UPDATE_SYSTEM_TIME
  
+    ; OS.ticksSinceLastInput ++
+    ld      hl, (OS.ticksSinceLastInput)
+    inc     hl
+    ld      (OS.ticksSinceLastInput), hl
+
+    ; ; if (OS.ticksSinceLastInput == 3600) .triggerScreenSaver
+    ; ld      de, 3600            ; 60 seconds (on NTSC machines...)
+    ; call    BIOS_DCOMPR         ; Compare Contents Of HL & DE, Set Z-Flag IF (HL == DE), Set CY-Flag IF (HL < DE)
+    ; call    z, .triggerScreenSaver
+
     ; ---------------- read mouse ------------
-	ld      de, 0x1310 ; mouse on joyport 1
-    ;ld      de, 0x6C20  ; mouse on joyport 2
+	; ld      de, 0x1310 ; mouse on joyport 1
+    ; ;ld      de, 0x6C20  ; mouse on joyport 2
+    ld      de, MOUSE_PORT
     call    GTMOUS
     ; if (H==255 && H==L) noMouse
     ld      a, h
@@ -62,6 +73,10 @@ HANDLER:
     ld      (OS.mouseButton_2), a
 
 
+    ; TODO: evaluate the possibility of saving mouse deltas and button states to OS vars and
+    ; doing below processing outside interrupt (to keep interrupt as quick as possible)
+
+
     ; invert delta x
     ld      a, h
     neg
@@ -71,6 +86,18 @@ HANDLER:
 	ld      a, l
     neg
     ld      l, a
+
+    ; TODO:
+    ; reset OS.ticksSinceLastInput if mouse moved or button clicked
+    xor     a
+    or      ixh ; mouse button 1
+    or      ixl ; mouse button 2
+    or      h   ; mouse delta x
+    or      l   ; mouse delta y
+    jp      z, .skip_1
+    ld      de, 0
+    ld      (OS.ticksSinceLastInput), de
+.skip_1:
     
     ld      e, h ; delta X
     ld      d, l ; delta Y
@@ -98,3 +125,10 @@ HANDLER:
     call    BIOS_BEEP
     ret
 
+; .triggerScreenSaver:
+;     ld      hl, NAMTBL
+;     call    BIOS_SETWRT
+;     ld      a, TILE_FONT_NUMBERS_0 + 0
+;     out     (PORT_0), a
+    
+;     jp      $

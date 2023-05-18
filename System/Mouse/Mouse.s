@@ -45,30 +45,6 @@ GTMOUS:
     ld      ixl, 1
 .mouseButton_2_NotClicked:
 
-
-;     ;get mouse button 1
-;     push    af
-;         bit     5, a
-;         jp      nz, .mouseButton_1_NotClicked
-;         ld      a, 8
-;         jp      .continue
-; .mouseButton_1_NotClicked:
-;         ld      a, 7
-; .continue:
-;         ld      (cursorColor), a
-;     pop     af
-;     ;get mouse button 2
-;     push    af
-;         bit     4, a
-;         jp      nz, .mouseButton_2_NotClicked
-;         ld      a, 12
-;         jp      .continue_1
-; .mouseButton_2_NotClicked:
-;         ld      a, 7
-; .continue_1:
-;         ld      (cursorColor), a
-;     pop     af
-
 	and	    0x0F
 	rlca
 	rlca
