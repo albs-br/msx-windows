@@ -4,13 +4,13 @@ _INIT_SYSTEM_TIME:
 
     ld      (os.timeCounter), a
 
-    ; reset system clock (3 bytes)
-    ld      hl, os.currentTime
-    ld      (hl), a
-    inc     hl
-    ld      (hl), a
-    inc     hl
-    ld      (hl), a
+    ; init system clock (3 bytes)
+    ld      a, 0x12
+    ld      (OS.currentTime_Hours), a
+    xor     a
+    ld      (OS.currentTime_Minutes), a
+    ld      (OS.currentTime_Seconds), a
+    ld      (OS.timeCounter), a
 
     ; reset system date (3 bytes)
     ld      hl, OS.currentDate
@@ -65,9 +65,9 @@ _UPDATE_SYSTEM_TIME:
     inc     a
     daa
 
-    cp      0x13 ; if (Hours == 0x13) hours = 0x00
+    cp      0x13 ; if (Hours == 0x13) hours = 0x01
     jp      nz, .not13Hours
-    xor     a
+    ld      a, 0x01
 .not13Hours:
     ld      (OS.currentTime_Hours), a
     ; reset minutes

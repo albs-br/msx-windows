@@ -32,8 +32,6 @@ _DRAW_TASKBAR:
 ;     out     (c), a
 ;     djnz    .loop_1
 
-    ; TODO:
-    ; draw system time on right of taskbar
 
     ; draw tasKbar
     ld		hl, TASKBAR             ; RAM address (source)
@@ -41,7 +39,64 @@ _DRAW_TASKBAR:
     ld		bc, 64	                ; Block length
     call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
 
+
+    call    _DRAW_TASKBAR_CLOCK
+
+
     ret
+
+
+
+; draw system time on right of taskbar
+_DRAW_TASKBAR_CLOCK:
+
+    ; set HL to clock place on taskbar 
+    ld		hl, NAMTBL + (32 * 23) + 26 ; VRAM address (destiny)
+    call    BIOS_SETWRT
+    ld      c, PORT_0
+
+
+    ld      b, TILE_FONT_REVERSED_NUMBERS_0
+
+    ; tens of hours digit
+    ld      a, (OS.currentTime_Hours)
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    add     b
+    out     (c), a
+    
+    ; units of hours digit
+    ld      a, (OS.currentTime_Hours)
+    and     0000 1111 b
+    add     b
+    out     (c), a
+
+    ; write char ':'
+    nop
+    nop
+    ld      a, TILE_FONT_REVERSED_SYMBOLS + 0 ; char ':'
+    out     (c), a
+
+    ; tens of hours digit
+    ld      a, (OS.currentTime_Minutes)
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    add     b
+    out     (c), a
+    
+    ; units of hours digit
+    ld      a, (OS.currentTime_Minutes)
+    and     0000 1111 b
+    add     b
+    out     (c), a
+
+    ret
+
+
 
 TASKBAR:
     ; first line
@@ -62,6 +117,7 @@ TASKBAR:
     ; db TILE_EMPTY_BLACK
     ; db TILE_EMPTY_BLACK, TILE_EMPTY_BLACK, TILE_EMPTY_BLACK, TILE_EMPTY_BLACK
     ; db TILE_EMPTY_BLACK, TILE_EMPTY_BLACK
+    ; debug
     db TILE_FONT_REVERSED_LOWERCASE_A + 13 ; 'n'
     db TILE_FONT_REVERSED_LOWERCASE_A + 14 ; 'o'
     db TILE_FONT_REVERSED_LOWERCASE_A + 19 ; 't'
@@ -72,6 +128,7 @@ TASKBAR:
     
     db TILE_EMPTY_BLACK
     
+    ; db TILE_EMPTY_BLACK, TILE_EMPTY_BLACK, TILE_EMPTY_BLACK, TILE_EMPTY_BLACK
     db TILE_FONT_LOWERCASE_A + 2  ; 'c'
     db TILE_FONT_LOWERCASE_A + 0  ; 'a'
     db TILE_FONT_LOWERCASE_A + 11 ; 'l'
@@ -82,9 +139,10 @@ TASKBAR:
     
     db TILE_EMPTY_BLACK, TILE_EMPTY_BLACK
     
-    ; debug
-    db TILE_FONT_REVERSED_NUMBERS_0 + 1, TILE_FONT_REVERSED_NUMBERS_0 + 0 ; hours
-    db TILE_FONT_REVERSED_SYMBOLS + 0 ; char ':'
-    db TILE_FONT_REVERSED_NUMBERS_0 + 4, TILE_FONT_REVERSED_NUMBERS_0 + 9 ; minutes
+    ; ; debug
+    ; db TILE_FONT_REVERSED_NUMBERS_0 + 1, TILE_FONT_REVERSED_NUMBERS_0 + 0 ; hours
+    ; db TILE_FONT_REVERSED_SYMBOLS + 0 ; char ':'
+    ; db TILE_FONT_REVERSED_NUMBERS_0 + 4, TILE_FONT_REVERSED_NUMBERS_0 + 9 ; minutes
+    db TILE_EMPTY_BLACK, TILE_EMPTY_BLACK, TILE_EMPTY_BLACK, TILE_EMPTY_BLACK, TILE_EMPTY_BLACK
     
     db TILE_EMPTY_BLACK

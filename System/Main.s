@@ -62,6 +62,16 @@ Execute:
 
     call    _DRAW_MOUSE_CURSOR
 
+    ; ---------- work to be done once per second
+    ld      a, (OS.timeCounter)
+    or      a
+    jp      nz, .skip
+    
+    call    _DRAW_TASKBAR_CLOCK
+
+.skip:
+    ; -----------------------------------------
+
     ; run current process "Work" event
     ld      hl, (OS.currentProcessAddr)
     ld      a, l
