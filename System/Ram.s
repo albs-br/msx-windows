@@ -62,6 +62,8 @@ OS:
 ;   0000 on high bits means the inner of process window (neither title nor borders)
 ; 4 lower bits (0-15): process id
 .screenMapping: 	    rb 32*24
+.currentTileMouseOver:  rb 1            ; stores value of current mouse position in OS.screenMapping 
+                                        ; to avoid being calclated more than once
 
 .currentProcessAddr:            rw 1    ; 0x0000 means empty current process
 .nextAvailableProcessAddr:      rw 1

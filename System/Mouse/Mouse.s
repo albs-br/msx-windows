@@ -40,17 +40,21 @@ _DRAW_MOUSE_CURSOR:
     add     hl, bc
 
     ld      a, (hl)
-    cp      SCREEN_MAPPING_TASKBAR
-    jp      z, .mouseOverTaskbar
+
+    ld      (OS.currentTileMouseOver), a
+
+    ; ; debug
+    ; cp      SCREEN_MAPPING_TASKBAR
+    ; jp      z, .mouseOverTaskbar
 
 
 
 
     ret
 
-.mouseOverTaskbar:
-    call    BIOS_BEEP
-    ret
+; .mouseOverTaskbar:
+;     call    BIOS_BEEP
+;     ret
 
 WAIT1:  equ   10              ; Short delay value
 WAIT2:  equ   30              ; Long delay value
