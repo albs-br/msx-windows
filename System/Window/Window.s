@@ -22,14 +22,23 @@ _DRAW_WINDOW:
         ld      hl, OS.screenMapping
         add     hl, de
         
+        ld      de, 32 ; next line
 
+        ld      c, (ix + PROCESS_STRUCT_IX.height) ; process.height
+    .outerLoop_1:
+            push    hl
+                ld      b, (ix + PROCESS_STRUCT_IX.width) ; process.width
+            .loop_20:
+                ld      a, 0x0a ; debug
+                ld      (hl), a
+                inc     hl
+                djnz    .loop_20
+            pop     hl
 
-        ld      b, (ix + PROCESS_STRUCT_IX.width) ; process.width
-    .loop_20:
-        ld      a, 0x0a ; debug
-        ld      (hl), a
-        inc     hl
-        djnz    .loop_20
+        add     hl, de
+        dec     c
+        jp      nz, .outerLoop_1
+
     pop     hl
 
     ; set HL to NAMTBL position of window top left
@@ -54,8 +63,9 @@ _DRAW_WINDOW:
         ld      a, TILE_WINDOW_TITLE_TOP_LEFT
         out     (PORT_0), a
 
-        ld      b, (ix + PROCESS_STRUCT_IX.width) ; process.width
-        ;ld      b, 16       ; debug (window width)
+        ld      a, (ix + PROCESS_STRUCT_IX.width) ; process.width
+        sub     2 ; process.width - 2
+        ld      b, a
     .loop_1:    
         ld      a, TILE_WINDOW_TITLE_MIDDLE_TOP
         out     (PORT_0), a
@@ -77,9 +87,8 @@ _DRAW_WINDOW:
         out     (PORT_0), a
         
         ld      a, (ix + PROCESS_STRUCT_IX.width) ; process.width
-        sub     3
+        sub     5 ; process.width - 5
         ld      b, a
-        ;ld      b, 16 - 3       ; debug (window width)
     .loop_2:
         ld      a, TILE_WINDOW_TITLE_MIDDLE_BOTTOM
         out     (PORT_0), a
@@ -108,16 +117,13 @@ _DRAW_WINDOW:
 
     ; draw name of process on window title
     push    hl, ix
-        ; ld      bc, 32 - 1
-        ; xor     a ; clear carry flag
-        ; sbc     hl, bc
         inc     hl
         call    BIOS_SETWRT
         
         ld      b, 16 ; max size of string
     .loop_10:
         ld      a, (ix + PROCESS_STRUCT_IX.windowTitle) ; process.windowTitle
-        or      a
+        or      a ; check for 0 meaning end of string
         jp      z, .endLoop_10
         out     (PORT_0), a
         inc     ix
@@ -130,7 +136,6 @@ _DRAW_WINDOW:
     ld      a, (ix + PROCESS_STRUCT_IX.height) ; process.height
     sub     4           ; subtract 4 (2 from title and 2 from bottom)
     ld      b, a
-    ;ld      b, 10 - 2 ; debug (window height)
 .loop_height:
     push    bc
 
@@ -142,8 +147,9 @@ _DRAW_WINDOW:
             ld      a, TILE_WINDOW_BORDER_LEFT
             out     (PORT_0), a
 
-            ld      b, (ix + PROCESS_STRUCT_IX.width) ; process.width
-            ;ld      b, 16       ; debug (window width)
+            ld      a, (ix + PROCESS_STRUCT_IX.width) ; process.width
+            sub     2 ; ; process.width - 2
+            ld      b, a
         .loop_3:
             ld      a, TILE_EMPTY
             out     (PORT_0), a
@@ -169,8 +175,9 @@ _DRAW_WINDOW:
         ld      a, TILE_WINDOW_BORDER_LEFT
         out     (PORT_0), a
         
-        ld      b, (ix + PROCESS_STRUCT_IX.width) ; process.width
-        ;ld      b, 16       ; debug (window width)
+        ld      a, (ix + PROCESS_STRUCT_IX.width) ; process.width
+        sub     2 ; ; process.width
+        ld      b, a
     .loop_4:
         ld      a, TILE_EMPTY
         out     (PORT_0), a
@@ -191,9 +198,9 @@ _DRAW_WINDOW:
         ld      a, TILE_WINDOW_BORDER_BOTTOM_LEFT
         out     (PORT_0), a
         
-        ld      b, (ix + PROCESS_STRUCT_IX.width) ; process.width
-        dec     b
-        ;ld      b, 16 - 1       ; debug (window width)
+        ld      a, (ix + PROCESS_STRUCT_IX.width) ; process.width
+        sub     3 ; ; process.width - 3
+        ld      b, a
     .loop_5:
         ld      a, TILE_WINDOW_BORDER_MIDDLE_BOTTOM
         out     (PORT_0), a

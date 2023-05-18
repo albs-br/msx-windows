@@ -7,7 +7,7 @@ Notepad:
 .windowState:	        db WINDOW_STATE.RESTORED
 .x:			            db 8
 .y:			            db 4
-.width:		            db 11
+.width:		            db 13
 .height:		        db 8
 .minWidth:		        db 10
 .minHeight:		        db 8
