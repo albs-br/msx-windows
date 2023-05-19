@@ -7,6 +7,11 @@
 ; start of RAM: 0xc000 (49152)
 ; end of RAM: 0xF380 (62336)  [ or 0xe5ff (58879) ? ]
 
+; 49152 - 810 - 3244 = 53206
+
+; 62336 - 53206 = 9130 bytes for apps variables
+; 58879 - 53206 = 5673 bytes for apps variables
+
 ; BIOS variables:
 	; BOTTOM:   equ $fc48 ; Address of the beginning of the available RAM area
 	; HIMEM:    equ $fc4a ; High free RAM address available (init stack with)

@@ -119,7 +119,7 @@ _INIT_VDP:
 ;     db 208, 0  , 0    ,0        ; 208 on Y value hides this sprite and all afterwards
 ; .size: equ $ - SPRATR_TEST
 
-; debug: small window to test teles
+; debug: small window to test tiles
 NAMTBL_TEST:
     db TILE_EMPTY
     db TILE_EMPTY
@@ -186,3 +186,10 @@ NAMTBL_TEST:
     db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 .size: equ $ - NAMTBL_TEST
+
+
+; debug
+NAMTBL_TEST_1:
+    db TILE_LINE_TOP_LEFT, TILE_LINE_TOP_RIGHT
+    db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+.size: $ - NAMTBL_TEST_1

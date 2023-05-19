@@ -1231,3 +1231,27 @@ JP_DE_S:
 	push de
 	exx
 	ret
+
+
+; Input:
+;   BC: number of repetitions (only multiples of 16!)
+Fast_LDIR_Muliples_of_16:
+; source: https://map.grauw.nl/articles/fast_loops.php
+.loop:
+    ldi  ; 16x LDI
+    ldi
+    ldi
+    ldi
+    ldi
+    ldi
+    ldi
+    ldi
+    ldi
+    ldi
+    ldi
+    ldi
+    ldi
+    ldi
+    ldi
+    ldi
+    jp  pe, .loop  ; Loop until bc = zero

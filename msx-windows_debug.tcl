@@ -14,4 +14,8 @@ ram_watch   add     52396       -type byte       -desc p3_id      -format hex
 
 ram_watch   add     0xC326      -type byte       -desc currTileMouseOver     -format hex
 
+ram_watch   add     0xfc48      -type word       -desc BOTTOM     -format hex
+ram_watch   add     0xfc4a      -type word       -desc HIMEM     -format hex
+
+
 # OS.currentTileMouseOver: equ 0C326h ; last def. pass 3

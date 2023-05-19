@@ -34,6 +34,12 @@ PageSize:	    equ	0x4000	        ; 16kB
 
 
 Execute:
+	; TODO
+    ; init interrupt mode and stack pointer (in case the ROM isn't the first thing to be loaded)
+    ; di                          ; disable interrupts
+	; im      1                   ; interrupt mode 1
+    ; ld      sp, (BIOS_HIMEM)    ; init SP
+    ; ei
 
     ; routines named in uppercase means they are OS rotines (unless started by "BIOS_")
     ; _ on start means private routines (internal to the OS) while absence of underline means public routines (can be called by apps)

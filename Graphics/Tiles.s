@@ -175,6 +175,8 @@ TILE_WINDOW_BORDER_RIGHT: equ 16
     DB 00011110b
     DB 00011110b
 
+; -----------------
+
 TILE_TASKBAR_TOP: equ 17
     DB 00000000 b
     DB 00000000 b
@@ -204,6 +206,108 @@ TILE_SHOW_DESKTOP_ICON: equ 19
     DB 10111101 b
     DB 10011001 b
     DB 11111111 b
+
+; -----------------
+
+; TILE_LINE_TOP_LEFT: equ 20
+;     DB 00000000 b
+;     DB 00000000 b
+;     DB 00000000 b
+;     DB 00011111 b
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00010000 b
+
+; TILE_LINE_TOP_RIGHT: equ 21
+;     DB 00000000 b
+;     DB 00000000 b
+;     DB 00000000 b
+;     DB 11110000 b
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00010000 b
+
+; TILE_LINE_MID_RIGHT: equ 22
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 11110000 b
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00010000 b
+
+; TILE_LINE_BOTTOM_RIGHT: equ 23
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 11110000 b
+;     DB 00000000 b
+;     DB 00000000 b
+;     DB 00000000 b
+;     DB 00000000 b
+
+; TILE_LINE_BOTTOM_LEFT: equ 24
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00011111 b
+;     DB 00000000 b
+;     DB 00000000 b
+;     DB 00000000 b
+;     DB 00000000 b
+
+; TILE_LINE_BOTTOM_MID: equ 25
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 11111111 b
+;     DB 00000000 b
+;     DB 00000000 b
+;     DB 00000000 b
+;     DB 00000000 b
+
+; TILE_LINE_TOP_MID: equ 26
+;     DB 00000000 b
+;     DB 00000000 b
+;     DB 00000000 b
+;     DB 11111111 b
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00010000 b
+
+; TILE_LINE_MID_LEFT: equ 27
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00011111 b
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00010000 b
+
+; TILE_LINE_VERTICAL: equ 28
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00010000 b
+
+; TILE_LINE_MID_LEFT: equ 29
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 00010000 b
+;     DB 11111111 b
+;     DB 00000000 b
+;     DB 00000000 b
+;     DB 00000000 b
+;     DB 00000000 b
 
     ; ; 
     ; ; --- Slot 3
