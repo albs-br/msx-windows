@@ -1,5 +1,7 @@
-	; OLDKEY:	equ $fbda ; Previous state of the keyboard matrix (11b)
-	; NEWKEY:	equ $fbe5 ; Current state of the keyboard matrix (11b)
+	; OLDKEY:	equ $fbda ; Previous state of the keyboard matrix (11 bytes)
+	; NEWKEY:	equ $fbe5 ; Current state of the keyboard matrix (11 bytes)
+	;	 OLDKEY  NEWKEY
+	;		|      |
 	; 	; $fbda, $fbe5 ; 7 6 5 4 3 2 1 0
 	; 	; $fbdb, $fbe6 ; ; ] [ \ = - 9 8
 	; 	; $fbdc, $fbe7 ; B A pound / . , ` '

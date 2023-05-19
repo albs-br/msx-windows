@@ -188,8 +188,8 @@ NAMTBL_TEST:
 .size: equ $ - NAMTBL_TEST
 
 
-; debug
-NAMTBL_TEST_1:
-    db TILE_LINE_TOP_LEFT, TILE_LINE_TOP_RIGHT
-    db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-.size: $ - NAMTBL_TEST_1
+; ; debug
+; NAMTBL_TEST_1:
+;     db TILE_LINE_TOP_LEFT, TILE_LINE_TOP_RIGHT
+;     db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+; .size: $ - NAMTBL_TEST_1
