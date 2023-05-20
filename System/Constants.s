@@ -1,9 +1,15 @@
 ; Constants
-WINDOW_TITLE_BAR:           equ 0001 0000 b     ;
-WINDOW_TITLE_BTN_MINIMIZE:  equ 0010 0000 b     ;
-WINDOW_TITLE_BTN_RESTORE:   equ 0011 0000 b     ;
-WINDOW_TITLE_BTN_MAXIMIZE:  equ 0100 0000 b     ;
-WINDOW_RESIZE_CORNER:       equ 0101 0000 b     ;
+
+; constants (refer to Ram.s (OS.screenMapping) for explanation)
+SCREEN_MAPPING_DESKTOP:     equ 255
+SCREEN_MAPPING_TASKBAR:     equ 254
+                                                    ; low nibble = process id
+SCREEN_MAPPING_WINDOWS:                     equ 0000 0000 b
+SCREEN_MAPPING_WINDOWS_TITLE_BAR:           equ 0001 0000 b
+SCREEN_MAPPING_WINDOWS_MINIMIZE_BUTTON:     equ 0010 0000 b
+SCREEN_MAPPING_WINDOWS_RESTORE_BUTTON:      equ 0011 0000 b
+SCREEN_MAPPING_WINDOWS_MAXIMIZE_BUTTON:     equ 0100 0000 b
+SCREEN_MAPPING_WINDOWS_RESIZE_CORNER:       equ 0101 0000 b
 
 
 WINDOW_STATE:

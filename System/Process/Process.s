@@ -89,6 +89,7 @@ _LOAD_PROCESS:
 
     ; call process.Open event
     ld      hl, (OS.currentProcessAddr)
+    ld      ix, (OS.currentProcessAddr)
     ld      e, (ix + PROCESS_STRUCT_IX.openAddr)         ; process.Open addr (low)
     ld      d, (ix + PROCESS_STRUCT_IX.openAddr + 1)     ; process.Open addr (high)
     call    JP_DE

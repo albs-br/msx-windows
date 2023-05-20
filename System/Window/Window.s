@@ -4,7 +4,7 @@ _DRAW_WINDOW:
     ; info: 9918 needs 29 cycles apart from each OUT
     
     ; get variables from process
-    push    hl
+    push    hl ; ix = hl
     pop     ix
     ld      l, (ix + PROCESS_STRUCT_IX.x) ; process.x
     ld      h, (ix + PROCESS_STRUCT_IX.y) ; process.y
@@ -24,20 +24,50 @@ _DRAW_WINDOW:
         
         ld      de, 32 ; next line
 
-        ld      c, (ix + PROCESS_STRUCT_IX.height) ; process.height
-    .outerLoop_1:
-            push    hl
-                ld      b, (ix + PROCESS_STRUCT_IX.width) ; process.width
-            .loop_20:
-                ld      a, 0x0a ; debug
-                ld      (hl), a
-                inc     hl
-                djnz    .loop_20
-            pop     hl
+        ; fill all window area
+        push    hl
+            ld      c, (ix + PROCESS_STRUCT_IX.height) ; process.height
+        .outerLoop_1:
+                push    hl
+                    ld      b, (ix + PROCESS_STRUCT_IX.width) ; process.width
+                .loop_20:
+                    
+                    ; set value of SCREEN_MAPPING_WINDOWS + process id
+                    ld      a, (ix + PROCESS_STRUCT_IX.processId)
+                    or      SCREEN_MAPPING_WINDOWS
+                    
+                    ld      (hl), a
+                    inc     hl
+                    djnz    .loop_20
+                pop     hl
 
-        add     hl, de
-        dec     c
-        jp      nz, .outerLoop_1
+            add     hl, de
+            dec     c
+            jp      nz, .outerLoop_1
+        pop     hl
+
+        ; set value of SCREEN_MAPPING_WINDOWS_TITLE_BAR + process id
+        ld      a, (ix + PROCESS_STRUCT_IX.processId)
+        or      SCREEN_MAPPING_WINDOWS_TITLE_BAR
+        ld      c, a
+
+        ; title 1st line
+        push    hl
+            ld      b, (ix + PROCESS_STRUCT_IX.width) ; process.width
+        .loop_21:
+            ld      (hl), c
+            inc     hl
+            djnz    .loop_21
+        pop     hl
+        ; title 2nd line
+        add     hl, de ; go to next line
+        push    hl
+            ld      b, (ix + PROCESS_STRUCT_IX.width) ; process.width
+        .loop_22:
+            ld      (hl), c
+            inc     hl
+            djnz    .loop_22
+        pop     hl
 
     pop     hl
 
