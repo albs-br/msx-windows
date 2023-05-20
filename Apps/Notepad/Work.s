@@ -8,7 +8,7 @@
     ld      h, (ix + PROCESS_STRUCT_IX.y) ; process.y
     call    _CONVERT_COL_LINE_TO_LINEAR
     
-    ld      bc, NAMTBL + (32 * 4) + 1; 4 lines below and one column right
+    ld      bc, NAMTBL + (32 * 5) + 1 ; 5 lines below and one column right
     add     hl, bc
 
     ; debug

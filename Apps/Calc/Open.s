@@ -14,7 +14,7 @@
     ; debug
     ; write a test char 
     call    BIOS_SETWRT
-    ld      a, TILE_FONT_UPPERCASE_A + 1 ; 'b'
+    ld      a, TILE_FONT_UPPERCASE_A + 1 ; 'B'
     out     (PORT_0), a
 
     ret

@@ -47,11 +47,11 @@ Execute:
     call    _INIT
 
     ; DEBUG
-    ld      hl, Notepad.Header
+    ld      hl, Calc.Header
     call    _LOAD_PROCESS
 
     ; DEBUG
-    ld      hl, Calc.Header
+    ld      hl, Notepad.Header
     call    _LOAD_PROCESS
 
     ; debug 
@@ -92,6 +92,8 @@ Execute:
     ld      a, l
     or      h
     jp      z, .noCurrentProcess     ; if (OS.currentProcessAddr == 0x0000) .noCurrentProcess
+    push    hl ; ix = hl
+    pop     ix
     ld      e, (ix + PROCESS_STRUCT_IX.workAddr)         ; process.Work addr (low)
     ld      d, (ix + PROCESS_STRUCT_IX.workAddr + 1)     ; process.Work addr (high)
     call    JP_DE
