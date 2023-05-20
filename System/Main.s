@@ -75,7 +75,9 @@ Execute:
 
 .OS_MainLoop:
 
+    ; --- mouse events
     call    _DRAW_MOUSE_CURSOR
+    call    _MOUSE_CLICK
 
     ; ---------- work to be done once per second
     ld      a, (OS.timeCounter)
