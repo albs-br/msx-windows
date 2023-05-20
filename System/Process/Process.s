@@ -5,26 +5,33 @@ MAX_PROCESS_ID: equ 3 ; max 4 processes available (maybe 6 in the future)
 ;   HL = addr of process header (on ROM)
 _LOAD_PROCESS:
 
-;     ; TODO
+; TODO
 ;     ; if ((OS.nextAvailableProcessAddr) == 0xffff) alert('Max process limit exceeded')
 ;     ld      de, (OS.nextAvailableProcessAddr)
 ;     ld      a, 0xff
 ;     cp      d
-;     jp      nz, .skip_1:
+;     jp      nz, .skip_0
 ;     cp      e
 ;     jp      z, .showAlertMaxProcessLimitReached
-; .skip_1:
+; .skip_0:
 
-    ; ; TODO
-    ; ; clear this process slot (fill with 0xff)
-    ; push    hl
-    ;       ld      a, 0xff
-    ;       ld      (OS.nextAvailableProcessAddr), a
-    ;       ld      hl, OS.processes
-    ;       ld      de, OS.processes + 1
-    ;       ld      bc, OS.processes_size - 1
-    ;       ldir
-    ; pop     hl
+    ; clear this process slot (fill with 0xff)
+    push    hl
+
+            ld      a, 0xff
+            ld      hl, (OS.nextAvailableProcessAddr)
+            ld      (hl), a
+            
+            push    hl ; DE = HL
+            pop     de
+
+            inc     de
+
+            ; ld      hl, ?
+            ; ld      de, ?
+            ld      bc, Process_struct.size - 1
+            ldir
+    pop     hl
 
     ; copy header from source to next empty process slot
     ;ld      hl, ???                                            ; source
@@ -120,9 +127,19 @@ _LOAD_PROCESS:
 
     ret
 
+.showAlertMaxProcessLimitReached:
+
+    ; debug
+    call BIOS_BEEP
+    jp .showAlertMaxProcessLimitReached
+
+    ret
+
+
+
 ; Input: nothing
 ; Output:
-;   IDX = next available process id (between 0 and MAX_PROCESS_ID-1), 255 means no process space available
+;   IXH = next available process id (between 0 and MAX_PROCESS_ID-1), 255 means no process space available
 _GET_NEXT_AVAILABLE_PROCESS_ID:
     ; ld ixh, 0xab ; debug
     ; ret
@@ -211,3 +228,45 @@ _GET_NEXT_AVAILABLE_PROCESS_ID:
 ;     ld      a, 255
 
 ;     ret
+
+
+
+; Input:
+;   HL = addr of process header
+_SET_CURRENT_PROCESS:
+    ; set curr proc to process
+    ld      (OS.currentProcessAddr), hl
+
+    ; ; TODO
+    ; push    hl ; ix = hl
+    ; pop     ix
+    ; call    _DRAW_WINDOW
+
+    ; TODO
+    ; place green led sprite on window title to show it is the active window
+    ret
+
+
+
+; Input:
+;   C = process id
+; Output
+;   z = process found
+;   nz = process not found
+;   HL = addr of process
+_GET_PROCESS_BY_ID:
+    ; loop through process slots looking for this process id
+    ld      hl, OS.processes
+    ld      de, Process_struct.size
+    ld      b, MAX_PROCESS_ID + 1
+.loop_1:
+    ld      a, (hl)
+    cp      c
+    ret     z
+    add     hl, de
+    djnz    .loop_1
+
+    ; not found
+    ld      hl, 0
+
+    ret

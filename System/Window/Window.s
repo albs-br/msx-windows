@@ -15,7 +15,6 @@ _DRAW_WINDOW:
 
     call    _CONVERT_COL_LINE_TO_LINEAR
     
-    ; TODO:
     ; update OS.screenMapping
     push    hl
         ex      de, hl
@@ -62,11 +61,29 @@ _DRAW_WINDOW:
         ; title 2nd line
         add     hl, de ; go to next line
         push    hl
-            ld      b, (ix + PROCESS_STRUCT_IX.width) ; process.width
+            ld      a, (ix + PROCESS_STRUCT_IX.width) ; process.width
+            sub     4 ; process.width - 4
+            ld      b, a
         .loop_22:
             ld      (hl), c
             inc     hl
             djnz    .loop_22
+
+            ld      a, (ix + PROCESS_STRUCT_IX.processId)
+            or      SCREEN_MAPPING_WINDOWS_MINIMIZE_BUTTON
+            ld      (hl), a
+            inc     hl
+
+            ld      a, (ix + PROCESS_STRUCT_IX.processId)
+            or      SCREEN_MAPPING_WINDOWS_MAXIMIZE_RESTORE_BUTTON
+            ld      (hl), a
+            inc     hl
+
+            ld      a, (ix + PROCESS_STRUCT_IX.processId)
+            or      SCREEN_MAPPING_WINDOWS_CLOSE_BUTTON
+            ld      (hl), a
+            inc     hl
+
         pop     hl
 
     pop     hl
