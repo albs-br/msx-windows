@@ -1,9 +1,9 @@
 ; Input
-;   HL = base addr of this process slot on RAM
+;   IX = base addr of this process slot on RAM
 
     ; get base NAMTBL of the window
-    push    hl ; ix = hl
-    pop     ix
+    ; push    hl ; ix = hl
+    ; pop     ix
     ld      l, (ix + PROCESS_STRUCT_IX.x) ; process.x
     ld      h, (ix + PROCESS_STRUCT_IX.y) ; process.y
     call    _CONVERT_COL_LINE_TO_LINEAR

@@ -1,11 +1,11 @@
 ; Input
-;   HL = addr of process header
+;   IX = addr of process header
 _DRAW_WINDOW:
     ; info: 9918 needs 29 cycles apart from each OUT
     
     ; get variables from process
-    push    hl ; ix = hl
-    pop     ix
+    ; push    hl ; ix = hl
+    ; pop     ix
     ld      l, (ix + PROCESS_STRUCT_IX.x) ; process.x
     ld      h, (ix + PROCESS_STRUCT_IX.y) ; process.y
     

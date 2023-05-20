@@ -2,7 +2,7 @@ MAX_PROCESS_ID: equ 3 ; max 4 processes available (maybe 6 in the future)
 
 
 ; Input:
-;   HL = addr of process header 
+;   HL = addr of process header (on ROM)
 _LOAD_PROCESS:
 
 ;     ; TODO
@@ -84,11 +84,11 @@ _LOAD_PROCESS:
     ; define ramStartAddr and vramStartTileAddr
 
 
-    ld      hl, (OS.currentProcessAddr)
+    ld      ix, (OS.currentProcessAddr)
     call    _DRAW_WINDOW
 
     ; call process.Open event
-    ld      hl, (OS.currentProcessAddr)
+    ; ld      hl, (OS.currentProcessAddr)
     ld      ix, (OS.currentProcessAddr)
     ld      e, (ix + PROCESS_STRUCT_IX.openAddr)         ; process.Open addr (low)
     ld      d, (ix + PROCESS_STRUCT_IX.openAddr + 1)     ; process.Open addr (high)

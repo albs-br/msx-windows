@@ -90,11 +90,11 @@ Execute:
     ; -----------------------------------------
 
     ; run current process "Work" event
-    ld      hl, (OS.currentProcessAddr)
-    ld      a, l
-    or      h
-    jp      z, .noCurrentProcess     ; if (OS.currentProcessAddr == 0x0000) .noCurrentProcess
     ld      ix, (OS.currentProcessAddr)
+    ld      a, ixl
+    or      ixh
+    jp      z, .noCurrentProcess     ; if (OS.currentProcessAddr == 0x0000) .noCurrentProcess
+    ; ld      ix, (OS.currentProcessAddr)
     ld      e, (ix + PROCESS_STRUCT_IX.workAddr)         ; process.Work addr (low)
     ld      d, (ix + PROCESS_STRUCT_IX.workAddr + 1)     ; process.Work addr (high)
     call    JP_DE
