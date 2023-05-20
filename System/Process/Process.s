@@ -141,35 +141,6 @@ _LOAD_PROCESS:
 ; Output:
 ;   IXH = next available process id (between 0 and MAX_PROCESS_ID-1), 255 means no process space available
 _GET_NEXT_AVAILABLE_PROCESS_ID:
-    ; ld ixh, 0xab ; debug
-    ; ret
-
-    ; ld      hl, OS.processes
-    ; ld      de, Process_struct.size
-
-    ; ld      a, (hl)
-
-    ; add
-
-
-
-;     ld      c, MAX_PROCESS_ID
-
-;     ld      hl, OS.processes
-;     ld      de, Process_struct.size
-;     ld      b, MAX_PROCESS_ID
-; .loop:
-;     ld      a, (hl)
-;     cp      255
-;     jp      z, .next
-
-;     ; if (a < c) c = a
-
-; .next:
-;     djnz    .loop
-
-
-
     ld      ixh, 0          ; first process id to be searched
 
 .outerLoop:
@@ -204,30 +175,30 @@ _GET_NEXT_AVAILABLE_PROCESS_ID:
 
 
 ; TODO: test:
-; ; Input: nothing
-; ; Output:
-; ;   HL: addr of process slot, if available
-; ;   A = 0, process slot found
-; ;   A = 255, no process slot available
-; _GET_NEXT_AVAILABLE_PROCESS_ADDR:
+; Input: nothing
+; Output:
+;   HL: addr of process slot, if available
+;   A = 0, process slot found
+;   A = 255, no process slot available
+_GET_NEXT_AVAILABLE_PROCESS_ADDR:
 
-;     ld      hl, OS.processes
-;     ld      de, Process_struct.size
-;     ld      b, MAX_PROCESS_ID + 1
-; .loop:
-;     ld      a, (hl)
-;     ; process id = 255 means that this process slot is available
-;     inc     a       ; if (A == 255) return
-;     ret     z
+    ld      hl, OS.processes
+    ld      de, Process_struct.size
+    ld      b, MAX_PROCESS_ID + 1
+.loop:
+    ld      a, (hl)
+    ; process id = 255 means that this process slot is available
+    inc     a       ; if (A == 255) return
+    ret     z
 
-;     add     hl, de
+    add     hl, de
 
-;     djnz    .loop
+    djnz    .loop
 
-;     ; if no process slot available return A = 255
-;     ld      a, 255
+    ; if no process slot available return A = 255
+    ld      a, 255
 
-;     ret
+    ret
 
 
 
@@ -253,7 +224,7 @@ _SET_CURRENT_PROCESS:
 ; Output
 ;   z = process found
 ;   nz = process not found
-;   HL = addr of process
+;   HL = addr of process; 0x0000 if not found
 _GET_PROCESS_BY_ID:
     ; loop through process slots looking for this process id
     ld      hl, OS.processes
@@ -267,6 +238,6 @@ _GET_PROCESS_BY_ID:
     djnz    .loop_1
 
     ; not found
-    ld      hl, 0
+    ld      hl, 0x0000
 
     ret
