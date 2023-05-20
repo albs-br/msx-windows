@@ -38,7 +38,7 @@ _LOAD_PROCESS:
 
 
     ; update next empty process slot to the next
-    ; TODO: chancge by _GET_NEXT_AVAILABLE_PROCESS_ADDR
+    ; TODO: change by _GET_NEXT_AVAILABLE_PROCESS_ADDR
     ld      hl, (OS.nextAvailableProcessAddr)
     ld      bc, Process_struct.size
     add     hl, bc

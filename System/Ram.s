@@ -75,7 +75,12 @@ OS:
 
 ; --------------------------------------------------------------------------------------------
 
-.processes:		        rb Process_struct.size * (MAX_PROCESS_ID + 1) 
+.processes:		        
+    ;rb Process_struct.size * (MAX_PROCESS_ID + 1) 
+    .process_slot_0:        rb Process_struct.size
+    .process_slot_1:        rb Process_struct.size
+    .process_slot_2:        rb Process_struct.size
+    .process_slot_3:        rb Process_struct.size
 .processes_end:
 .processes_size: equ $ - .processes
 

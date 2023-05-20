@@ -29,7 +29,7 @@ PageSize:	    equ	0x4000	        ; 16kB
 
 ; Apps
     INCLUDE "Apps/Notepad/Header.s"
-    ;INCLUDE "Apps/Calc/Header.s"
+    INCLUDE "Apps/Calc/Header.s"
 
 
 
@@ -49,6 +49,15 @@ Execute:
     ; DEBUG
     ld      hl, Notepad.Header
     call    _LOAD_PROCESS
+
+    ; DEBUG
+    ld      hl, Calc.Header
+    call    _LOAD_PROCESS
+
+    ; debug 
+    ; set curr proc to process on first slot
+    ld      hl, OS.process_slot_1
+    ld      (OS.currentProcessAddr), hl
 
     ; ; DEBUG
     ; ; ld      hl, (OS.currentProcessAddr)
