@@ -47,11 +47,11 @@ Execute:
     call    _INIT
 
     ; DEBUG
-    ld      hl, Calc.Header
+    ld      hl, Notepad.Header
     call    _LOAD_PROCESS
 
     ; DEBUG
-    ld      hl, Notepad.Header
+    ld      hl, Calc.Header
     call    _LOAD_PROCESS
 
     ; debug 

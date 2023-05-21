@@ -5,7 +5,7 @@ Notepad:
 
 .processId:		        db 255		    ; on app header must be always 255 (will be given an id by the OS at app load)
 .windowState:	        db WINDOW_STATE.RESTORED
-.x:			            db 8
+.x:			            db 8 - 3
 .y:			            db 4
 .width:		            db 13
 .height:		        db 8

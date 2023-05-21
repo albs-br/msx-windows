@@ -12,6 +12,13 @@ ram_watch   add     50774       -type byte       -desc p1_id      -format hex
 ram_watch   add     51585       -type byte       -desc p2_id      -format hex
 ram_watch   add     52396       -type byte       -desc p3_id      -format hex
 
+
+ram_watch   add     0xC356      -type byte       -desc p0_scrTilesBehind      -format hex
+
+# PROCESS_STRUCT_IX.screenTilesBehind: equ 02Bh ; last def. pass 3
+
+
+
 ram_watch   add     0xC326      -type byte       -desc currTileMouseOver     -format hex
 
 ram_watch   add     0xfc48      -type word       -desc BOTTOM     -format hex

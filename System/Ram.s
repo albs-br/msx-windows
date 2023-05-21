@@ -152,5 +152,8 @@ PROCESS_STRUCT_IX:
 .clickAddr:		        equ Process_struct.clickAddr   - Process_struct
 .closeAddr:		        equ Process_struct.closeAddr   - Process_struct
 
+; TODO: other properties
+
+.screenTilesBehind:	    equ Process_struct.screenTilesBehind   - Process_struct
 
 RamEnd:
