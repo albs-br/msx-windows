@@ -41,6 +41,12 @@ _INIT_RAM:
     ld      a, 15 ; white
     ld      (OS.mouseColor_1), a
 
+    ; init video vars
+    ld      a, 8
+    ld      (OS.nextWindow_x), a
+    ld      a, 6
+    ld      (OS.nextWindow_y), a
+
     ; TODO: use LDIR (faster)
     ; ------- init OS.screenMapping
     ld      hl, OS.screenMapping

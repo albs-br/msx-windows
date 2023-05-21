@@ -24,6 +24,7 @@ Seed:                   rw 1
 
 OS:
 
+; --- input
 .mouseSpriteAttributes:
 .mouseY:		        rb 1
 .mouseX:		        rb 1
@@ -42,7 +43,7 @@ OS:
 .ticksSinceLastInput:	rw 1		    ; used to trigger screen saver
 
 
-
+; --- time
 .currentTime:	        			    ; BCD encoded time hh:mm:ss
 .currentTime_Hours:     rb 1
 .currentTime_Minutes:   rb 1
@@ -54,9 +55,12 @@ OS:
 
 
 
+; --- interrupt
 .storeOldInterruptHook: rb 6
 .interruptBusy:         rb 1
 
+
+; --- video
 
 ; TODO: this can be moved to the free VRAM area (addr 7040)
 
@@ -69,18 +73,22 @@ OS:
 .screenMapping: 	    rb 32*24
 .currentTileMouseOver:  rb 1            ; stores value of current mouse position in OS.screenMapping 
                                         ; to avoid being calclated more than once
+.nextWindow_x:         rb 1
+.nextWindow_y:         rb 1
 
+
+; --- processes
 .currentProcessAddr:            rw 1    ; 0x0000 means empty current process
 .nextAvailableProcessAddr:      rw 1
 
 ; --------------------------------------------------------------------------------------------
 
 .processes:		        
-    ;rb Process_struct.size * (MAX_PROCESS_ID + 1) 
-    .process_slot_0:        rb Process_struct.size
-    .process_slot_1:        rb Process_struct.size
-    .process_slot_2:        rb Process_struct.size
-    .process_slot_3:        rb Process_struct.size
+    rb Process_struct.size * (MAX_PROCESS_ID + 1) 
+    .process_slot_0:      equ .processes + (Process_struct.size * 0)
+    .process_slot_1:      equ .processes + (Process_struct.size * 1)
+    .process_slot_2:      equ .processes + (Process_struct.size * 2)
+    .process_slot_3:      equ .processes + (Process_struct.size * 3)
 .processes_end:
 .processes_size: equ $ - .processes
 
