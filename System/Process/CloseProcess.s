@@ -2,9 +2,14 @@
 ;   HL = addr of process header
 _CLOSE_PROCESS:
 
+    ; IX = HL
+    push    hl
+    pop     ix
 
-    ; TODO
     ; call process.Close event
+    ld      e, (ix + PROCESS_STRUCT_IX.closeAddr)         ; process.Close addr (low)
+    ld      d, (ix + PROCESS_STRUCT_IX.closeAddr + 1)     ; process.Close addr (high)
+    call    JP_DE
 
 
 

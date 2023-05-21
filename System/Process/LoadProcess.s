@@ -3,14 +3,14 @@
 _LOAD_PROCESS:
 
 ; TODO
-;     ; if ((OS.nextAvailableProcessAddr) == 0xffff) alert('Max process limit exceeded')
-;     ld      de, (OS.nextAvailableProcessAddr)
-;     ld      a, 0xff
-;     cp      d
-;     jp      nz, .skip_0
-;     cp      e
-;     jp      z, .showAlertMaxProcessLimitReached
-; .skip_0:
+    ; if ((OS.nextAvailableProcessAddr) == 0xffff) alert('Max process limit exceeded')
+    ld      de, (OS.nextAvailableProcessAddr)
+    ld      a, 0xff
+    cp      d
+    jp      nz, .skip_0
+    cp      e
+    jp      z, .showAlertMaxProcessLimitReached
+.skip_0:
 
     ; clear this process slot (fill with 0xff)
     push    hl
@@ -142,6 +142,6 @@ _LOAD_PROCESS:
 
     ; debug
     call BIOS_BEEP
-    jp .showAlertMaxProcessLimitReached
+    ; jp .showAlertMaxProcessLimitReached
 
     ret

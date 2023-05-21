@@ -35,29 +35,29 @@ Notepad:
 .vertScrollbarPosition:	db 0
 
 
-.openAddr:		        dw .Open
-.workAddr:		        dw .Work
-.drawAddr:		        dw .Draw
-.clickAddr:		        dw .Click
-.closeAddr:		        dw .Close
+.openAddr:		        dw Notepad_Open
+.workAddr:		        dw Notepad_Work
+.drawAddr:		        dw Notepad_Draw
+.clickAddr:		        dw Notepad_Click
+.closeAddr:		        dw Notepad_Close
 
 .ramSize:		        dw 1024     ; RAM space reserved for variables of this app
 
 .StartProgramCode:
 
-.Open:
+Notepad_Open:
     INCLUDE "Apps/Notepad/Open.s"
 
-.Work:
+Notepad_Work:
     INCLUDE "Apps/Notepad/Work.s"
 
-.Draw:
+Notepad_Draw:
     INCLUDE "Apps/Notepad/Draw.s"
 
-.Click:
+Notepad_Click:
     INCLUDE "Apps/Notepad/Click.s"
 
-.Close:
+Notepad_Close:
     INCLUDE "Apps/Notepad/Close.s"
 
 .EndProgramCode:                ; this may be useful on future for code dinamically relocatable

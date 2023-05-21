@@ -84,7 +84,11 @@ _SET_CURRENT_PROCESS:
     ; call    _DRAW_WINDOW
 
     ; TODO
-    ; place green led sprite on window title to show it is the active window
+    ; place tile on window title to show it is the active window
+
+    ; TODO
+    ; call "Draw" event of the process
+
     ret
 
 

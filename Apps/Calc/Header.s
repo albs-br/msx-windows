@@ -35,29 +35,29 @@ Calc:
 .vertScrollbarPosition:	db 0
 
 
-.openAddr:		        dw .Open
-.workAddr:		        dw .Work
-.drawAddr:		        dw .Draw
-.clickAddr:		        dw .Click
-.closeAddr:		        dw .Close
+.openAddr:		        dw Calc_Open
+.workAddr:		        dw Calc_Work
+.drawAddr:		        dw Calc_Draw
+.clickAddr:		        dw Calc_Click
+.closeAddr:		        dw Calc_Close
 
 .ramSize:		        dw 1024     ; RAM space reserved for variables of this app
 
 .StartProgramCode:
 
-.Open:
+Calc_Open:
     INCLUDE "Apps/Calc/Open.s"
 
-.Work:
+Calc_Work:
     INCLUDE "Apps/Calc/Work.s"
 
-.Draw:
+Calc_Draw:
     INCLUDE "Apps/Calc/Draw.s"
 
-.Click:
+Calc_Click:
     INCLUDE "Apps/Calc/Click.s"
 
-.Close:
+Calc_Close:
     INCLUDE "Apps/Calc/Close.s"
 
 .EndProgramCode:                ; this may be useful on future for code dinamically relocatable
