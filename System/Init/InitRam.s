@@ -41,6 +41,20 @@ _INIT_RAM:
     ld      a, 15 ; white
     ld      (OS.mouseColor_1), a
 
+    ; init keyboard vars
+    ld      a, 1111 1111 b
+    ld      (OS.keyboardMatrix + 0), a
+    ld      (OS.keyboardMatrix + 1), a
+    ld      (OS.keyboardMatrix + 2), a
+    ld      (OS.keyboardMatrix + 3), a
+    ld      (OS.keyboardMatrix + 4), a
+    ld      (OS.keyboardMatrix + 5), a
+    ld      (OS.keyboardMatrix + 6), a
+    ld      (OS.keyboardMatrix + 7), a
+    ld      (OS.keyboardMatrix + 8), a
+    ld      (OS.keyboardMatrix + 9), a
+
+
     ; init video vars
     ld      a, 8
     ld      (OS.nextWindow_x), a

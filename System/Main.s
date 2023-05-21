@@ -80,6 +80,10 @@ Execute:
     call    _DRAW_MOUSE_CURSOR
     call    _MOUSE_CLICK
 
+    
+    call    _READ_KEYBOARD
+
+
     ; ---------- work to be done once per second
     ld      a, (OS.timeCounter)
     or      a

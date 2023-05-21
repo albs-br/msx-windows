@@ -6,6 +6,10 @@
 
 _INIT:
 
+    ; disable keyboard click sound
+    xor     a
+    ld      (BIOS_CLIKSW), a
+
     call    _INIT_VDP
 
     call    _INIT_RAM
