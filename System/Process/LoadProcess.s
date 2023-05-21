@@ -42,13 +42,13 @@ _LOAD_PROCESS:
 
 
     ; update next empty process slot to the next
-    ; TODO: change by _GET_NEXT_AVAILABLE_PROCESS_ADDR
-    ld      hl, (OS.nextAvailableProcessAddr)
-    ld      bc, Process_struct.size
-    add     hl, bc
-    ; TODO: check if it exceeded process.size space
-    ; if so, set OS.nextAvailableProcessAddr to 0xffff
-    ld      (OS.nextAvailableProcessAddr), hl
+    ; ; TODO: change by _GET_NEXT_AVAILABLE_PROCESS_ADDR
+    ; ld      hl, (OS.nextAvailableProcessAddr)
+    ; ld      bc, Process_struct.size
+    ; add     hl, bc
+    ; ; TODO: check if it exceeded process.size space
+    ; ; if so, set OS.nextAvailableProcessAddr to 0xffff
+    ; ld      (OS.nextAvailableProcessAddr), hl
 
 
 
@@ -83,6 +83,13 @@ _LOAD_PROCESS:
     jp      z, .maxProcessLimitReached
     ld      hl, (OS.currentProcessAddr)
     ld      (hl), a ; set ProcessId
+
+    ; update next empty process slot to the next
+    call    _GET_NEXT_AVAILABLE_PROCESS_ADDR
+    inc     a   ; if (A == 255) .maxProcessLimitReached
+    jp      z, .maxProcessLimitReached ; OBS: it isn't really necessary here, as one process was just closed
+    ld      (OS.nextAvailableProcessAddr), hl
+
 
     ; TODO
     ; define ramStartAddr and vramStartTileAddr
