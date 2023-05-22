@@ -124,15 +124,26 @@ Process_struct:
 .clickAddr:		        rw 1
 .closeAddr:		        rw 1
 
+; .size_Header: equ $ - Process_struct
+
 .ramSize:		        rw 1     ; RAM space reserved for variables of this app
+; estimated RAM for some apps:
+; - calc: 2 * 6 bytes (fixed precision 5.1) = 12 bytes
+; - spreadsheet: 1 cell = 4 bytes (fixed precision 3.1) + 1 byte for properties
+;		512 cells = 2,5 kb
+; - minesweeper: 30x20 playfield = 600 bytes
+; - tic tac toe = 9 bytes
+; - tetris = 10 x 20 playfield = 200 bytes
 
 ; these RAM and VRAM addresses are dinamically defined by OS on app startup
 .ramStartAddr:	        rw 1
 .vramStartTileAddr:	    rw 1
 
+; .layer:					rb 1
+
 .size_without_screenTilesBehind: equ $ - Process_struct
 
-.screenTilesBehind:	    rb 32*24
+.screenTilesBehind:	    rb 32*24 ; TODO: this can be 32*22, excluding Taskbar
 
 .size: equ $ - Process_struct
 
@@ -161,6 +172,8 @@ PROCESS_STRUCT_IX:
 .closeAddr:		        equ Process_struct.closeAddr   - Process_struct
 
 ; TODO: other properties
+
+; .layer:					equ Process_struct.layer    	- Process_struct
 
 .screenTilesBehind:	    equ Process_struct.screenTilesBehind   - Process_struct
 

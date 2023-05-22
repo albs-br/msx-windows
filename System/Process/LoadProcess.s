@@ -2,7 +2,6 @@
 ;   HL = addr of process header (on ROM)
 _LOAD_PROCESS:
 
-; TODO
     ; if ((OS.nextAvailableProcessAddr) == 0xffff) alert('Max process limit exceeded')
     ld      de, (OS.nextAvailableProcessAddr)
     ld      a, 0xff
@@ -41,18 +40,6 @@ _LOAD_PROCESS:
     ld      (OS.currentProcessAddr), hl
 
 
-    ; update next empty process slot to the next
-    ; ; TODO: change by _GET_NEXT_AVAILABLE_PROCESS_ADDR
-    ; ld      hl, (OS.nextAvailableProcessAddr)
-    ; ld      bc, Process_struct.size
-    ; add     hl, bc
-    ; ; TODO: check if it exceeded process.size space
-    ; ; if so, set OS.nextAvailableProcessAddr to 0xffff
-    ; ld      (OS.nextAvailableProcessAddr), hl
-
-
-
-
     ; ; -----debug (set some fake process ids)
     ; ld      bc, Process_struct.size
     
@@ -87,7 +74,7 @@ _LOAD_PROCESS:
     ; update next empty process slot to the next
     call    _GET_NEXT_AVAILABLE_PROCESS_ADDR
     inc     a   ; if (A == 255) .maxProcessLimitReached
-    jp      z, .maxProcessLimitReached ; OBS: it isn't really necessary here, as one process was just closed
+    jp      z, .maxProcessLimitReached
     ld      (OS.nextAvailableProcessAddr), hl
 
 
@@ -152,3 +139,68 @@ _LOAD_PROCESS:
     ; jp .showAlertMaxProcessLimitReached
 
     ret
+
+
+
+; LoadProcess:
+; get number of current processes and make it the layer number (0-3)
+
+
+; CloseProcess:
+; after removing the process from OS process slots decrease layer number of all processes with layer > L
+
+
+; SetCurrentProcess:
+; 
+; 2
+; 0   <-- new current
+; 3
+; 1
+
+; 1
+; 3
+; 2
+; 0
+
+; ----
+
+; 2
+; 1   <-- new current
+; 0
+; 3
+
+; 1
+; 3
+; 0
+; 2
+
+; set the new current layer to NUMBER_OF_PROCESSES
+; dec layer of all processes with layer > old layer
+
+
+; ; TODO: test:
+
+; ; Decrease layer of all processes with layer > C
+; ; Input:
+; ;   C = layer number
+; _ADJUST_LAYER_OF_PROCESSES:
+
+;     ld      hl, OS.processes + PROCESS_STRUCT_IX.layer
+;     ld      de, Process_struct.size
+;     ld      b, MAX_PROCESS_ID + 1
+; .loop:
+;     ld      a, (hl)
+;     cp      c
+;     jp      nc, .next ; if (C <= A) .next
+
+;     ; if (C > A) layer --
+;     dec     a
+;     ld      (hl), a
+
+; .next:
+;     add     hl, de
+
+;     djnz    .loop
+
+;     ret
+

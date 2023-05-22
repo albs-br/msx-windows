@@ -1,6 +1,48 @@
 _DRAW_MOUSE_CURSOR:
 
-    ; TODO: fix Y+1 bug of TMS 9918
+    ; ; TODO: fix Y+1 bug of TMS 9918
+    ; ld      hl, SPRATR
+    ; call    BIOS_SETWRT
+    ; ld      c, PORT_0
+    ; ld      hl, OS.mouseSpriteAttributes
+
+    ; dec     (hl)
+    ; outi        ; .mouseY:		        
+
+    ; nop
+    ; nop
+    ; nop
+    ; outi        ; .mouseX:		        
+
+    ; nop
+    ; nop
+    ; nop
+    ; outi        ; .mousePattern:	        
+
+    ; nop
+    ; nop
+    ; nop
+    ; outi        ; .mouseColor:	        
+
+    ; dec     (hl)
+    ; outi        ; .mouseY_1:		        
+
+    ; nop
+    ; nop
+    ; nop
+    ; outi        ; .mouseX_1:		        
+
+    ; nop
+    ; nop
+    ; nop
+    ; outi        ; .mousePattern_1:	    
+
+    ; nop
+    ; nop
+    ; nop
+    ; outi        ; .mouseColor_1:	        
+
+
 
     ; update mouse cursor sprites
     ld      hl, SPRATR

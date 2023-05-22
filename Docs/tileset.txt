@@ -4,7 +4,7 @@
 
 based on standard msx charset:
 96 alphanumeric + specials
-36 alphanumeric reversed (only lowercase) + digits, for title bar (*)
+36 alphanumeric reversed (only lowercase), for title bar (*)
 
 96 + 36 = 132 (124 remainder)
 

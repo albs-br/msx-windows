@@ -87,7 +87,6 @@ HANDLER:
     neg
     ld      l, a
 
-    ; TODO:
     ; reset OS.ticksSinceLastInput if mouse moved or button clicked
     xor     a
     or      ixh ; mouse button 1
