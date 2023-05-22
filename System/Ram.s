@@ -164,4 +164,8 @@ PROCESS_STRUCT_IX:
 
 .screenTilesBehind:	    equ Process_struct.screenTilesBehind   - Process_struct
 
+
+; temp debug
+Temp: rb 1
+
 RamEnd:

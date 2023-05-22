@@ -15,7 +15,9 @@ ram_watch   add     52398       -type byte       -desc p3_id      -format hex
 
 # ram_watch   add     0xC356      -type byte       -desc p0_scrTilesBehind      -format hex
 
+ram_watch   add     0xd304      -type byte       -desc Temp     -format hex
 
+# Temp: equ 0D304h ; last def. pass 3
 
 ram_watch   add     0xC326      -type byte       -desc currTileMouseOver     -format hex
 

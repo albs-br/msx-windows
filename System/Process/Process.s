@@ -44,7 +44,6 @@ _GET_NEXT_AVAILABLE_PROCESS_ID:
     ret
 
 
-; TODO: test:
 ; Input: nothing
 ; Output:
 ;   HL: addr of process slot, if available
@@ -67,6 +66,33 @@ _GET_NEXT_AVAILABLE_PROCESS_ADDR:
 
     ; if no process slot available return A = 255
     ld      a, 255
+
+    ret
+
+
+
+; Input: nothing
+; Output:
+;   A: number of processes currently opened
+_GET_NUMBER_OF_PROCESSES_OPENED:
+
+    ld      hl, OS.processes
+    ld      de, Process_struct.size
+    ld      b, MAX_PROCESS_ID + 1
+    xor     a ; number of processes counter
+.loop:
+    ld      c, (hl)
+    ; process id = 255 means that this process slot is available
+    inc     c       ; if (C == 255) next
+    jp      z, .next
+
+    ; process found, increment counter
+    inc     a
+
+.next:
+    add     hl, de
+
+    djnz    .loop
 
     ret
 
