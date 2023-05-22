@@ -29,6 +29,8 @@ _LOAD_PROCESS:
             ldir
     pop     hl
 
+
+    ; TODO: use .size_Header instead of .size_without_screenTilesBehind
     ; copy header from source to next empty process slot
     ;ld      hl, ???                                            ; source
     ld      de, (OS.nextAvailableProcessAddr)                   ; destiny

@@ -301,4 +301,32 @@ _DRAW_WINDOW:
 
 
 
+    ; TODO
+    ; call "Draw" event of the process
+
+
+
     ret
+
+
+
+; TODO: test
+
+; Input:
+;   HL = addr of string (0 terminated)
+;   DE = VRAM NAMTBL addr
+_DRAW_STRING:
+    ex      de, hl
+        call    BIOS_SETWRT
+    ex      de, hl
+.loop:
+    ld      a, (hl)
+    or      a
+    ret     z   ; if (char == 0) ret
+
+    add     BASE_INDEX_TILE_FONT ; TODO: check it
+    out     (PORT_0), a
+
+    inc     hl
+
+    jp      .loop

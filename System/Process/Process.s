@@ -112,9 +112,6 @@ _SET_CURRENT_PROCESS:
     ; TODO
     ; place tile on window title to show it is the active window
 
-    ; TODO
-    ; call "Draw" event of the process
-
     ret
 
 

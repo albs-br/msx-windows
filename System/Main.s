@@ -96,7 +96,7 @@ Execute:
     
     call    _DRAW_TASKBAR_CLOCK
 
-.skip:
+  .skip:
     ; -----------------------------------------
 
     ; run current process "Work" event

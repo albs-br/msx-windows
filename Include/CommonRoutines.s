@@ -5,6 +5,8 @@
 ; TODO: this can be MUCH improved by using LDIR to fill a 
 ; range of bytes (e.g. 16 or 256), meaning there is a trade-off between speed and size
 ; PS. 16x 16 bytes LDIR can be a good solution
+; PS 2. use fastLDIR by grauw https://map.grauw.nl/articles/fast_loops.php
+; on this file: Fast_LDIR_Multiples_of_16
 
 ClearRam:
     ld      hl, RamStart        ; RAM start address
@@ -1235,7 +1237,7 @@ JP_DE_S:
 
 ; Input:
 ;   BC: number of repetitions (only multiples of 16!)
-Fast_LDIR_Muliples_of_16:
+Fast_LDIR_Multiples_of_16:
 ; source: https://map.grauw.nl/articles/fast_loops.php
 .loop:
     ldi  ; 16x LDI
@@ -1254,4 +1256,4 @@ Fast_LDIR_Muliples_of_16:
     ldi
     ldi
     ldi
-    jp  pe, .loop  ; Loop until bc = zero
+    jp      pe, .loop  ; Loop until bc = zero

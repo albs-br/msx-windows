@@ -124,8 +124,6 @@ Process_struct:
 .clickAddr:		        rw 1
 .closeAddr:		        rw 1
 
-; .size_Header: equ $ - Process_struct
-
 .ramSize:		        rw 1     ; RAM space reserved for variables of this app
 ; estimated RAM for some apps:
 ; - calc: 2 * 6 bytes (fixed precision 5.1) = 12 bytes
@@ -135,11 +133,14 @@ Process_struct:
 ; - tic tac toe = 9 bytes
 ; - tetris = 10 x 20 playfield = 200 bytes
 
+; .size_Header: equ $ - Process_struct
+
 ; these RAM and VRAM addresses are dinamically defined by OS on app startup
 .ramStartAddr:	        rw 1
 .vramStartTileAddr:	    rw 1
 
-; .layer:					rb 1
+; .layer:					rb 1		; layer means the order in which the windows should be drawn
+										; desktop is drawn first, then window with layer = 0, then layer = 1, and so on
 
 .size_without_screenTilesBehind: equ $ - Process_struct
 
