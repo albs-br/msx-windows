@@ -1,4 +1,5 @@
     INCLUDE "System/Process/LoadProcess.s"
+    INCLUDE "System/Process/SetCurrentProcess.s"
     INCLUDE "System/Process/CloseProcess.s"
 
 
@@ -97,24 +98,6 @@ _GET_NUMBER_OF_PROCESSES_OPENED:
 
 
 ; Input:
-;   HL = addr of process header
-_SET_CURRENT_PROCESS:
-    ; set curr proc to process
-    ld      (OS.currentProcessAddr), hl
-
-    ; ; TODO
-    ; push    hl ; ix = hl
-    ; pop     ix
-    ; call    _DRAW_WINDOW
-
-    ; TODO
-    ; place tile on window title to show it is the active window
-
-    ret
-
-
-
-; Input:
 ;   C = process id
 ; Output
 ;   z = process found
@@ -136,3 +119,72 @@ _GET_PROCESS_BY_ID:
     ld      hl, 0x0000
 
     ret
+
+
+; ------------------------------- logic for ajust layer of processes:
+
+; LoadProcess:
+; get number of current processes and make it the layer number (0-3)
+
+
+; CloseProcess:
+; after removing the process from OS process slots decrease layer number of all processes with layer > L
+
+
+; SetCurrentProcess:
+; 
+; 2
+; 0   <-- new current
+; 3
+; 1
+
+; 1
+; 3
+; 2
+; 0
+
+; ----
+
+; 2
+; 1   <-- new current
+; 0
+; 3
+
+; 1
+; 3
+; 0
+; 2
+
+; set the new current layer to NUMBER_OF_PROCESSES
+; dec layer of all processes with layer > old layer
+
+
+; ; TODO: test:
+
+; Decrease layer of all processes with layer > C
+; Input:
+;   C = layer number
+_ADJUST_LAYER_OF_PROCESSES:
+
+    ld      hl, OS.processes + PROCESS_STRUCT_IX.layer
+    ld      de, Process_struct.size
+    ld      b, MAX_PROCESS_ID + 1
+.loop:
+    ld      a, (hl)
+    cp      0xff
+    jp      z, .next ; if (A == 255) .next
+
+    cp      c
+    jp      c, .next ; if (C > A) .next
+
+    ; if (C <= A) layer --
+    dec     a
+    ld      (hl), a
+
+.next:
+    add     hl, de
+
+    djnz    .loop
+
+    ret
+

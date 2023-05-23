@@ -7,19 +7,30 @@ _CLOSE_PROCESS:
     pop     ix
 
     ; call process.Close event
-    ld      e, (ix + PROCESS_STRUCT_IX.closeAddr)         ; process.Close addr (low)
-    ld      d, (ix + PROCESS_STRUCT_IX.closeAddr + 1)     ; process.Close addr (high)
-    call    JP_DE
+    push    hl
+        ld      e, (ix + PROCESS_STRUCT_IX.closeAddr)         ; process.Close addr (low)
+        ld      d, (ix + PROCESS_STRUCT_IX.closeAddr + 1)     ; process.Close addr (high)
+        call    JP_DE
+    pop     hl
+
+    ; decrease layer number of all processes with layer > this.layer
+    push    hl
+        ld      c, (ix + PROCESS_STRUCT_IX.layer)
+        call    _ADJUST_LAYER_OF_PROCESSES
+    pop     hl
 
 
+    push    hl
+        call    _CLOSE_WINDOW
+    pop     hl
 
-    call    _CLOSE_WINDOW
+
 
 
 
     ;  ------ clear this process slot (fill with 0xff)
     ld      a, 0xff
-    ld      hl, (OS.currentProcessAddr)
+    ; ld      hl, (OS.currentProcessAddr)
     ld      (hl), a
     
     push    hl ; DE = HL
