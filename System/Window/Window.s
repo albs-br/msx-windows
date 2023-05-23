@@ -36,3 +36,22 @@ _CONVERT_COL_LINE_TO_LINEAR:
     ld      l, a
 
     ret
+
+
+; Input:
+;   IX = addr of process header
+; Output:
+;   HL = VRAM NAMTBL addr postition of top left of useful area 
+;        of window (area that the process can use)
+_GET_WINDOW_BASE_NAMTBL:
+
+    ; get variables from process
+    ld      l, (ix + PROCESS_STRUCT_IX.x) ; process.x
+    ld      h, (ix + PROCESS_STRUCT_IX.y) ; process.y
+    
+    call    _CONVERT_COL_LINE_TO_LINEAR
+    
+    ld      bc, NAMTBL + (32 * 2) + 1; two lines below and one column right
+    add     hl, bc
+
+    ret

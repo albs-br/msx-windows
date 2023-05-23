@@ -246,14 +246,14 @@ _DRAW_WINDOW:
 
 
 ; Input:
-;   HL = addr of string (0 terminated)
-;   DE = VRAM NAMTBL addr
+;   DE = addr of string (0 terminated)
+;   HL = VRAM NAMTBL addr
 _DRAW_STRING:
-    ex      de, hl
+    ; ex      de, hl
         call    BIOS_SETWRT
-    ex      de, hl
+    ; ex      de, hl
 .loop:
-    ld      a, (hl)
+    ld      a, (de)
     or      a
     ret     z   ; if (char == 0) ret
 
@@ -261,13 +261,22 @@ _DRAW_STRING:
     ; if (A >= 65 && A <= 91) .textUpperCase
     ; else if (A >= ? && A <= ?) .textLowerCase
     ; else if (A >= ? && A <= ?) .digits
+    
+    ; if (A == 32) .setTileEmpty
+    cp      32
+    jp      z, .setTileEmpty
 
+    ; else
     add     -65 + TILE_FONT_UPPERCASE_A ; 65 = ASCII code for 'A'
 
 
-    
+.continue:
     out     (PORT_0), a
 
-    inc     hl
+    inc     de
 
     jp      .loop
+
+.setTileEmpty:
+    ld      a, TILE_EMPTY
+    jp      .continue
