@@ -13,28 +13,26 @@ _LOAD_PROCESS:
 
     ; clear this process slot (fill with 0xff)
     push    hl
+        ld      a, 0xff
+        ld      hl, (OS.nextAvailableProcessAddr)
+        ld      (hl), a
+        
+        push    hl ; DE = HL
+        pop     de
 
-            ld      a, 0xff
-            ld      hl, (OS.nextAvailableProcessAddr)
-            ld      (hl), a
-            
-            push    hl ; DE = HL
-            pop     de
+        inc     de
 
-            inc     de
-
-            ; ld      hl, ?
-            ; ld      de, ?
-            ld      bc, Process_struct.size - 1
-            ldir
+        ; ld      hl, ?
+        ; ld      de, ?
+        ld      bc, Process_struct.size - 1
+        ldir
     pop     hl
 
 
-    ; TODO: use .size_Header instead of .size_without_screenTilesBehind
     ; copy header from source to next empty process slot
     ;ld      hl, ???                                            ; source
     ld      de, (OS.nextAvailableProcessAddr)                   ; destiny
-    ld      bc, Process_struct.size_without_screenTilesBehind   ; size
+    ld      bc, Process_struct.size_Header                      ; size
     ldir                                                        ; Copy BC bytes from HL to DE
 
     ; set current process to this
@@ -75,15 +73,22 @@ _LOAD_PROCESS:
 
     ; update next empty process slot to the next
     call    _GET_NEXT_AVAILABLE_PROCESS_ADDR
-    inc     a   ; if (A == 255) .maxProcessLimitReached
-    jp      z, .maxProcessLimitReached
+    ; inc     a   ; if (A == 255) .maxProcessLimitReached
+    ; jp      z, .maxProcessLimitReached
     ld      (OS.nextAvailableProcessAddr), hl
 
 
-    ; TODO
-    ; define ramStartAddr and vramStartTileAddr
 
     ld      ix, (OS.currentProcessAddr)
+
+    ; TODO
+    ; define ramStartAddr and vramStartTileAddr
+    
+    ; get number of current processes and make it the layer number (0-3)
+    call    _GET_NUMBER_OF_PROCESSES_OPENED
+    dec     a
+    ld      (ix + PROCESS_STRUCT_IX.layer), a
+
 
     ; set x and y of window and
     ; update OS.nextWindow_x and y to the next
@@ -193,9 +198,9 @@ _LOAD_PROCESS:
 ; .loop:
 ;     ld      a, (hl)
 ;     cp      c
-;     jp      nc, .next ; if (C <= A) .next
+;     jp      c, .next ; if (C > A) .next
 
-;     ; if (C > A) layer --
+;     ; if (C <= A) layer --
 ;     dec     a
 ;     ld      (hl), a
 

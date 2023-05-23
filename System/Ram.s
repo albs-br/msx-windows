@@ -133,16 +133,16 @@ Process_struct:
 ; - tic tac toe = 9 bytes
 ; - tetris = 10 x 20 playfield = 200 bytes
 
-; .size_Header: equ $ - Process_struct
+.size_Header: equ $ - Process_struct
 
 ; these RAM and VRAM addresses are dinamically defined by OS on app startup
 .ramStartAddr:	        rw 1
 .vramStartTileAddr:	    rw 1
 
-; .layer:					rb 1		; layer means the order in which the windows should be drawn
+.layer:					rb 1		; layer means the order in which the windows should be drawn
 										; desktop is drawn first, then window with layer = 0, then layer = 1, and so on
 
-.size_without_screenTilesBehind: equ $ - Process_struct
+; .size_without_screenTilesBehind: equ $ - Process_struct
 
 .screenTilesBehind:	    rb 32*24 ; TODO: this can be 32*22, excluding Taskbar
 
@@ -174,7 +174,7 @@ PROCESS_STRUCT_IX:
 
 ; TODO: other properties
 
-; .layer:					equ Process_struct.layer    	- Process_struct
+.layer:					equ Process_struct.layer    	- Process_struct
 
 .screenTilesBehind:	    equ Process_struct.screenTilesBehind   - Process_struct
 

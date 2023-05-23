@@ -8,16 +8,19 @@ ram_watch   add     0xC018      -type byte       -desc currTimeHour     -format 
 
 
 ram_watch   add     0xC32d      -type byte       -desc p0_id      -format hex
-ram_watch   add     50776       -type byte       -desc p1_id      -format hex
-ram_watch   add     51587       -type byte       -desc p2_id      -format hex
-ram_watch   add     52398       -type byte       -desc p3_id      -format hex
+ram_watch   add     0xC659      -type byte       -desc p1_id      -format hex
+ram_watch   add     0xC985      -type byte       -desc p2_id      -format hex
+ram_watch   add     0xCCB1      -type byte       -desc p3_id      -format hex
 
+ram_watch   add     50008      -type byte       -desc _p0_layer      -format hex
+ram_watch   add     50820      -type byte       -desc _p1_layer      -format hex
+ram_watch   add     51632      -type byte       -desc _p2_layer      -format hex
+ram_watch   add     52444      -type byte       -desc _p3_layer      -format hex
 
 # ram_watch   add     0xC356      -type byte       -desc p0_scrTilesBehind      -format hex
 
-ram_watch   add     0xd304      -type byte       -desc Temp     -format hex
+ram_watch   add     0xd309      -type byte       -desc Temp     -format hex
 
-# Temp: equ 0D304h ; last def. pass 3
 
 ram_watch   add     0xC326      -type byte       -desc currTileMouseOver     -format hex
 

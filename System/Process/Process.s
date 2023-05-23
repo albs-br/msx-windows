@@ -46,9 +46,7 @@ _GET_NEXT_AVAILABLE_PROCESS_ID:
 
 ; Input: nothing
 ; Output:
-;   HL: addr of process slot, if available
-;   A = 0, process slot found
-;   A = 255, no process slot available
+;   HL: addr of process slot, if available, HL = 0xffff if no process slot available
 _GET_NEXT_AVAILABLE_PROCESS_ADDR:
 
     ld      hl, OS.processes
@@ -64,8 +62,8 @@ _GET_NEXT_AVAILABLE_PROCESS_ADDR:
 
     djnz    .loop
 
-    ; if no process slot available return A = 255
-    ld      a, 255
+    ; if no process slot available return HL = 0xffff
+    ld      hl, 0xffff
 
     ret
 

@@ -38,8 +38,8 @@ _CLOSE_PROCESS:
     
     ; set nextAvailableProcessAddr
     call    _GET_NEXT_AVAILABLE_PROCESS_ADDR
-    inc     a   ; if (A == 255) .maxProcessLimitReached
-    jp      z, .maxProcessLimitReached ; OBS: it isn't really necessary here, as one process was just closed
+    ; inc     a   ; if (A == 255) .maxProcessLimitReached
+    ; jp      z, .maxProcessLimitReached ; OBS: it isn't really necessary here, as one process was just closed
     ld      (OS.nextAvailableProcessAddr), hl
 
 

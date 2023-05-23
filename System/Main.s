@@ -46,19 +46,27 @@ Execute:
 
     call    _INIT
 
-    ; DEBUG
-    ld      hl, Notepad.Header
-    call    _LOAD_PROCESS
+    ; ; DEBUG
+    ; ld      hl, Notepad.Header
+    ; call    _LOAD_PROCESS
 
-    ; DEBUG
-    ld      hl, Calc.Header
-    call    _LOAD_PROCESS
+    ; ; DEBUG
+    ; ld      hl, Calc.Header
+    ; call    _LOAD_PROCESS
 
-    ; debug 
-    ; set curr proc to process on first slot
-    ld      hl, OS.process_slot_1
-    ;ld      (OS.currentProcessAddr), hl
-    call    _SET_CURRENT_PROCESS
+    ; ; DEBUG
+    ; ld      hl, Calc.Header
+    ; call    _LOAD_PROCESS
+
+    ; ; DEBUG
+    ; ld      hl, Calc.Header
+    ; call    _LOAD_PROCESS
+
+    ; ; debug 
+    ; ; set curr proc to process on first slot
+    ; ld      hl, OS.process_slot_1
+    ; ;ld      (OS.currentProcessAddr), hl
+    ; call    _SET_CURRENT_PROCESS
     
     ; ; DEBUG
     ; ; ld      hl, (OS.currentProcessAddr)
