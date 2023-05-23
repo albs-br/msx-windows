@@ -233,16 +233,17 @@ _DRAW_WINDOW:
 
 
 
-    ; TODO
     ; call "Draw" event of the process
+    ; ld      ix, (OS.currentProcessAddr)
+    ld      e, (ix + PROCESS_STRUCT_IX.drawAddr)         ; process.Draw addr (low)
+    ld      d, (ix + PROCESS_STRUCT_IX.drawAddr + 1)     ; process.Draw addr (high)
+    call    JP_DE
 
 
 
     ret
 
 
-
-; TODO: test
 
 ; Input:
 ;   HL = addr of string (0 terminated)
@@ -256,7 +257,15 @@ _DRAW_STRING:
     or      a
     ret     z   ; if (char == 0) ret
 
-    add     BASE_INDEX_TILE_FONT ; TODO: check it
+    ; TODO:
+    ; if (A >= 65 && A <= 91) .textUpperCase
+    ; else if (A >= ? && A <= ?) .textLowerCase
+    ; else if (A >= ? && A <= ?) .digits
+
+    add     -65 + TILE_FONT_UPPERCASE_A ; 65 = ASCII code for 'A'
+
+
+    
     out     (PORT_0), a
 
     inc     hl

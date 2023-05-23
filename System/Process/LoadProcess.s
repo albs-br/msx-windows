@@ -92,15 +92,15 @@ _LOAD_PROCESS:
 
     ; set x and y of window and
     ; update OS.nextWindow_x and y to the next
-    ; ld      a, (OS.nextWindow_x)
-    ; ld      (ix + PROCESS_STRUCT_IX.x), a
-    ; add     2
-    ; ld      (OS.nextWindow_x), a
+    ld      a, (OS.nextWindow_x)
+    ld      (ix + PROCESS_STRUCT_IX.x), a
+    add     2
+    ld      (OS.nextWindow_x), a
 
-    ; ld      a, (OS.nextWindow_y)
-    ; ld      (ix + PROCESS_STRUCT_IX.y), a
-    ; add     2
-    ; ld      (OS.nextWindow_y), a
+    ld      a, (OS.nextWindow_y)
+    ld      (ix + PROCESS_STRUCT_IX.y), a
+    add     2
+    ld      (OS.nextWindow_y), a
 
 
     ; ld      ix, (OS.currentProcessAddr)

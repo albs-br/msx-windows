@@ -11,14 +11,14 @@
     ld      bc, NAMTBL + (32 * 5) + 1 ; 5 lines below and one column right
     add     hl, bc
 
-    ; debug
-    ; write a test char (units of seconds from system time)
-    call    BIOS_SETWRT
-    ld      a, (OS.currentTime_Seconds)
-    and     0000 1111 b     ; get only low nibble (0-10 in BCD)
+    ; ; debug
+    ; ; write a test char (units of seconds from system time)
+    ; call    BIOS_SETWRT
+    ; ld      a, (OS.currentTime_Seconds)
+    ; and     0000 1111 b     ; get only low nibble (0-10 in BCD)
 
-    ld      b, TILE_FONT_NUMBERS_0 + 0
-    add     b
-    out     (PORT_0), a
+    ; ld      b, TILE_FONT_NUMBERS_0 + 0
+    ; add     b
+    ; out     (PORT_0), a
 
     ret

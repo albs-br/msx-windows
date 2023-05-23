@@ -49,10 +49,10 @@ _SET_CURRENT_PROCESS:
         call    _UPDATE_SCREEN_MAPPING
     pop     hl
 
-    ; ; TODO
-    ; push    hl ; ix = hl
-    ; pop     ix
-    ; call    _DRAW_WINDOW
+    ; TODO
+    push    hl ; ix = hl
+    pop     ix
+    call    _DRAW_WINDOW
 
     ; TODO
     ; place tile on window title to show it is the active window
