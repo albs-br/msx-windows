@@ -27,24 +27,30 @@ _CLOSE_PROCESS:
 
 
 
+    push    hl
+        ;  ------ clear this process slot (fill with 0xff)
+        ld      a, 0xff
+        ; ld      hl, (OS.currentProcessAddr)
+        ld      (hl), a
+        
+        push    hl ; DE = HL
+        pop     de
 
-    ;  ------ clear this process slot (fill with 0xff)
-    ld      a, 0xff
-    ; ld      hl, (OS.currentProcessAddr)
-    ld      (hl), a
-    
-    push    hl ; DE = HL
-    pop     de
+        inc     de
 
-    inc     de
+        ; ld      hl, ?
+        ; ld      de, ?
+        ld      bc, Process_struct.size - 1
 
-    ; ld      hl, ?
-    ; ld      de, ?
-    ld      bc, Process_struct.size - 1
+        ldir
+        ; -------
+    pop     hl
 
-    ldir
-    ; -------
 
+
+    ; push    hl
+        call    _UPDATE_SCREEN_MAPPING
+    ; pop     hl
 
     
     ; set nextAvailableProcessAddr

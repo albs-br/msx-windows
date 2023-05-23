@@ -61,29 +61,11 @@ _INIT_RAM:
     ld      a, 6
     ld      (OS.nextWindow_y), a
 
-    ; TODO: use LDIR (faster)
-    ; ------- init OS.screenMapping
-    ld      hl, OS.screenMapping
-    ld      bc, 32 * 22             ; size of desktop (22 lines)
-.loop_1:
-    ld      a, SCREEN_MAPPING_DESKTOP ; 255
-    ld      (hl), a
-    
-    inc     hl
-    
-    dec     bc
-    ld      a, c
-    or      b
-    jp      nz, .loop_1
 
 
-    ld      a, SCREEN_MAPPING_TASKBAR ; 254
-    ld      b, 32 * 2                   ; size of taskbar (2 last lines)
-.loop_2:
-    ld      (hl), a
-    inc     hl
-    djnz    .loop_2
-    ; -------
+    call    _INIT_SCREEN_MAPPING
+
+
 
     ret
 

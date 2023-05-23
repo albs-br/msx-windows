@@ -11,75 +11,7 @@ _DRAW_WINDOW:
     
     ; update OS.screenMapping
     push    hl
-        ex      de, hl
-        ld      hl, OS.screenMapping
-        add     hl, de
-        
-        ld      de, 32 ; next line
-
-        ; fill all window area
-        push    hl
-            ld      c, (ix + PROCESS_STRUCT_IX.height) ; process.height
-        .outerLoop_1:
-                push    hl
-                    ld      b, (ix + PROCESS_STRUCT_IX.width) ; process.width
-                .loop_20:
-                    
-                    ; set value of SCREEN_MAPPING_WINDOWS + process id
-                    ld      a, (ix + PROCESS_STRUCT_IX.processId)
-                    or      SCREEN_MAPPING_WINDOWS
-                    
-                    ld      (hl), a
-                    inc     hl
-                    djnz    .loop_20
-                pop     hl
-
-            add     hl, de
-            dec     c
-            jp      nz, .outerLoop_1
-        pop     hl
-
-        ; set value of SCREEN_MAPPING_WINDOWS_TITLE_BAR + process id
-        ld      a, (ix + PROCESS_STRUCT_IX.processId)
-        or      SCREEN_MAPPING_WINDOWS_TITLE_BAR
-        ld      c, a
-
-        ; title 1st line
-        push    hl
-            ld      b, (ix + PROCESS_STRUCT_IX.width) ; process.width
-        .loop_21:
-            ld      (hl), c
-            inc     hl
-            djnz    .loop_21
-        pop     hl
-        ; title 2nd line
-        add     hl, de ; go to next line
-        push    hl
-            ld      a, (ix + PROCESS_STRUCT_IX.width) ; process.width
-            sub     4 ; process.width - 4
-            ld      b, a
-        .loop_22:
-            ld      (hl), c
-            inc     hl
-            djnz    .loop_22
-
-            ld      a, (ix + PROCESS_STRUCT_IX.processId)
-            or      SCREEN_MAPPING_WINDOWS_MINIMIZE_BUTTON
-            ld      (hl), a
-            inc     hl
-
-            ld      a, (ix + PROCESS_STRUCT_IX.processId)
-            or      SCREEN_MAPPING_WINDOWS_MAXIMIZE_RESTORE_BUTTON
-            ld      (hl), a
-            inc     hl
-
-            ld      a, (ix + PROCESS_STRUCT_IX.processId)
-            or      SCREEN_MAPPING_WINDOWS_CLOSE_BUTTON
-            ld      (hl), a
-            inc     hl
-
-        pop     hl
-
+        call    _UPDATE_SCREEN_MAPPING_WINDOW
     pop     hl
 
     ; set HL to NAMTBL position of window top left

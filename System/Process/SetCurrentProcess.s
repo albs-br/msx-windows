@@ -45,6 +45,10 @@ _SET_CURRENT_PROCESS:
         ld      (ix + PROCESS_STRUCT_IX.layer), a
     pop     hl
 
+    push    hl
+        call    _UPDATE_SCREEN_MAPPING
+    pop     hl
+
     ; ; TODO
     ; push    hl ; ix = hl
     ; pop     ix

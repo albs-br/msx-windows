@@ -72,7 +72,7 @@ OS:
 ; 4 lower bits (0-15): process id
 .screenMapping: 	    rb 32*24
 .currentTileMouseOver:  rb 1            ; stores value of current mouse position in OS.screenMapping 
-                                        ; to avoid being calclated more than once
+                                        ; to avoid being calculated more than once
 .nextWindow_x:         rb 1
 .nextWindow_y:         rb 1
 
