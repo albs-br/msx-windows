@@ -1,6 +1,9 @@
 ; Input
 ;   IX = addr of process header
 _DRAW_WINDOW:
+
+    call    Wait_Vblank
+
     ; info: 9918 needs 29 cycles apart from each OUT
     
     ; get variables from process
@@ -9,58 +12,16 @@ _DRAW_WINDOW:
     
     call    _CONVERT_COL_LINE_TO_LINEAR
     
-    ; update OS.screenMapping
-    push    hl
-        call    _UPDATE_SCREEN_MAPPING_WINDOW
-    pop     hl
+    ; ; update OS.screenMapping
+    ; push    hl
+    ;     call    _UPDATE_SCREEN_MAPPING_WINDOW
+    ; pop     hl
 
     ; set HL to NAMTBL position of window top left
     ld      bc, NAMTBL
     add     hl, bc
 
 
-    ; update process.screenTilesBehind
-    push    hl
-        ; ld      e, (ix + PROCESS_STRUCT_IX.screenTilesBehind)       ; process.screenTilesBehind
-        ; ld      d, (ix + PROCESS_STRUCT_IX.screenTilesBehind + 1)   ; process.screenTilesBehind + 1
-
-        ; DE = IX
-        push    ix
-        pop     de
-
-        ; DE += PROCESS_STRUCT_IX.screenTilesBehind
-        ex      de, hl
-            ld      bc, PROCESS_STRUCT_IX.screenTilesBehind
-            add     hl, bc
-        ex      de, hl
-
-        ; outer loop (process.height)
-        ld      c, (ix + PROCESS_STRUCT_IX.height)
-    .outerLoop_2:
-        
-            call    BIOS_SETRD
-
-            ; inner loop (process.width)
-            ld      b, (ix + PROCESS_STRUCT_IX.width)
-        .innerLoop_2:
-
-                ; read tile from VRAM pointed by HL
-                in      a, (PORT_0)
-
-                ; write to RAM pointed by DE
-                ld      (de), a
-                inc     de
-            
-            djnz    .innerLoop_2
-
-            push    bc
-                ld      bc, 32
-                add     hl, bc 
-            pop     bc
-
-        dec     c
-        jp      nz, .outerLoop_2
-    pop     hl
 
     ; --------------- draw window title bar -----------------------
     
@@ -280,3 +241,120 @@ _DRAW_STRING:
 .setTileEmpty:
     ld      a, TILE_EMPTY
     jp      .continue
+
+; ---------------------------------
+
+; _RESTORE_TILES_BEHIND_WINDOW:
+
+;     ; restore tiles behind the window
+;     ; push    hl
+
+;         ; IX = HL
+;         push    hl
+;         pop     ix
+
+;         ld      l, (ix + PROCESS_STRUCT_IX.x) ; process.x
+;         ld      h, (ix + PROCESS_STRUCT_IX.y) ; process.y
+        
+;         call    _CONVERT_COL_LINE_TO_LINEAR
+
+;         ; set HL to NAMTBL position of window top left
+;         ld      bc, NAMTBL
+;         add     hl, bc
+
+;         ; DE = IX
+;         push    ix
+;         pop     de
+
+;         ; DE += PROCESS_STRUCT_IX.screenTilesBehind
+;         ex      de, hl
+;             ld      bc, PROCESS_STRUCT_IX.screenTilesBehind
+;             add     hl, bc
+;         ex      de, hl
+
+;         ; outer loop (process.height)
+;         ld      c, (ix + PROCESS_STRUCT_IX.height)
+;     .outerLoop_2:
+        
+;             call    BIOS_SETWRT
+
+;             ; inner loop (process.width)
+;             ld      b, (ix + PROCESS_STRUCT_IX.width)
+;         .innerLoop_2:
+
+;                 ; read tile from RAM pointed by DE
+;                 ld      a, (de)
+;                 inc     de
+            
+;                 ; write tile to VRAM pointed by HL
+;                 out      (PORT_0), a
+
+;             djnz    .innerLoop_2
+
+;             push    bc
+;                 ld      bc, 32
+;                 add     hl, bc 
+;             pop     bc
+
+;         dec     c
+;         jp      nz, .outerLoop_2
+;     ; pop     hl
+
+;     ret
+
+
+
+; UPDATE_TILES_BEHIND_WINDOW:
+
+
+;         ; get variables from process
+;         ld      l, (ix + PROCESS_STRUCT_IX.x) ; process.x
+;         ld      h, (ix + PROCESS_STRUCT_IX.y) ; process.y
+        
+;         call    _CONVERT_COL_LINE_TO_LINEAR
+        
+;         ; set HL to NAMTBL position of window top left
+;         ld      bc, NAMTBL
+;         add     hl, bc
+
+;         ; ld      e, (ix + PROCESS_STRUCT_IX.screenTilesBehind)       ; process.screenTilesBehind
+;         ; ld      d, (ix + PROCESS_STRUCT_IX.screenTilesBehind + 1)   ; process.screenTilesBehind + 1
+
+;         ; DE = IX
+;         push    ix
+;         pop     de
+
+;         ; DE += PROCESS_STRUCT_IX.screenTilesBehind
+;         ex      de, hl
+;             ld      bc, PROCESS_STRUCT_IX.screenTilesBehind
+;             add     hl, bc
+;         ex      de, hl
+
+;         ; outer loop (process.height)
+;         ld      c, (ix + PROCESS_STRUCT_IX.height)
+;     .outerLoop_2:
+        
+;             call    BIOS_SETRD
+
+;             ; inner loop (process.width)
+;             ld      b, (ix + PROCESS_STRUCT_IX.width)
+;         .innerLoop_2:
+
+;                 ; read tile from VRAM pointed by HL
+;                 in      a, (PORT_0)
+
+;                 ; write to RAM pointed by DE
+;                 ld      (de), a
+;                 inc     de
+            
+;             djnz    .innerLoop_2
+
+;             push    bc
+;                 ld      bc, 32
+;                 add     hl, bc 
+;             pop     bc
+
+;         dec     c
+;         jp      nz, .outerLoop_2
+
+;     ret

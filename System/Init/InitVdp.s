@@ -79,22 +79,22 @@ _INIT_VDP:
     ; ld		bc, NAMTBL_INIT.size	; Block length
     ; call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
 
-    ; DEBUG
-    ; load NAMTBL (1st)
-    ld		hl, NAMTBL_TEST        ; RAM address (source)
-    ld		de, NAMTBL		        ; VRAM address (destiny)
-    ld		bc, NAMTBL_TEST.size	; Block length
-    call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
-    ; load NAMTBL (2nd)
-    ld		hl, NAMTBL_TEST        ; RAM address (source)
-    ld		de, NAMTBL + 256		        ; VRAM address (destiny)
-    ld		bc, NAMTBL_TEST.size	; Block length
-    call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
-    ; load NAMTBL (3rd)
-    ld		hl, NAMTBL_TEST        ; RAM address (source)
-    ld		de, NAMTBL + 512		        ; VRAM address (destiny)
-    ld		bc, NAMTBL_TEST.size	; Block length
-    call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
+    ; ; DEBUG
+    ; ; load NAMTBL (1st)
+    ; ld		hl, NAMTBL_TEST        ; RAM address (source)
+    ; ld		de, NAMTBL		        ; VRAM address (destiny)
+    ; ld		bc, NAMTBL_TEST.size	; Block length
+    ; call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
+    ; ; load NAMTBL (2nd)
+    ; ld		hl, NAMTBL_TEST        ; RAM address (source)
+    ; ld		de, NAMTBL + 256		        ; VRAM address (destiny)
+    ; ld		bc, NAMTBL_TEST.size	; Block length
+    ; call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
+    ; ; load NAMTBL (3rd)
+    ; ld		hl, NAMTBL_TEST        ; RAM address (source)
+    ; ld		de, NAMTBL + 512		        ; VRAM address (destiny)
+    ; ld		bc, NAMTBL_TEST.size	; Block length
+    ; call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
 
     ; load SPRPAT
     ld		hl, SPRITE_PATTERNS         ; RAM address (source)

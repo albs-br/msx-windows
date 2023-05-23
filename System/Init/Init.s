@@ -18,8 +18,7 @@ _INIT:
 
     call    _INIT_INTERRUPT
 
-    ; TODO:
-    ; call    _DRAW_DESKTOP
+    call    _DRAW_DESKTOP
     call    _DRAW_TASKBAR
 
     ret

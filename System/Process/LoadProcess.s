@@ -101,10 +101,19 @@ _LOAD_PROCESS:
     ld      (ix + PROCESS_STRUCT_IX.y), a
     add     2
     ld      (OS.nextWindow_y), a
+    cp      12
+    call    nc, .resetNextWindow_XY ; if (A >= 10) .resetNextWindow_XY
 
 
+    ; ; update process.screenTilesBehind
     ; ld      ix, (OS.currentProcessAddr)
-    call    _DRAW_WINDOW
+    ; call    UPDATE_TILES_BEHIND_WINDOW
+    
+    ; ld      ix, (OS.currentProcessAddr)
+    ; call    _DRAW_WINDOW
+
+
+    call    _UPDATE_SCREEN_MAPPING
 
     ; call process.Open event
     ; ld      hl, (OS.currentProcessAddr)
@@ -147,5 +156,10 @@ _LOAD_PROCESS:
 
     ret
 
+.resetNextWindow_XY:
+    xor     a
+    ld      (OS.nextWindow_x), a
+    ld      (OS.nextWindow_y), a
 
+    ret
 

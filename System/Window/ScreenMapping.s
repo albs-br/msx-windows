@@ -1,9 +1,18 @@
 _UPDATE_SCREEN_MAPPING:
 
+
+    ; ; debug
+    ; ld a, 0
+    ; ld (Temp), a
+
+    ; call    Wait_Vblank
+
+    call    _DRAW_DESKTOP
+
+
+
     ; init screen mapping with desktop and taskbar
     call    _INIT_SCREEN_MAPPING
-
-
 
     ; loop through running processes ordered by layer number
     ; updating screenmapping with window info
@@ -38,6 +47,12 @@ _UPDATE_SCREEN_MAPPING:
     ; ret
 
 .execute:
+
+    ; push hl
+    ;   ld hl, Temp
+    ;   inc (hl)
+    ; pop hl
+
     ; return HL to start of process
     ld      de, PROCESS_STRUCT_IX.layer
     xor     a ; clear carry
@@ -54,6 +69,9 @@ _UPDATE_SCREEN_MAPPING:
     call    _CONVERT_COL_LINE_TO_LINEAR
 
     call    _UPDATE_SCREEN_MAPPING_WINDOW
+
+    ; test
+    call    _DRAW_WINDOW
 
     ret
 

@@ -1,3 +1,19 @@
+_DRAW_DESKTOP:
+
+    ld      hl, NAMTBL
+    call    BIOS_SETWRT
+    ld      bc, 32 * 22
+.loop:
+    ld      a, TILE_EMPTY
+    out     (PORT_0), a
+    dec     bc
+    ld      a, c
+    or      b
+    jp      nz, .loop
+
+
+    ret
+
 _DRAW_TASKBAR:
 
 ;     ld      hl, OS.mouseSpriteAttributes

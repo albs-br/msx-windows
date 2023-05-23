@@ -1,5 +1,7 @@
 _MOUSE_CLICK:
 
+    ; TODO: get only transition of click
+
     ld      a, (OS.mouseButton_1)
     or      a
     ret     z
@@ -39,6 +41,17 @@ _MOUSE_CLICK:
 ; ---------------------------------------
 
 .click_Window:
+
+    push    bc
+        ; debug
+        ld      b, 5
+        .test:
+            push    bc
+                call    BIOS_BEEP
+            pop bc
+        djnz .test
+    pop     bc
+
     call    _GET_PROCESS_BY_ID
     call    z, _SET_CURRENT_PROCESS
     ret     nz
