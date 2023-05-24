@@ -103,6 +103,8 @@ _LOAD_PROCESS:
     ld      (OS.nextWindow_y), a
     cp      12
     call    nc, .resetNextWindow_XY ; if (A >= 10) .resetNextWindow_XY
+    ; TODO:
+    ; check if (x + width) or (y + height) exceeds screen limits
 
 
     ; ; update process.screenTilesBehind

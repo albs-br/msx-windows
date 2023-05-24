@@ -21,11 +21,11 @@ GTMOUS:
 
     ; get mouse buttons (IXH = button 1, IXL = button 2)
     ld      ix, 0
-    bit     5, a
+    bit     4, a
     jp      nz, .mouseButton_1_NotClicked
     ld      ixh, 1
 .mouseButton_1_NotClicked:
-    bit     4, a
+    bit     5, a
     jp      nz, .mouseButton_2_NotClicked
     ld      ixl, 1
 .mouseButton_2_NotClicked:

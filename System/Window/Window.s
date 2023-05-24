@@ -54,4 +54,30 @@ _GET_WINDOW_BASE_NAMTBL:
     ld      bc, NAMTBL + (32 * 2) + 1; two lines below and one column right
     add     hl, bc
 
+    ; TODO
+    ; if maximized, the position is NAMTBL + 32,
+    ; as maximized windows has no borders
+    ; and title is just one tile tall
+
+    ret
+
+
+; Input:
+;   IX = addr of process header
+; Output:
+;   HL = VRAM NAMTBL addr postition of top left of window (title)
+_GET_WINDOW_TITLE_BASE_NAMTBL:
+
+    ; get variables from process
+    ld      l, (ix + PROCESS_STRUCT_IX.x) ; process.x
+    ld      h, (ix + PROCESS_STRUCT_IX.y) ; process.y
+    
+    call    _CONVERT_COL_LINE_TO_LINEAR
+    
+    ld      bc, NAMTBL
+    add     hl, bc
+
+    ; TODO
+    ; if maximized, the position is simply NAMTBL
+
     ret

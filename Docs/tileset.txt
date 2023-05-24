@@ -57,9 +57,13 @@ bomb red)
 
 total: 11
 
+------- 
+paint:
+16 tiles for 2x2 px per tile
+(all empty and all filled already exists, so is needed 14 tiles)
 
 --------
 
 tiles reserved for apps:
 12 per app
-6 apps = 72
+4 apps = 48

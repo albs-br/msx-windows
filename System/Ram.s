@@ -1,16 +1,16 @@
 ; ------------------- RAM usage
 
 ; OS variables                                     810 bytes
-; process slots                 4 * 811 bytes =   3244 bytes
+; process slots                 4 * (812 - 768) bytes =  4 * 44 = 176 bytes
 ; process variables space       4 * ? bytes =        ? bytes
 
 ; start of RAM: 0xc000 (49152)
 ; end of RAM: 0xF380 (62336)  [ or 0xe5ff (58879) ? ]
 
-; 49152 - 810 - 3244 = 53206
+; 49152 - 810 - 176 = 48166
 
-; 62336 - 53206 = 9130 bytes for apps variables
-; 58879 - 53206 = 5673 bytes for apps variables
+; 62336 - 48166 = 14170 bytes for app variables
+; 58879 - 48166 = 10713 bytes for app variables
 
 ; BIOS variables:
 	; BOTTOM:   equ $fc48 ; Address of the beginning of the available RAM area
@@ -145,9 +145,8 @@ Process_struct:
 .layer:					rb 1		; layer means the order in which the windows should be drawn
 										; desktop is drawn first, then window with layer = 0, then layer = 1, and so on
 
-; .size_without_screenTilesBehind: equ $ - Process_struct
-
-.screenTilesBehind:	    rb 32*24 ; TODO: this can be 32*22, excluding Taskbar
+; TODO: remove it
+.screenTilesBehind:	    rb 32*24
 
 .size: equ $ - Process_struct
 
