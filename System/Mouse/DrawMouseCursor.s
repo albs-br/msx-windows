@@ -1,58 +1,62 @@
 _DRAW_MOUSE_CURSOR:
 
-    ; ; TODO: fix Y+1 bug of TMS 9918
-    ; ld      hl, SPRATR
-    ; call    BIOS_SETWRT
-    ; ld      c, PORT_0
-    ; ld      hl, OS.mouseSpriteAttributes
-
-    ; dec     (hl)
-    ; outi        ; .mouseY:		        
-
-    ; nop
-    ; nop
-    ; nop
-    ; outi        ; .mouseX:		        
-
-    ; nop
-    ; nop
-    ; nop
-    ; outi        ; .mousePattern:	        
-
-    ; nop
-    ; nop
-    ; nop
-    ; outi        ; .mouseColor:	        
-
-    ; dec     (hl)
-    ; outi        ; .mouseY_1:		        
-
-    ; nop
-    ; nop
-    ; nop
-    ; outi        ; .mouseX_1:		        
-
-    ; nop
-    ; nop
-    ; nop
-    ; outi        ; .mousePattern_1:	    
-
-    ; nop
-    ; nop
-    ; nop
-    ; outi        ; .mouseColor_1:	        
-
-
-
-    ; update mouse cursor sprites
+    
     ld      hl, SPRATR
     call    BIOS_SETWRT
-    ld      hl, OS.mouseSpriteAttributes
     ld      c, PORT_0
-    ld      b, 8
-.loop_1:
-    outi
-    jp      nz, .loop_1 ; this uses exactly 29 cycles (t-states)
+    ld      hl, OS.mouseSpriteAttributes
+
+    ld      a, (hl) ; fix Y+1 bug of TMS 9918
+    dec     a
+    inc     hl
+    out     (c), a        ; .mouseY:		        
+
+    nop
+    nop
+    nop
+    outi        ; .mouseX:		        
+
+    nop
+    nop
+    nop
+    outi        ; .mousePattern:	        
+
+    nop
+    nop
+    nop
+    outi        ; .mouseColor:	        
+
+    ld      a, (hl) ; fix Y+1 bug of TMS 9918
+    dec     a
+    inc     hl
+    out     (c), a        ; .mouseY_1:
+
+    nop
+    nop
+    nop
+    outi        ; .mouseX_1:		        
+
+    nop
+    nop
+    nop
+    outi        ; .mousePattern_1:	    
+
+    nop
+    nop
+    nop
+    outi        ; .mouseColor_1:	        
+
+
+
+;     ; update mouse cursor sprites
+;     ld      hl, SPRATR
+;     call    BIOS_SETWRT
+;     ld      hl, OS.mouseSpriteAttributes
+;     ld      c, PORT_0
+;     ld      b, 8
+; .loop_1:
+;     outi
+;     jp      nz, .loop_1 ; this uses exactly 29 cycles (t-states)
 
     nop
     nop
