@@ -11,6 +11,9 @@ _DRAW_MOUSE_CURSOR:
     inc     hl
     out     (c), a        ; .mouseY:		        
 
+    ; TODO: this can be improved a bit (11 cycles instead of 15)
+    ; jp      $ + 3    ; 11 cycles
+    ; ld      de, 0x0000  ; 11 cycles
     nop
     nop
     nop

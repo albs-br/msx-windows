@@ -91,6 +91,7 @@ Execute:
     ; --- mouse events
     call    _DRAW_MOUSE_CURSOR
     call    _MOUSE_CLICK
+    call    _MOUSE_OVER
 
     
     call    _READ_KEYBOARD
