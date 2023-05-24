@@ -1,0 +1,19 @@
+    ; info: 9918 needs 29 cycles apart from each OUT
+
+    ; There are 262 lines on NTSC and 313 lines on PAL. 
+    ; Each line takes exactly 228 CPU cycles if the VDP and CPU are clocked by the same clock crystal. 
+    ; Consequently, a frame takes 262 × 228 = 59736 CPU cycles on NTSC and 313 × 228 = 71364 CPU cycles on PAL. 
+    ; The precise display frequency is therefore 59.92 Hz on NTSC and 50.16 Hz on PAL.
+
+    ; You can find the specification of this in appendix section 7 of the V9938 application manual and in section 3.6 of the TMS9918 application manual.
+
+    ; Finally, during vertical blanking or when the screen is disabled, there is no speed limit. 
+    ; This applies to both the TMS9918 and the V9938. When you intend to exploit this fact, please
+    ; be aware that at 60Hz, the vertical blanking period is shorter than at 50Hz. Test your code on both European and Japanese machines.
+
+    ; outi = 18 cycles on MSX
+    ; 32 x 22 = 704
+    ; 704 * 18 = 12672 cycles
+
+    ; VBLANK = 262 - 192 = 70 lines
+    ; 70 * 228 cycles = 15960 cycles

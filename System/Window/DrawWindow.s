@@ -2,9 +2,10 @@
 ;   IX = addr of process header
 _DRAW_WINDOW:
 
-    call    Wait_Vblank
+    ;call    Wait_Vblank
 
-    ; info: 9918 needs 29 cycles apart from each OUT
+
+    
     
     ; get variables from process
     ld      l, (ix + PROCESS_STRUCT_IX.x) ; process.x

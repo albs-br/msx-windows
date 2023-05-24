@@ -1,11 +1,18 @@
+; Input: nothing
+; Output: nothing
 _UPDATE_SCREEN_MAPPING:
+
+    ; TODO
+    ; to improve usability (avoid window flickering):
+    ; do all the below work on a RAM buffer (32*22 = 704 bytes)
+    ; and then spit it out to screen on vblank
 
 
     ; ; debug
     ; ld a, 0
     ; ld (Temp), a
 
-    ; call    Wait_Vblank
+    call    Wait_Vblank
 
     call    _DRAW_DESKTOP
 
@@ -48,11 +55,6 @@ _UPDATE_SCREEN_MAPPING:
 
 .execute:
 
-    ; push hl
-    ;   ld hl, Temp
-    ;   inc (hl)
-    ; pop hl
-
     ; return HL to start of process
     ld      de, PROCESS_STRUCT_IX.layer
     xor     a ; clear carry
@@ -70,7 +72,6 @@ _UPDATE_SCREEN_MAPPING:
 
     call    _UPDATE_SCREEN_MAPPING_WINDOW
 
-    ; test
     call    _DRAW_WINDOW
 
     ret

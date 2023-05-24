@@ -1,10 +1,25 @@
 _MOUSE_CLICK:
 
-    ; TODO: get only transition of click
+    ; ----- get only positive transition of click
 
-    ld      a, (OS.mouseButton_1)
+    ld      a, (OS.mouseButton_1) ; check if button is pressed
+    ld      b, a
     or      a
-    ret     z
+    jp      z, .return ; ret     z
+
+
+    ld      a, (OS.oldMouseButton_1) ; check if button was previously released
+    or      a
+    jp      nz, .return ; ret     nz
+
+
+    ; update old mouse button state
+    ld      a, b
+    ld      (OS.oldMouseButton_1), a
+
+;    ret     nz    
+
+    ; ----- 
 
     ; get screenMapping value under mouse cursor
     ld      a, (OS.currentTileMouseOver)
@@ -36,6 +51,12 @@ _MOUSE_CLICK:
     cp      SCREEN_MAPPING_WINDOWS_CLOSE_BUTTON
     jp      z, .click_WindowCloseButton
 
+    ret
+
+.return:
+    ; update old mouse button state
+    ld      a, b
+    ld      (OS.oldMouseButton_1), a
     ret
 
 ; ---------------------------------------

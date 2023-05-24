@@ -38,6 +38,9 @@ OS:
 .mouseButton_1:         rb 1
 .mouseButton_2:         rb 1
 
+.oldMouseButton_1:      rb 1
+.oldMouseButton_2:      rb 1
+
 .keyboardMatrix:	    rb 10			; https://map.grauw.nl/articles/keymatrix.php
 
 .ticksSinceLastInput:	rw 1		    ; used to trigger screen saver

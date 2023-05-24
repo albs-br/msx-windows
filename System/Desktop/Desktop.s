@@ -14,6 +14,14 @@ _DRAW_DESKTOP:
 
     ret
 
+
+; taskbar:
+; 5 tiles at left (home, show desktop, plus spaces)
+; 7 tiles at right (hh:mm + spaces)
+;
+; = 20 tiles for buttons
+; 5 per button: 4 for name, plus 1 for separator
+
 _DRAW_TASKBAR:
 
 ;     ld      hl, OS.mouseSpriteAttributes

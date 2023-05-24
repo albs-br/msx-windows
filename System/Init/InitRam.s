@@ -25,7 +25,7 @@ _INIT_RAM:
     ld      hl, 0
     ld      (OS.currentProcessAddr), hl
 
-    ; init mouse cursor variables
+    ; init mouse/cursor variables
     ld      a, 128 - 8
     ld      (OS.mouseY), a
     ld      (OS.mouseY_1), a
@@ -40,6 +40,13 @@ _INIT_RAM:
     ld      (OS.mouseColor), a
     ld      a, 15 ; white
     ld      (OS.mouseColor_1), a
+
+    xor     a
+    ld      (OS.mouseButton_1), a
+    ld      (OS.mouseButton_2), a
+    ld      (OS.oldMouseButton_1), a
+    ld      (OS.oldMouseButton_2), a
+
 
     ; init keyboard vars
     ld      a, 1111 1111 b
