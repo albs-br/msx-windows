@@ -68,6 +68,9 @@ _INIT_RAM:
     ld      a, 4
     ld      (OS.nextWindow_y), a
 
+    xor     a
+    ld      (OS.mouseOverCloseButton), a
+
 
 
     call    _INIT_SCREEN_MAPPING

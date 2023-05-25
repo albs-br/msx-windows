@@ -79,6 +79,7 @@ OS:
 .nextWindow_x:         rb 1
 .nextWindow_y:         rb 1
 
+.mouseOverCloseButton:  rb 1
 
 ; --- processes
 .currentProcessAddr:            rw 1    ; 0x0000 means empty current process

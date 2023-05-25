@@ -153,7 +153,7 @@ _LOAD_PROCESS:
 .showAlertMaxProcessLimitReached:
 
     ; debug
-    call BIOS_BEEP
+    ; call BIOS_BEEP
     ; jp .showAlertMaxProcessLimitReached
 
     ret

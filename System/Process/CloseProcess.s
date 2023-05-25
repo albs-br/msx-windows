@@ -68,9 +68,3 @@ _CLOSE_PROCESS:
 
 
     ret
-
-
-.maxProcessLimitReached:
-    call    BIOS_BEEP ; debug
-    jp      .maxProcessLimitReached ; debug
-    ret
