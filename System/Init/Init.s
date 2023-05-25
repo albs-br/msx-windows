@@ -18,6 +18,13 @@ _INIT:
 
     call    _INIT_INTERRUPT
 
+    call    _INIT_DESKTOP
+
+
+
+    ; ----------------------------------
+
+
     call    _DRAW_DESKTOP
     call    _DRAW_TASKBAR
 

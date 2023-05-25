@@ -85,6 +85,10 @@ _MOUSE_CLICK:
 ; ---------------------------------------
 
 .click_WindowTitleBar:
+
+    ; TODO:
+    ; ignore click on the first 6 lines of title
+
     call    _GET_PROCESS_BY_ID
     call    z, _SET_CURRENT_PROCESS
     ; jp      z, .click_WindowTitleBar_processIdFound
