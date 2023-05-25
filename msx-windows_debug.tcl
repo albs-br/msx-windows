@@ -12,10 +12,10 @@ ram_watch   add     0xC65b      -type byte       -desc p1_id      -format hex
 ram_watch   add     0xC987      -type byte       -desc p2_id      -format hex
 ram_watch   add     0xCCB3      -type byte       -desc p3_id      -format hex
 
-ram_watch   add     5001a      -type byte       -desc _p0_layer      -format hex
-ram_watch   add     50822      -type byte       -desc _p1_layer      -format hex
-ram_watch   add     51634      -type byte       -desc _p2_layer      -format hex
-ram_watch   add     52446      -type byte       -desc _p3_layer      -format hex
+#ram_watch   add     5001a      -type byte       -desc _p0_layer      -format hex
+#ram_watch   add     50822      -type byte       -desc _p1_layer      -format hex
+#ram_watch   add     51634      -type byte       -desc _p2_layer      -format hex
+#ram_watch   add     52446      -type byte       -desc _p3_layer      -format hex
 
 ram_watch   add     0xd30b      -type byte       -desc Temp     -format hex
 
