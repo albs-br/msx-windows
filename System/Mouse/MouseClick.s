@@ -73,6 +73,7 @@ _MOUSE_CLICK:
     ;     djnz .test
     ; pop     bc
 
+    ; get process addr from process id in C register
     call    _GET_PROCESS_BY_ID
     call    z, _SET_CURRENT_PROCESS
     ret     nz
@@ -89,6 +90,7 @@ _MOUSE_CLICK:
     ; TODO:
     ; ignore click on the first 6 lines of title
 
+    ; get process addr from process id in C register
     call    _GET_PROCESS_BY_ID
     call    z, _SET_CURRENT_PROCESS
     ; jp      z, .click_WindowTitleBar_processIdFound
@@ -102,7 +104,10 @@ _MOUSE_CLICK:
 ; ---------------------------------------
 
 .click_WindowCloseButton:
+
+    ; get process addr from process id in C register
     call    _GET_PROCESS_BY_ID
+
     ; push    af
     ;     call    z, .processIdFound
     ; pop     af ; restore Z/NZ flags

@@ -1,5 +1,21 @@
 _MOUSE_OVER:
 
+    ; if (mouseOverCloseButton != 0)
+    ld      a, (OS.mouseOverCloseButton)
+    or      a
+    jp      z, .skip_1
+
+    ; if (mouseOver_screenMappingValue != currentTileMouseOver)
+    ld      a, (OS.currentTileMouseOver)
+    ld      b, a
+    ld      a, (OS.mouseOver_screenMappingValue)
+    cp      b
+    jp      nz, .notOver_WindowCloseButton
+    ret     z
+
+.skip_1:
+
+
     ; get screenMapping value under mouse cursor
     ld      a, (OS.currentTileMouseOver)
 
@@ -23,11 +39,11 @@ _MOUSE_OVER:
     cp      SCREEN_MAPPING_WINDOWS_CLOSE_BUTTON
     jp      z, .over_WindowCloseButton
 
-    ; restore button if mouse is no longer over it
-    ; if (mouseOverCloseButton) .notOver_WindowCloseButton
-    ld      a, (OS.mouseOverCloseButton)
-    or      a
-    jp      nz, .notOver_WindowCloseButton
+    ; ; restore button if mouse is no longer over it
+    ; ; if (mouseOverCloseButton) .notOver_WindowCloseButton
+    ; ld      a, (OS.mouseOverCloseButton)
+    ; or      a
+    ; jp      nz, .notOver_WindowCloseButton
 
     ret
 
@@ -45,6 +61,10 @@ _MOUSE_OVER:
     ; set flag mouseOverCloseButton to true
     ld      a, 1
     ld      (OS.mouseOverCloseButton), a
+
+    ; set mouseOver_screenMappingValue to current tile
+    ld      a, (OS.currentTileMouseOver)
+    ld      (OS.mouseOver_screenMappingValue), a
 
     ; get process addr from process id in C register
     call    _GET_PROCESS_BY_ID
@@ -102,11 +122,19 @@ _MOUSE_OVER:
 .notOver_WindowCloseButton:
 
 
-;jp $ ; debug
+    ; get process id PREVIOULSY saved and put it in C
+    ld      a, (OS.mouseOver_screenMappingValue)
+    and     0000 1111 b ; get low nibble
+    ld      c, a
+
 
     ; reset flag mouseOverCloseButton
     xor     a
     ld      (OS.mouseOverCloseButton), a
+
+    ; reset mouseOver_screenMappingValue
+    ld      (OS.mouseOver_screenMappingValue), a
+
 
     ; get process addr from process id in C register
     call    _GET_PROCESS_BY_ID

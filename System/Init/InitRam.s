@@ -70,6 +70,7 @@ _INIT_RAM:
 
     xor     a
     ld      (OS.mouseOverCloseButton), a
+    ld      (OS.mouseOver_screenMappingValue), a
 
 
 
