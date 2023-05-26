@@ -43,6 +43,14 @@ Calc:
 
 .ramSize:		        dw 1024     ; RAM space reserved for variables of this app
 
+; -------------------------------------------------
+; Data
+
+.icon:
+; put here 24x24 icon pattern
+
+; -------------------------------------------------
+
 .StartProgramCode:
 
 Calc_Open:
