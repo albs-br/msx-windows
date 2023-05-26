@@ -79,7 +79,7 @@ OS:
 .nextWindow_x:         rb 1
 .nextWindow_y:         rb 1
 
-.mouseOverCloseButton:  rb 1
+.mouseOver_Activated:  rb 1
 .mouseOver_screenMappingValue:  rb 1
 
 ; --- processes

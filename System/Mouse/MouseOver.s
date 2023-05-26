@@ -1,7 +1,7 @@
 _MOUSE_OVER:
 
-    ; if (mouseOverCloseButton != 0)
-    ld      a, (OS.mouseOverCloseButton)
+    ; if (mouseOver_Activated != 0)
+    ld      a, (OS.mouseOver_Activated)
     or      a
     jp      z, .skip_1
 
@@ -35,32 +35,33 @@ _MOUSE_OVER:
 
 
     ; --------------
+    ; hi nibble shows which type of button the mouse is over
 
     cp      SCREEN_MAPPING_WINDOWS_CLOSE_BUTTON
     jp      z, .over_WindowCloseButton
 
-    ; ; restore button if mouse is no longer over it
-    ; ; if (mouseOverCloseButton) .notOver_WindowCloseButton
-    ; ld      a, (OS.mouseOverCloseButton)
-    ; or      a
-    ; jp      nz, .notOver_WindowCloseButton
+    ; cp      SCREEN_MAPPING_WINDOWS_MAXIMIZE_RESTORE_BUTTON
+    ; jp      z, .over_WindowMaximizeRestoreButton
+    ; ; jp      z, .over_WindowCloseButton
 
     ret
 
 .over_WindowCloseButton:
 
-    ; ; DEBUG
-    ; call    BIOS_BEEP
-    ; RET
+    ; TODO
+    ; ld      de, tile_pattern
+    ; ld      ??, NAMTBL_position
+    ; call    .setMouseOver
 
-    ; if (mouseOverCloseButton) ret
-    ld      a, (OS.mouseOverCloseButton)
+
+    ; if (mouseOver_Activated) ret
+    ld      a, (OS.mouseOver_Activated)
     or      a
     ret     nz
 
-    ; set flag mouseOverCloseButton to true
+    ; set flag mouseOver_Activated to true
     ld      a, 1
-    ld      (OS.mouseOverCloseButton), a
+    ld      (OS.mouseOver_Activated), a
 
     ; set mouseOver_screenMappingValue to current tile
     ld      a, (OS.currentTileMouseOver)
@@ -72,17 +73,17 @@ _MOUSE_OVER:
 
     push    hl
 
-        ; ; TODO:
-        ; ; if (mouseY <= 63) .updateScreenTop
-        ; ; else if (mouseY <= 127) .updateScreenMiddle
-        ; ; else .updateScreenBottom
-        ; ld      a, (OS.mouseY)
-        ; cp      64
-        ; jp      c, .updateScreenTop
-        ; cp      128
-        ; jp      c, .updateScreenMiddle
-        ; jp      .updateScreenBottom
+        ; if (mouseY <= 63) .updateScreenTop
+        ; else if (mouseY <= 127) .updateScreenMiddle
+        ; else .updateScreenBottom
+        ld      a, (OS.mouseY)
+        cp      64
+        jp      c, .updateScreenTop
+        cp      128
+        jp      c, .updateScreenMiddle
+        jp      .updateScreenBottom
 
+.updateScreenTop:
         ; update pattern and color of tile TILE_MOUSE_OVER
         ld		hl, TILE_WINDOW_CLOSE_BUTTON_PATTERN                    ; RAM address (source)
         ld		de, PATTBL + (TILE_MOUSE_OVER * 8)                      ; VRAM address (destiny)
@@ -94,6 +95,37 @@ _MOUSE_OVER:
         ld      bc, 8                                                   ; size
         ld      hl, COLTBL + (TILE_MOUSE_OVER * 8)                      ; start VRAM address
         call    BIOS_FILVRM
+        
+        jp      .continue_1
+
+.updateScreenMiddle:
+        ; update pattern and color of tile TILE_MOUSE_OVER
+        ld		hl, TILE_WINDOW_CLOSE_BUTTON_PATTERN                    ; RAM address (source)
+        ld		de, PATTBL + (256 * 8) + (TILE_MOUSE_OVER * 8)          ; VRAM address (destiny)
+        ld		bc, 8	                                                ; Block length
+        call 	BIOS_LDIRVM        	                                    ; Block transfer to VRAM from memory
+
+        ld      a, 0xe1 ;                                               ; value
+        ld      bc, 8                                                   ; size
+        ld      hl, COLTBL + (256 * 8) + (TILE_MOUSE_OVER * 8)          ; start VRAM address
+        call    BIOS_FILVRM
+        
+        jp      .continue_1
+
+.updateScreenBottom:
+        ; update pattern and color of tile TILE_MOUSE_OVER
+        ld		hl, TILE_WINDOW_CLOSE_BUTTON_PATTERN                    ; RAM address (source)
+        ld		de, PATTBL + (512 * 8) + (TILE_MOUSE_OVER * 8)          ; VRAM address (destiny)
+        ld		bc, 8	                                                ; Block length
+        call 	BIOS_LDIRVM        	                                    ; Block transfer to VRAM from memory
+
+        ld      a, 0xe1 ;                                               ; value
+        ld      bc, 8                                                   ; size
+        ld      hl, COLTBL + (512 * 8) + (TILE_MOUSE_OVER * 8)          ; start VRAM address
+        call    BIOS_FILVRM
+        
+.continue_1:
+
     pop     hl
 
     ; ---- get close button position of this window on NAMTBL
@@ -128,9 +160,9 @@ _MOUSE_OVER:
     ld      c, a
 
 
-    ; reset flag mouseOverCloseButton
+    ; reset flag mouseOver_Activated
     xor     a
-    ld      (OS.mouseOverCloseButton), a
+    ld      (OS.mouseOver_Activated), a
 
     ; reset mouseOver_screenMappingValue
     ld      (OS.mouseOver_screenMappingValue), a
@@ -162,6 +194,8 @@ _MOUSE_OVER:
     ret
 
 
+; TODO:
+; remove or comment (is not being used)
 _MOUSE_XY_TO_NAMTBL:
 ; convert mouse position in pixels (x, y) to tiles (col, line)
     ld      a, (OS.mouseY)
