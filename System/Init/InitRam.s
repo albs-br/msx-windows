@@ -71,6 +71,9 @@ _INIT_RAM:
     xor     a
     ld      (OS.mouseOver_Activated), a
     ld      (OS.mouseOver_screenMappingValue), a
+    ld      (OS.mouseOver_tileToBeRestored), a
+    ld      hl, 0
+    ld      (OS.mouseOver_NAMTBL_addr), a
 
 
 

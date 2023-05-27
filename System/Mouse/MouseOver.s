@@ -59,6 +59,10 @@ _MOUSE_OVER:
     or      a
     ret     nz
 
+    ; save tile index
+    ld      a, TILE_WINDOW_CLOSE_BUTTON
+    ld      (OS.mouseOver_tileToBeRestored), a
+
     ; set flag mouseOver_Activated to true
     ld      a, 1
     ld      (OS.mouseOver_Activated), a
@@ -142,6 +146,8 @@ _MOUSE_OVER:
     add     hl, bc
         
 
+    ld      (OS.mouseOver_NAMTBL_addr), hl
+
     ; update NAMTBL
     call    BIOS_SETWRT
     ld      a, TILE_MOUSE_OVER
@@ -172,19 +178,12 @@ _MOUSE_OVER:
     call    _GET_PROCESS_BY_ID
     ret     nz
 
-    ; ---- get close button position of this window on NAMTBL
+    ; get mouse over NAMTBL addr previously saved 
+    ld      hl, (OS.mouseOver_NAMTBL_addr)
 
-    ; set IX to process addr
-    push    hl
-    pop     ix
-    call    _GET_WINDOW_TITLE_BASE_NAMTBL
-    ; add width - n
-    ld      c, (ix + PROCESS_STRUCT_IX.width)   ; process.width
-    ld      b, 0
-    add     hl, bc
-    ld      bc, 32 - 2                          ; one line below, two columns to the left
-    add     hl, bc
         
+    ; get tile index previously saved
+    ld      a, (OS.mouseOver_tileToBeRestored)
 
     ; update NAMTBL
     call    BIOS_SETWRT

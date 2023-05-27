@@ -81,6 +81,8 @@ OS:
 
 .mouseOver_Activated:  rb 1
 .mouseOver_screenMappingValue:  rb 1
+.mouseOver_tileToBeRestored:    rb 1
+.mouseOver_NAMTBL_addr:         rw 1
 
 ; --- processes
 .currentProcessAddr:            rw 1    ; 0x0000 means empty current process
