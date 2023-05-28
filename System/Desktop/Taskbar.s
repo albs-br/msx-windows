@@ -40,15 +40,76 @@ _DRAW_TASKBAR:
 ;     djnz    .loop_1
 
 
-    ; draw tasKbar
-    ld		hl, TASKBAR             ; RAM address (source)
+    ; draw taskbar
+    ld		hl, TASKBAR_INIT        ; RAM address (source)
     ld		de, NAMTBL + (32 * 22)  ; VRAM address (destiny)
     ld		bc, 64	                ; Block length
     call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
 
 
+
+    call    _DRAW_TASKBAR_BUTTONS
+
+
     call    _DRAW_TASKBAR_CLOCK
 
+
+    ret
+
+
+
+_DRAW_TASKBAR_BUTTONS:
+
+    ld      iy, NAMTBL + (32 * 23) + 5
+
+    ; loop through process slots deawing taskbar buttons
+    ld      hl, OS.processes
+    ld      b, MAX_PROCESS_ID + 1
+.loop_1:
+    ld      a, (hl)
+    inc     a
+    jp      z, .next ; if (process id == 255) next
+
+    push    hl, bc
+    
+        ld      bc, PROCESS_STRUCT_IX.windowTitle
+        add     hl, bc
+
+        push    hl
+        pop     de
+
+        push    iy
+        pop     hl
+        call    BIOS_SETWRT
+
+        ld      c, 4 ; max size of title on button
+
+        .loop_2:
+            ld      a, (de)
+            cp      33
+            jp      z, .end_1
+
+            out     (PORT_0), a
+
+            dec     c
+            jp      z, .end_1
+
+            inc     de
+            jp      .loop_2
+
+        .end_1:
+        
+        ld      bc, 5
+        add     iy, bc
+
+    pop     bc, hl
+
+
+
+.next:
+    ld      de, Process_struct.size
+    add     hl, de
+    djnz    .loop_1
 
     ret
 
@@ -111,7 +172,7 @@ _DRAW_TASKBAR_CLOCK:
 
 
 
-TASKBAR:
+TASKBAR_INIT:
     ; first line
     db TILE_TASKBAR_TOP, TILE_TASKBAR_TOP, TILE_TASKBAR_TOP, TILE_TASKBAR_TOP
     db TILE_TASKBAR_TOP, TILE_TASKBAR_TOP, TILE_TASKBAR_TOP, TILE_TASKBAR_TOP
@@ -127,25 +188,25 @@ TASKBAR:
     
     db TILE_SHOW_DESKTOP_ICON, TILE_EMPTY_BLACK
 
-    ; db TILE_EMPTY_BLACK
-    ; db TILE_EMPTY_BLACK, TILE_EMPTY_BLACK, TILE_EMPTY_BLACK, TILE_EMPTY_BLACK
-    ; db TILE_EMPTY_BLACK, TILE_EMPTY_BLACK
-    ; debug
-    db TILE_FONT_REVERSED_LOWERCASE_A + 13 ; 'n'
-    db TILE_FONT_REVERSED_LOWERCASE_A + 14 ; 'o'
-    db TILE_FONT_REVERSED_LOWERCASE_A + 19 ; 't'
-    db TILE_FONT_REVERSED_LOWERCASE_A + 4  ; 'e'
-    db TILE_FONT_REVERSED_LOWERCASE_A + 15 ; 'p'
-    db TILE_FONT_REVERSED_LOWERCASE_A + 0  ; 'a'
-    db TILE_FONT_REVERSED_LOWERCASE_A + 3  ; 'd'
+    db TILE_EMPTY_BLACK
+    db TILE_EMPTY_BLACK, TILE_EMPTY_BLACK, TILE_EMPTY_BLACK, TILE_EMPTY_BLACK
+    db TILE_EMPTY_BLACK, TILE_EMPTY_BLACK
+    ; ; debug
+    ; db TILE_FONT_REVERSED_LOWERCASE_A + 13 ; 'n'
+    ; db TILE_FONT_REVERSED_LOWERCASE_A + 14 ; 'o'
+    ; db TILE_FONT_REVERSED_LOWERCASE_A + 19 ; 't'
+    ; db TILE_FONT_REVERSED_LOWERCASE_A + 4  ; 'e'
+    ; db TILE_FONT_REVERSED_LOWERCASE_A + 15 ; 'p'
+    ; db TILE_FONT_REVERSED_LOWERCASE_A + 0  ; 'a'
+    ; db TILE_FONT_REVERSED_LOWERCASE_A + 3  ; 'd'
     
     db TILE_EMPTY_BLACK
     
-    ; db TILE_EMPTY_BLACK, TILE_EMPTY_BLACK, TILE_EMPTY_BLACK, TILE_EMPTY_BLACK
-    db TILE_FONT_LOWERCASE_A + 2  ; 'c'
-    db TILE_FONT_LOWERCASE_A + 0  ; 'a'
-    db TILE_FONT_LOWERCASE_A + 11 ; 'l'
-    db TILE_FONT_LOWERCASE_A + 2  ; 'c'
+    db TILE_EMPTY_BLACK, TILE_EMPTY_BLACK, TILE_EMPTY_BLACK, TILE_EMPTY_BLACK
+    ; db TILE_FONT_LOWERCASE_A + 2  ; 'c'
+    ; db TILE_FONT_LOWERCASE_A + 0  ; 'a'
+    ; db TILE_FONT_LOWERCASE_A + 11 ; 'l'
+    ; db TILE_FONT_LOWERCASE_A + 2  ; 'c'
     
     db TILE_EMPTY_BLACK, TILE_EMPTY_BLACK, TILE_EMPTY_BLACK
     db TILE_EMPTY_BLACK, TILE_EMPTY_BLACK, TILE_EMPTY_BLACK, TILE_EMPTY_BLACK

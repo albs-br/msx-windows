@@ -117,6 +117,9 @@ _LOAD_PROCESS:
 
     call    _UPDATE_SCREEN_MAPPING
 
+
+    call    _DRAW_TASKBAR
+
     ; call process.Open event
     ; ld      hl, (OS.currentProcessAddr)
     ld      ix, (OS.currentProcessAddr)

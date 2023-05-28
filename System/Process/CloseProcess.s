@@ -52,7 +52,9 @@ _CLOSE_PROCESS:
         call    _UPDATE_SCREEN_MAPPING
     ; pop     hl
 
-    
+
+    call    _DRAW_TASKBAR
+
     ; set nextAvailableProcessAddr
     call    _GET_NEXT_AVAILABLE_PROCESS_ADDR
     ; inc     a   ; if (A == 255) .maxProcessLimitReached

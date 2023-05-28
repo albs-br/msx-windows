@@ -150,7 +150,7 @@ Process_struct:
 										; desktop is drawn first, then window with layer = 0, then layer = 1, and so on
 
 ; TODO: remove it
-.screenTilesBehind:	    rb 32*24
+; .screenTilesBehind:	    rb 32*24
 
 .size: equ $ - Process_struct
 
@@ -182,7 +182,7 @@ PROCESS_STRUCT_IX:
 
 .layer:					equ Process_struct.layer    	- Process_struct
 
-.screenTilesBehind:	    equ Process_struct.screenTilesBehind   - Process_struct
+; .screenTilesBehind:	    equ Process_struct.screenTilesBehind   - Process_struct
 
 
 ; temp debug
