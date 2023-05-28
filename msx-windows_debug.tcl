@@ -6,6 +6,11 @@ ram_watch   add     0xC01c      -type byte       -desc currTimeSec      -format 
 ram_watch   add     0xC01b      -type byte       -desc currTimeMin      -format hex
 ram_watch   add     0xC01a      -type byte       -desc currTimeHour     -format hex
 
+ram_watch   add     0xC32d      -type byte       -desc _tileToBeRestored     -format dec
+ram_watch   add     0xC32e      -type word       -desc _NAMTBL_addr     -format hex
+
+# OS.mouseOver_tileToBeRestored: equ 0C32Dh ; last def. pass 3
+# OS.mouseOver_NAMTBL_addr: equ 0C32Eh ; last def. pass 3
 
 ram_watch   add     0xC32f      -type byte       -desc p0_id      -format hex
 ram_watch   add     0xC65b      -type byte       -desc p1_id      -format hex
