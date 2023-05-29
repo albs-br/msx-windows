@@ -9,39 +9,6 @@
 ; Output: nothing
 _DRAW_TASKBAR:
 
-;     ld      hl, OS.mouseSpriteAttributes
-;     ld      c, PORT_0
-;     ld      b, 8
-; .loop_1:
-;     outi
-;     jp      nz, .loop_1 ; this uses exactly 29 cycles (t-states)
-
-;     ; draw taskbar top
-;     ld      hl, NAMTBL + (32 * 22)
-;     call    BIOS_SETWRT
-;     ld      c, PORT_0
-;     ld      b, 32
-; .loop:
-;     ld      a, TILE_TASKBAR_TOP ; looks like waste, but it is necessary to keep 29 states apart from consecutive OUT's
-;     out     (c), a
-;     djnz    .loop
-
-;     ; draw empty black tiles on the last line of screen
-;     ld      hl, NAMTBL + (32 * 23)      ; start of last line of screen
-;     call    BIOS_SETWRT
-;     ld      c, PORT_0
-;     ld      b, 32
-; .loop_1:
-;     ld      a, b
-;     cp      31                          ; check if it is the second column
-;     ld      a, TILE_EMPTY_BLACK
-;     jp      nz, .tile_empty
-;     ld      a, TILE_HOME_ICON
-; .tile_empty:
-;     out     (c), a
-;     djnz    .loop_1
-
-
     ; draw taskbar
     ld		hl, TASKBAR_INIT        ; RAM address (source)
     ld		de, NAMTBL + (32 * 22)  ; VRAM address (destiny)
@@ -64,6 +31,16 @@ _DRAW_TASKBAR_BUTTONS:
 
     ld      iy, NAMTBL + (32 * 23) + 5
 
+    ; init taskbar_Button_?_Process_addr vars
+    ld      hl, 0xffff
+    ld      (OS.taskbar_Button_0_Process_addr), hl
+    ld      (OS.taskbar_Button_1_Process_addr), hl
+    ld      (OS.taskbar_Button_2_Process_addr), hl
+    ld      (OS.taskbar_Button_3_Process_addr), hl
+
+    ld      hl, OS.taskbar_Button_0_Process_addr
+    ld      (TempWord), hl
+
     ; loop through process slots deawing taskbar buttons
     ld      hl, OS.processes
     ld      b, MAX_PROCESS_ID + 1
@@ -78,15 +55,29 @@ _DRAW_TASKBAR_BUTTONS:
     push    hl ; IX = HL
     pop     ix
 
+    ; link process addr to button for click
+    push    de
+        ld      de, (TempWord)
+
+        ld      a, l
+        ld      (de), a
+        inc     de
+        ld      a, h
+        ld      (de), a
+        inc     de
+
+        ld      (TempWord), de
+    pop     de
+
     push    hl, bc
     
         ld      bc, PROCESS_STRUCT_IX.windowTitle
         add     hl, bc
 
-        push    hl
+        push    hl ; DE = HL
         pop     de
 
-        push    iy
+        push    iy ; HL = IY
         pop     hl
         call    BIOS_SETWRT
 
@@ -128,7 +119,7 @@ _DRAW_TASKBAR_BUTTONS:
         .end_1:
         
         ld      bc, 5
-        add     iy, bc
+        add     iy, bc ; go to next button
 
     pop     bc, hl
 
@@ -137,6 +128,7 @@ _DRAW_TASKBAR_BUTTONS:
 .next:
     ld      de, Process_struct.size
     add     hl, de
+
     djnz    .loop_1
 
     ret

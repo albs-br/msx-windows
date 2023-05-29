@@ -125,4 +125,50 @@ _MOUSE_CLICK:
 ; --------------------------------------
 
 .click_Taskbar:
+
+    ; avoid first 6 lines of taskbar
+    ; if (mouseY < 182) ret
+    ld      a, (OS.mouseY)
+    cp      191 + 1 - 10 ; 191: screen last line ; 10: height of taskbar
+    ret     c
+
+
+
+    ld      a, (OS.mouseX)
+    
+    ; if (mouseX >= 20*8)
+    cp      20 * 8
+    ld      hl, (OS.taskbar_Button_3_Process_addr)
+    jp      nc, .click_Taskbar_button
+
+    ; if (mouseX >= 15*8)
+    cp      15 * 8
+    ld      hl, (OS.taskbar_Button_2_Process_addr)
+    jp      nc, .click_Taskbar_button
+
+    ; if (mouseX >= 10*8)
+    cp      10 * 8
+    ld      hl, (OS.taskbar_Button_1_Process_addr)
+    jp      nc, .click_Taskbar_button
+
+    ; if (mouseX >= 5*8)
+    cp      5 * 8
+    ld      hl, (OS.taskbar_Button_0_Process_addr)
+    jp      nc, .click_Taskbar_button
+
+
+    ret
+
+.click_Taskbar_button:
+
+    ; if (taskbar_Button_0_Process_addr == 0xffff) ret
+    push    hl
+        inc     hl
+        ld      a, l
+        or      h
+    pop     hl
+    ret     z
+
+    call    _SET_CURRENT_PROCESS
+
     ret

@@ -84,6 +84,11 @@ OS:
 .mouseOver_tileToBeRestored:    rb 1
 .mouseOver_NAMTBL_addr:         rw 1
 
+.taskbar_Button_0_Process_addr: rw 1
+.taskbar_Button_1_Process_addr: rw 1
+.taskbar_Button_2_Process_addr: rw 1
+.taskbar_Button_3_Process_addr: rw 1
+
 ; --- processes
 .currentProcessAddr:            rw 1    ; 0x0000 means empty current process
 .nextAvailableProcessAddr:      rw 1
@@ -185,7 +190,8 @@ PROCESS_STRUCT_IX:
 ; .screenTilesBehind:	    equ Process_struct.screenTilesBehind   - Process_struct
 
 
-; temp debug
-Temp: rb 1
+; temp vars / debug
+Temp:       rb 1
+TempWord:   rw 1
 
 RamEnd:
