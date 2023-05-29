@@ -119,6 +119,8 @@ Process_struct:
 .minHeight:		        rb 1
 
 .windowTitle:	        rb 16
+.taskbarTitle:	        rb 4
+.iconTitle:	            rb 7
 .isFixedSize:	        rb 1            ; 0: no, 1: yes
 .vertScrollbarEnabled:	rb 1            ; 0: no, 1: yes
 .vertScrollbarPosition:	rb 1
@@ -174,6 +176,8 @@ PROCESS_STRUCT_IX:
 .minHeight:		        equ Process_struct.minHeight    - Process_struct
 
 .windowTitle:	        equ Process_struct.windowTitle 	           - Process_struct
+.taskbarTitle:	        equ Process_struct.taskbarTitle	           - Process_struct
+.iconTitle:	            equ Process_struct.iconTitle 	           - Process_struct
 .isFixedSize:	        equ Process_struct.isFixedSize	           - Process_struct
 .vertScrollbarEnabled:  equ Process_struct.vertScrollbarEnabled    - Process_struct
 .vertScrollbarPosition: equ Process_struct.vertScrollbarPosition   - Process_struct

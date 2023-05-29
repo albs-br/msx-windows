@@ -29,7 +29,20 @@ Notepad:
                         db 33
                         db 33
                         db 33
-                        
+.taskbarTitle:
+                        db TILE_FONT_REVERSED_LOWERCASE_A + 13 ; 'n'
+                        db TILE_FONT_REVERSED_LOWERCASE_A + 14 ; 'o'
+                        db TILE_FONT_REVERSED_LOWERCASE_A + 19 ; 't'
+                        db TILE_FONT_REVERSED_LOWERCASE_A + 4  ; 'e'
+.iconTitle:
+                        db TILE_FONT_LOWERCASE_A + 13 ; 'n'
+                        db TILE_FONT_LOWERCASE_A + 14 ; 'o'
+                        db TILE_FONT_LOWERCASE_A + 19 ; 't'
+                        db TILE_FONT_LOWERCASE_A + 4  ; 'e'
+                        db TILE_FONT_LOWERCASE_A + 15 ; 'p'
+                        db TILE_FONT_LOWERCASE_A + 0  ; 'a'
+                        db TILE_FONT_LOWERCASE_A + 3  ; 'd'
+
 .isFixedSize:	        db 0
 .vertScrollbarEnabled:	db 0
 .vertScrollbarPosition:	db 0

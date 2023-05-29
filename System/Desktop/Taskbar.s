@@ -71,7 +71,7 @@ _DRAW_TASKBAR_BUTTONS:
 
     push    hl, bc
     
-        ld      bc, PROCESS_STRUCT_IX.windowTitle
+        ld      bc, PROCESS_STRUCT_IX.taskbarTitle
         add     hl, bc
 
         push    hl ; DE = HL

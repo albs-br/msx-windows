@@ -7,6 +7,7 @@ _INIT_DESKTOP:
     ; get icon patterns from app headers
     ; and put it on VRAM PATTBL
     ld      ix, Notepad.Header
+    ; ld      ix, Calc.Header
     ld      l, (ix + PROCESS_STRUCT_IX.iconAddr)
     ld      h, (ix + PROCESS_STRUCT_IX.iconAddr + 1)
 
@@ -25,6 +26,8 @@ _INIT_DESKTOP:
     ld      bc, 0 + (32 * 22) - 1
     ldir
 
+
+    ; draw icon on desktop buffer
     ;
     ;   XXX 
     ;   XXX
@@ -54,6 +57,17 @@ _INIT_DESKTOP:
 
     djnz    .loop_1
 
+    ; draw app name below icon
+    ld      hl, OS.desktop_Tiles + (32 * 4) + 1
+    ld      b, 7 ; size of string
+.loop_10:
+    ld      a, (ix + PROCESS_STRUCT_IX.iconTitle)
+    ; add     TILE_FONT_LOWERCASE_A - TILE_FONT_REVERSED_LOWERCASE_A ; print black chars on white bg
+    ld      (hl), a
+    inc     ix
+    inc     hl
+    djnz    .loop_10
+.endLoop_10:
 
 
     ret
