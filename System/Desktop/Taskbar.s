@@ -5,6 +5,8 @@
 ; = 20 tiles for buttons
 ; 5 per button: 4 for name, plus 1 for separator
 
+; Input: nothing
+; Output: nothing
 _DRAW_TASKBAR:
 
 ;     ld      hl, OS.mouseSpriteAttributes
@@ -70,6 +72,12 @@ _DRAW_TASKBAR_BUTTONS:
     inc     a
     jp      z, .next ; if (process id == 255) next
 
+    ; TILE_FONT_REVERSED_LOWERCASE_A = 01Eh = 30
+    ; TILE_FONT_LOWERCASE_A = 043h = 67
+
+    push    hl ; IX = HL
+    pop     ix
+
     push    hl, bc
     
         ld      bc, PROCESS_STRUCT_IX.windowTitle
@@ -89,6 +97,26 @@ _DRAW_TASKBAR_BUTTONS:
             cp      33
             jp      z, .end_1
 
+            push    de
+
+                ld      de, (OS.currentProcessAddr)
+                
+                push    ix  ; HL = IX
+                pop     hl
+
+                call    BIOS_DCOMPR
+
+            pop     de
+
+            jp      nz, .printNormal
+
+            ; print black chars on white bg
+            ld      a, (de)
+            add     TILE_FONT_LOWERCASE_A - TILE_FONT_REVERSED_LOWERCASE_A
+            jp      .continue_2
+        .printNormal:
+            ld      a, (de)
+        .continue_2:
             out     (PORT_0), a
 
             dec     c

@@ -1,8 +1,9 @@
+; Update screen (redraw all windows ordered by layer) and screen mapping 
 ; Input: nothing
 ; Output: nothing
-_UPDATE_SCREEN_MAPPING:
+_UPDATE_SCREEN:
 
-    ; TODO
+    ; TODO ? (decide if is better keep or change it)
     ; to improve usability (avoid window flickering):
     ; do all the below work on a RAM buffer (32*22 = 704 bytes)
     ; and then spit it out to screen on vblank

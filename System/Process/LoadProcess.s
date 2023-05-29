@@ -115,7 +115,7 @@ _LOAD_PROCESS:
     ; call    _DRAW_WINDOW
 
 
-    call    _UPDATE_SCREEN_MAPPING
+    call    _UPDATE_SCREEN
 
 
     call    _DRAW_TASKBAR

@@ -48,9 +48,7 @@ _CLOSE_PROCESS:
 
 
 
-    ; push    hl
-        call    _UPDATE_SCREEN_MAPPING
-    ; pop     hl
+    call    _UPDATE_SCREEN
 
 
     call    _DRAW_TASKBAR

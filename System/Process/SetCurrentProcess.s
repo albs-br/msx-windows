@@ -23,12 +23,9 @@ _SET_CURRENT_PROCESS:
         ld      (ix + PROCESS_STRUCT_IX.layer), a
     pop     hl
 
-    ; push    hl
-        call    _UPDATE_SCREEN_MAPPING
-    ; pop     hl
+    call    _UPDATE_SCREEN
 
-;debug
-;  jp $
+    call    _DRAW_TASKBAR
 
     ; ; TODO
     ; push    hl ; ix = hl
