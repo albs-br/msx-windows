@@ -89,6 +89,8 @@ OS:
 .taskbar_Button_2_Process_addr: rw 1
 .taskbar_Button_3_Process_addr: rw 1
 
+.desktop_Tiles:                 rb 32 * 22
+
 ; --- processes
 .currentProcessAddr:            rw 1    ; 0x0000 means empty current process
 .nextAvailableProcessAddr:      rw 1
