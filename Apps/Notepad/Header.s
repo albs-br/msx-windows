@@ -41,8 +41,12 @@ Notepad:
 .clickAddr:		        dw Notepad_Click
 .closeAddr:		        dw Notepad_Close
 
+.iconAddr:		        dw Notepad_Icon
+
 .ramSize:		        dw 1024     ; RAM space reserved for variables of this app
 
+
+; --------------------------------------------------
 .StartProgramCode:
 
 Notepad_Open:
@@ -61,3 +65,9 @@ Notepad_Close:
     INCLUDE "Apps/Notepad/Close.s"
 
 .EndProgramCode:                ; this may be useful on future for code dinamically relocatable
+
+
+
+; --------------------------------------------------
+Notepad_Icon:
+    INCLUDE "Apps/Notepad/Icon.s"

@@ -107,13 +107,6 @@ _LOAD_PROCESS:
     ; check if (x + width) or (y + height) exceeds screen limits
 
 
-    ; ; update process.screenTilesBehind
-    ; ld      ix, (OS.currentProcessAddr)
-    ; call    UPDATE_TILES_BEHIND_WINDOW
-    
-    ; ld      ix, (OS.currentProcessAddr)
-    ; call    _DRAW_WINDOW
-
 
     call    _UPDATE_SCREEN
 

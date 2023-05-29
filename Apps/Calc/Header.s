@@ -41,16 +41,12 @@ Calc:
 .clickAddr:		        dw Calc_Click
 .closeAddr:		        dw Calc_Close
 
+.iconAddr:		        dw Calc_Icon
+
 .ramSize:		        dw 1024     ; RAM space reserved for variables of this app
 
-; -------------------------------------------------
-; Data
-
-.icon:
-; put here 24x24 icon pattern
 
 ; -------------------------------------------------
-
 .StartProgramCode:
 
 Calc_Open:
@@ -69,3 +65,9 @@ Calc_Close:
     INCLUDE "Apps/Calc/Close.s"
 
 .EndProgramCode:                ; this may be useful on future for code dinamically relocatable
+
+
+
+; --------------------------------------------------
+Calc_Icon:
+    INCLUDE "Apps/Calc/Icon.s"

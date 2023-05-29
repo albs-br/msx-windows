@@ -138,6 +138,8 @@ Process_struct:
 .clickAddr:		        rw 1
 .closeAddr:		        rw 1
 
+.iconAddr:		        rw 1
+
 .ramSize:		        rw 1     ; RAM space reserved for variables of this app
 ; estimated RAM for some apps:
 ; - calc: 2 * 6 bytes (fixed precision 5.1) = 12 bytes
@@ -155,9 +157,6 @@ Process_struct:
 
 .layer:					rb 1		; layer means the order in which the windows should be drawn
 										; desktop is drawn first, then window with layer = 0, then layer = 1, and so on
-
-; TODO: remove it
-; .screenTilesBehind:	    rb 32*24
 
 .size: equ $ - Process_struct
 
@@ -185,11 +184,12 @@ PROCESS_STRUCT_IX:
 .clickAddr:		        equ Process_struct.clickAddr   - Process_struct
 .closeAddr:		        equ Process_struct.closeAddr   - Process_struct
 
+.iconAddr:		        equ Process_struct.iconAddr   - Process_struct
+
 ; TODO: other properties
 
 .layer:					equ Process_struct.layer    	- Process_struct
 
-; .screenTilesBehind:	    equ Process_struct.screenTilesBehind   - Process_struct
 
 
 ; temp vars / debug
