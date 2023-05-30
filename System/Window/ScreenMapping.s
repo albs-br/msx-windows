@@ -84,6 +84,11 @@ _UPDATE_SCREEN:
 ;   HL = linear addr (0-767)
 _UPDATE_SCREEN_MAPPING_WINDOW:
 
+    ; if (windowState == MINIMIZED) ret
+    ld      a, (ix + PROCESS_STRUCT_IX.windowState) ; process.windowState
+    cp      WINDOW_STATE.MINIMIZED
+    ret     z
+
     ; HL = OS.screenMapping + HL
     ex      de, hl
     ld      hl, OS.screenMapping

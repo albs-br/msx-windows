@@ -1,6 +1,7 @@
     INCLUDE "System/Process/LoadProcess.s"
     INCLUDE "System/Process/SetCurrentProcess.s"
     INCLUDE "System/Process/CloseProcess.s"
+    INCLUDE "System/Process/MinimizeProcess.s"
 
 
 

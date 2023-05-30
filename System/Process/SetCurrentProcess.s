@@ -10,6 +10,11 @@ _SET_CURRENT_PROCESS:
     push    hl  ; IX = HL
     pop     ix
 
+    ; TODO: set window state to RESTORED/MAXIMIZED previously saved
+    ; set window state to RESTORED
+    ld      a, WINDOW_STATE.RESTORED
+    ld      (ix + PROCESS_STRUCT_IX.windowState), a
+
     push    hl
         ; get layer number
         ld      c, (ix + PROCESS_STRUCT_IX.layer)

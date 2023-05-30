@@ -51,6 +51,9 @@ _MOUSE_CLICK:
     cp      SCREEN_MAPPING_WINDOWS_CLOSE_BUTTON
     jp      z, .click_WindowCloseButton
 
+    cp      SCREEN_MAPPING_WINDOWS_MINIMIZE_BUTTON
+    jp      z, .click_WindowMinimizeButton
+
     ret
 
 .return:
@@ -63,15 +66,6 @@ _MOUSE_CLICK:
 
 .click_Window:
 
-    ; push    bc
-    ;     ; debug
-    ;     ld      b, 5
-    ;     .test:
-    ;         push    bc
-    ;             call    BIOS_BEEP
-    ;         pop bc
-    ;     djnz .test
-    ; pop     bc
 
     ; get process addr from process id in C register
     call    _GET_PROCESS_BY_ID
@@ -93,13 +87,9 @@ _MOUSE_CLICK:
     ; get process addr from process id in C register
     call    _GET_PROCESS_BY_ID
     call    z, _SET_CURRENT_PROCESS
-    ; jp      z, .click_WindowTitleBar_processIdFound
 
     ret
 
-; .click_WindowTitleBar_processIdFound:
-;     call    _SET_CURRENT_PROCESS
-;     ret
 
 ; ---------------------------------------
 
@@ -108,12 +98,21 @@ _MOUSE_CLICK:
     ; get process addr from process id in C register
     call    _GET_PROCESS_BY_ID
 
-    ; push    af
-    ;     call    z, .processIdFound
-    ; pop     af ; restore Z/NZ flags
     ret     nz
 
     call    _CLOSE_PROCESS
+
+    ret
+
+; --------------------------------------
+
+.click_WindowMinimizeButton:
+
+    ; get process addr from process id in C register
+    call    _GET_PROCESS_BY_ID
+    ret     nz
+
+    call    _MINIMIZE_PROCESS
 
     ret
 
@@ -161,7 +160,7 @@ _MOUSE_CLICK:
 
 .click_Taskbar_button:
 
-    ; if (taskbar_Button_0_Process_addr == 0xffff) ret
+    ; if (taskbar_Button_?_Process_addr == 0xffff) ret
     push    hl
         inc     hl
         ld      a, l

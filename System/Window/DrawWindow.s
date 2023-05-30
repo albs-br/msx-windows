@@ -4,6 +4,10 @@ _DRAW_WINDOW:
 
     ;call    Wait_Vblank
 
+    ; if (windowState == MINIMIZED) ret
+    ld      a, (ix + PROCESS_STRUCT_IX.windowState) ; process.windowState
+    cp      WINDOW_STATE.MINIMIZED
+    ret     z
 
     
     

@@ -4,19 +4,30 @@
 
 _INIT_DESKTOP:
 
-    ; get icon patterns from app headers
+    ; ---- get icon patterns from app headers
     ; and put it on VRAM PATTBL
+    
     ld      ix, Notepad.Header
-    ; ld      ix, Calc.Header
     ld      l, (ix + PROCESS_STRUCT_IX.iconAddr)
     ld      h, (ix + PROCESS_STRUCT_IX.iconAddr + 1)
 
     ;ld		hl, ????                                                ; RAM address (source)
-    ld		de, PATTBL + (TILE_BASE_DESKTOP_ICONS * 8)		        ; VRAM address (destiny)
+    ld		de, PATTBL + (TILE_BASE_DESKTOP_ICON_0 * 8)		        ; VRAM address (destiny)
     ld		bc, NUMBER_OF_TILES_PER_ICON * 8	                    ; Block length
     call 	BIOS_LDIRVM        	                                    ; Block transfer to VRAM from memory
 
 
+    ld      ix, Calc.Header
+    ld      l, (ix + PROCESS_STRUCT_IX.iconAddr)
+    ld      h, (ix + PROCESS_STRUCT_IX.iconAddr + 1)
+
+    ;ld		hl, ????                                                ; RAM address (source)
+    ld		de, PATTBL + (TILE_BASE_DESKTOP_ICON_1 * 8)		        ; VRAM address (destiny)
+    ld		bc, NUMBER_OF_TILES_PER_ICON * 8	                    ; Block length
+    call 	BIOS_LDIRVM        	                                    ; Block transfer to VRAM from memory
+
+
+    ; ---------------------------
 
     ; fill desktop with empty tiles
     ld      a, TILE_EMPTY
@@ -34,31 +45,56 @@ _INIT_DESKTOP:
     ;   XXX
     ; notepad
     ; 
+    ld      ix, Notepad.Header
     ld      a, TILE_BASE_DESKTOP_ICON_0
-    ld      hl, OS.desktop_Tiles + (32 * 1) + 3
-    ld      de, 32
+    ld      hl, OS.desktop_Tiles
+    call    _DRAW_DESKTOP_ICON
 
-    ld      b, 3
-.loop_1:
+    ld      ix, Calc.Header
+    ld      a, TILE_BASE_DESKTOP_ICON_1
+    ld      hl, OS.desktop_Tiles + 8
+    call    _DRAW_DESKTOP_ICON
+
+    ; ld      ix, Calc.Header
+    ; ld      a, TILE_BASE_DESKTOP_ICON_0
+    ; ld      hl, OS.desktop_Tiles + 16
+    ; call    _DRAW_DESKTOP_ICON
+
+    ret
+
+
+
+_DRAW_DESKTOP_ICON:
     push    hl
-        ld      (hl), a
+        ld      de,  0 + (32 * 1) + 3
+        add     hl, de
         
-        inc     a
-        add     hl, de
-        ld      (hl), a
+        ; ---
+        ld      de, 32
 
-        inc     a
-        add     hl, de
-        ld      (hl), a
+        ld      b, 3
+    .loop_1:
+        push    hl
+            ld      (hl), a
+            
+            inc     a
+            add     hl, de
+            ld      (hl), a
 
-        inc     a
+            inc     a
+            add     hl, de
+            ld      (hl), a
+
+            inc     a
+        pop     hl
+        inc     hl
+
+        djnz    .loop_1
     pop     hl
-    inc     hl
-
-    djnz    .loop_1
 
     ; draw app name below icon
-    ld      hl, OS.desktop_Tiles + (32 * 4) + 1
+    ld      de, 0 + (32 * 4) + 1
+    add     hl, de
     ld      b, 7 ; size of string
 .loop_10:
     ld      a, (ix + PROCESS_STRUCT_IX.iconTitle)
