@@ -140,23 +140,58 @@ _MOUSE_CLICK:
     ld      hl, (OS.taskbar_Button_3_Process_addr)
     jp      nc, .click_Taskbar_button
 
-    ; if (mouseX >= 15*8)
+    ; else if (mouseX >= 15*8)
     cp      15 * 8
     ld      hl, (OS.taskbar_Button_2_Process_addr)
     jp      nc, .click_Taskbar_button
 
-    ; if (mouseX >= 10*8)
+    ; else if (mouseX >= 10*8)
     cp      10 * 8
     ld      hl, (OS.taskbar_Button_1_Process_addr)
     jp      nc, .click_Taskbar_button
 
-    ; if (mouseX >= 5*8)
+    ; else if (mouseX >= 5*8)
     cp      5 * 8
     ld      hl, (OS.taskbar_Button_0_Process_addr)
     jp      nc, .click_Taskbar_button
 
+    ; else if (mouseX >= 3*8 && mouseX < 4*8)
+    cp      3 * 8
+    jp      c, .skip_10
+    cp      4 * 8
+    jp      c, .click_Taskbar_ShowDesktop
+.skip_10:
+
 
     ret
+
+
+
+.click_Taskbar_ShowDesktop:
+
+    ; loop through all process minimizing them
+    ld      hl, OS.processes
+    ld      de, Process_struct.size
+    ld      b, MAX_PROCESS_ID + 1
+.loop_1:
+    ld      a, (hl)
+    cp      0xff ; if process slot empty go to the next
+    jp      z, .next_1
+
+    push    hl, de, bc
+        ld      c, a
+        call    _GET_PROCESS_BY_ID
+
+        call    _MINIMIZE_PROCESS
+    pop     bc, de, hl
+
+.next_1:
+    add     hl, de
+    djnz    .loop_1
+    
+    ret
+
+
 
 .click_Taskbar_button:
 
