@@ -1,5 +1,16 @@
 _MOUSE_CLICK:
 
+    ; if(isDraggingWindow)
+    ld      a, (OS.isDraggingWindow)
+    or      a
+    jp      z, .skip_1
+    ; (mouseButton_1 == false) _END_DRAG_WINDOW else ret
+    ld      a, (OS.mouseButton_1) ; check if button is pressed
+    or      a
+    jp      z, _END_DRAG_WINDOW
+    ret
+
+.skip_1:
     ; ----- get only positive transition of click
 
     ld      a, (OS.mouseButton_1) ; check if button is pressed
@@ -87,6 +98,15 @@ _MOUSE_CLICK:
     ; get process addr from process id in C register
     call    _GET_PROCESS_BY_ID
     call    z, _SET_CURRENT_PROCESS
+
+    ; set vars for window dragging
+    ld      a, 1
+    ld      (OS.isDraggingWindow), a
+
+    ; TODO:
+    ; dragOffset_X = window_X - mouseX
+    
+    ; dragOffset_Y = window_Y - mouseY
 
     ret
 
@@ -195,7 +215,7 @@ _MOUSE_CLICK:
 
 .click_Taskbar_button:
 
-    ; if (taskbar_Button_?_Process_addr == 0xffff) ret
+    ; if (taskbar_Button_?_Process_addr == 0xffff) ret:
     push    hl
         inc     hl
         ld      a, l
@@ -204,5 +224,15 @@ _MOUSE_CLICK:
     ret     z
 
     call    _SET_CURRENT_PROCESS
+
+    ret
+
+
+
+_END_DRAG_WINDOW:
+    
+    ; reset window dragging vars
+    xor     a
+    ld      (OS.isDraggingWindow), a
 
     ret

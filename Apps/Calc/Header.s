@@ -60,7 +60,7 @@ Calc:
 
 
 ; -------------------------------------------------
-.StartProgramCode:
+Calc.StartProgramCode:
 
 Calc_Open:
     INCLUDE "Apps/Calc/Open.s"
@@ -77,7 +77,7 @@ Calc_Click:
 Calc_Close:
     INCLUDE "Apps/Calc/Close.s"
 
-.EndProgramCode:                ; this may be useful on future for code dinamically relocatable
+Calc.EndProgramCode:                ; this may be useful on future for code dinamically relocatable
 
 
 

@@ -60,7 +60,7 @@ Notepad:
 
 
 ; --------------------------------------------------
-.StartProgramCode:
+Notepad.StartProgramCode:
 
 Notepad_Open:
     INCLUDE "Apps/Notepad/Open.s"
@@ -77,7 +77,7 @@ Notepad_Click:
 Notepad_Close:
     INCLUDE "Apps/Notepad/Close.s"
 
-.EndProgramCode:                ; this may be useful on future for code dinamically relocatable
+Notepad.EndProgramCode:                ; this may be useful on future for code dinamically relocatable
 
 
 

@@ -46,6 +46,10 @@ _INIT_RAM:
     ld      (OS.mouseButton_2), a
     ld      (OS.oldMouseButton_1), a
     ld      (OS.oldMouseButton_2), a
+    
+    ld      (OS.isDraggingWindow), a
+    ld      (OS.dragOffset_X), a
+    ld      (OS.dragOffset_Y), a
 
 
     ; init keyboard vars
