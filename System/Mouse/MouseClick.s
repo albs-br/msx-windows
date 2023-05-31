@@ -4,11 +4,11 @@ _MOUSE_CLICK:
     ld      a, (OS.isDraggingWindow)
     or      a
     jp      z, .skip_1
-    ; (mouseButton_1 == false) _END_DRAG_WINDOW else ret
+    ; (mouseButton_1 == false) _END_DRAG_WINDOW else _DO_DRAG_WINDOW
     ld      a, (OS.mouseButton_1) ; check if button is pressed
     or      a
     jp      z, _END_DRAG_WINDOW
-    ret
+    jp      _DO_DRAG_WINDOW
 
 .skip_1:
     ; ----- get only positive transition of click
@@ -99,14 +99,7 @@ _MOUSE_CLICK:
     call    _GET_PROCESS_BY_ID
     call    z, _SET_CURRENT_PROCESS
 
-    ; set vars for window dragging
-    ld      a, 1
-    ld      (OS.isDraggingWindow), a
-
-    ; TODO:
-    ; dragOffset_X = window_X - mouseX
-    
-    ; dragOffset_Y = window_Y - mouseY
+    call    _START_DRAG_WINDOW
 
     ret
 
@@ -224,6 +217,86 @@ _MOUSE_CLICK:
     ret     z
 
     call    _SET_CURRENT_PROCESS
+
+    ret
+
+
+
+_START_DRAG_WINDOW:
+    ; set vars for window dragging
+    ld      a, 1
+    ld      (OS.isDraggingWindow), a
+
+
+    push    hl
+    pop     ix
+
+    ; TODO (test):
+    ; --- dragOffset_X = mouseX - window_X
+    ld      a, (ix + PROCESS_STRUCT_IX.x) ; get window X in columns (0-31)
+    ; multiply by 8 to convert to pixels (0-255)
+    ; sla     a ; shift left R; bit 7 -> C ; bit 0 -> 0
+    ; sla     a
+    ; sla     a   ; convert window X to pixels
+    add     a   ; If you use register A you can multiply faster by using the ADD A,A instruction, which is 5 T-states per instruction instead of 8
+    add     a
+    add     a
+    ld      (OS.windowCorner_TopLeft_X), a
+    ld      b, a
+
+    ld      a, (OS.mouseX)
+
+    sub     b
+
+    ld      (OS.dragOffset_X), a
+
+
+
+    ; --- dragOffset_Y = window_Y - mouseY
+    ld      a, (ix + PROCESS_STRUCT_IX.y) ; get window Y in columns (0-31)
+    ; multiply by 8 to convert to pixels (0-255)
+    ; sla     a ; shift left R; bit 7 -> C ; bit 0 -> 0
+    ; sla     a
+    ; sla     a   ; convert window X to pixels
+    add     a   ; If you use register A you can multiply faster by using the ADD A,A instruction, which is 5 T-states per instruction instead of 8
+    add     a
+    add     a
+    ld      (OS.windowCorner_TopLeft_Y), a
+    ld      b, a
+
+    ld      a, (OS.mouseY)
+
+    sub     b
+
+    ld      (OS.dragOffset_Y), a
+
+
+
+    ; set other window corners sprites vars
+    ld      a, SPRITE_INDEX_WINDOW_TOP_LEFT
+    ld      (OS.windowCorner_TopLeft_Pattern), a
+    ld      a, 4 ; blue
+    ld      (OS.windowCorner_TopLeft_Color), a
+    ; TODO: complete here
+
+    ret
+
+
+
+_DO_DRAG_WINDOW:
+    ; windowCorner_TopLeft_X = mouseX - dragOffset_X
+    ld      a, (OS.dragOffset_X)
+    ld      b, a
+    ld      a, (OS.mouseX)
+    sub     b
+    ld      (OS.windowCorner_TopLeft_X), a
+
+    ; windowCorner_TopLeft_Y = mouseY - dragOffset_Y
+    ld      a, (OS.dragOffset_Y)
+    ld      b, a
+    ld      a, (OS.mouseY)
+    sub     b
+    ld      (OS.windowCorner_TopLeft_Y), a
 
     ret
 

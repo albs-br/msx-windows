@@ -34,6 +34,16 @@ ram_watch   add     0xfc4a      -type word       -desc HIMEM     -format hex
 ram_watch   add     0xC00a      -type byte       -desc mouseBtn1     -format hex
 ram_watch   add     0xC00b      -type byte       -desc mouseBtn2     -format hex
 
+ram_watch   add     0xC002      -type byte       -desc mouseY     -format dec
+ram_watch   add     0xC003      -type byte       -desc mouseX     -format dec
+ram_watch   add     0xC00a      -type byte       -desc windowCor_Y     -format dec
+ram_watch   add     0xC00b      -type byte       -desc windowCor_X     -format dec
+
+# OS.mouseY: equ 0C002h ; last def. pass 3
+# OS.mouseX: equ 0C003h ; last def. pass 3
+# OS.windowCorner_TopLeft_Y: equ 0C00Ah ; last def. pass 3
+# OS.windowCorner_TopLeft_X: equ 0C00Bh ; last def. pass 3
+
 
 ram_watch   add     0xC018      -type word       -desc ticksSinceLastInput     -format dec
 

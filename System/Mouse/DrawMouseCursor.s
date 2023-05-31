@@ -61,6 +61,35 @@ _DRAW_MOUSE_CURSOR:
 ;     outi
 ;     jp      nz, .loop_1 ; this uses exactly 29 cycles (t-states)
 
+    ; TODO
+    ; if (OS.isDraggingWindow)
+    ld      a, (OS.isDraggingWindow)
+    or      a
+    jp      z, .skip_1
+
+    ld      a, (hl) ; fix Y+1 bug of TMS 9918
+    dec     a
+    inc     hl
+    out     (c), a        ; .windowCorner_TopLeft_Y
+
+    nop
+    nop
+    nop
+    outi        ; .windowCorner_TopLeft_X
+
+    nop
+    nop
+    nop
+    outi        ; .windowCorner_TopLeft_Pattern
+
+    nop
+    nop
+    nop
+    outi        ; .windowCorner_TopLeft_Color
+
+; TODO: complete here
+
+.skip_1:
     nop
     nop
     ld      a, 208

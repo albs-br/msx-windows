@@ -1,7 +1,7 @@
 ; ------------------- RAM usage
 
-; OS variables                                     810 bytes
-; process slots                 4 * (812 - 768) bytes =  4 * 44 = 176 bytes
+; OS variables                  ~ 1800 bytes
+; process slots                 4 * ? bytes =  4 * ? = ~ 256 bytes
 ; process variables space       4 * ? bytes =        ? bytes
 
 ; start of RAM: 0xc000 (49152)
@@ -34,6 +34,11 @@ OS:
 .mouseX_1:		        rb 1
 .mousePattern_1:	    rb 1
 .mouseColor_1:	        rb 1
+.windowCorner_TopLeft_Y:       rb 1
+.windowCorner_TopLeft_X:       rb 1
+.windowCorner_TopLeft_Pattern: rb 1
+.windowCorner_TopLeft_Color:   rb 1
+    ; TODO: complete here
 
 .mouseButton_1:         rb 1
 .mouseButton_2:         rb 1
