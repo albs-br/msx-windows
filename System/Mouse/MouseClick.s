@@ -230,10 +230,6 @@ _START_DRAG_WINDOW:
     ld      (OS.isDraggingWindow), a
 
 
-    ; push    hl
-    ; pop     ix
-
-    ; TODO (test):
     ; --- dragOffset_X = mouseX - window_X
     ld      a, (ix + PROCESS_STRUCT_IX.x) ; get window X in columns (0-31)
     ; multiply by 8 to convert to pixels (0-255)
@@ -274,14 +270,56 @@ _START_DRAG_WINDOW:
 
     ld      (OS.dragOffset_Y), a
 
+    call    _ADJUST_WINDOW_DRAG_CORNERS
+
 
 
     ; set other window corners sprites vars
     ld      a, SPRITE_INDEX_WINDOW_TOP_LEFT
     ld      (OS.windowCorner_TopLeft_Pattern), a
+    ld      a, SPRITE_INDEX_WINDOW_BOTTOM_LEFT
+    ld      (OS.windowCorner_BottomLeft_Pattern), a
+    ld      a, SPRITE_INDEX_WINDOW_TOP_RIGHT
+    ld      (OS.windowCorner_TopRight_Pattern), a
+    ld      a, SPRITE_INDEX_WINDOW_BOTTOM_RIGHT
+    ld      (OS.windowCorner_BottomRight_Pattern), a
     ld      a, 4 ; blue
     ld      (OS.windowCorner_TopLeft_Color), a
-    ; TODO: complete here
+    ld      (OS.windowCorner_BottomLeft_Color), a
+    ld      (OS.windowCorner_TopRight_Color), a
+    ld      (OS.windowCorner_BottomRight_Color), a
+
+
+    ret
+
+
+
+; Adjust the other three corners based on the position of the top left corner
+_ADJUST_WINDOW_DRAG_CORNERS:
+    ; 
+    ld      a, (ix + PROCESS_STRUCT_IX.width)
+    add     a ; mult by 8 to convert to pixels
+    add     a
+    add     a
+    ld      b, a
+    ld      a, (OS.windowCorner_TopLeft_X)
+    ld      (OS.windowCorner_BottomLeft_X), a
+    add     b
+    sub     16 + 5 ; sprite width / decrement window shadow
+    ld      (OS.windowCorner_TopRight_X), a
+    ld      (OS.windowCorner_BottomRight_X), a
+    ; 
+    ld      a, (ix + PROCESS_STRUCT_IX.height)
+    add     a ; mult by 8 to convert to pixels
+    add     a
+    add     a
+    ld      b, a
+    ld      a, (OS.windowCorner_TopLeft_Y)
+    ld      (OS.windowCorner_TopRight_Y), a
+    add     b
+    sub     16 + 10; sprite height / decrement window shadow
+    ld      (OS.windowCorner_BottomLeft_Y), a
+    ld      (OS.windowCorner_BottomRight_Y), a
 
     ret
 
@@ -302,6 +340,8 @@ _DO_DRAG_WINDOW:
     sub     b
     ld      (OS.windowCorner_TopLeft_Y), a
 
+    call    _ADJUST_WINDOW_DRAG_CORNERS
+
     ret
 
 
@@ -311,5 +351,21 @@ _END_DRAG_WINDOW:
     ; reset window dragging vars
     xor     a
     ld      (OS.isDraggingWindow), a
+
+    ld      ix, (OS.currentProcessAddr)
+
+    ld      a, (OS.windowCorner_TopLeft_X)
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    ld      (ix + PROCESS_STRUCT_IX.x), a
+
+    ld      a, (OS.windowCorner_TopLeft_Y)
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    ld      (ix + PROCESS_STRUCT_IX.y), a
+
+    call    _UPDATE_SCREEN
 
     ret

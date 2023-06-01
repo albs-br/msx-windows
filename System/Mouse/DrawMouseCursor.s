@@ -61,7 +61,6 @@ _DRAW_MOUSE_CURSOR:
 ;     outi
 ;     jp      nz, .loop_1 ; this uses exactly 29 cycles (t-states)
 
-    ; TODO
     ; if (OS.isDraggingWindow)
     ld      a, (OS.isDraggingWindow)
     or      a
@@ -86,8 +85,72 @@ _DRAW_MOUSE_CURSOR:
     nop
     nop
     outi        ; .windowCorner_TopLeft_Color
+    ; ----
 
-; TODO: complete here
+    ld      a, (hl) ; fix Y+1 bug of TMS 9918
+    dec     a
+    inc     hl
+    out     (c), a        ; .windowCorner_TopRight_Y
+
+    nop
+    nop
+    nop
+    outi        ; .windowCorner_TopRight_X
+
+    nop
+    nop
+    nop
+    outi        ; .windowCorner_TopRight_Pattern
+
+    nop
+    nop
+    nop
+    outi        ; .windowCorner_TopRight_Color
+    ; ----
+
+    ld      a, (hl) ; fix Y+1 bug of TMS 9918
+    dec     a
+    inc     hl
+    out     (c), a        ; .windowCorner_BottomLeft_Y
+
+    nop
+    nop
+    nop
+    outi        ; .windowCorner_BottomLeft_X
+
+    nop
+    nop
+    nop
+    outi        ; .windowCorner_BottomLeft_Pattern
+
+    nop
+    nop
+    nop
+    outi        ; .windowCorner_BottomLeft_Color
+    ; ----
+
+    ld      a, (hl) ; fix Y+1 bug of TMS 9918
+    dec     a
+    inc     hl
+    out     (c), a        ; .windowCorner_BottomRight_Y
+
+    nop
+    nop
+    nop
+    outi        ; .windowCorner_BottomRight_X
+
+    nop
+    nop
+    nop
+    outi        ; .windowCorner_BottomRight_Pattern
+
+    nop
+    nop
+    nop
+    outi        ; .windowCorner_BottomRight_Color
+    ; ----
+
+
 
 .skip_1:
     nop

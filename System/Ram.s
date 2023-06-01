@@ -38,7 +38,18 @@ OS:
 .windowCorner_TopLeft_X:       rb 1
 .windowCorner_TopLeft_Pattern: rb 1
 .windowCorner_TopLeft_Color:   rb 1
-    ; TODO: complete here
+.windowCorner_TopRight_Y:       rb 1
+.windowCorner_TopRight_X:       rb 1
+.windowCorner_TopRight_Pattern: rb 1
+.windowCorner_TopRight_Color:   rb 1
+.windowCorner_BottomLeft_Y:       rb 1
+.windowCorner_BottomLeft_X:       rb 1
+.windowCorner_BottomLeft_Pattern: rb 1
+.windowCorner_BottomLeft_Color:   rb 1
+.windowCorner_BottomRight_Y:       rb 1
+.windowCorner_BottomRight_X:       rb 1
+.windowCorner_BottomRight_Pattern: rb 1
+.windowCorner_BottomRight_Color:   rb 1
 
 .mouseButton_1:         rb 1
 .mouseButton_2:         rb 1
