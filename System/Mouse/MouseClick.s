@@ -97,7 +97,9 @@ _MOUSE_CLICK:
 
     ; get process addr from process id in C register
     call    _GET_PROCESS_BY_ID
-    call    z, _SET_CURRENT_PROCESS
+    push    hl
+        call    z, _SET_CURRENT_PROCESS
+    pop     ix
 
     call    _START_DRAG_WINDOW
 
@@ -228,8 +230,8 @@ _START_DRAG_WINDOW:
     ld      (OS.isDraggingWindow), a
 
 
-    push    hl
-    pop     ix
+    ; push    hl
+    ; pop     ix
 
     ; TODO (test):
     ; --- dragOffset_X = mouseX - window_X
@@ -241,6 +243,7 @@ _START_DRAG_WINDOW:
     add     a   ; If you use register A you can multiply faster by using the ADD A,A instruction, which is 5 T-states per instruction instead of 8
     add     a
     add     a
+    inc     a ; adjust for the empty line on left
     ld      (OS.windowCorner_TopLeft_X), a
     ld      b, a
 
@@ -248,7 +251,7 @@ _START_DRAG_WINDOW:
 
     sub     b
 
-    ld      (OS.dragOffset_X), a
+    ld      (OS.dragOffset_X), a 
 
 
 
@@ -261,6 +264,7 @@ _START_DRAG_WINDOW:
     add     a   ; If you use register A you can multiply faster by using the ADD A,A instruction, which is 5 T-states per instruction instead of 8
     add     a
     add     a
+    add     6 ; adjust for the 6 empty lines on title bar top
     ld      (OS.windowCorner_TopLeft_Y), a
     ld      b, a
 
