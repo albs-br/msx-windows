@@ -239,7 +239,7 @@ _START_DRAG_WINDOW:
     add     a   ; If you use register A you can multiply faster by using the ADD A,A instruction, which is 5 T-states per instruction instead of 8
     add     a
     add     a
-    inc     a ; adjust for the empty line on left
+    inc     a ; adjust for the empty line on left of the window
     ld      (OS.windowCorner_TopLeft_X), a
     ld      b, a
 
@@ -310,7 +310,8 @@ _ADJUST_WINDOW_DRAG_CORNERS:
     sub     16 + 5 ; sprite width / decrement window shadow
     ld      (OS.windowCorner_TopRight_X), a
     ld      (OS.windowCorner_BottomRight_X), a
-    ; 
+    
+    ; ------------------
     ld      a, (ix + PROCESS_STRUCT_IX.height)
     add     a ; mult by 8 to convert to pixels
     add     a
@@ -352,11 +353,35 @@ _DO_DRAG_WINDOW:
     sub     b
     ld      (OS.windowCorner_TopLeft_X), a
 
+    ; TODO: it is not good
+    ; if(windowCorner_TopLeft_X > 255-16) windowCorner_TopLeft_X = 1
+    cp      255 - 16
+    jp      nc, .skip_10
+    ; if(windowCorner_TopLeft_Y < 1) windowCorner_TopLeft_X = 1
+    cp      1
+    jp      nc, .skip_20
+.skip_10:
+    ld      a, 1
+.skip_20:
+    ld      (OS.windowCorner_TopLeft_X), a
+
+    ; ---------------------------
+
     ; windowCorner_TopLeft_Y = mouseY - dragOffset_Y
     ld      a, (OS.dragOffset_Y)
     ld      b, a
     ld      a, (OS.mouseY)
     sub     b
+
+    ; if(windowCorner_TopLeft_Y > 191) windowCorner_TopLeft_Y = 6
+    cp      191
+    jp      nc, .skip_1
+    ; if(windowCorner_TopLeft_Y < 6) windowCorner_TopLeft_Y = 6
+    cp      6
+    jp      nc, .skip_2
+.skip_1:
+    ld      a, 6
+.skip_2:
     ld      (OS.windowCorner_TopLeft_Y), a
 
     call    _ADJUST_WINDOW_DRAG_CORNERS
@@ -374,12 +399,14 @@ _END_DRAG_WINDOW:
     ld      ix, (OS.currentProcessAddr)
 
     ld      a, (OS.windowCorner_TopLeft_X)
+    dec     a ; adjust for the empty line on left of the window
     srl     a ; shift right n, bit 7 = 0, carry = 0
     srl     a ; shift right n, bit 7 = 0, carry = 0
     srl     a ; shift right n, bit 7 = 0, carry = 0
     ld      (ix + PROCESS_STRUCT_IX.x), a
 
     ld      a, (OS.windowCorner_TopLeft_Y)
+    sub     6 ; adjust for the 6 empty lines on title bar top
     srl     a ; shift right n, bit 7 = 0, carry = 0
     srl     a ; shift right n, bit 7 = 0, carry = 0
     srl     a ; shift right n, bit 7 = 0, carry = 0
