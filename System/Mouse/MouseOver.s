@@ -1,5 +1,10 @@
 _MOUSE_OVER:
 
+    ; if (isDraggingWindow) ret
+    ld      a, (OS.isDraggingWindow)
+    or      a
+    ret     nz
+
     ; if (mouseOver_Activated != 0)
     ld      a, (OS.mouseOver_Activated)
     or      a
