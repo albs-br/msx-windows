@@ -283,7 +283,9 @@ _START_DRAG_WINDOW:
     ld      (OS.windowCorner_TopRight_Pattern), a
     ld      a, SPRITE_INDEX_WINDOW_BOTTOM_RIGHT
     ld      (OS.windowCorner_BottomRight_Pattern), a
-    ld      a, 4 ; blue
+
+
+    ld      a, 15 ; white
     ld      (OS.windowCorner_TopLeft_Color), a
     ld      (OS.windowCorner_BottomLeft_Color), a
     ld      (OS.windowCorner_TopRight_Color), a
@@ -321,7 +323,24 @@ _ADJUST_WINDOW_DRAG_CORNERS:
     ld      (OS.windowCorner_BottomLeft_Y), a
     ld      (OS.windowCorner_BottomRight_Y), a
 
+    ; get color based on JIFFY
+    ld      a, (BIOS_JIFFY)
+    and     0000 1111 b
+    ld      hl, DRAG_WINDOW_SPRITE_COLOR_LUT
+    ld      b, 0
+    ld      c, a
+    add     hl, bc
+    ld      a, (hl)
+    ld      (OS.windowCorner_TopLeft_Color), a
+    ld      (OS.windowCorner_BottomLeft_Color), a
+    ld      (OS.windowCorner_TopRight_Color), a
+    ld      (OS.windowCorner_BottomRight_Color), a
+
     ret
+
+; look up table for smooth blinking effetc using a color ramp
+DRAG_WINDOW_SPRITE_COLOR_LUT: 
+    db 15, 14, 14, 7, 5, 5, 4, 1, 1, 4, 4, 5, 7, 7, 14, 15
 
 
 
