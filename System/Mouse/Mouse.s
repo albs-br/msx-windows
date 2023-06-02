@@ -1,12 +1,15 @@
     INCLUDE "System/Mouse/DrawMouseCursor.s"
     INCLUDE "System/Mouse/MouseClick.s"
     INCLUDE "System/Mouse/MouseOver.s"
+    INCLUDE "System/Mouse/DragWindow.s"
 
 
 
 WAIT1:  equ   10              ; Short delay value
 WAIT2:  equ   30              ; Long delay value
 
+
+; Source (adapted) from https://www.msx.org/wiki/Mouse/Trackball
 
 ; Routine to read the mouse by direct accesses (works on MSX1/2/2+/turbo R)
 ;
