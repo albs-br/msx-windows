@@ -160,7 +160,7 @@ Process_struct:
 .clickAddr:		        rw 1
 .closeAddr:		        rw 1
 
-.iconAddr:		        rw 1
+.iconAddr:		        rw 1     ; Icon: 9x 8x8 pixels (see _INIT_DESKTOP for more info on positioning rules)
 
 .ramSize:		        rw 1     ; RAM space reserved for variables of this app
 ; estimated RAM for some apps:

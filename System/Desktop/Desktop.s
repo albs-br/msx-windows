@@ -45,6 +45,28 @@ _INIT_DESKTOP:
     ;   XXX
     ; notepad
     ; 
+
+    ; tiles positioning:
+    ;   1 4 7
+    ;   2 5 8
+    ;   3 6 9
+
+
+    ; --- tile sequence on file (based on tinysprite export)
+    ; slot    tile
+
+    ; 0	        0
+    ; 0	        1
+    ; 2	        0
+
+    ; 0	        2
+    ; 0	        3
+    ; 2	        2
+
+    ; 1	        0
+    ; 1	        1
+    ; 3	        0
+
     ld      ix, Notepad.Header
     ld      a, TILE_BASE_DESKTOP_ICON_0
     ld      hl, OS.desktop_Tiles
