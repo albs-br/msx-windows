@@ -157,15 +157,14 @@ _DO_DRAG_WINDOW:
     add     hl, bc
 
     ; HL now contains windowCorner_TopLeft_X + (process.width * 8)
-    ld      de, 0x8000 + (255 - 6) ; 6 pixels adjust to windor right empty pixels
+    ld      de, 0x8000 + (255 + 2)
     call    BIOS_DCOMPR         ; Compare Contents Of HL & DE, Set Z-Flag IF (HL == DE), Set CY-Flag IF (HL < DE)
     jp      nc, .skip_3 ; HL >= DE
     jp      .skip_4 ; HL < DE
 .skip_3:
     ; windowCorner_TopLeft_X = 255 - (process.width * 8)
-    ld      a, 0 + (255 - 6) ; 6 pixels adjust to windor right empty pixels
+    ld      a, 1 ; 255 + 2 = 1, in 8 bits
     sub     c
-    ; jp $
     ld      (OS.windowCorner_TopLeft_X), a
 .skip_4:
     ; ---------------------------
@@ -186,6 +185,27 @@ _DO_DRAG_WINDOW:
     ld      a, 6
 .skip_2:
     ld      (OS.windowCorner_TopLeft_Y), a
+
+    ; A now has OS.windowCorner_TopLeft_Y
+    ; if ( ( windowCorner_TopLeft_Y + (process.height * 8) ) > (191 - 16)) windowCorner_TopLeft_Y = (191 - 16) - (process.height * 8)
+    ld      b, a
+    ld      a, (ix + PROCESS_STRUCT_IX.height)
+    add     a ; mult by 8 to convert to pixels
+    add     a
+    add     a
+    ld      c, a
+    add     b
+
+    cp      191 - 9
+    jp      c, .skip_5
+
+    ; windowCorner_TopLeft_Y = (191 - 16) - (process.height * 8)
+    ld      a, 191 - 9
+    sub     c
+    ld      (OS.windowCorner_TopLeft_Y), a
+.skip_5:
+    
+    ; ---------------------------
 
     call    _ADJUST_WINDOW_DRAG_CORNERS
 
