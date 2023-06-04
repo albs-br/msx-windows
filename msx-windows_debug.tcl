@@ -27,7 +27,14 @@
 
 ram_watch   add     0xC32f      -type byte       -desc currTileMouseOver     -format hex
 
-#OS.currentTileMouseOver: equ 0C32Fh ; last def. pass 3
+ram_watch   add     0xC72F      -type byte       -desc IsResizing     -format dec
+
+ram_watch   add     0xC33F      -type byte       -desc mouseOver_screenMappingValue     -format hex
+
+# OS.mouseOver_screenMappingValue: equ 0C33Fh ; last def. pass 3
+
+# IsResizing: equ 0C72Fh ; last def. pass 3
+
 
 ram_watch   add     0xfc48      -type word       -desc BOTTOM     -format hex
 ram_watch   add     0xfc4a      -type word       -desc HIMEM     -format hex

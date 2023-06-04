@@ -15,8 +15,14 @@ _MOUSE_OVER:
     ld      b, a
     ld      a, (OS.mouseOver_screenMappingValue)
     cp      b
-    jp      nz, .notOver_WindowButton
     ret     z
+        
+        ; check if is resize or window button
+        ld      a, (OS.mouseOver_screenMappingValue)
+        and     1111 0000 b
+        cp      SCREEN_MAPPING_WINDOWS_RESIZE_CORNER
+        jp      nz, .notOver_WindowButton
+        jp      .notOver_ResizeCorner
 
 .skip_1:
 
@@ -50,6 +56,9 @@ _MOUSE_OVER:
 
     cp      SCREEN_MAPPING_WINDOWS_MINIMIZE_BUTTON
     jp      z, .over_WindowMinimizeRestoreButton
+
+    cp      SCREEN_MAPPING_WINDOWS_RESIZE_CORNER
+    jp      z, .over_WindowResizeCorner
 
     ret
 
@@ -102,6 +111,54 @@ _MOUSE_OVER:
     ld      b, TILE_WINDOW_MINIMIZE_BUTTON
 
     call    .setMouseOver
+
+    ret
+
+
+
+.over_WindowResizeCorner:
+ 
+    ; if (mouseOver_Activated) ret
+    ld      a, (OS.mouseOver_Activated)
+    or      a
+    ret     nz
+
+    ; set flag mouseOver_Activated to true
+    ld      a, 1
+    ld      (OS.mouseOver_Activated), a
+
+    ; set mouseOver_screenMappingValue to current tile
+    ld      a, (OS.currentTileMouseOver)
+    ld      (OS.mouseOver_screenMappingValue), a
+
+ 
+    ; TODO
+    ; copy resize cursor pattern to VRAM PATTBL on SPRITE_INDEX_CURSOR_0 & 1 
+
+    ld      a, 1
+    ld      (IsResizing), a ; debug
+
+    ret
+
+
+
+.notOver_ResizeCorner:
+    ; reset flag mouseOver_Activated
+    xor     a
+    ld      (OS.mouseOver_Activated), a
+
+    ; reset mouseOver_screenMappingValue
+    ld      (OS.mouseOver_screenMappingValue), a
+
+
+
+    ; TODO
+    ; restore arrow cursor pattern to VRAM PATTBL on SPRITE_INDEX_CURSOR_0 & 1 
+
+
+
+    ld      a, 0
+    ld      (IsResizing), a ; debug
 
     ret
 

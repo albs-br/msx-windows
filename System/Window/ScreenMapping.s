@@ -159,6 +159,31 @@ _UPDATE_SCREEN_MAPPING_WINDOW:
 
     pop     hl
 
+    ; set SCREEN_MAPPING_WINDOWS_RESIZE_CORNER 
+
+    ; L = process.X + (process.width - 1)
+    ld      a, (ix + PROCESS_STRUCT_IX.x)
+    ld      l, (ix + PROCESS_STRUCT_IX.width)
+    dec     l
+    add     l
+    ld      l, a
+
+    ; H = process.Y + (process.height - 1)
+    ld      a, (ix + PROCESS_STRUCT_IX.Y)
+    ld      h, (ix + PROCESS_STRUCT_IX.height)
+    dec     h
+    add     h
+    ld      h, a
+    call    _CONVERT_COL_LINE_TO_LINEAR
+    
+    ld      de, OS.screenMapping
+    add     hl, de
+
+    ld      a, (ix + PROCESS_STRUCT_IX.processId)
+    or      SCREEN_MAPPING_WINDOWS_RESIZE_CORNER
+    ld      (hl), a
+
+
     ret
 
 
