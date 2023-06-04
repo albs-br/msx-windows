@@ -134,17 +134,40 @@ _DO_DRAG_WINDOW:
     xor     a ; clear carry flag
     sbc     hl, de
 
-    ; if(windowCorner_TopLeft_Y < 1) windowCorner_TopLeft_X = 1
-    ld      de, 0x8000 + 1
-    call    BIOS_DCOMPR         ; Compare Contents Of HL & DE, Set Z-Flag IF (HL == DE), Set CY-Flag IF (HL < DE)
-    jp      nc, .skip_20
-    ld      a, 1
-    jp      .cont_10
-.skip_20:
-    ld      a, l
-.cont_10:
-    ld      (OS.windowCorner_TopLeft_X), a
+    push    hl
+        ; if (windowCorner_TopLeft_X < 1) windowCorner_TopLeft_X = 1
+        ld      de, 0x8000 + 1
+        call    BIOS_DCOMPR         ; Compare Contents Of HL & DE, Set Z-Flag IF (HL == DE), Set CY-Flag IF (HL < DE)
+        jp      nc, .skip_20
+        ld      a, 1
+        jp      .cont_10
+    .skip_20:
+        ld      a, l
+    .cont_10:
+        ld      (OS.windowCorner_TopLeft_X), a
+    pop     hl
+    
+    ; if ( ( windowCorner_TopLeft_X + (process.width * 8) ) > 255) windowCorner_TopLeft_X = 255 - (process.width * 8)
+    ld      a, (ix + PROCESS_STRUCT_IX.width)
+    add     a ; mult by 8 to convert to pixels
+    add     a
+    add     a
+    ld      c, a
+    ld      b, 0
+    add     hl, bc
 
+    ; HL now contains windowCorner_TopLeft_X + (process.width * 8)
+    ld      de, 0x8000 + (255 - 6) ; 6 pixels adjust to windor right empty pixels
+    call    BIOS_DCOMPR         ; Compare Contents Of HL & DE, Set Z-Flag IF (HL == DE), Set CY-Flag IF (HL < DE)
+    jp      nc, .skip_3 ; HL >= DE
+    jp      .skip_4 ; HL < DE
+.skip_3:
+    ; windowCorner_TopLeft_X = 255 - (process.width * 8)
+    ld      a, 0 + (255 - 6) ; 6 pixels adjust to windor right empty pixels
+    sub     c
+    ; jp $
+    ld      (OS.windowCorner_TopLeft_X), a
+.skip_4:
     ; ---------------------------
 
     ; windowCorner_TopLeft_Y = mouseY - dragOffset_Y
