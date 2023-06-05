@@ -62,6 +62,9 @@ _MOUSE_CLICK:
     cp      SCREEN_MAPPING_WINDOWS_CLOSE_BUTTON
     jp      z, .click_WindowCloseButton
 
+    cp      SCREEN_MAPPING_WINDOWS_MAXIMIZE_RESTORE_BUTTON
+    jp      z, .click_WindowMaximizeButton
+
     cp      SCREEN_MAPPING_WINDOWS_MINIMIZE_BUTTON
     jp      z, .click_WindowMinimizeButton
 
@@ -128,6 +131,23 @@ _MOUSE_CLICK:
     ret     nz
 
     call    _MINIMIZE_PROCESS
+
+    ret
+
+; --------------------------------------
+
+.click_WindowMaximizeButton:
+
+    ; get process addr from process id in C register
+    call    _GET_PROCESS_BY_ID
+    ret     nz
+
+    ; TODO
+    ; if (process.windowState == RESTORED)
+    ;   _MAXIMIZE_PROCESS
+    ; else if (process.windowState == MAXIMIZED)
+    ;   _RESTORE_PROCESS
+    call    _MAXIMIZE_PROCESS
 
     ret
 

@@ -2,6 +2,7 @@
     INCLUDE "System/Process/SetCurrentProcess.s"
     INCLUDE "System/Process/CloseProcess.s"
     INCLUDE "System/Process/MinimizeProcess.s"
+    INCLUDE "System/Process/MaximizeProcess.s"
 
 
 

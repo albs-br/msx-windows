@@ -89,6 +89,10 @@ _UPDATE_SCREEN_MAPPING_WINDOW:
     cp      WINDOW_STATE.MINIMIZED
     ret     z
 
+    ; TODO:
+    ; if (windowState == MAXIMIZED) update screen mapping for window maximized
+
+
     ; HL = OS.screenMapping + HL
     ex      de, hl
     ld      hl, OS.screenMapping

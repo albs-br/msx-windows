@@ -9,6 +9,8 @@ _DRAW_WINDOW:
     cp      WINDOW_STATE.MINIMIZED
     ret     z
 
+    ; TODO:
+    ; if (windowState == MAXIMIZED) draw maximized window
     
     
     ; get variables from process
