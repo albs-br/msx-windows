@@ -132,8 +132,12 @@ _MOUSE_OVER:
     ld      (OS.mouseOver_screenMappingValue), a
 
  
-    ; TODO
     ; copy resize cursor pattern to VRAM PATTBL on SPRITE_INDEX_CURSOR_0 & 1 
+    ld      hl, SPRITE_CURSOR_RESIZE_PATTERN            ; RAM address (source)
+    ld		de, SPRPAT + (SPRITE_INDEX_CURSOR_0 * 32)   ; VRAM address (destiny)
+    ld		bc, SPRITE_CURSOR_RESIZE_PATTERN.size       ; Block length
+    call 	BIOS_LDIRVM        	                        ; Block transfer to VRAM from memory
+
 
     ld      a, 1
     ld      (IsResizing), a ; debug
@@ -152,8 +156,11 @@ _MOUSE_OVER:
 
 
 
-    ; TODO
     ; restore arrow cursor pattern to VRAM PATTBL on SPRITE_INDEX_CURSOR_0 & 1 
+    ld      hl, SPRITE_CURSOR_ARROW_PATTERN             ; RAM address (source)
+    ld		de, SPRPAT + (SPRITE_INDEX_CURSOR_0 * 32)   ; VRAM address (destiny)
+    ld		bc, SPRITE_CURSOR_ARROW_PATTERN.size        ; Block length
+    call 	BIOS_LDIRVM        	                        ; Block transfer to VRAM from memory
 
 
 

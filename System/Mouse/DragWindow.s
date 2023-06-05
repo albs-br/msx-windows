@@ -127,7 +127,8 @@ _DO_DRAG_WINDOW:
     ; do operation in 16 bits
     ld      a, (OS.mouseX)
     ld      l, a
-    ld      h, 0x80 ; put current A value in the middle of the 16 bits range
+    ld      h, 0x80 ; put current A value in the middle of the 16 bits range 
+                    ; (the same as doing the operation with signed numbers)
     ld      a, (OS.dragOffset_X)
     ld      e, a
     ld      d, 0
