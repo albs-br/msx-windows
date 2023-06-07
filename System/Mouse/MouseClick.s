@@ -16,19 +16,18 @@ _MOUSE_CLICK:
     ld      a, (OS.mouseButton_1) ; check if button is pressed
     ld      b, a
     or      a
-    jp      z, .return ; ret     z
+    jp      z, .return
 
 
     ld      a, (OS.oldMouseButton_1) ; check if button was previously released
     or      a
-    jp      nz, .return ; ret     nz
+    jp      nz, .return
 
 
     ; update old mouse button state
     ld      a, b
     ld      (OS.oldMouseButton_1), a
 
-;    ret     nz    
 
     ; ----- 
 
@@ -227,7 +226,8 @@ _MOUSE_CLICK:
     ret
 
 
-
+; Input:
+;   HL = process addr (0xffff if empty)
 .click_Taskbar_button:
 
     ; if (taskbar_Button_?_Process_addr == 0xffff) ret:
@@ -237,6 +237,18 @@ _MOUSE_CLICK:
         or      h
     pop     hl
     ret     z
+
+    push    hl  ; IX = HL
+    pop     ix
+
+    ; if window is minimized, set window state to RESTORED/MAXIMIZED previously saved
+    ld      a, (ix + PROCESS_STRUCT_IX.windowState)
+    cp      WINDOW_STATE.MINIMIZED
+    jp      nz, .skip_20
+
+    ld      a, (ix + PROCESS_STRUCT_IX.previousWindowState)
+    ld      (ix + PROCESS_STRUCT_IX.windowState), a
+.skip_20:
 
     call    _SET_CURRENT_PROCESS
 

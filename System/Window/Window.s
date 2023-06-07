@@ -41,9 +41,14 @@ _CONVERT_COL_LINE_TO_LINEAR:
 ; Input:
 ;   IX = addr of process header
 ; Output:
-;   HL = VRAM NAMTBL addr postition of top left of useful area 
+;   HL = VRAM NAMTBL addr position of top left of useful area 
 ;        of window (area that the process can use)
 _GET_WINDOW_BASE_NAMTBL:
+
+    ; if (windowState == MAXIMIZED) ...
+    ld      a, (ix + PROCESS_STRUCT_IX.windowState)
+    cp      WINDOW_STATE.MAXIMIZED
+    jp      z, .isMaximized
 
     ; get variables from process
     ld      l, (ix + PROCESS_STRUCT_IX.x) ; process.x
@@ -54,19 +59,28 @@ _GET_WINDOW_BASE_NAMTBL:
     ld      bc, NAMTBL + (32 * 2) + 1; two lines below and one column right
     add     hl, bc
 
-    ; TODO
+    ret
+
+.isMaximized:
     ; if maximized, the position is NAMTBL + 32,
     ; as maximized windows has no borders
     ; and title is just one tile tall
+    ld      hl, NAMTBL + 32
 
     ret
+
 
 
 ; Input:
 ;   IX = addr of process header
 ; Output:
-;   HL = VRAM NAMTBL addr postition of top left of window (title)
+;   HL = VRAM NAMTBL addr position of top left of window (title)
 _GET_WINDOW_TITLE_BASE_NAMTBL:
+
+    ; if (windowState == MAXIMIZED) the position is simply NAMTBL
+    ld      a, (ix + PROCESS_STRUCT_IX.windowState)
+    cp      WINDOW_STATE.MAXIMIZED
+    jp      z, .isMaximized
 
     ; get variables from process
     ld      l, (ix + PROCESS_STRUCT_IX.x) ; process.x
@@ -77,7 +91,9 @@ _GET_WINDOW_TITLE_BASE_NAMTBL:
     ld      bc, NAMTBL
     add     hl, bc
 
-    ; TODO
-    ; if maximized, the position is simply NAMTBL
+    ret
+
+.isMaximized:
+    ld      hl, NAMTBL
 
     ret

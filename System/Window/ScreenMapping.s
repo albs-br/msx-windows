@@ -69,7 +69,9 @@ _UPDATE_SCREEN:
     ld      l, (ix + PROCESS_STRUCT_IX.x) ; process.x
     ld      h, (ix + PROCESS_STRUCT_IX.y) ; process.y
     
-    call    _CONVERT_COL_LINE_TO_LINEAR
+    push    ix
+        call    _CONVERT_COL_LINE_TO_LINEAR
+    pop     ix
 
     call    _UPDATE_SCREEN_MAPPING_WINDOW
 
@@ -89,9 +91,9 @@ _UPDATE_SCREEN_MAPPING_WINDOW:
     cp      WINDOW_STATE.MINIMIZED
     ret     z
 
-    ; TODO:
     ; if (windowState == MAXIMIZED) update screen mapping for window maximized
-
+    cp      WINDOW_STATE.MAXIMIZED
+    jp      z, _UPDATE_SCREEN_MAPPING_WINDOW_MAXIMIZED
 
     ; HL = OS.screenMapping + HL
     ex      de, hl
@@ -189,6 +191,59 @@ _UPDATE_SCREEN_MAPPING_WINDOW:
 
 
     ret
+
+
+
+_UPDATE_SCREEN_MAPPING_WINDOW_MAXIMIZED:
+
+    ; ---- fill all window area
+    ld      hl, OS.screenMapping
+    
+    push    hl
+        ; set value of SCREEN_MAPPING_WINDOWS + process id
+        ld      a, (ix + PROCESS_STRUCT_IX.processId)
+        or      SCREEN_MAPPING_WINDOWS
+
+        ld      (hl), a
+        ld      de, OS.screenMapping + 1
+        ld      bc, 0 + (32 * 22) - 1
+        ldir
+    pop     hl
+
+
+
+    ; set value of SCREEN_MAPPING_WINDOWS_TITLE_BAR + process id
+    ld      a, (ix + PROCESS_STRUCT_IX.processId)
+    or      SCREEN_MAPPING_WINDOWS_TITLE_BAR
+
+    ; title 1st line
+    ; push    hl
+        ld      b, 32 - 3 ; width of window maximized, minus buttons
+    .loop_21:
+        ld      (hl), a
+        inc     hl
+        djnz    .loop_21
+    ; pop     hl
+
+
+    ld      a, (ix + PROCESS_STRUCT_IX.processId)
+    or      SCREEN_MAPPING_WINDOWS_MINIMIZE_BUTTON
+    ld      (hl), a
+    inc     hl
+
+    ld      a, (ix + PROCESS_STRUCT_IX.processId)
+    or      SCREEN_MAPPING_WINDOWS_MAXIMIZE_RESTORE_BUTTON
+    ld      (hl), a
+    inc     hl
+
+    ld      a, (ix + PROCESS_STRUCT_IX.processId)
+    or      SCREEN_MAPPING_WINDOWS_CLOSE_BUTTON
+    ld      (hl), a
+    ; inc     hl
+
+
+    ret
+
 
 
 ; Input: nothing

@@ -89,6 +89,8 @@ _LOAD_PROCESS:
     dec     a
     ld      (ix + PROCESS_STRUCT_IX.layer), a
 
+    ld      a, WINDOW_STATE.RESTORED
+    ld      (ix + PROCESS_STRUCT_IX.previousWindowState), a
 
     ; set x and y of window and
     ; update OS.nextWindow_x and y to the next

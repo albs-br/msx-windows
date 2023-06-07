@@ -9,9 +9,9 @@ _DRAW_WINDOW:
     cp      WINDOW_STATE.MINIMIZED
     ret     z
 
-    ; TODO:
     ; if (windowState == MAXIMIZED) draw maximized window
-    
+    cp      WINDOW_STATE.MAXIMIZED
+    jp      z, _DRAW_WINDOW_MAXIMIZED
     
     ; get variables from process
     ld      l, (ix + PROCESS_STRUCT_IX.x) ; process.x
@@ -207,6 +207,76 @@ _DRAW_WINDOW:
     ld      d, (ix + PROCESS_STRUCT_IX.drawAddr + 1)     ; process.Draw addr (high)
     call    JP_DE
 
+
+
+    ret
+
+
+
+_DRAW_WINDOW_MAXIMIZED:
+    ld      hl, NAMTBL
+
+    ; title bar
+    push    hl
+        call    BIOS_SETWRT
+        
+        ld      a, 32 - 3 ; width of maximized window, minus buttons
+        ld      b, a
+    .loop_2:
+        ld      a, TILE_WINDOW_TITLE_MIDDLE_BOTTOM
+        out     (PORT_0), a
+        djnz    .loop_2
+
+        nop
+        nop
+        ld      a, TILE_WINDOW_MINIMIZE_BUTTON
+        out     (PORT_0), a
+
+        nop
+        nop
+        ld      a, TILE_WINDOW_MAXIMIZE_BUTTON
+        out     (PORT_0), a
+
+        nop
+        nop
+        ld      a, TILE_WINDOW_CLOSE_BUTTON
+        out     (PORT_0), a
+    pop     hl
+
+    ; draw name of process on window title
+    push    hl, ix
+        inc     hl
+        call    BIOS_SETWRT
+        
+        ld      b, 16 ; max size of string
+    .loop_10:
+        ld      a, (ix + PROCESS_STRUCT_IX.windowTitle) ; process.windowTitle
+        or      a ; check for 0 meaning end of string
+        jp      z, .endLoop_10
+        out     (PORT_0), a
+        inc     ix
+        djnz    .loop_10
+    .endLoop_10:
+    pop     ix, hl
+
+
+    ; --- draw window empty
+    ld      bc, 32
+    add     hl, bc
+    call    BIOS_SETWRT
+
+    ld      a, TILE_EMPTY
+    ld      c, PORT_0
+
+    ld      d, 21 ; 22 lines of window maximized, minus title
+.outerLoop:
+        ld      b, 32 ; 32 columns
+    .innerLoop:
+        out     (c), a
+        nop
+        djnz    .innerLoop
+    dec     d
+    jp      nz, .outerLoop
 
 
     ret

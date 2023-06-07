@@ -1,0 +1,1 @@
+C:\Users\????\Downloads\openmsx-18.0-windows-vc-x64-bin\openmsx msx-windows.rom -script msx-windows_debug.tcl -script add_mouse.tcl

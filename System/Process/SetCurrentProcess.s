@@ -2,18 +2,11 @@
 ;   HL = addr of process header
 _SET_CURRENT_PROCESS:
 
-
-
     ; set curr proc to process
     ld      (OS.currentProcessAddr), hl
 
     push    hl  ; IX = HL
     pop     ix
-
-    ; TODO: set window state to RESTORED/MAXIMIZED previously saved
-    ; set window state to RESTORED
-    ld      a, WINDOW_STATE.RESTORED
-    ld      (ix + PROCESS_STRUCT_IX.windowState), a
 
     push    hl
         ; get layer number

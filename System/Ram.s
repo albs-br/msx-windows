@@ -180,6 +180,8 @@ Process_struct:
 .layer:					rb 1		; layer means the order in which the windows should be drawn
 										; desktop is drawn first, then window with layer = 0, then layer = 1, and so on
 
+.previousWindowState:   rb 1            ; window state before being minimized
+
 .size: equ $ - Process_struct
 
 ; ------------------------------------
@@ -214,12 +216,18 @@ PROCESS_STRUCT_IX:
 
 .layer:					equ Process_struct.layer    	- Process_struct
 
+.previousWindowState:	equ Process_struct.previousWindowState  - Process_struct
 
+; ----------------------------------------------------
 
 ; temp vars / debug
 Temp:       rb 1
 TempWord:   rw 1
 
 IsResizing: rb 1
+
+
+
+
 
 RamEnd:

@@ -119,6 +119,7 @@ _GET_PROCESS_BY_ID:
 
     ; not found
     ld      hl, 0x0000
+    xor     a ; reset z flag
 
     ret
 
@@ -161,7 +162,6 @@ _GET_PROCESS_BY_ID:
 ; dec layer of all processes with layer > old layer
 
 
-; ; TODO: test:
 
 ; Decrease layer of all processes with layer > C
 ; Input:

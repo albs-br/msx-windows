@@ -1,4 +1,15 @@
+; Input:
+;   IX = process addr
 _START_DRAG_WINDOW:
+
+    ; if (windowState == MAXIMIZED) ret
+    ld      a, (ix + PROCESS_STRUCT_IX.windowState)
+    cp      WINDOW_STATE.MAXIMIZED
+    ret     z
+
+
+
+
     ; set vars for window dragging
     ld      a, 1
     ld      (OS.isDraggingWindow), a

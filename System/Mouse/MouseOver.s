@@ -210,7 +210,7 @@ _MOUSE_OVER:
 ;   IY = RAM addr of tile pattern
 ;   HL = VRAM NAMTBL addr
 ;   B = TILE_WINDOW_CLOSE_BUTTON
-;   C = process id
+;   C = process id ; TODO: remove if not used anymore
 .setMouseOver:
 
 ;_MOUSE_OVER.setMouseOver: equ 049AFh ; last def. pass 3
@@ -354,13 +354,25 @@ _MOUSE_OVER:
 ; Output:
 ;   HL = NAMTBL addr of close button
 .getWindowCloseButton_NAMTBL:
-    push    hl
+    push    hl ; IX = HL
     pop     ix
     call    _GET_WINDOW_TITLE_BASE_NAMTBL
+    
+    ld      a, (ix + PROCESS_STRUCT_IX.windowState)
+    cp      WINDOW_STATE.MAXIMIZED
+    jp      z, .isMaximized
+
     ; add width - n
     ld      c, (ix + PROCESS_STRUCT_IX.width)   ; process.width
     ld      b, 0
     add     hl, bc
     ld      bc, 32 - 2                          ; one line below, two columns to the left
     add     hl, bc
+    
+    ret
+
+.isMaximized:
+    ld      bc, 32 - 1
+    add     hl, bc
+    
     ret

@@ -1,6 +1,7 @@
     INCLUDE "System/Mouse/DrawMouseCursor.s"
     INCLUDE "System/Mouse/MouseClick.s"
     INCLUDE "System/Mouse/MouseOver.s"
+    INCLUDE "System/Mouse/DisableMouseOver.s"
     INCLUDE "System/Mouse/DragWindow.s"
 
 
