@@ -3,6 +3,7 @@
     INCLUDE "System/Process/CloseProcess.s"
     INCLUDE "System/Process/MinimizeProcess.s"
     INCLUDE "System/Process/MaximizeProcess.s"
+    INCLUDE "System/Process/RestoreProcess.s"
 
 
 

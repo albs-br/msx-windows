@@ -135,19 +135,29 @@ _MOUSE_CLICK:
 
 ; --------------------------------------
 
+; click on the button MAximize/Restore
 .click_WindowMaximizeButton:
 
     ; get process addr from process id in C register
     call    _GET_PROCESS_BY_ID
     ret     nz
 
-    ; TODO
+    push    hl ; IX = HL
+    pop     ix
+
     ; if (process.windowState == RESTORED)
     ;   _MAXIMIZE_PROCESS
     ; else if (process.windowState == MAXIMIZED)
     ;   _RESTORE_PROCESS
-    call    _MAXIMIZE_PROCESS
+    ld      a, (ix + PROCESS_STRUCT_IX.windowState)
+    cp      WINDOW_STATE.RESTORED
+    jp      z, .isRestored
 
+    call    _RESTORE_PROCESS
+    ret
+
+.isRestored:
+    call    _MAXIMIZE_PROCESS
     ret
 
 ; --------------------------------------
