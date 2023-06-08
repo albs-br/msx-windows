@@ -58,9 +58,8 @@ OS:
 .oldMouseButton_2:      rb 1
 
 .isDraggingWindow:      rb 1
-.dragOffset_X:          rb 1
+.dragOffset_X:          rb 1    ; these two "dragOffset" vars are used both on windows drag and resize
 .dragOffset_Y:          rb 1
-
 .isResizingWindow:      rb 1
 
 .keyboardMatrix:	    rb 10			; https://map.grauw.nl/articles/keymatrix.php

@@ -58,22 +58,22 @@ _START_DRAG_WINDOW:
 
 
 
-    ; set other window corners sprites vars
-    ld      a, SPRITE_INDEX_WINDOW_TOP_LEFT
-    ld      (OS.windowCorner_TopLeft_Pattern), a
-    ld      a, SPRITE_INDEX_WINDOW_BOTTOM_LEFT
-    ld      (OS.windowCorner_BottomLeft_Pattern), a
-    ld      a, SPRITE_INDEX_WINDOW_TOP_RIGHT
-    ld      (OS.windowCorner_TopRight_Pattern), a
-    ld      a, SPRITE_INDEX_WINDOW_BOTTOM_RIGHT
-    ld      (OS.windowCorner_BottomRight_Pattern), a
+    ; ; set other window corners sprites vars
+    ; ld      a, SPRITE_INDEX_WINDOW_TOP_LEFT
+    ; ld      (OS.windowCorner_TopLeft_Pattern), a
+    ; ld      a, SPRITE_INDEX_WINDOW_BOTTOM_LEFT
+    ; ld      (OS.windowCorner_BottomLeft_Pattern), a
+    ; ld      a, SPRITE_INDEX_WINDOW_TOP_RIGHT
+    ; ld      (OS.windowCorner_TopRight_Pattern), a
+    ; ld      a, SPRITE_INDEX_WINDOW_BOTTOM_RIGHT
+    ; ld      (OS.windowCorner_BottomRight_Pattern), a
 
 
-    ld      a, 15 ; white
-    ld      (OS.windowCorner_TopLeft_Color), a
-    ld      (OS.windowCorner_BottomLeft_Color), a
-    ld      (OS.windowCorner_TopRight_Color), a
-    ld      (OS.windowCorner_BottomRight_Color), a
+    ; ld      a, 15 ; white
+    ; ld      (OS.windowCorner_TopLeft_Color), a
+    ; ld      (OS.windowCorner_BottomLeft_Color), a
+    ; ld      (OS.windowCorner_TopRight_Color), a
+    ; ld      (OS.windowCorner_BottomRight_Color), a
 
 
     ret

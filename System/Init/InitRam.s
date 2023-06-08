@@ -52,6 +52,21 @@ _INIT_RAM:
     ld      (OS.dragOffset_Y), a
     ld      (OS.isResizingWindow), a
 
+    ; set window corners sprites vars
+    ld      a, SPRITE_INDEX_WINDOW_TOP_LEFT
+    ld      (OS.windowCorner_TopLeft_Pattern), a
+    ld      a, SPRITE_INDEX_WINDOW_BOTTOM_LEFT
+    ld      (OS.windowCorner_BottomLeft_Pattern), a
+    ld      a, SPRITE_INDEX_WINDOW_TOP_RIGHT
+    ld      (OS.windowCorner_TopRight_Pattern), a
+    ld      a, SPRITE_INDEX_WINDOW_BOTTOM_RIGHT
+    ld      (OS.windowCorner_BottomRight_Pattern), a
+
+    ld      a, 15 ; white
+    ld      (OS.windowCorner_TopLeft_Color), a
+    ld      (OS.windowCorner_BottomLeft_Color), a
+    ld      (OS.windowCorner_TopRight_Color), a
+    ld      (OS.windowCorner_BottomRight_Color), a
 
     ; init keyboard vars
     ld      a, 1111 1111 b

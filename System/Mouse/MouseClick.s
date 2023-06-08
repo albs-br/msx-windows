@@ -1,19 +1,37 @@
 _MOUSE_CLICK:
 
-    ; if (!OS.isDraggingWindow && !OS.isResizingWindow) skip window corner sprites
-    ld      a, (OS.isDraggingWindow)
-    ld      b, a
-    ld      a, (OS.isResizingWindow)
-    or      b
-    jp      z, .skip_1
+    ; ; if (!OS.isDraggingWindow && !OS.isResizingWindow) skip window corner sprites
+    ; ld      a, (OS.isDraggingWindow)
+    ; ld      b, a
+    ; ld      a, (OS.isResizingWindow)
+    ; or      b
+    ; jp      z, .skip_1
 
-    ; (mouseButton_1 == false) _END_DRAG_WINDOW else _DO_DRAG_WINDOW
-    ld      a, (OS.mouseButton_1) ; check if button is pressed
+    ; if (OS.isDraggingWindow) ...
+    ld      a, (OS.isDraggingWindow)
     or      a
-    jp      z, _END_DRAG_WINDOW
-    jp      _DO_DRAG_WINDOW
+    jp      z, .skip_100
+        ; if (mouseButton_1 == false) _END_DRAG_WINDOW else _DO_DRAG_WINDOW
+        ld      a, (OS.mouseButton_1) ; check if button is pressed
+        or      a
+        jp      z, _END_DRAG_WINDOW
+        jp      _DO_DRAG_WINDOW
+        jp      .skip_1
+
+.skip_100:
+    ; if (OS.isResizingWindow) ...
+    ld      a, (OS.isResizingWindow)
+    or      a
+    jp      z, .skip_1
+        ; if (mouseButton_1 == false) _END_DRAG_WINDOW else _DO_DRAG_WINDOW
+        ld      a, (OS.mouseButton_1) ; check if button is pressed
+        or      a
+        jp      z, _END_RESIZE_WINDOW
+        jp      _DO_RESIZE_WINDOW
+        ; jp      .skip_1
 
 .skip_1:
+
     ; ----- get only positive transition of click
 
     ld      a, (OS.mouseButton_1) ; check if button is pressed
@@ -69,6 +87,9 @@ _MOUSE_CLICK:
 
     cp      SCREEN_MAPPING_WINDOWS_MINIMIZE_BUTTON
     jp      z, .click_WindowMinimizeButton
+
+    cp      SCREEN_MAPPING_WINDOWS_RESIZE_CORNER
+    jp      z, .click_WindowResizeCorner
 
     ret
 
@@ -161,6 +182,20 @@ _MOUSE_CLICK:
 
 .isRestored:
     call    _MAXIMIZE_PROCESS
+    ret
+
+; --------------------------------------
+
+.click_WindowResizeCorner:
+
+    ; get process addr from process id in C register
+    call    _GET_PROCESS_BY_ID
+    push    hl
+        call    z, _SET_CURRENT_PROCESS
+    pop     ix
+
+    call    _START_RESIZE_WINDOW
+
     ret
 
 ; --------------------------------------
