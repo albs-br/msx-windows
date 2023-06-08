@@ -61,9 +61,11 @@ _DRAW_MOUSE_CURSOR:
 ;     outi
 ;     jp      nz, .loop_1 ; this uses exactly 29 cycles (t-states)
 
-    ; if (OS.isDraggingWindow)
+    ; if (!OS.isDraggingWindow && !OS.isResizingWindow) skip window corner sprites
     ld      a, (OS.isDraggingWindow)
-    or      a
+    ld      b, a
+    ld      a, (OS.isResizingWindow)
+    or      b
     jp      z, .skip_1
 
     ld      a, (hl) ; fix Y+1 bug of TMS 9918

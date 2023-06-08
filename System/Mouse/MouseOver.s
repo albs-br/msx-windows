@@ -1,8 +1,10 @@
 _MOUSE_OVER:
 
-    ; if (isDraggingWindow) ret
+    ; if (OS.isDraggingWindow || OS.isResizingWindow) ret
     ld      a, (OS.isDraggingWindow)
-    or      a
+    ld      b, a
+    ld      a, (OS.isResizingWindow)
+    or      b
     ret     nz
 
     ; if (mouseOver_Activated != 0)

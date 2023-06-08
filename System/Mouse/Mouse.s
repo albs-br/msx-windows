@@ -3,6 +3,7 @@
     INCLUDE "System/Mouse/MouseOver.s"
     INCLUDE "System/Mouse/DisableMouseOver.s"
     INCLUDE "System/Mouse/DragWindow.s"
+    INCLUDE "System/Mouse/ResizeWindow.s"
 
 
 

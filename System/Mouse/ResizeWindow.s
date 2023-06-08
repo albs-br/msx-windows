@@ -1,6 +1,6 @@
 ; Input:
 ;   IX = process addr
-_START_DRAG_WINDOW:
+_START_RESIZE_WINDOW:
 
     ; if (windowState != RESTORED) ret
     ld      a, (ix + PROCESS_STRUCT_IX.windowState)
@@ -9,20 +9,18 @@ _START_DRAG_WINDOW:
 
 
 
-    ; set vars for window dragging
+
+    ; set vars for window risizing
     ld      a, 1
-    ld      (OS.isDraggingWindow), a
+    ld      (OS.isResizingWindow), a
 
 
     ; --- dragOffset_X = mouseX - window_X
     ld      a, (ix + PROCESS_STRUCT_IX.x) ; get window X in columns (0-31)
     ; multiply by 8 to convert to pixels (0-255)
-    ; sla     a ; shift left R; bit 7 -> C ; bit 0 -> 0
-    ; sla     a
-    ; sla     a   ; convert window X to pixels
     add     a   ; If you use register A you can multiply faster by using the ADD A,A instruction, which is 5 T-states per instruction instead of 8
     add     a
-    add     a
+    add     a ; convert window X to pixels
     inc     a ; adjust for the empty line on left of the window
     ld      (OS.windowCorner_TopLeft_X), a
     ld      b, a
@@ -38,12 +36,9 @@ _START_DRAG_WINDOW:
     ; --- dragOffset_Y = window_Y - mouseY
     ld      a, (ix + PROCESS_STRUCT_IX.y) ; get window Y in columns (0-31)
     ; multiply by 8 to convert to pixels (0-255)
-    ; sla     a ; shift left R; bit 7 -> C ; bit 0 -> 0
-    ; sla     a
-    ; sla     a   ; convert window X to pixels
     add     a   ; If you use register A you can multiply faster by using the ADD A,A instruction, which is 5 T-states per instruction instead of 8
     add     a
-    add     a
+    add     a ; convert window X to pixels
     add     6 ; adjust for the 6 empty lines on title bar top
     ld      (OS.windowCorner_TopLeft_Y), a
     ld      b, a
@@ -54,7 +49,7 @@ _START_DRAG_WINDOW:
 
     ld      (OS.dragOffset_Y), a
 
-    call    _ADJUST_WINDOW_DRAG_CORNERS
+    call    _ADJUST_WINDOW_RESIZE_CORNERS
 
 
 
@@ -81,7 +76,7 @@ _START_DRAG_WINDOW:
 
 
 ; Adjust the other three corners based on the position of the top left corner
-_ADJUST_WINDOW_DRAG_CORNERS:
+_ADJUST_WINDOW_RESIZE_CORNERS:
     ; 
     ld      a, (ix + PROCESS_STRUCT_IX.width)
     add     a ; mult by 8 to convert to pixels
@@ -125,13 +120,13 @@ _ADJUST_WINDOW_DRAG_CORNERS:
 
     ret
 
-; look up table for smooth blinking effect using a color ramp
-DRAG_WINDOW_SPRITE_COLOR_LUT: 
-    db 15, 14, 14, 7, 5, 5, 4, 1, 1, 4, 4, 5, 7, 7, 14, 15
+; ; look up table for smooth blinking effect using a color ramp
+; DRAG_WINDOW_SPRITE_COLOR_LUT: 
+;     db 15, 14, 14, 7, 5, 5, 4, 1, 1, 4, 4, 5, 7, 7, 14, 15
 
 
 
-_DO_DRAG_WINDOW:
+_DO_RESIZE_WINDOW:
     ; windowCorner_TopLeft_X = mouseX - dragOffset_X
 
     ; do operation in 16 bits
@@ -218,17 +213,17 @@ _DO_DRAG_WINDOW:
     
     ; ---------------------------
 
-    call    _ADJUST_WINDOW_DRAG_CORNERS
+    call    _ADJUST_WINDOW_RESIZE_CORNERS
 
     ret
 
 
 
-_END_DRAG_WINDOW:
+_END_RESIZE_WINDOW:
     
-    ; reset window dragging vars
+    ; reset window resizing vars
     xor     a
-    ld      (OS.isDraggingWindow), a
+    ld      (OS.isResizingWindow), a
 
     ld      ix, (OS.currentProcessAddr)
 

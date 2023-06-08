@@ -61,6 +61,8 @@ OS:
 .dragOffset_X:          rb 1
 .dragOffset_Y:          rb 1
 
+.isResizingWindow:      rb 1
+
 .keyboardMatrix:	    rb 10			; https://map.grauw.nl/articles/keymatrix.php
 
 .ticksSinceLastInput:	rw 1		    ; used to trigger screen saver

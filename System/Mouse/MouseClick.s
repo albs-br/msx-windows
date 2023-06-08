@@ -1,9 +1,12 @@
 _MOUSE_CLICK:
 
-    ; if(isDraggingWindow)
+    ; if (!OS.isDraggingWindow && !OS.isResizingWindow) skip window corner sprites
     ld      a, (OS.isDraggingWindow)
-    or      a
+    ld      b, a
+    ld      a, (OS.isResizingWindow)
+    or      b
     jp      z, .skip_1
+
     ; (mouseButton_1 == false) _END_DRAG_WINDOW else _DO_DRAG_WINDOW
     ld      a, (OS.mouseButton_1) ; check if button is pressed
     or      a

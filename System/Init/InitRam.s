@@ -50,6 +50,7 @@ _INIT_RAM:
     ld      (OS.isDraggingWindow), a
     ld      (OS.dragOffset_X), a
     ld      (OS.dragOffset_Y), a
+    ld      (OS.isResizingWindow), a
 
 
     ; init keyboard vars
