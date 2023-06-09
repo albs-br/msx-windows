@@ -90,31 +90,6 @@ _ADJUST_WINDOW_RESIZE_CORNERS:
     ld      a, (OS.windowCorner_BottomRight_Y)
     ld      (OS.windowCorner_BottomLeft_Y), a
 
-    ; ; 
-    ; ld      a, (ix + PROCESS_STRUCT_IX.width)
-    ; add     a ; mult by 8 to convert to pixels
-    ; add     a
-    ; add     a
-    ; ld      b, a
-    ; ld      a, (OS.windowCorner_TopLeft_X)
-    ; ld      (OS.windowCorner_BottomLeft_X), a
-    ; add     b
-    ; sub     16 + 5 ; sprite width / decrement window shadow
-    ; ld      (OS.windowCorner_TopRight_X), a
-    ; ld      (OS.windowCorner_BottomRight_X), a
-    
-    ; ; ------------------
-    ; ld      a, (ix + PROCESS_STRUCT_IX.height)
-    ; add     a ; mult by 8 to convert to pixels
-    ; add     a
-    ; add     a
-    ; ld      b, a
-    ; ld      a, (OS.windowCorner_TopLeft_Y)
-    ; ld      (OS.windowCorner_TopRight_Y), a
-    ; add     b
-    ; sub     16 + 10; sprite height / decrement window shadow
-    ; ld      (OS.windowCorner_BottomLeft_Y), a
-    ; ld      (OS.windowCorner_BottomRight_Y), a
 
     ; get color based on JIFFY
     ld      a, (BIOS_JIFFY)
@@ -245,7 +220,6 @@ _DO_RESIZE_WINDOW:
     ret
 
 
-; TODO
 _END_RESIZE_WINDOW:
     
     ; reset window resizing vars
@@ -254,21 +228,35 @@ _END_RESIZE_WINDOW:
 
     ld      ix, (OS.currentProcessAddr)
 
-    ; TODO: window.width = (windowCorner_BottomRight_X/8) - window.x
-    ; ld      a, (OS.windowCorner_TopLeft_X)
-    ; dec     a ; adjust for the empty line on left of the window
-    ; srl     a ; shift right n, bit 7 = 0, carry = 0
-    ; srl     a ; shift right n, bit 7 = 0, carry = 0
-    ; srl     a ; shift right n, bit 7 = 0, carry = 0
-    ; ld      (ix + PROCESS_STRUCT_IX.x), a
+    ; window.width = (windowCorner_BottomRight_X/8) - window.x
+    ld      a, (OS.windowCorner_BottomRight_X)
+    add     16 + 4 ; adjust for sprite width / window shadow
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
 
-    ; TODO: window.height = (windowCorner_BottomRight_Y/8) - window.y
-    ; ld      a, (OS.windowCorner_TopLeft_Y)
-    ; sub     6 ; adjust for the 6 empty lines on title bar top
-    ; srl     a ; shift right n, bit 7 = 0, carry = 0
-    ; srl     a ; shift right n, bit 7 = 0, carry = 0
-    ; srl     a ; shift right n, bit 7 = 0, carry = 0
-    ; ld      (ix + PROCESS_STRUCT_IX.y), a
+    ld      b, (ix + PROCESS_STRUCT_IX.x)
+
+    sub     b
+
+    ld      (ix + PROCESS_STRUCT_IX.width), a
+
+
+
+    ; window.height = (windowCorner_BottomRight_Y/8) - window.y
+    ld      a, (OS.windowCorner_BottomRight_Y)
+    add     16 + 4 ; adjust for sprite height / window shadow
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+
+    ld      b, (ix + PROCESS_STRUCT_IX.y)
+
+    sub     b
+
+    ld      (ix + PROCESS_STRUCT_IX.height), a
+
+
 
     call    _UPDATE_SCREEN
 
