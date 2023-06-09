@@ -1,3 +1,7 @@
+ram_watch   add     0xC01f      -type byte       -desc nextAvaiProcAddr      -format dec
+
+# OS.dragOffset_X: equ 0C01Fh ; last def. pass 3
+
 ram_watch   add     0xC60B      -type word       -desc currProcAddr      -format hex
 ram_watch   add     0xC60d      -type word       -desc nextAvaiProcAddr      -format hex
 

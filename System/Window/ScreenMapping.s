@@ -185,10 +185,18 @@ _UPDATE_SCREEN_MAPPING_WINDOW:
     ld      de, OS.screenMapping
     add     hl, de
 
+    push    hl ; IY = HL
+    pop     iy
+
     ld      a, (ix + PROCESS_STRUCT_IX.processId)
     or      SCREEN_MAPPING_WINDOWS_RESIZE_CORNER
-    ld      (hl), a
+    ; ld      (hl), a
 
+    ; put screen rezise corner no the 2x2 tiles at window bottom right 
+    ld      (iy), a
+    ld      (iy - 1), a
+    ld      (iy - 32), a
+    ld      (iy - 33), a
 
     ret
 

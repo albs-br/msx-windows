@@ -9,7 +9,6 @@ _START_RESIZE_WINDOW:
 
 
 
-
     ; set vars for window risizing
     ld      a, 1
     ld      (OS.isResizingWindow), a
@@ -31,8 +30,9 @@ _START_RESIZE_WINDOW:
     ; multiply by 8 to convert to pixels (0-255)
     add     a   ; If you use register A you can multiply faster by using the ADD A,A instruction, which is 5 T-states per instruction instead of 8
     add     a
-    add     a ; convert window X to pixels
-    add     b
+    add     a ; convert window width to pixels
+    add     b ; A = window_X + width
+    sub     16 + 4 ; minus sprite width; minus 4 lines of window shadow at right
     ld      (OS.windowCorner_BottomRight_X), a
     ld      b, a
 
@@ -40,7 +40,7 @@ _START_RESIZE_WINDOW:
 
     sub     b
 
-    ld      (OS.dragOffset_X), a 
+    ld      (OS.dragOffset_X), a
 
 
 
@@ -50,7 +50,7 @@ _START_RESIZE_WINDOW:
     ; multiply by 8 to convert to pixels (0-255)
     add     a   ; If you use register A you can multiply faster by using the ADD A,A instruction, which is 5 T-states per instruction instead of 8
     add     a
-    add     a ; convert window X to pixels
+    add     a ; convert window Y to pixels
     add     6 ; adjust for the 6 empty lines on title bar top
     ld      (OS.windowCorner_TopLeft_Y), a
     ld      (OS.windowCorner_TopRight_Y), a
@@ -60,8 +60,9 @@ _START_RESIZE_WINDOW:
     ; multiply by 8 to convert to pixels (0-191)
     add     a   ; If you use register A you can multiply faster by using the ADD A,A instruction, which is 5 T-states per instruction instead of 8
     add     a
-    add     a ; convert window X to pixels
-    add     b
+    add     a ; convert window height to pixels
+    add     b ; A = window_Y + height
+    sub     16 + 4 ; minus sprite height; minus 4 lines of window shadow at bottom
     ld      (OS.windowCorner_BottomRight_Y), a
     ld      b, a
 
@@ -70,6 +71,8 @@ _START_RESIZE_WINDOW:
     sub     b
 
     ld      (OS.dragOffset_Y), a
+
+
 
     call    _ADJUST_WINDOW_RESIZE_CORNERS
 
@@ -136,18 +139,19 @@ _ADJUST_WINDOW_RESIZE_CORNERS:
 
 
 _DO_RESIZE_WINDOW:
-    ; windowCorner_BottomRight_X = mouseX + dragOffset_X
+
+    ; windowCorner_BottomRight_X = mouseX - dragOffset_X
     ld      a, (OS.dragOffset_X)
     ld      b, a
     ld      a, (OS.mouseX)
-    add     b
+    sub     b
     ld      (OS.windowCorner_BottomRight_X), a
 
-    ; windowCorner_BottomRight_Y = mouseY + dragOffset_Y
+    ; windowCorner_BottomRight_Y = mouseY - dragOffset_Y
     ld      a, (OS.dragOffset_Y)
     ld      b, a
     ld      a, (OS.mouseY)
-    add     b
+    sub     b
     ld      (OS.windowCorner_BottomRight_Y), a
 
 ;     ; windowCorner_TopLeft_X = mouseX - dragOffset_X
