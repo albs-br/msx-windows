@@ -25,13 +25,13 @@ _START_RESIZE_WINDOW:
     ld      (OS.windowCorner_TopLeft_X), a
     ld      (OS.windowCorner_BottomLeft_X), a
     dec     a ; restore original value
-    ld      b, a
+    ld      c, a ; C = width in pixels
     ld      a, (ix + PROCESS_STRUCT_IX.width) ; get window width in columns (0-31)
     ; multiply by 8 to convert to pixels (0-255)
     add     a   ; If you use register A you can multiply faster by using the ADD A,A instruction, which is 5 T-states per instruction instead of 8
     add     a
     add     a ; convert window width to pixels
-    add     b ; A = window_X + width
+    add     c ; A = window_X + width
     sub     16 + 4 ; minus sprite width; minus 4 lines of window shadow at right
     ld      (OS.windowCorner_BottomRight_X), a
     ld      b, a
@@ -41,6 +41,16 @@ _START_RESIZE_WINDOW:
     sub     b
 
     ld      (OS.dragOffset_X), a
+
+    ; --- set windowCorner_BottomRight_X for minWidth
+    ld      a, (ix + PROCESS_STRUCT_IX.minWidth) ; get window width in columns (0-31)
+    ; multiply by 8 to convert to pixels (0-255)
+    add     a   ; If you use register A you can multiply faster by using the ADD A,A instruction, which is 5 T-states per instruction instead of 8
+    add     a
+    add     a ; convert window minWidth to pixels
+    add     c ; A = window_X + minWidth
+    sub     16 + 4 ; minus sprite width; minus 4 lines of window shadow at right
+    ld      (OS.resizeWindowCorner_BottomRight_X_Min), a
 
 
 
@@ -121,6 +131,15 @@ _DO_RESIZE_WINDOW:
     ld      a, (OS.mouseX)
     sub     b
     ld      (OS.windowCorner_BottomRight_X), a
+
+    ; ; TODO
+    ; ; if (windowCorner_BottomRight_X > resizeWindowCorner_BottomRight_X_Min)
+    ; ;       windowCorner_BottomRight_X = resizeWindowCorner_BottomRight_X_Min;
+    ; ld      b, a
+    ; ld      a, (resizeWindowCorner_BottomRight_X_Min)
+    ; cp      b
+    ; jp      
+
 
     ; windowCorner_BottomRight_Y = mouseY - dragOffset_Y
     ld      a, (OS.dragOffset_Y)

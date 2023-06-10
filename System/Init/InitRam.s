@@ -51,6 +51,8 @@ _INIT_RAM:
     ld      (OS.dragOffset_X), a
     ld      (OS.dragOffset_Y), a
     ld      (OS.isResizingWindow), a
+    ld      (OS.resizeWindowCorner_BottomRight_X_Min), a
+    ld      (OS.resizeWindowCorner_BottomRight_Y_Min), a
 
     ; set window corners sprites vars
     ld      a, SPRITE_INDEX_WINDOW_TOP_LEFT

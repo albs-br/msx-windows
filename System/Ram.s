@@ -61,6 +61,8 @@ OS:
 .dragOffset_X:          rb 1    ; these two "dragOffset" vars are used both on windows drag and resize
 .dragOffset_Y:          rb 1
 .isResizingWindow:      rb 1
+.resizeWindowCorner_BottomRight_X_Min:      rb 1
+.resizeWindowCorner_BottomRight_Y_Min:      rb 1
 
 .keyboardMatrix:	    rb 10			; https://map.grauw.nl/articles/keymatrix.php
 
