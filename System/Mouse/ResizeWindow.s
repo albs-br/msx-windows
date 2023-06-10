@@ -132,14 +132,32 @@ _DO_RESIZE_WINDOW:
     sub     b
     ld      (OS.windowCorner_BottomRight_X), a
 
-    ; ; TODO
-    ; ; if (windowCorner_BottomRight_X > resizeWindowCorner_BottomRight_X_Min)
-    ; ;       windowCorner_BottomRight_X = resizeWindowCorner_BottomRight_X_Min;
-    ; ld      b, a
-    ; ld      a, (resizeWindowCorner_BottomRight_X_Min)
-    ; cp      b
-    ; jp      
+    ; --- check for minimum width
+    ; if (windowCorner_BottomRight_X < resizeWindowCorner_BottomRight_X_Min)
+    ;       windowCorner_BottomRight_X = resizeWindowCorner_BottomRight_X_Min;
+    ld      b, a ; B = windowCorner_BottomRight_X
+    ld      a, (OS.resizeWindowCorner_BottomRight_X_Min)
+    cp      b
+    jp      nc, .lessThanMinWidth ; if (A >= n)
+    jp      .cont_1
+.lessThanMinWidth:
+    ld      (OS.windowCorner_BottomRight_X), a
+.cont_1:
 
+    ; --- check for maximum width
+    ; if (windowCorner_BottomRight_X > (255 - 16 - 4))
+    ;       windowCorner_BottomRight_X = 255 - 16 - 4;
+    ld      b, 256 - 16 - 4 ; subtract sprite width and 4 lines of window shade
+    ld      a, (OS.windowCorner_BottomRight_X)
+    cp      b
+    jp      nc, .greaterThanMaxWidth ; if (A >= n)
+    jp      .cont_2
+.greaterThanMaxWidth:
+    ld      a, 256 - 16 - 4 ; subtract sprite width and 4 lines of window shade
+    ld      (OS.windowCorner_BottomRight_X), a
+.cont_2:
+
+    ; --------------------------------------------------------
 
     ; windowCorner_BottomRight_Y = mouseY - dragOffset_Y
     ld      a, (OS.dragOffset_Y)
@@ -249,6 +267,7 @@ _END_RESIZE_WINDOW:
 
     ; window.width = (windowCorner_BottomRight_X/8) - window.x
     ld      a, (OS.windowCorner_BottomRight_X)
+    dec     a ; ajust for empty line at left border
     add     16 + 4 ; adjust for sprite width / window shadow
     srl     a ; shift right n, bit 7 = 0, carry = 0
     srl     a ; shift right n, bit 7 = 0, carry = 0
@@ -258,6 +277,7 @@ _END_RESIZE_WINDOW:
 
     sub     b
 
+    inc     a ; not sure why...
     ld      (ix + PROCESS_STRUCT_IX.width), a
 
 
