@@ -227,9 +227,9 @@ PROCESS_STRUCT_IX:
 Temp:       rb 1
 TempWord:   rw 1
 
-IsResizing: rb 1
+; IsResizing: rb 1
 
-
+TempIcon:   rb NUMBER_OF_TILES_PER_ICON * 8
 
 
 

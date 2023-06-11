@@ -1,30 +1,17 @@
     INCLUDE "System/Desktop/Taskbar.s"
 
 
-
 _INIT_DESKTOP:
-
-    ; ---- get icon patterns from app headers
-    ; and put it on VRAM PATTBL
     
     ld      ix, Notepad.Header
-    ld      l, (ix + PROCESS_STRUCT_IX.iconAddr)
-    ld      h, (ix + PROCESS_STRUCT_IX.iconAddr + 1)
-
-    ;ld		hl, ????                                                ; RAM address (source)
     ld		de, PATTBL + (TILE_BASE_DESKTOP_ICON_0 * 8)		        ; VRAM address (destiny)
-    ld		bc, NUMBER_OF_TILES_PER_ICON * 8	                    ; Block length
-    call 	BIOS_LDIRVM        	                                    ; Block transfer to VRAM from memory
-
+    call    _LOAD_ICON_FROM_APP_HEADER
+    ; call    _LOAD_ICON_INVERTED_FROM_APP_HEADER
 
     ld      ix, Calc.Header
-    ld      l, (ix + PROCESS_STRUCT_IX.iconAddr)
-    ld      h, (ix + PROCESS_STRUCT_IX.iconAddr + 1)
-
-    ;ld		hl, ????                                                ; RAM address (source)
     ld		de, PATTBL + (TILE_BASE_DESKTOP_ICON_1 * 8)		        ; VRAM address (destiny)
-    ld		bc, NUMBER_OF_TILES_PER_ICON * 8	                    ; Block length
-    call 	BIOS_LDIRVM        	                                    ; Block transfer to VRAM from memory
+    ; call    _LOAD_ICON_FROM_APP_HEADER
+    call    _LOAD_ICON_INVERTED_FROM_APP_HEADER
 
 
     ; ---------------------------
@@ -86,6 +73,64 @@ _INIT_DESKTOP:
 
 
 
+; Get icon patterns from app headers
+; and put on VRAM PATTBL
+; Input:
+;   IX: app header on ROM
+;   DE: VRAM PATTBL destiny address
+_LOAD_ICON_FROM_APP_HEADER:
+
+    ; ld      ix, ????.Header
+    ld      l, (ix + PROCESS_STRUCT_IX.iconAddr)
+    ld      h, (ix + PROCESS_STRUCT_IX.iconAddr + 1)
+
+    ;ld		hl, ????                                                ; RAM address (source)
+    ;ld		de, PATTBL + (TILE_BASE_DESKTOP_ICON_0 * 8)		        ; VRAM address (destiny)
+    ld		bc, NUMBER_OF_TILES_PER_ICON * 8	                    ; Block length
+    call 	BIOS_LDIRVM
+
+    ret
+
+
+
+; Get icon patterns from app headers
+; invert all bits of them and put on VRAM PATTBL
+; Input:
+;   IX: app header on ROM
+;   DE: VRAM PATTBL destiny address
+_LOAD_ICON_INVERTED_FROM_APP_HEADER:
+
+    push    de
+        ; ld      ix, ????.Header
+        ld      l, (ix + PROCESS_STRUCT_IX.iconAddr)
+        ld      h, (ix + PROCESS_STRUCT_IX.iconAddr + 1)
+
+        ; ----- get icon pattern from app header and copy to RAM with all bits inverted
+        ld      de, TempIcon
+        ld		bc, NUMBER_OF_TILES_PER_ICON * 8	                    ; Block length
+        ldir
+
+        ld      hl, TempIcon
+        ld		b, NUMBER_OF_TILES_PER_ICON * 8
+    .loop_100:
+        ld      a, (hl)
+        cpl                 ; invert all bits of A
+        ld      (hl), a
+        inc     hl
+        djnz    .loop_100
+        ; ------
+
+    pop     de
+
+    ld		hl, TempIcon                                            ; RAM address (source)
+    ;ld		de, PATTBL + (TILE_BASE_DESKTOP_ICON_1 * 8)		        ; VRAM address (destiny)
+    ld		bc, NUMBER_OF_TILES_PER_ICON * 8	                    ; Block length
+    call 	BIOS_LDIRVM
+
+    ret
+
+
+
 _DRAW_DESKTOP_ICON:
     push    hl
         ld      de,  0 + (32 * 1) + 3
@@ -120,7 +165,7 @@ _DRAW_DESKTOP_ICON:
     ld      b, 7 ; size of string
 .loop_10:
     ld      a, (ix + PROCESS_STRUCT_IX.iconTitle)
-    ; add     TILE_FONT_LOWERCASE_A - TILE_FONT_REVERSED_LOWERCASE_A ; print black chars on white bg
+    sub     TILE_FONT_LOWERCASE_A - TILE_FONT_REVERSED_LOWERCASE_A ; print black chars on white bg
     ld      (hl), a
     inc     ix
     inc     hl
