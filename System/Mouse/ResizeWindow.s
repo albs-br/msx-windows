@@ -146,6 +146,7 @@ _DO_RESIZE_WINDOW:
     ld      b, a
     ld      a, (OS.mouseX)
     sub     b
+    jp      c, .lessThanMinWidth ; if (dragOffset_X > mouseX)
     ld      (OS.windowCorner_BottomRight_X), a
 
     ; --- check for minimum width
@@ -157,8 +158,11 @@ _DO_RESIZE_WINDOW:
     jp      nc, .lessThanMinWidth ; if (A >= n)
     jp      .cont_1
 .lessThanMinWidth:
+    ld      a, (OS.resizeWindowCorner_BottomRight_X_Min)
     ld      (OS.windowCorner_BottomRight_X), a
+    jp      .cont_2 ; if is min width, no need to test for max width
 .cont_1:
+
 
     ; --- check for maximum width
     ; if (windowCorner_BottomRight_X > (255 - 16 - 4))
@@ -180,6 +184,7 @@ _DO_RESIZE_WINDOW:
     ld      b, a
     ld      a, (OS.mouseY)
     sub     b
+    jp      c, .lessThanMinHeight ; if (dragOffset_Y > mouseY)
     ld      (OS.windowCorner_BottomRight_Y), a
 
     ; --- check for minimum height
@@ -191,94 +196,25 @@ _DO_RESIZE_WINDOW:
     jp      nc, .lessThanMinHeight ; if (A >= n)
     jp      .cont_10
 .lessThanMinHeight:
+    ld      a, (OS.resizeWindowCorner_BottomRight_Y_Min)
     ld      (OS.windowCorner_BottomRight_Y), a
+    jp      .cont_20 ; if is min height, no need to test for max height
 .cont_10:
 
 
-;     ; windowCorner_TopLeft_X = mouseX - dragOffset_X
+    ; --- check for maximum height
+    ; if (windowCorner_BottomRight_Y > (191 - 16 - 16 - 4))
+    ;       windowCorner_BottomRight_Y = 191 - 16 - 16 - 4;
+    ld      b, 192 - 16 - 16 - 4 ; subtract taskbar, sprite height and 4 lines of window shade
+    ld      a, (OS.windowCorner_BottomRight_Y)
+    cp      b
+    jp      nc, .greaterThanMaxHeight ; if (A >= n)
+    jp      .cont_20
+.greaterThanMaxHeight:
+    ld      a, 192 - 16 - 16 - 4 ; subtract taskbar, sprite height and 4 lines of window shade
+    ld      (OS.windowCorner_BottomRight_Y), a
+.cont_20:
 
-;     ; do operation in 16 bits
-;     ld      a, (OS.mouseX)
-;     ld      l, a
-;     ld      h, 0x80 ; put current A value in the middle of the 16 bits range 
-;                     ; (the same as doing the operation with signed numbers)
-;     ld      a, (OS.dragOffset_X)
-;     ld      e, a
-;     ld      d, 0
-;     xor     a ; clear carry flag
-;     sbc     hl, de
-
-;     push    hl
-;         ; if (windowCorner_TopLeft_X < 1) windowCorner_TopLeft_X = 1
-;         ld      de, 0x8000 + 1
-;         call    BIOS_DCOMPR         ; Compare Contents Of HL & DE, Set Z-Flag IF (HL == DE), Set CY-Flag IF (HL < DE)
-;         jp      nc, .skip_20
-;         ld      a, 1
-;         jp      .cont_10
-;     .skip_20:
-;         ld      a, l
-;     .cont_10:
-;         ld      (OS.windowCorner_TopLeft_X), a
-;     pop     hl
-    
-;     ; if ( ( windowCorner_TopLeft_X + (process.width * 8) ) > 255) windowCorner_TopLeft_X = 255 - (process.width * 8)
-;     ld      a, (ix + PROCESS_STRUCT_IX.width)
-;     add     a ; mult by 8 to convert to pixels
-;     add     a
-;     add     a
-;     ld      c, a
-;     ld      b, 0
-;     add     hl, bc
-
-;     ; HL now contains windowCorner_TopLeft_X + (process.width * 8)
-;     ld      de, 0x8000 + (255 + 2)
-;     call    BIOS_DCOMPR         ; Compare Contents Of HL & DE, Set Z-Flag IF (HL == DE), Set CY-Flag IF (HL < DE)
-;     jp      nc, .skip_3 ; HL >= DE
-;     jp      .skip_4 ; HL < DE
-; .skip_3:
-;     ; windowCorner_TopLeft_X = 255 - (process.width * 8)
-;     ld      a, 1 ; 255 + 2 = 1, in 8 bits
-;     sub     c
-;     ld      (OS.windowCorner_TopLeft_X), a
-; .skip_4:
-;     ; ---------------------------
-
-;     ; windowCorner_TopLeft_Y = mouseY - dragOffset_Y
-;     ld      a, (OS.dragOffset_Y)
-;     ld      b, a
-;     ld      a, (OS.mouseY)
-;     sub     b
-
-;     ; if(windowCorner_TopLeft_Y > 191) windowCorner_TopLeft_Y = 6
-;     cp      191
-;     jp      nc, .skip_1
-;     ; if(windowCorner_TopLeft_Y < 6) windowCorner_TopLeft_Y = 6
-;     cp      6
-;     jp      nc, .skip_2
-; .skip_1:
-;     ld      a, 6
-; .skip_2:
-;     ld      (OS.windowCorner_TopLeft_Y), a
-
-;     ; A now has OS.windowCorner_TopLeft_Y
-;     ; if ( ( windowCorner_TopLeft_Y + (process.height * 8) ) > (191 - 16)) windowCorner_TopLeft_Y = (191 - 16) - (process.height * 8)
-;     ld      b, a
-;     ld      a, (ix + PROCESS_STRUCT_IX.height)
-;     add     a ; mult by 8 to convert to pixels
-;     add     a
-;     add     a
-;     ld      c, a
-;     add     b
-
-;     cp      191 - 9
-;     jp      c, .skip_5
-
-;     ; windowCorner_TopLeft_Y = (191 - 16) - (process.height * 8)
-;     ld      a, 191 - 9
-;     sub     c
-;     ld      (OS.windowCorner_TopLeft_Y), a
-; .skip_5:
-    
     ; ---------------------------
 
     call    _ADJUST_WINDOW_RESIZE_CORNERS

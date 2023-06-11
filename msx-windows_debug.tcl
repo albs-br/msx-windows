@@ -1,8 +1,11 @@
-ram_watch   add     0xC01f      -type byte       -desc nextAvaiProcAddr      -format dec
+# ram_watch   add     0xC01f      -type byte       -desc nextAvaiProcAddr      -format dec
 
-ram_watch   add     0xC017      -type byte       -desc windowCorner_BottomRight_X      -format dec
+ram_watch   add     0xC016      -type byte       -desc BotRig_Y      -format dec
+ram_watch   add     0xC023      -type byte       -desc BotRig_Y_Min      -format dec
 
 # OS.windowCorner_BottomRight_X: equ 0C017h ; last def. pass 3
+#OS.windowCorner_BottomRight_Y: equ 0C016h ; last def. pass 3
+#OS.resizeWindowCorner_BottomRight_Y_Min: equ 0C023h ; last def. pass 3
 
 # ram_watch   add     0xC60B      -type word       -desc currProcAddr      -format hex
 # ram_watch   add     0xC60d      -type word       -desc nextAvaiProcAddr      -format hex
@@ -33,7 +36,7 @@ ram_watch   add     0xC017      -type byte       -desc windowCorner_BottomRight_
 # ram_watch   add     0xC6bc      -type byte       -desc __p2_prevState      -format dec
 # ram_watch   add     0xC6f6      -type byte       -desc __p3_prevState      -format dec
 
-ram_watch   add     0xC616      -type byte       -desc _p0_width      -format dec
+# ram_watch   add     0xC616      -type byte       -desc _p0_width      -format dec
 
 
 #ram_watch   add     5001a      -type byte       -desc _p0_layer      -format hex
