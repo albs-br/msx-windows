@@ -187,6 +187,8 @@ _DO_DRAG_WINDOW:
     ld      b, a
     ld      a, (OS.mouseY)
     sub     b
+    ; TODO: fix bug (when dragging up and down a tall window)
+    ; jp      c, $ ;debug .lessThanMinWidth ; if (dragOffset_Y > mouseY)
 
     ; if(windowCorner_TopLeft_Y > 191) windowCorner_TopLeft_Y = 6
     cp      191
