@@ -14,6 +14,8 @@ _START_RESIZE_WINDOW:
     ld      (OS.isResizingWindow), a
 
 
+    ; -----------------------------------------------------------
+
     ; --- dragOffset_X = mouseX - (window_X + width)
     ;     windowBottomRight_X = (window_X + width)
     ld      a, (ix + PROCESS_STRUCT_IX.x) ; get window X in columns (0-31)
@@ -43,7 +45,7 @@ _START_RESIZE_WINDOW:
     ld      (OS.dragOffset_X), a
 
     ; --- set windowCorner_BottomRight_X for minWidth
-    ld      a, (ix + PROCESS_STRUCT_IX.minWidth) ; get window width in columns (0-31)
+    ld      a, (ix + PROCESS_STRUCT_IX.minWidth) ; get window minWidth in columns (0-31)
     ; multiply by 8 to convert to pixels (0-255)
     add     a   ; If you use register A you can multiply faster by using the ADD A,A instruction, which is 5 T-states per instruction instead of 8
     add     a
@@ -53,6 +55,8 @@ _START_RESIZE_WINDOW:
     ld      (OS.resizeWindowCorner_BottomRight_X_Min), a
 
 
+
+    ; -----------------------------------------------------------------
 
     ; --- dragOffset_Y = mouseY - (window_Y + height)
     ;     windowBottomRight_Y = (window_Y + height)
@@ -65,13 +69,13 @@ _START_RESIZE_WINDOW:
     ld      (OS.windowCorner_TopLeft_Y), a
     ld      (OS.windowCorner_TopRight_Y), a
     sub     6 ; restore original value
-    ld      b, a
+    ld      c, a ; C = width in pixels
     ld      a, (ix + PROCESS_STRUCT_IX.height) ; get window height in columns (0-23)
     ; multiply by 8 to convert to pixels (0-191)
     add     a   ; If you use register A you can multiply faster by using the ADD A,A instruction, which is 5 T-states per instruction instead of 8
     add     a
     add     a ; convert window height to pixels
-    add     b ; A = window_Y + height
+    add     c ; A = window_Y + height
     sub     16 + 4 ; minus sprite height; minus 4 lines of window shadow at bottom
     ld      (OS.windowCorner_BottomRight_Y), a
     ld      b, a
@@ -83,6 +87,18 @@ _START_RESIZE_WINDOW:
     ld      (OS.dragOffset_Y), a
 
 
+    ; --- set windowCorner_BottomRight_Y for minHeight
+    ld      a, (ix + PROCESS_STRUCT_IX.minHeight) ; get window minHeight in columns (0-31)
+    ; multiply by 8 to convert to pixels (0-255)
+    add     a   ; If you use register A you can multiply faster by using the ADD A,A instruction, which is 5 T-states per instruction instead of 8
+    add     a
+    add     a ; convert window minWidth to pixels
+    add     c ; A = window_Y + minHeight
+    sub     16 + 4 ; minus sprite height; minus 4 lines of window shadow at bottom
+    ld      (OS.resizeWindowCorner_BottomRight_Y_Min), a
+
+
+    ; -------------------------------------------------------
 
     call    _ADJUST_WINDOW_RESIZE_CORNERS
 
@@ -165,6 +181,19 @@ _DO_RESIZE_WINDOW:
     ld      a, (OS.mouseY)
     sub     b
     ld      (OS.windowCorner_BottomRight_Y), a
+
+    ; --- check for minimum height
+    ; if (windowCorner_BottomRight_Y < resizeWindowCorner_BottomRight_Y_Min)
+    ;       windowCorner_BottomRight_Y = resizeWindowCorner_BottomRight_Y_Min;
+    ld      b, a ; B = windowCorner_BottomRight_Y
+    ld      a, (OS.resizeWindowCorner_BottomRight_Y_Min)
+    cp      b
+    jp      nc, .lessThanMinHeight ; if (A >= n)
+    jp      .cont_10
+.lessThanMinHeight:
+    ld      (OS.windowCorner_BottomRight_Y), a
+.cont_10:
+
 
 ;     ; windowCorner_TopLeft_X = mouseX - dragOffset_X
 
