@@ -141,8 +141,8 @@ _MOUSE_OVER:
     call 	BIOS_LDIRVM        	                        ; Block transfer to VRAM from memory
 
 
-    ld      a, 1
-    ld      (IsResizing), a ; debug
+    ; ld      a, 1
+    ; ld      (IsResizing), a ; debug
 
     ret
 
@@ -166,8 +166,8 @@ _MOUSE_OVER:
 
 
 
-    ld      a, 0
-    ld      (IsResizing), a ; debug
+    ; ld      a, 0
+    ; ld      (IsResizing), a ; debug
 
     ret
 
