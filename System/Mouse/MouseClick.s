@@ -205,57 +205,51 @@ _MOUSE_CLICK:
 
     ; -------------- click icon 0x0 --------------------
 
-    ld      a, (OS.mouseX)
-    ; if (mouseX < 3*8) not_click_icon_0x0
-    cp      3 * 8
-    jp      c, .not_click_icon_0x0
-    ; if (mouseX >= 6*8) not_click_icon_0x0
-    cp      6 * 8
-    jp      nc, .not_click_icon_0x0
-
-    ld      a, (OS.mouseY)
-    ; if (mouseY < 1*8) not_click_icon_0x0
-    cp      1 * 8
-    jp      c, .not_click_icon_0x0
-    ; if (mouseY >= 4*8) not_click_icon_0x0
-    cp      4 * 8
-    jp      nc, .not_click_icon_0x0
-
-
-    call    _INIT_DESKTOP
-
-    ld      ix, Notepad.Header
-    ld		de, PATTBL + (TILE_BASE_DESKTOP_ICON_0 * 8)		        ; VRAM address (destiny)
-    call    _LOAD_ICON_INVERTED_FROM_APP_HEADER
-    
-.not_click_icon_0x0:
+    ld      h, 3 * 8                                    ; icon tile top left X
+    ld      l, 1 * 8                                    ; icon tile top left Y
+    ld      ix, Notepad.Header                          ; process header addr on ROM
+    ld		de, PATTBL + (TILE_BASE_DESKTOP_ICON_0 * 8)	; icon VRAM PATTBL address (destiny)
+    ld      bc, OS.desktop_Tiles                        ; icon name base NAMTBL buffer addr
+    call    _CHECK_CLICK_DESKTOP_ICON
+    ret     nz ; if icon clicked end processing
 
     ; -------------- click icon 1x0 --------------------
 
-    ld      a, (OS.mouseX)
-    ; if (mouseX < 11*8) not_click_icon_1x0
-    cp      11 * 8
-    jp      c, .not_click_icon_1x0
-    ; if (mouseX >= 14*8) not_click_icon_1x0
-    cp      14 * 8
-    jp      nc, .not_click_icon_1x0
+    ld      h, 11 * 8                                   ; icon tile top left X
+    ld      l, 1 * 8                                    ; icon tile top left Y
+    ld      ix, Calc.Header                             ; process header addr on ROM
+    ld		de, PATTBL + (TILE_BASE_DESKTOP_ICON_1 * 8) ; icon VRAM PATTBL address (destiny)
+    ld      bc, OS.desktop_Tiles + 8                    ; icon name base NAMTBL buffer addr
+    call    _CHECK_CLICK_DESKTOP_ICON
+    ret     nz ; if icon clicked end processing
 
-    ld      a, (OS.mouseY)
-    ; if (mouseY < 1*8) not_click_icon_1x0
-    cp      1 * 8
-    jp      c, .not_click_icon_1x0
-    ; if (mouseY >= 4*8) not_click_icon_1x0
-    cp      4 * 8
-    jp      nc, .not_click_icon_1x0
+    ; -------------- click icon 0x1 --------------------
 
+    ld      h, 3 * 8                                                    ; icon tile top left X
+    ld      l, 9 * 8                                                    ; icon tile top left Y
+    ld      ix, Calc.Header                                             ; process header addr on ROM
+    ld		de, PATTBL + (256 * 8) + (TILE_BASE_DESKTOP_ICON_0 * 8)     ; icon VRAM PATTBL address (destiny)
+    ld      bc, OS.desktop_Tiles + 256                                  ; icon name base NAMTBL buffer addr
+    call    _CHECK_CLICK_DESKTOP_ICON
+    ret     nz ; if icon clicked end processing
+
+    ; -------------- click icon 0x2 --------------------
+
+    ld      h, 3 * 8                                                    ; icon tile top left X
+    ld      l, 17 * 8                                                   ; icon tile top left Y
+    ld      ix, Notepad.Header                                          ; process header addr on ROM
+    ld		de, PATTBL + (512 * 8) + (TILE_BASE_DESKTOP_ICON_0 * 8)     ; icon VRAM PATTBL address (destiny)
+    ld      bc, OS.desktop_Tiles + 512                                  ; icon name base NAMTBL buffer addr
+    call    _CHECK_CLICK_DESKTOP_ICON
+    ret     nz ; if icon clicked end processing
+
+
+
+    ; ------ click on empty part of desktop (disable selected icon)
 
     call    _INIT_DESKTOP
 
-    ld      ix, Calc.Header
-    ld		de, PATTBL + (TILE_BASE_DESKTOP_ICON_1 * 8)		        ; VRAM address (destiny)
-    call    _LOAD_ICON_INVERTED_FROM_APP_HEADER
-    
-.not_click_icon_1x0:
+    call    _UPDATE_SCREEN
 
     ret
 
@@ -356,4 +350,66 @@ _MOUSE_CLICK:
 
     call    _SET_CURRENT_PROCESS
 
+    ret
+
+
+; Inputs:
+;   H = icon tile top left X
+;   L = icon tile top left Y
+;   IX = process header addr on ROM
+;   DE = icon VRAM PATTBL address (destiny)
+;   BC = icon name base NAMTBL buffer addr
+; Outputs:
+;   NZ (icon clicked)
+;   Z (icon not clicked)
+_CHECK_CLICK_DESKTOP_ICON:
+
+    ld      a, (OS.mouseX)
+    ; if (mouseX < 3*8) not_click_icon_0x0
+    cp      h ;3 * 8
+    jp      c, .not_click_icon
+    ; if (mouseX >= 6*8) not_click_icon_0x0
+    ld      a, 3 * 8
+    add     h
+    ld      h, a
+    ld      a, (OS.mouseX)
+    cp      h ;6 * 8
+    jp      nc, .not_click_icon
+
+    ld      a, (OS.mouseY)
+    ; if (mouseY < 1*8) not_click_icon_0x0
+    cp      l ; 1 * 8
+    jp      c, .not_click_icon
+    ; if (mouseY >= 4*8) not_click_icon_0x0
+    ld      a, 3 * 8
+    add     l
+    ld      l, a
+    ld      a, (OS.mouseY)
+    cp      l ;4 * 8
+    jp      nc, .not_click_icon
+
+    ; ---- if clicked, select icon
+
+    push    ix, hl, de, bc
+        call    _INIT_DESKTOP
+    pop     bc, de, hl, ix
+
+    push    ix, bc
+        ; ld      ix, Notepad.Header
+        ; ld		de, PATTBL + (TILE_BASE_DESKTOP_ICON_0 * 8)		        ; VRAM address (destiny)
+        call    _LOAD_ICON_INVERTED_FROM_APP_HEADER
+    pop     hl, ix
+
+    ; ld      ix, Notepad.Header
+    ; ld      hl, OS.desktop_Tiles
+    call    _DRAW_DESKTOP_ICON_NAME_REVERSED
+
+    call    _UPDATE_SCREEN
+
+    ld      a, 1 ; return NZ (icon clicked)
+    or      a
+    ret
+
+.not_click_icon:
+    xor     a   ; return Z (icon not clicked)
     ret

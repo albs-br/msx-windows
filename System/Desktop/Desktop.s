@@ -13,6 +13,13 @@ _INIT_DESKTOP:
     call    _LOAD_ICON_FROM_APP_HEADER
     ; call    _LOAD_ICON_INVERTED_FROM_APP_HEADER
 
+    ld      ix, Calc.Header
+    ld		de, PATTBL + (256 * 8) + (TILE_BASE_DESKTOP_ICON_0 * 8)	; VRAM address (destiny)
+    call    _LOAD_ICON_FROM_APP_HEADER
+
+    ld      ix, Notepad.Header
+    ld		de, PATTBL + (512 * 8) + (TILE_BASE_DESKTOP_ICON_0 * 8)	; VRAM address (destiny)
+    call    _LOAD_ICON_FROM_APP_HEADER
 
     ; ---------------------------
 
@@ -64,10 +71,15 @@ _INIT_DESKTOP:
     ld      hl, OS.desktop_Tiles + 8
     call    _DRAW_DESKTOP_ICON
 
-    ; ld      ix, Calc.Header
-    ; ld      a, TILE_BASE_DESKTOP_ICON_0
-    ; ld      hl, OS.desktop_Tiles + 16
-    ; call    _DRAW_DESKTOP_ICON
+    ld      ix, Calc.Header
+    ld      a, TILE_BASE_DESKTOP_ICON_0
+    ld      hl, OS.desktop_Tiles + (256)
+    call    _DRAW_DESKTOP_ICON
+
+    ld      ix, Notepad.Header
+    ld      a, TILE_BASE_DESKTOP_ICON_0
+    ld      hl, OS.desktop_Tiles + (512)
+    call    _DRAW_DESKTOP_ICON
 
     ret
 
@@ -109,6 +121,9 @@ _LOAD_ICON_INVERTED_FROM_APP_HEADER:
         ld      de, TempIcon
         ld		bc, NUMBER_OF_TILES_PER_ICON * 8	                    ; Block length
         ldir
+
+        ; TODO
+        ; or-mask to get borders filled
 
         ld      hl, TempIcon
         ld		b, NUMBER_OF_TILES_PER_ICON * 8
@@ -170,8 +185,32 @@ _DRAW_DESKTOP_ICON:
     inc     ix
     inc     hl
     djnz    .loop_10
-.endLoop_10:
 
+
+    ret
+
+
+
+_DRAW_DESKTOP_ICON_NAME_REVERSED:
+    ; draw app name reversed below icon
+    ld      de, 0 + (32 * 4) + 1
+    add     hl, de
+    ld      b, 7 ; size of string
+.loop_10:
+    ld      a, (ix + PROCESS_STRUCT_IX.iconTitle)
+    cp      TILE_EMPTY
+    jp      z, .cont_1
+
+;     ld      a, TILE_EMPTY_BLACK
+;     jp      .cont_1
+
+; .cont:
+    sub     TILE_FONT_LOWERCASE_A - TILE_FONT_REVERSED_LOWERCASE_A ; print black chars on white bg
+.cont_1:
+    ld      (hl), a
+    inc     ix
+    inc     hl
+    djnz    .loop_10
 
     ret
 
