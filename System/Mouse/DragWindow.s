@@ -165,6 +165,8 @@ _DO_DRAG_WINDOW:
     add     a
     ld      c, a
     ld      b, 0
+    or      a ; fix bug when width = 32 (32 * 8 = 0 in 8 bits)
+    jp      z, .skip_3
     add     hl, bc
 
     ; HL now contains windowCorner_TopLeft_X + (process.width * 8)

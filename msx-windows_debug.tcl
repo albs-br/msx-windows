@@ -33,6 +33,7 @@ ram_watch   add     0xC017      -type byte       -desc windowCorner_BottomRight_
 # ram_watch   add     0xC6bc      -type byte       -desc __p2_prevState      -format dec
 # ram_watch   add     0xC6f6      -type byte       -desc __p3_prevState      -format dec
 
+ram_watch   add     0xC616      -type byte       -desc _p0_width      -format dec
 
 
 #ram_watch   add     5001a      -type byte       -desc _p0_layer      -format hex
