@@ -201,6 +201,62 @@ _MOUSE_CLICK:
 ; --------------------------------------
 
 .click_Desktop:
+
+
+    ; -------------- click icon 0x0 --------------------
+
+    ld      a, (OS.mouseX)
+    ; if (mouseX < 3*8) not_click_icon_0x0
+    cp      3 * 8
+    jp      c, .not_click_icon_0x0
+    ; if (mouseX >= 6*8) not_click_icon_0x0
+    cp      6 * 8
+    jp      nc, .not_click_icon_0x0
+
+    ld      a, (OS.mouseY)
+    ; if (mouseY < 1*8) not_click_icon_0x0
+    cp      1 * 8
+    jp      c, .not_click_icon_0x0
+    ; if (mouseY >= 4*8) not_click_icon_0x0
+    cp      4 * 8
+    jp      nc, .not_click_icon_0x0
+
+
+    call    _INIT_DESKTOP
+
+    ld      ix, Notepad.Header
+    ld		de, PATTBL + (TILE_BASE_DESKTOP_ICON_0 * 8)		        ; VRAM address (destiny)
+    call    _LOAD_ICON_INVERTED_FROM_APP_HEADER
+    
+.not_click_icon_0x0:
+
+    ; -------------- click icon 1x0 --------------------
+
+    ld      a, (OS.mouseX)
+    ; if (mouseX < 11*8) not_click_icon_1x0
+    cp      11 * 8
+    jp      c, .not_click_icon_1x0
+    ; if (mouseX >= 14*8) not_click_icon_1x0
+    cp      14 * 8
+    jp      nc, .not_click_icon_1x0
+
+    ld      a, (OS.mouseY)
+    ; if (mouseY < 1*8) not_click_icon_1x0
+    cp      1 * 8
+    jp      c, .not_click_icon_1x0
+    ; if (mouseY >= 4*8) not_click_icon_1x0
+    cp      4 * 8
+    jp      nc, .not_click_icon_1x0
+
+
+    call    _INIT_DESKTOP
+
+    ld      ix, Calc.Header
+    ld		de, PATTBL + (TILE_BASE_DESKTOP_ICON_1 * 8)		        ; VRAM address (destiny)
+    call    _LOAD_ICON_INVERTED_FROM_APP_HEADER
+    
+.not_click_icon_1x0:
+
     ret
 
 ; --------------------------------------

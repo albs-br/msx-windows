@@ -10,8 +10,8 @@ _INIT_DESKTOP:
 
     ld      ix, Calc.Header
     ld		de, PATTBL + (TILE_BASE_DESKTOP_ICON_1 * 8)		        ; VRAM address (destiny)
-    ; call    _LOAD_ICON_FROM_APP_HEADER
-    call    _LOAD_ICON_INVERTED_FROM_APP_HEADER
+    call    _LOAD_ICON_FROM_APP_HEADER
+    ; call    _LOAD_ICON_INVERTED_FROM_APP_HEADER
 
 
     ; ---------------------------
@@ -165,7 +165,7 @@ _DRAW_DESKTOP_ICON:
     ld      b, 7 ; size of string
 .loop_10:
     ld      a, (ix + PROCESS_STRUCT_IX.iconTitle)
-    sub     TILE_FONT_LOWERCASE_A - TILE_FONT_REVERSED_LOWERCASE_A ; print black chars on white bg
+    ; sub     TILE_FONT_LOWERCASE_A - TILE_FONT_REVERSED_LOWERCASE_A ; print black chars on white bg
     ld      (hl), a
     inc     ix
     inc     hl
