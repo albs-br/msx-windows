@@ -122,9 +122,6 @@ _LOAD_ICON_INVERTED_FROM_APP_HEADER:
         ld		bc, NUMBER_OF_TILES_PER_ICON * 8	                    ; Block length
         ldir
 
-        ; TODO
-        ; or-mask to get borders filled
-
         ld      hl, TempIcon
         ld		b, NUMBER_OF_TILES_PER_ICON * 8
     .loop_100:
@@ -133,6 +130,21 @@ _LOAD_ICON_INVERTED_FROM_APP_HEADER:
         ld      (hl), a
         inc     hl
         djnz    .loop_100
+
+        ; or-mask to get borders filled
+        ld      hl, TempIcon
+        ld      de, ICON_BORDERS_FILLED_OR_MASK
+        ld		b, NUMBER_OF_TILES_PER_ICON * 8
+    .loop_200:
+        ld      a, (hl)
+        ld      c, a
+        ld      a, (de)
+        or      c
+        ld      (hl), a
+        inc     hl
+        inc     de
+        djnz    .loop_200
+        
         ; ------
 
     pop     de
@@ -247,3 +259,85 @@ _DRAW_DESKTOP:
     ret
 
 
+ICON_BORDERS_FILLED_OR_MASK:
+    db  11111111 b
+    db  10000000 b
+    db  10000000 b
+    db  10000000 b
+    db  10000000 b
+    db  10000000 b
+    db  10000000 b
+    db  10000000 b
+
+    db  10000000 b
+    db  10000000 b
+    db  10000000 b
+    db  10000000 b
+    db  10000000 b
+    db  10000000 b
+    db  10000000 b
+    db  10000000 b
+
+    db  10000000 b
+    db  10000000 b
+    db  10000000 b
+    db  10000000 b
+    db  10000000 b
+    db  10000000 b
+    db  10000000 b
+    db  11111111 b
+
+    db  11111111 b
+    db  00000000 b
+    db  00000000 b
+    db  00000000 b
+    db  00000000 b
+    db  00000000 b
+    db  00000000 b
+    db  00000000 b
+
+    db  00000000 b
+    db  00000000 b
+    db  00000000 b
+    db  00000000 b
+    db  00000000 b
+    db  00000000 b
+    db  00000000 b
+    db  00000000 b
+
+    db  00000000 b
+    db  00000000 b
+    db  00000000 b
+    db  00000000 b
+    db  00000000 b
+    db  00000000 b
+    db  00000000 b
+    db  11111111 b
+
+
+    db  11111111 b
+    db  00000001 b
+    db  00000001 b
+    db  00000001 b
+    db  00000001 b
+    db  00000001 b
+    db  00000001 b
+    db  00000001 b
+
+    db  00000001 b
+    db  00000001 b
+    db  00000001 b
+    db  00000001 b
+    db  00000001 b
+    db  00000001 b
+    db  00000001 b
+    db  00000001 b
+
+    db  00000001 b
+    db  00000001 b
+    db  00000001 b
+    db  00000001 b
+    db  00000001 b
+    db  00000001 b
+    db  00000001 b
+    db  11111111 b
