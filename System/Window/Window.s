@@ -39,6 +39,7 @@ _CONVERT_COL_LINE_TO_LINEAR:
     ret
 
 
+; TODO: remove _ on name start, as this routine is public
 ; Input:
 ;   IX = addr of process header
 ; Output:

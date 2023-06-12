@@ -6,7 +6,7 @@ _CLOSE_PROCESS:
     push    hl
     pop     ix
 
-    ; call process.Close event
+    ; call process "Close" event
     push    hl
         ld      e, (ix + PROCESS_STRUCT_IX.closeAddr)         ; process.Close addr (low)
         ld      d, (ix + PROCESS_STRUCT_IX.closeAddr + 1)     ; process.Close addr (high)

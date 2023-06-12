@@ -82,5 +82,13 @@ Notepad.EndProgramCode:                ; this may be useful on future for code d
 
 
 ; --------------------------------------------------
+Notepad.StartProgramData:
+
 Notepad_Icon:
     INCLUDE "Apps/Notepad/Icon.s"
+
+Notepad_Data:
+    ;INCLUDE "Apps/Notepad/Data.s"
+
+Notepad.EndProgramData:                ; this may be useful on future for code dinamically relocatable
+

@@ -81,9 +81,21 @@ _LOAD_PROCESS:
 
     ld      ix, (OS.currentProcessAddr)
 
-    ; TODO
-    ; define ramStartAddr and vramStartTileAddr
-    
+    ; ; TODO
+    ; ; define ramStartAddr and vramStartTileAddr
+    ; push    ix ; HL = IX
+    ; pop     hl
+
+    ; ld      de, OS.process_slot_0
+    ; call    BIOS_DCOMPR
+    ; jp      z, .isOnProcessSlot_0
+    ; ; ...
+    ; ld      de, OS.process_slot_3
+    ; call    BIOS_DCOMPR
+    ; jp      z, .isOnProcessSlot_3
+
+
+
     ; get number of current processes and make it the layer number (0-3)
     call    _GET_NUMBER_OF_PROCESSES_OPENED
     dec     a

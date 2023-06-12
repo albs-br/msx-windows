@@ -58,6 +58,7 @@ BIOS_VOICEN: equ 0FB38h ; last def. pass 3
 CheckCollision_16x16_16x16.x1IsLarger: equ 041A4h ; last def. pass 3
 BIOS_ERRTXT: equ 0F6B7h ; last def. pass 3
 BIOS_CPNCNT8: equ 0F93Bh ; last def. pass 3
+Notepad.EndProgramData: equ 059CCh ; last def. pass 3
 BIOS_DECCNT: equ 0F7F4h ; last def. pass 3
 REG19SAV: equ 0FFF2h ; last def. pass 3
 _DO_RESIZE_WINDOW.cont_20: equ 05197h ; last def. pass 3
@@ -615,6 +616,7 @@ BIOS_DAC: equ 0F7F6h ; last def. pass 3
 BIOS_H_MKD: equ 0FE3Ah ; last def. pass 3
 VDP_COMMAND_LMCM: equ 0A0h ; last def. pass 3
 GTMOUS: equ 051CDh ; last def. pass 3
+Notepad.StartProgramData: equ 05984h ; last def. pass 3
 Execute_VDP_HMMM: equ 041FDh ; last def. pass 3
 _MOUSE_CLICK.skip_100: equ 04C47h ; last def. pass 3
 BIOS_INLIN: equ 0B1h ; last def. pass 3
@@ -969,6 +971,7 @@ BIOS_CHGET: equ 09Fh ; last def. pass 3
 PORT_3: equ 09Bh ; last def. pass 3
 _UPDATE_SCREEN_MAPPING_WINDOW.loop_22: equ 04A5Fh ; last def. pass 3
 PROCESS_STRUCT_IX.closeAddr: equ 02Eh ; last def. pass 3
+Notepad_Data: equ 059CCh ; last def. pass 3
 PROCESS_STRUCT_IX.windowState: equ 01h ; last def. pass 3
 _UPDATE_SYSTEM_TIME: equ 0541Ch ; last def. pass 3
 OS.windowCorner_TopLeft_Color: equ 0C00Dh ; last def. pass 3
