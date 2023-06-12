@@ -175,7 +175,7 @@ _UPDATE_SCREEN_MAPPING_WINDOW:
     ld      l, a
 
     ; H = process.Y + (process.height - 1)
-    ld      a, (ix + PROCESS_STRUCT_IX.Y)
+    ld      a, (ix + PROCESS_STRUCT_IX.y)
     ld      h, (ix + PROCESS_STRUCT_IX.height)
     dec     h
     add     h
@@ -190,9 +190,8 @@ _UPDATE_SCREEN_MAPPING_WINDOW:
 
     ld      a, (ix + PROCESS_STRUCT_IX.processId)
     or      SCREEN_MAPPING_WINDOWS_RESIZE_CORNER
-    ; ld      (hl), a
-
-    ; put screen rezise corner no the 2x2 tiles at window bottom right 
+    
+    ; put screen resize corner on the 2x2 tiles at window bottom right 
     ld      (iy), a
     ld      (iy - 1), a
     ld      (iy - 32), a
