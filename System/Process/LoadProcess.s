@@ -115,7 +115,7 @@ _LOAD_PROCESS:
 
     call    _DRAW_TASKBAR
 
-    ; call process.Open event
+    ; call process "Open" event
     ; ld      hl, (OS.currentProcessAddr)
     ld      ix, (OS.currentProcessAddr)
     ld      e, (ix + PROCESS_STRUCT_IX.openAddr)         ; process.Open addr (low)

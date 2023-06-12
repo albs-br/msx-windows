@@ -1,6 +1,7 @@
     INCLUDE "System/Window/DrawWindow.s"
     INCLUDE "System/Window/CloseWindow.s"
     INCLUDE "System/Window/ScreenMapping.s"
+    INCLUDE "System/Window/DrawOnWindowUsefulArea.s"
 
 
 

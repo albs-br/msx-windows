@@ -279,6 +279,18 @@ _DRAW_WINDOW_MAXIMIZED:
     jp      nz, .outerLoop
 
 
+    ; ---------------------------------------------
+
+
+
+    ; call "Draw" event of the process
+    ; ld      ix, (OS.currentProcessAddr)
+    ld      e, (ix + PROCESS_STRUCT_IX.drawAddr)         ; process.Draw addr (low)
+    ld      d, (ix + PROCESS_STRUCT_IX.drawAddr + 1)     ; process.Draw addr (high)
+    call    JP_DE
+
+
+
     ret
 
 
