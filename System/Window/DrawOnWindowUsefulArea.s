@@ -2,7 +2,7 @@
 ;   HL = ROM start source address
 ;   DE = VRAM NAMTBL start destiny address
 ;   B = line width (0-31)
-;   C = number of lines
+;   IYL = number of lines
 DRAW_ON_WINDOW_USEFUL_AREA:
 
     ; ; debug
@@ -13,30 +13,39 @@ DRAW_ON_WINDOW_USEFUL_AREA:
     ; outi
     ; ret
 
+
 .outerLoop:
         push    bc, hl, de
 
-            ex      de, hl
-            
-            push    hl, de
-            ; push    bc ; TODO: not sure if it is necessary
-                call    BIOS_SETWRT
-            ; pop     bc
-            pop     hl, de
+                    ex      de, hl ; invert DE and HL
+                    
+                    push    hl, de
+                        call    BIOS_SETWRT
+                    pop     hl, de ; invert DE and HL again
 
-            ;ex      de, hl            
-            push    bc
-            ld      c, PORT_0
-            .innerLoop:
-                outi
-                jp      nz, .innerLoop ; this uses exactly 29 cycles (t-states)
-            pop     bc
-        pop     de, hl, bc
+                    ld      c, PORT_0
+                    .innerLoop:
+                        outi
+                        jp      nz, .innerLoop ; this uses exactly 29 cycles (t-states)
 
-        ; TODO
-        ; HL += 32
+                pop     de
 
-    dec     c
+                ; DE += 32
+                ex      de, hl
+                    ld      bc, 32
+                    add     hl, bc
+                ex      de, hl
+
+            pop     hl
+        pop     bc
+
+        ; HL += B (line width)
+        ld      c, b
+        ld      b, 0
+        add     hl, bc
+        ld      b, c
+
+    dec     iyl ; dec line counter
     jp      nz, .outerLoop
 
     ret

@@ -104,21 +104,39 @@ _LOAD_PROCESS:
     ld      a, WINDOW_STATE.RESTORED
     ld      (ix + PROCESS_STRUCT_IX.previousWindowState), a
 
-    ; set x and y of window and
-    ; update OS.nextWindow_x and y to the next
+    ; --- set x and y of window and
+    ; --- update OS.nextWindow_x and y to the next
     ld      a, (OS.nextWindow_x)
+    ; if (OS.nextWindow_x + process.width > 32) process.x = 0
+    ld      b, (ix + PROCESS_STRUCT_IX.width)
+    add     b
+    cp      32 + 1
+    jp      nc, .fixWidth
+    ld      a, (OS.nextWindow_x)
+    jp      .cont_200
+.fixWidth:
+    xor     a
+.cont_200:
     ld      (ix + PROCESS_STRUCT_IX.x), a
     add     2
     ld      (OS.nextWindow_x), a
 
     ld      a, (OS.nextWindow_y)
+    ; if (OS.nextWindow_y + process.height > 22) process.y = 0
+    ld      b, (ix + PROCESS_STRUCT_IX.height)
+    add     b
+    cp      22 + 1
+    jp      nc, .fixHeight
+    ld      a, (OS.nextWindow_y)
+    jp      .cont_100
+.fixHeight:
+    xor     a
+.cont_100:
     ld      (ix + PROCESS_STRUCT_IX.y), a
     add     2
     ld      (OS.nextWindow_y), a
-    cp      12
-    call    nc, .resetNextWindow_XY ; if (A >= 10) .resetNextWindow_XY
-    ; TODO:
-    ; check if (x + width) or (y + height) exceeds screen limits
+    cp      8
+    call    nc, .resetNextWindow_XY ; if (A >= 8) .resetNextWindow_XY
 
 
 

@@ -85,9 +85,9 @@ _INIT_RAM:
 
 
     ; init video vars
-    ld      a, 8
+    ld      a, 0
     ld      (OS.nextWindow_x), a
-    ld      a, 4
+    ld      a, 0
     ld      (OS.nextWindow_y), a
 
     xor     a

@@ -6,11 +6,11 @@ Calc:
 .processId:		        db 255		    ; on app header must be always 255 (will be given an id by the OS at app load)
 .windowState:	        db WINDOW_STATE.RESTORED
 .x:			            db 8 + 13
-.y:			            db 10
-.width:		            db 14
-.height:		        db 8
-.minWidth:		        db 12
-.minHeight:		        db 8
+.y:			            db 8
+.width:		            db 16
+.height:		        db 18
+.minWidth:		        db 16
+.minHeight:		        db 18
 
 .windowTitle:
                         db TILE_FONT_REVERSED_LOWERCASE_A + 2  ; 'c'

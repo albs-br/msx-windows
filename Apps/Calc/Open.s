@@ -11,12 +11,12 @@
     ; ld      bc, NAMTBL + (32 * 2) + 1; two lines below and one column right
     ; add     hl, bc
 
-    call    _GET_WINDOW_BASE_NAMTBL
+    ; call    _GET_WINDOW_BASE_NAMTBL
 
-    ; debug
-    ; write a test char 
-    call    BIOS_SETWRT
-    ld      a, TILE_FONT_UPPERCASE_A + 1 ; 'B'
-    out     (PORT_0), a
+    ; ; debug
+    ; ; write a test char 
+    ; call    BIOS_SETWRT
+    ; ld      a, TILE_FONT_UPPERCASE_A + 1 ; 'B'
+    ; out     (PORT_0), a
 
     ret
