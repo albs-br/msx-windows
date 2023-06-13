@@ -11,18 +11,18 @@
     ; ld      bc, NAMTBL + (32 * 5) + 1 ; 5 lines below and one column right
     ; add     hl, bc
 
-    call    _GET_WINDOW_BASE_NAMTBL
+    ; call    _GET_WINDOW_BASE_NAMTBL
 
 
-    ; debug
-    ; write a test char (units of seconds from system time)
+    ; ; debug
+    ; ; write a test char (units of seconds from system time)
 
-    ; two lines below
-    ld      bc, 32 * 2
-    add     hl, bc
+    ; ; two lines below
+    ; ld      bc, 32 * 2
+    ; add     hl, bc
 
-    ld      de, TEST_NOTEPAD_WORK_EVENT_STRING
-    call    _DRAW_STRING
+    ; ld      de, TEST_NOTEPAD_WORK_EVENT_STRING
+    ; call    _DRAW_STRING
 
     ; call    BIOS_SETWRT
     ; ld      a, (OS.currentTime_Seconds)

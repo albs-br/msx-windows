@@ -12,8 +12,20 @@
 
     call    _GET_WINDOW_BASE_NAMTBL
 
-    ld      de, TEST_NOTEPAD_DRAW_EVENT_STRING
-    call    _DRAW_STRING
+    call    BIOS_SETWRT
+
+    ; ld      de, TEST_NOTEPAD_DRAW_EVENT_STRING
+    ; call    _DRAW_STRING
+
+
+    ; get RAM variables area of this process
+    ld      l, (ix + PROCESS_STRUCT_IX.ramStartAddr)
+    ld      h, (ix + PROCESS_STRUCT_IX.ramStartAddr + 1)
+
+    ld      c, PORT_0
+    ; outi
+    ld      a, (hl)
+    out     (c), a
 
     ret
 

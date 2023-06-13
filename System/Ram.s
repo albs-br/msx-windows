@@ -64,7 +64,7 @@ OS:
 .resizeWindowCorner_BottomRight_X_Min:      rb 1
 .resizeWindowCorner_BottomRight_Y_Min:      rb 1
 
-.keyboardMatrix:	    rb 10			; https://map.grauw.nl/articles/keymatrix.php
+.oldKeyboardMatrix:	    rb 10			; https://map.grauw.nl/articles/keymatrix.php
 
 .ticksSinceLastInput:	rw 1		    ; used to trigger screen saver
 
@@ -129,8 +129,24 @@ OS:
 .processes_end:
 .processes_size: equ $ - .processes
 
+
+; ------------------------------------
+
+
+.PROCESS_VARS_AREA_SIZE: equ 1024
+
+.processesVariablesArea:		        
+    rb .PROCESS_VARS_AREA_SIZE * (MAX_PROCESS_ID + 1) 
+    .processesVariablesArea_0:      equ .processesVariablesArea + (.PROCESS_VARS_AREA_SIZE * 0)
+    .processesVariablesArea_1:      equ .processesVariablesArea + (.PROCESS_VARS_AREA_SIZE * 1)
+    .processesVariablesArea_2:      equ .processesVariablesArea + (.PROCESS_VARS_AREA_SIZE * 2)
+    .processesVariablesArea_3:      equ .processesVariablesArea + (.PROCESS_VARS_AREA_SIZE * 3)
+.processesVariablesArea_end:
+.processesVariablesArea_size: equ $ - .processesVariablesArea
+
 ; --------------------------------------------------------------------------------------------
 
+; TODO: this is wasting space (put inside process slot 0)
 Process_struct:
 .processId:		        rb 1		    ; 255: empty
 .windowState:	        rb 1		    ; 0: minimized, 1: restored, 2: maximized
@@ -187,7 +203,8 @@ Process_struct:
 
 .size: equ $ - Process_struct
 
-; ------------------------------------
+
+; --------------------------------------------------------------------------------------------
 ; constants for using Process_struct with (ix + n) addressing
 
 PROCESS_STRUCT_IX:
@@ -216,12 +233,15 @@ PROCESS_STRUCT_IX:
 .iconAddr:		        equ Process_struct.iconAddr   - Process_struct
 
 ; TODO: other properties
+.ramStartAddr:	        equ Process_struct.ramStartAddr   - Process_struct
+.vramStartTileAddr:	    equ Process_struct.vramStartTileAddr   - Process_struct
 
 .layer:					equ Process_struct.layer    	- Process_struct
 
 .previousWindowState:	equ Process_struct.previousWindowState  - Process_struct
 
 ; ----------------------------------------------------
+
 
 ; temp vars / debug
 Temp:       rb 1

@@ -81,20 +81,53 @@ _LOAD_PROCESS:
 
     ld      ix, (OS.currentProcessAddr)
 
-    ; ; TODO
-    ; ; define ramStartAddr and vramStartTileAddr
-    ; push    ix ; HL = IX
-    ; pop     hl
+    ; define ramStartAddr and vramStartTileAddr
+    push    ix ; HL = IX
+    pop     hl
 
-    ; ld      de, OS.process_slot_0
-    ; call    BIOS_DCOMPR
-    ; jp      z, .isOnProcessSlot_0
-    ; ; ...
-    ; ld      de, OS.process_slot_3
-    ; call    BIOS_DCOMPR
-    ; jp      z, .isOnProcessSlot_3
+    ld      de, OS.process_slot_0
+    call    BIOS_DCOMPR
+    jp      z, .isOnProcessSlot_0
 
+    ld      de, OS.process_slot_1
+    call    BIOS_DCOMPR
+    jp      z, .isOnProcessSlot_1
 
+    ld      de, OS.process_slot_2
+    call    BIOS_DCOMPR
+    jp      z, .isOnProcessSlot_2
+
+    ld      de, OS.process_slot_3
+    call    BIOS_DCOMPR
+    jp      z, .isOnProcessSlot_3
+
+    jp      .cont_1001
+
+.isOnProcessSlot_0:
+    ld      hl, OS.processesVariablesArea_0
+    ;TODO
+    ; ld      de, TILE_BASE_INDEX_PROCESS_0
+    jp      .saveRamStartAddr
+
+.isOnProcessSlot_1:
+    ld      hl, OS.processesVariablesArea_1
+    jp      .saveRamStartAddr
+
+.isOnProcessSlot_2:
+    ld      hl, OS.processesVariablesArea_2
+    jp      .saveRamStartAddr
+
+.isOnProcessSlot_3:
+    ld      hl, OS.processesVariablesArea_3
+    ; jp      .saveRamStartAddr
+
+.saveRamStartAddr:
+    ld      (ix + PROCESS_STRUCT_IX.ramStartAddr), l
+    ld      (ix + PROCESS_STRUCT_IX.ramStartAddr + 1), h
+    ; ld      (ix + PROCESS_STRUCT_IX.vramStartTileAddr), e
+    ; ld      (ix + PROCESS_STRUCT_IX.vramStartTileAddr + 1), d
+
+.cont_1001:
 
     ; get number of current processes and make it the layer number (0-3)
     call    _GET_NUMBER_OF_PROCESSES_OPENED
@@ -140,17 +173,19 @@ _LOAD_PROCESS:
 
 
 
-    call    _UPDATE_SCREEN
-
-
-    call    _DRAW_TASKBAR
-
     ; call process "Open" event
     ; ld      hl, (OS.currentProcessAddr)
     ld      ix, (OS.currentProcessAddr)
     ld      e, (ix + PROCESS_STRUCT_IX.openAddr)         ; process.Open addr (low)
     ld      d, (ix + PROCESS_STRUCT_IX.openAddr + 1)     ; process.Open addr (high)
     call    JP_DE
+
+
+
+    call    _UPDATE_SCREEN
+
+
+    call    _DRAW_TASKBAR
 
 
 

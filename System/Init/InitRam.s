@@ -72,16 +72,16 @@ _INIT_RAM:
 
     ; init keyboard vars
     ld      a, 1111 1111 b
-    ld      (OS.keyboardMatrix + 0), a
-    ld      (OS.keyboardMatrix + 1), a
-    ld      (OS.keyboardMatrix + 2), a
-    ld      (OS.keyboardMatrix + 3), a
-    ld      (OS.keyboardMatrix + 4), a
-    ld      (OS.keyboardMatrix + 5), a
-    ld      (OS.keyboardMatrix + 6), a
-    ld      (OS.keyboardMatrix + 7), a
-    ld      (OS.keyboardMatrix + 8), a
-    ld      (OS.keyboardMatrix + 9), a
+    ld      (OS.oldKeyboardMatrix + 0), a
+    ld      (OS.oldKeyboardMatrix + 1), a
+    ld      (OS.oldKeyboardMatrix + 2), a
+    ld      (OS.oldKeyboardMatrix + 3), a
+    ld      (OS.oldKeyboardMatrix + 4), a
+    ld      (OS.oldKeyboardMatrix + 5), a
+    ld      (OS.oldKeyboardMatrix + 6), a
+    ld      (OS.oldKeyboardMatrix + 7), a
+    ld      (OS.oldKeyboardMatrix + 8), a
+    ld      (OS.oldKeyboardMatrix + 9), a
 
 
     ; init video vars

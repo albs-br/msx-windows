@@ -33,7 +33,7 @@ _READ_KEYBOARD:
 
     ; update old keyboard state
     ld      a, b
-    ld      (OS.keyboardMatrix + 8), a
+    ld      (OS.oldKeyboardMatrix + 8), a
 
     ; ld      hl, (BIOS_NEWKEY + 0)
     ; ld      (OS.keyboardMatrix + 0), hl
@@ -42,7 +42,7 @@ _READ_KEYBOARD:
 
 .keyPressed_R:
     ; check if key was previously released
-    ld      a, (OS.keyboardMatrix + 8)
+    ld      a, (OS.oldKeyboardMatrix + 8)
     bit     7, a
     ret     z
 
@@ -55,7 +55,7 @@ _READ_KEYBOARD:
 
 .keyPressed_L:
     ; check if key was previously released
-    ld      a, (OS.keyboardMatrix + 8)
+    ld      a, (OS.oldKeyboardMatrix + 8)
     bit     4, a
     ret     z
 
