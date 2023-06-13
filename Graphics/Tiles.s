@@ -331,6 +331,16 @@ TILE_LINE_HORIZONTAL: equ 30
     DB 00000000 b
     DB 00000000 b
 
+TILE_LINE_BOTTOM_RIGHT_SHADOW: equ 31
+    DB 00011110 b
+    DB 00011110 b
+    DB 00011110 b
+    DB 11111110 b
+    DB 11111110 b
+    DB 11111110 b
+    DB 11111110 b
+    DB 00000000 b
+
     ; ; 
     ; ; --- Slot 3
     ; ; color 1
@@ -369,7 +379,7 @@ TILE_LINE_HORIZONTAL: equ 30
 
 ; ------------------------ font ------------------------
 
-BASE_INDEX_TILE_FONT: equ 31
+BASE_INDEX_TILE_FONT: equ 32
 
 TILE_FONT_REVERSED_PATTERNS:
 
@@ -1324,10 +1334,228 @@ TILE_FONT_UPPERCASE_A: equ TILE_FONT_LOWERCASE_A + 26
     db 01111110 b
     db 00000000 b
 
+; ------ symbols
+
+TILE_FONT_SYMBOLS_PATTERNS:
+
+TILE_FONT_SYMBOLS: equ TILE_FONT_UPPERCASE_A + 26
+
+TILE_EXCLAMATION: equ TILE_FONT_SYMBOLS + 0
+    db 00000000 b
+    db 00011000 b
+    db 00011000 b
+    db 00011000 b
+    db 00011000 b
+    db 00000000 b
+    db 00011000 b
+    db 00000000 b
+
+TILE_DOUBLE_QUOTE: equ TILE_FONT_SYMBOLS + 1
+    db 00000000 b
+    db 01100110 b
+    db 01100110 b
+    db 01100110 b
+    db 00000000 b
+    db 00000000 b
+    db 00000000 b
+    db 00000000 b
+
+TILE_PERCENT: equ TILE_FONT_SYMBOLS + 2
+    db 00000000 b
+    db 01100110 b
+    db 01101100 b
+    db 00011000 b
+    db 00110000 b
+    db 01100110 b
+    db 01000110 b
+    db 00000000 b
+
+TILE_SINGLE_QUOTE: equ TILE_FONT_SYMBOLS + 3
+    db 00000000 b
+    db 00011000 b
+    db 00011000 b
+    db 00011000 b
+    db 00000000 b
+    db 00000000 b
+    db 00000000 b
+    db 00000000 b
+
+TILE_OPEN_ROUND_BRACKETS: equ TILE_FONT_SYMBOLS + 4
+    db 00000000 b
+    db 00001110 b
+    db 00011100 b
+    db 00011000 b
+    db 00011000 b
+    db 00011100 b
+    db 00001110 b
+    db 00000000 b
+
+TILE_CLOSE_ROUND_BRACKETS: equ TILE_FONT_SYMBOLS + 5
+    db 00000000 b
+    db 01110000 b
+    db 00111000 b
+    db 00011000 b
+    db 00011000 b
+    db 00111000 b
+    db 01110000 b
+    db 00000000 b
+
+TILE_STAR: equ TILE_FONT_SYMBOLS + 6
+    db 00000000 b
+    db 01100110 b
+    db 00111100 b
+    db 11111111 b
+    db 00111100 b
+    db 01100110 b
+    db 00000000 b
+    db 00000000 b
+
+TILE_PLUS: equ TILE_FONT_SYMBOLS + 7
+    db 00000000 b
+    db 00011000 b
+    db 00011000 b
+    db 01111110 b
+    db 00011000 b
+    db 00011000 b
+    db 00000000 b
+    db 00000000 b
+
+TILE_COMMA: equ TILE_FONT_SYMBOLS + 8
+    db 00000000 b
+    db 00000000 b
+    db 00000000 b
+    db 00000000 b
+    db 00000000 b
+    db 00011000 b
+    db 00011000 b
+    db 00110000 b
+
+TILE_MINUS: equ TILE_FONT_SYMBOLS + 9
+    db 00000000 b
+    db 00000000 b
+    db 00000000 b
+    db 01111110 b
+    db 00000000 b
+    db 00000000 b
+    db 00000000 b
+    db 00000000 b
+
+TILE_DOT: equ TILE_FONT_SYMBOLS + 10
+    db 00000000 b
+    db 00000000 b
+    db 00000000 b
+    db 00000000 b
+    db 00000000 b
+    db 00011000 b
+    db 00011000 b
+    db 00000000 b
+
+TILE_SLASH: equ TILE_FONT_SYMBOLS + 11
+    db 00000000 b
+    db 00000110 b
+    db 00001100 b
+    db 00011000 b
+    db 00110000 b
+    db 01100000 b
+    db 01000000 b
+    db 00000000 b
+    ; -------------------- char #26
+    db 00000000 b
+    db 00000000 b
+    db 00011000 b
+    db 00011000 b
+    db 00000000 b
+    db 00011000 b
+    db 00011000 b
+    db 00000000 b
+    ; -------------------- char #27
+    db 00000000 b
+    db 00000000 b
+    db 00011000 b
+    db 00011000 b
+    db 00000000 b
+    db 00011000 b
+    db 00011000 b
+    db 00110000 b
+    ; -------------------- char #28
+    db 00000110 b
+    db 00001100 b
+    db 00011000 b
+    db 00110000 b
+    db 00011000 b
+    db 00001100 b
+    db 00000110 b
+    db 00000000 b
+
+TILE_EQUAL: equ TILE_FONT_SYMBOLS + 15
+    db 00000000 b
+    db 00000000 b
+    db 01111110 b
+    db 00000000 b
+    db 00000000 b
+    db 01111110 b
+    db 00000000 b
+    db 00000000 b
+    ; -------------------- char #30
+    db 01100000 b
+    db 00110000 b
+    db 00011000 b
+    db 00001100 b
+    db 00011000 b
+    db 00110000 b
+    db 01100000 b
+    db 00000000 b
+    ; -------------------- char #31
+    db 00000000 b
+    db 00111100 b
+    db 01100110 b
+    db 00001100 b
+    db 00011000 b
+    db 00000000 b
+    db 00011000 b
+    db 00000000 b
+    ; -------------------- char #32
+    db 00011000 b
+    db 00111100 b
+    db 01100000 b
+    db 00111100 b
+    db 00000110 b
+    db 00000110 b
+    db 00111100 b
+    db 00000000 b
+    ; -------------------- char #60
+    db 00000000 b
+    db 01000000 b
+    db 01100000 b
+    db 00110000 b
+    db 00011000 b
+    db 00001100 b
+    db 00000110 b
+    db 00000000 b
+    ; -------------------- char #62
+    db 00000000 b
+    db 00001000 b
+    db 00011100 b
+    db 00110110 b
+    db 01100011 b
+    db 00000000 b
+    db 00000000 b
+    db 00000000 b
+    ; -------------------- char #63
+    db 00000000 b
+    db 00000000 b
+    db 00000000 b
+    db 00000000 b
+    db 00000000 b
+    db 00000000 b
+    db 11111111 b
+    db 00000000 b
+
+;----
 
 TILE_PATTERNS.size: equ $ - TILE_PATTERNS
 
-; TILE_PATTERNS.size: 0x410 (130 tiles)
+; TILE_PATTERNS.size: 0x4c8 (153 tiles)
 
 ; ----------------------------
 

@@ -4,8 +4,12 @@
 
     call    _GET_WINDOW_BASE_NAMTBL
 
-    ld      bc, 1 ; go to one column right
-    add     hl, bc
+    ; if (windowState == MAXIMIZED) HL++
+    ld      a, (ix + PROCESS_STRUCT_IX.windowState)
+    cp      WINDOW_STATE.MAXIMIZED
+    jp      nz, .skip_1
+    inc     hl
+.skip_1:
 
     ex      de, hl
 

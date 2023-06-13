@@ -7,9 +7,9 @@ Calc:
 .windowState:	        db WINDOW_STATE.RESTORED
 .x:			            db 8 + 13
 .y:			            db 8
-.width:		            db 16
+.width:		            db 14
 .height:		        db 18
-.minWidth:		        db 16
+.minWidth:		        db 14
 .minHeight:		        db 18
 
 .windowTitle:
