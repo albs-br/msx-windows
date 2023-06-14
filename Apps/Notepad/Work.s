@@ -1,6 +1,25 @@
 ; Input
 ;   IX = base addr of this process slot on RAM
 
+    call    READ_KEYBOARD
+    or      a
+    ret     z
+
+
+    ; get RAM variables area of this process
+    ld      l, (ix + PROCESS_STRUCT_IX.ramStartAddr)
+    ld      h, (ix + PROCESS_STRUCT_IX.ramStartAddr + 1)
+
+    ; A = A - 65 + TILE_FONT_LOWERCASE_A
+    ld      b, TILE_FONT_LOWERCASE_A - ASCII_CODE_A
+    add     b
+    ld      (hl), a
+    
+    ; call "Draw" event of this process
+    ld      e, (ix + PROCESS_STRUCT_IX.drawAddr)         ; process.Draw addr (low)
+    ld      d, (ix + PROCESS_STRUCT_IX.drawAddr + 1)     ; process.Draw addr (high)
+    call    JP_DE
+
     ; get base NAMTBL of the window
     ; ; push    hl ; ix = hl
     ; ; pop     ix
@@ -35,4 +54,4 @@
     ret
 
 
-TEST_NOTEPAD_WORK_EVENT_STRING: db 'N WORK', 0
+; TEST_NOTEPAD_WORK_EVENT_STRING: db 'N WORK', 0

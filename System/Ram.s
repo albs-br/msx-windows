@@ -64,7 +64,7 @@ OS:
 .resizeWindowCorner_BottomRight_X_Min:      rb 1
 .resizeWindowCorner_BottomRight_Y_Min:      rb 1
 
-.oldKeyboardMatrix:	    rb 10			; https://map.grauw.nl/articles/keymatrix.php
+.oldKeyboardMatrix:	    rb 11			; https://map.grauw.nl/articles/keymatrix.php
 
 .ticksSinceLastInput:	rw 1		    ; used to trigger screen saver
 
@@ -75,7 +75,10 @@ OS:
 .currentTime_Minutes:   rb 1
 .currentTime_Seconds:   rb 1
 
-.currentDate:	        rb 3			; BCD encoded date dd/mm/yyyy
+.currentDate:	        			    ; BCD encoded date dd/mm/yyyy
+.currentDate_Day:       rb 1
+.currentDate_Month:     rb 1
+.currentDate_Year:      rb 2
 
 .timeCounter:	        rb 1			; 0-59 JIFFY based counter to increment time/date (0-49 on PAL machines)
 
