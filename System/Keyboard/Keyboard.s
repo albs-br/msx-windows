@@ -156,11 +156,13 @@ READ_KEYBOARD:
 
     ret
 
+ASCII_CODE_A: equ 65
+
 ASCII_CODES_KEYBOARD:
     db   0,   0,   0,   0,   0,   0,   0,   0
     db   0,   0,   0,   0,   0,   0,   0,   0
     db   0,   0,   0,   0,   0,   0,   0,   0
-    db   0,   0,   0,   0,   0,   0,   0,   0 ; ascii code for c
+    db   0,   0,   0,   0,   0,   0,   0,   ASCII_CODE_A + 2 ; ascii code for c
     db   0,   0,   0,   0,   0,   0,   0,   0
     db   0,   0,   0,   0,   0,   0,   0,   0
     db   0,   0,   0,   0,   0,   0,   0,   0

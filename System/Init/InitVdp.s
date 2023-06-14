@@ -73,6 +73,37 @@ _INIT_VDP:
     ld      hl, COLTBL + (512 * 8) + (TILE_FONT_REVERSED_PATTERNS - TILE_PATTERNS)         ; start VRAM address
     call    BIOS_FILVRM
 
+    ; fill COLTBL for tiles filled with colors (first part)
+    ld      hl, COLTBL + (TILE_FILLED_COLORS_PATTERNS - TILE_PATTERNS)         ; start VRAM address
+    ld      d, 2
+.loop_Colors:
+    push    hl, de
+        ; ld      a, 0x21                                         ; value
+        sla     d ; shift left R; bit 7 -> C ; bit 0 -> 0
+        sla     d ; shift left R; bit 7 -> C ; bit 0 -> 0
+        sla     d ; shift left R; bit 7 -> C ; bit 0 -> 0
+        sla     d ; shift left R; bit 7 -> C ; bit 0 -> 0
+
+        ld      a, 0000 0001 b
+        or      d
+
+        ld      bc, 8
+        call    BIOS_FILVRM
+    pop     de, hl
+
+    ld      bc, 8
+    add     hl, bc
+
+    inc     d
+    ld      a, d
+    cp      15
+    jp      nz, .loop_Colors
+
+    ; TODO:
+    ; fill COLTBL for tiles filled with colors (second part)
+    ; fill COLTBL for tiles filled with colors (third part)
+
+
     ; ; load NAMTBL
     ; ld		hl, NAMTBL_INIT         ; RAM address (source)
     ; ld		de, NAMTBL		        ; VRAM address (destiny)

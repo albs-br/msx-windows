@@ -1551,11 +1551,148 @@ TILE_EQUAL: equ TILE_FONT_SYMBOLS + 15
     db 11111111 b
     db 00000000 b
 
+; ------ coloured tiles filled
+
+TILE_FILLED_COLORS_PATTERNS:
+
+TILE_FILLED_COLORS: equ TILE_FONT_SYMBOLS + 22
+
+TILE_COLOR_2: equ TILE_FILLED_COLORS + 0
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+
+TILE_COLOR_3: equ TILE_FILLED_COLORS + 1
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+
+TILE_COLOR_4: equ TILE_FILLED_COLORS + 2
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+
+TILE_COLOR_5: equ TILE_FILLED_COLORS + 3
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+
+TILE_COLOR_6: equ TILE_FILLED_COLORS + 4
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+
+TILE_COLOR_7: equ TILE_FILLED_COLORS + 5
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+
+TILE_COLOR_8: equ TILE_FILLED_COLORS + 6
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+
+TILE_COLOR_9: equ TILE_FILLED_COLORS + 7
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+
+TILE_COLOR_10: equ TILE_FILLED_COLORS + 8
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+
+TILE_COLOR_11: equ TILE_FILLED_COLORS + 9
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+
+TILE_COLOR_12: equ TILE_FILLED_COLORS + 10
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+
+TILE_COLOR_13: equ TILE_FILLED_COLORS + 11
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+
+TILE_COLOR_14: equ TILE_FILLED_COLORS + 12
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+
+
 ;----
 
 TILE_PATTERNS.size: equ $ - TILE_PATTERNS
 
-; TILE_PATTERNS.size: 0x4c8 (153 tiles)
+; TILE_PATTERNS.size: 0x530h (166 tiles)
 
 ; ----------------------------
 
