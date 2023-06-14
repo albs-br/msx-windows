@@ -15,6 +15,7 @@
 	; line 10	; $fbe4, $fbef ; . , - 9 8 7 6 5
 
 
+; Check key combinations used by the OS
 _READ_KEYBOARD:
 
     ; check if GRAPH (ALT) key is pressed
@@ -94,5 +95,74 @@ _READ_KEYBOARD:
 ; Returns ASCII code of keypressed (only positive trnsition)
 ; Output:
 ;   A: ASCII code of key
-call    READ_KEYBOARD
+READ_KEYBOARD:
+
+    ; L = BIOS_NEWKEY + 3, H = BIOS_NEWKEY + 4
+    ld      hl, (BIOS_NEWKEY + 3)
+    
+    ld      de, ASCII_CODES_KEYBOARD + (8 * 3)
+
+    xor     a ; ld      a, 0
+
+    bit     0, h
+    jp      z, .bit_0
+    ;...
+    bit     7, h
+    jp      z, .bit_7
+
+    ; ------
+
+    ld      a, 8
+
+    bit     0, l
+    jp      z, .bit_0
+    ;...
+    bit     7, l
+    jp      z, .bit_7
+
+
+    ; no key pressed
+    xor     a
     ret
+
+.bit_0:
+    add     7
+    jp      .return
+
+.bit_1:
+    add     6
+    jp      .return
+
+.bit_2:
+    add     5
+    jp      .return
+
+; ...
+
+.bit_6:
+    inc     a
+    jp      .return
+
+.bit_7:
+    ; add 0
+    jp      .return
+
+.return:
+
+    ld      h, 0
+    ld      l, a
+    add     hl, de
+    ld      a, (hl)
+
+    ret
+
+ASCII_CODES_KEYBOARD:
+    db   0,   0,   0,   0,   0,   0,   0,   0
+    db   0,   0,   0,   0,   0,   0,   0,   0
+    db   0,   0,   0,   0,   0,   0,   0,   0
+    db   0,   0,   0,   0,   0,   0,   0,   0 ; ascii code for c
+    db   0,   0,   0,   0,   0,   0,   0,   0
+    db   0,   0,   0,   0,   0,   0,   0,   0
+    db   0,   0,   0,   0,   0,   0,   0,   0
+    db   0,   0,   0,   0,   0,   0,   0,   0
+    db   0,   0,   0,   0,   0,   0,   0,   0
