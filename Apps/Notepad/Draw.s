@@ -10,6 +10,49 @@
     ; ld      bc, NAMTBL + (32 * 2) + 1; two lines below and one column right
     ; add     hl, bc
 
+    ; --- draw vertical scrollbar
+    ld      a, (ix + PROCESS_STRUCT_IX.windowState)
+    cp      WINDOW_STATE.RESTORED
+    jp      z, .isRestored_1
+
+    ; window maximized
+    ld      hl, NAMTBL + 32 + 31 ; last column of second line
+    jp      .cont_1
+
+.isRestored_1:
+    call    _GET_WINDOW_BASE_NAMTBL
+    ld      b, 0
+    ld      c, (ix + PROCESS_STRUCT_IX.width)
+    add     hl, bc
+    ld      bc, -3 ; back 3 cols (one for left border, two for right border)
+    add     hl, bc
+
+.cont_1:
+    call    BIOS_SETWRT
+    ld      c, PORT_0
+    ld      a, TILE_ARROW_UP
+    out     (c), a
+
+    ld      a, (ix + PROCESS_STRUCT_IX.height)
+    sub     5
+    ld      b, a
+    ld      de, 32
+    add     hl, de ; next line
+.loop_1:
+    call    BIOS_SETWRT
+    ld      a, TILE_DOTS_VERTICAL
+    out     (c), a
+    add     hl, de ; next line
+    djnz    .loop_1
+
+    call    BIOS_SETWRT
+    ld      c, PORT_0
+    ld      a, TILE_ARROW_DOWN
+    out     (c), a
+
+    ; ------
+
+
     call    _GET_WINDOW_BASE_NAMTBL
 
     call    BIOS_SETWRT
@@ -46,9 +89,9 @@
 
     .isRestored:
         ; check window width for restored window
-        ld      b, (ix + PROCESS_STRUCT_IX.width)
-        dec     b
-        dec     b
+        ld      a, (ix + PROCESS_STRUCT_IX.width)
+        sub     3
+        ld      b, a
         
     .checkWidth:
         ld      a, d

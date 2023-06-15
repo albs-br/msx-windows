@@ -18,17 +18,17 @@ Calc:
                         db TILE_FONT_REVERSED_LOWERCASE_A + 11 ; 'l'
                         db TILE_FONT_REVERSED_LOWERCASE_A + 2  ; 'c'
                         db 0 ; end of string
-                        db 33
-                        db 33
-                        db 33
-                        db 33
-                        db 33
-                        db 33
-                        db 33
-                        db 33
-                        db 33
-                        db 33
-                        db 33
+                        db 0
+                        db 0
+                        db 0
+                        db 0
+                        db 0
+                        db 0
+                        db 0
+                        db 0
+                        db 0
+                        db 0
+                        db 0
 .taskbarTitle:
                         db TILE_FONT_REVERSED_LOWERCASE_A + 2  ; 'c'
                         db TILE_FONT_REVERSED_LOWERCASE_A + 0  ; 'a'

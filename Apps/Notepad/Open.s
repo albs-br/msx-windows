@@ -16,6 +16,9 @@
     ld      a, TEXT_END_OF_FILE
     ld      (iy + NOTEPAD_VARS.TEXT_START), a
 
+    ; clear keyboard buffer
+    call    BIOS_KILBUF
+
     ; ld      a, TILE_STAR
     ; ld      (hl), a ; debug
 

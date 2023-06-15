@@ -19,21 +19,21 @@ Paint:
                         db TILE_FONT_REVERSED_LOWERCASE_A + 13 ; 'n'
                         db TILE_FONT_REVERSED_LOWERCASE_A + 19 ; 't'
                         db 0 ; end of string
-                        db 33
-                        db 33
-                        db 33
-                        db 33
-                        db 33
-                        db 33
-                        db 33
-                        db 33
-                        db 33
-                        db 33
+                        db 0
+                        db 0
+                        db 0
+                        db 0
+                        db 0
+                        db 0
+                        db 0
+                        db 0
+                        db 0
+                        db 0
 .taskbarTitle:
                         db TILE_FONT_REVERSED_LOWERCASE_A + 15 ; 'p'
-                        db TILE_FONT_REVERSED_LOWERCASE_A + 0  ; 'a'
-                        db TILE_FONT_REVERSED_LOWERCASE_A + 8  ; 'i'
                         db TILE_FONT_REVERSED_LOWERCASE_A + 13 ; 'n'
+                        db TILE_FONT_REVERSED_LOWERCASE_A + 19 ; 't'
+                        db TILE_EMPTY_BLACK
 .iconTitle:
                         db TILE_EMPTY
                         db TILE_FONT_LOWERCASE_A + 15 ; 'p'

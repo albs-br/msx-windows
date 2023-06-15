@@ -341,33 +341,36 @@ TILE_LINE_BOTTOM_RIGHT_SHADOW: equ 31
     DB 11111110 b
     DB 00000000 b
 
-    ; ; 
-    ; ; --- Slot 3
-    ; ; color 1
-    ; DB 00000000b
-    ; DB 00000000b
-    ; DB 00001000b
-    ; DB 00011100b
-    ; DB 00111110b
-    ; DB 00000000b
-    ; DB 00000000b
-    ; DB 00000000b
-    ; DB 00000000b
-    ; DB 00000000b
-    ; DB 00000000b
-    ; DB 00111110b
-    ; DB 00011100b
-    ; DB 00001000b
-    ; DB 00000000b
-    ; DB 00000000b
-    ; DB 00000000b
-    ; DB 00001000b
-    ; DB 00000000b
-    ; DB 00000000b
-    ; DB 00000000b
-    ; DB 00001000b
-    ; DB 00000000b
-    ; DB 00000000b
+TILE_ARROW_UP: equ 32
+    DB 00000000b
+    DB 00000000b
+    DB 00001000b
+    DB 00011100b
+    DB 00111110b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+
+TILE_ARROW_DOWN: equ 33
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00111110b
+    DB 00011100b
+    DB 00001000b
+    DB 00000000b
+    DB 00000000b
+
+TILE_DOTS_VERTICAL: equ 34
+    DB 00000000b
+    DB 00001000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00001000b
+    DB 00000000b
+    DB 00000000b
+
     ; DB 00000000b
     ; DB 01111111b
     ; DB 01111111b
@@ -379,7 +382,7 @@ TILE_LINE_BOTTOM_RIGHT_SHADOW: equ 31
 
 ; ------------------------ font ------------------------
 
-BASE_INDEX_TILE_FONT: equ 32
+BASE_INDEX_TILE_FONT: equ 35
 
 TILE_FONT_REVERSED_PATTERNS:
 
@@ -1695,7 +1698,7 @@ TILE_COLOR_15: equ TILE_EMPTY
 
 TILE_PATTERNS.size: equ $ - TILE_PATTERNS
 
-; TILE_PATTERNS.size: 0x530h (166 tiles)
+; TILE_PATTERNS.size: 0x533h (169 tiles)
 
 ; ----------------------------
 

@@ -41,7 +41,7 @@ _DRAW_TASKBAR_BUTTONS:
     ld      hl, OS.taskbar_Button_0_Process_addr
     ld      (TempWord), hl
 
-    ; loop through process slots deawing taskbar buttons
+    ; loop through process slots drawing taskbar buttons
     ld      hl, OS.processes
     ld      b, MAX_PROCESS_ID + 1
 .loop_1:
@@ -84,9 +84,9 @@ _DRAW_TASKBAR_BUTTONS:
         ld      c, 4 ; max size of title on button
 
         .loop_2:
-            ld      a, (de)
-            cp      33
-            jp      z, .end_1
+            ; ld      a, (de)
+            ; cp      TILE_EMPTY_BLACK
+            ; jp      z, .end_1
 
             push    de
 
@@ -103,8 +103,17 @@ _DRAW_TASKBAR_BUTTONS:
 
             ; print black chars on white bg
             ld      a, (de)
+            
+            cp      TILE_EMPTY_BLACK
+            jp      z, .printTileWhite
+            
             add     TILE_FONT_LOWERCASE_A - TILE_FONT_REVERSED_LOWERCASE_A
             jp      .continue_2
+        
+        .printTileWhite:
+            ld      a, TILE_EMPTY
+            jp      .continue_2
+        
         .printNormal:
             ld      a, (de)
         .continue_2:

@@ -99,3 +99,22 @@ _GET_WINDOW_TITLE_BASE_NAMTBL:
     ld      hl, NAMTBL
 
     ret
+
+
+; TODO:
+; Input:
+;   IX = addr of process header
+; Output:
+;   A = width in tiles (1-32)
+GET_WINDOW_USEFUL_WIDTH:
+    ret
+
+
+
+; TODO:
+; Input:
+;   IX = addr of process header
+; Output:
+;   A = width in tiles (1-22)
+GET_WINDOW_USEFUL_HEIGHT:
+    ret

@@ -21,14 +21,14 @@ Notepad:
                         db TILE_FONT_REVERSED_LOWERCASE_A + 0  ; 'a'
                         db TILE_FONT_REVERSED_LOWERCASE_A + 3  ; 'd'
                         db 0 ; end of string
-                        db 33
-                        db 33
-                        db 33
-                        db 33
-                        db 33
-                        db 33
-                        db 33
-                        db 33
+                        db 0
+                        db 0
+                        db 0
+                        db 0
+                        db 0
+                        db 0
+                        db 0
+                        db 0
 .taskbarTitle:
                         db TILE_FONT_REVERSED_LOWERCASE_A + 13 ; 'n'
                         db TILE_FONT_REVERSED_LOWERCASE_A + 14 ; 'o'
