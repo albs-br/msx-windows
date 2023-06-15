@@ -227,7 +227,7 @@ _MOUSE_CLICK:
 
     ld      h, 3 * 8                                                    ; icon tile top left X
     ld      l, 9 * 8                                                    ; icon tile top left Y
-    ld      ix, Calc.Header                                             ; process header addr on ROM
+    ld      ix, Paint.Header                                            ; process header addr on ROM
     ld		de, PATTBL + (256 * 8) + (TILE_BASE_DESKTOP_ICON_0 * 8)     ; icon VRAM PATTBL address (destiny)
     ld      bc, OS.desktop_Tiles + 256                                  ; icon name base NAMTBL buffer addr
     call    _CHECK_CLICK_DESKTOP_ICON

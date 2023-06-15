@@ -15,6 +15,9 @@
 	; line 10	; $fbe4, $fbef ; . , - 9 8 7 6 5
 
 
+ASCII_CODE_LOWERCASE_A: equ 97
+
+
 ; Check key combinations used by the OS
 _READ_KEYBOARD:
 
@@ -27,9 +30,14 @@ _READ_KEYBOARD:
     ld      hl, (BIOS_NEWKEY + 3)
 
     push    hl
+        ; --- line 4
         bit     3, h ; 'N' key
         jp      z, .keyPressed_N
 
+        bit     5, h ; 'P' key
+        jp      z, .keyPressed_P
+
+        ; --- line 3
         bit     0, l ; 'C' key
         jp      z, .keyPressed_C
 
@@ -50,6 +58,18 @@ _READ_KEYBOARD:
 
     ; execute key pressed code here
     ld      hl, Notepad.Header
+    call    _LOAD_PROCESS
+
+    jp      .continue
+
+.keyPressed_P:
+    ; check if key was previously released
+    ld      a, (OS.oldKeyboardMatrix + 4)
+    bit     5, a ; 'P' key
+    jp      z, .continue
+
+    ; execute key pressed code here
+    ld      hl, Paint.Header
     call    _LOAD_PROCESS
 
     jp      .continue

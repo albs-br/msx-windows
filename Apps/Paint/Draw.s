@@ -1,7 +1,6 @@
 ; Input
 ;   IX = base addr of this process slot on RAM
 
-
     call    _GET_WINDOW_BASE_NAMTBL
 
     ; if (windowState == MAXIMIZED) HL++
@@ -13,10 +12,12 @@
 
     ex      de, hl
 
-    ; draw calc display and keypad
-    ld		hl, Calc_Data.CALC_DISPLAY_TILES                        ; RAM address (source)
-    ld      b, 12   ; size of line
-    ld      iyl, 2 + 12  ; number of lines
-    call    DRAW_ON_WINDOW_USEFUL_AREA
+    ; draw paint left toolbar
+    push    de
+        ld		hl, Paint_Data.PAINT_TOOLBAR                        ; RAM address (source)
+        ld      b, 3   ; size of line
+        ld      iyl, 1 + 8 + 4 ; number of lines
+        call    DRAW_ON_WINDOW_USEFUL_AREA
+    pop     hl
 
     ret

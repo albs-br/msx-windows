@@ -30,6 +30,7 @@ PageSize:	    equ	0x4000	        ; 16kB
 ; Apps
     INCLUDE "Apps/Notepad/Header.s"
     INCLUDE "Apps/Calc/Header.s"
+    INCLUDE "Apps/Paint/Header.s"
 
 
 
