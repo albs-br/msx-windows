@@ -5,8 +5,19 @@
     ld      l, (ix + PROCESS_STRUCT_IX.ramStartAddr)
     ld      h, (ix + PROCESS_STRUCT_IX.ramStartAddr + 1)
 
-    ld      a, TILE_STAR
-    ld      (hl), a ; debug
+    push    hl ; IY = HL
+    pop     iy
+
+    ; cursor = 0
+    xor     a
+    ld      (iy + NOTEPAD_VARS.CURSOR_POSITION), a
+
+    ; set empty text
+    ld      a, TEXT_END_OF_FILE
+    ld      (iy + NOTEPAD_VARS.TEXT_START), a
+
+    ; ld      a, TILE_STAR
+    ; ld      (hl), a ; debug
 
     ; ; get base NAMTBL of the window
     ; ; push    hl ; ix = hl
@@ -34,6 +45,3 @@
     ; out     (PORT_0), a
 
     ret
-
-
-TEST_NOTEPAD_OPEN_EVENT_STRING: db 'N OPEN', 0

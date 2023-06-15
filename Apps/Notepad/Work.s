@@ -1,20 +1,59 @@
 ; Input
 ;   IX = base addr of this process slot on RAM
 
-    call    READ_KEYBOARD
-    or      a
+    ; call    READ_KEYBOARD
+    ; or      a
+    ; ret     z
+
+    call    BIOS_CHSNS ; Tests the status of the keyboard buffer; Output: Zero flag set if buffer is empty, otherwise not set
     ret     z
+
+    call    BIOS_CHGET
+    ; check lowercase ASCII chars (97-122)
+    ; if (A < 97) ret
+    cp      97
+    ret     c
+    ; if (A >= 122 + 1) ret
+    cp      122 + 1
+    ret     nc
+
+    ; TODO
+    ; check if key is equal previous
 
 
     ; get RAM variables area of this process
     ld      l, (ix + PROCESS_STRUCT_IX.ramStartAddr)
     ld      h, (ix + PROCESS_STRUCT_IX.ramStartAddr + 1)
 
-    ; A = A - 65 + TILE_FONT_LOWERCASE_A
-    ld      b, TILE_FONT_LOWERCASE_A - ASCII_CODE_A
+    push    hl ; IY = HL
+    pop     iy
+
+
+    ; A = A - ASCII_CODE_LOWERCASE_A + TILE_FONT_LOWERCASE_A
+    ld      b, TILE_FONT_LOWERCASE_A - ASCII_CODE_LOWERCASE_A
     add     b
-    ld      (hl), a
+
+    ; put A value in current cursor position
+    ld      d, 0
+    ld      e, (iy + NOTEPAD_VARS.CURSOR_POSITION)
+    push    iy
+        add     iy, de
+        ld      (iy + NOTEPAD_VARS.TEXT_START), a
+    pop     iy
     
+    ; cursor++
+    inc     (iy + NOTEPAD_VARS.CURSOR_POSITION)
+
+    ; put TEXT_END_OF_FILE value in current cursor position
+    ld      a, TEXT_END_OF_FILE
+    ld      d, 0
+    ld      e, (iy + NOTEPAD_VARS.CURSOR_POSITION)
+    push    iy
+        add     iy, de
+        ld      (iy + NOTEPAD_VARS.TEXT_START), a
+    pop     iy
+
+
     ; call "Draw" event of this process
     ld      e, (ix + PROCESS_STRUCT_IX.drawAddr)         ; process.Draw addr (low)
     ld      d, (ix + PROCESS_STRUCT_IX.drawAddr + 1)     ; process.Draw addr (high)
@@ -52,6 +91,3 @@
     ; out     (PORT_0), a
 
     ret
-
-
-; TEST_NOTEPAD_WORK_EVENT_STRING: db 'N WORK', 0

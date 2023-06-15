@@ -88,7 +88,7 @@ Notepad_Icon:
     INCLUDE "Apps/Notepad/Icon.s"
 
 Notepad_Data:
-    ;INCLUDE "Apps/Notepad/Data.s"
+    INCLUDE "Apps/Notepad/Data.s"
 
 Notepad.EndProgramData:                ; this may be useful on future for code dinamically relocatable
 

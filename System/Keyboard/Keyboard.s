@@ -92,126 +92,128 @@ _READ_KEYBOARD:
 ;     ret
 
 
-; Returns ASCII code of keypressed (only positive trnsition)
-; Output:
-;   A: ASCII code of key
-READ_KEYBOARD:
+; ; TODO: remove if not used
+; ; Returns ASCII code of keypressed (only positive trnsition)
+; ; Output:
+; ;   A: ASCII code of key
+; READ_KEYBOARD:
 
-    ; L = BIOS_NEWKEY + 3, H = BIOS_NEWKEY + 4
-    ld      hl, (BIOS_NEWKEY + 3)
+;     ; L = BIOS_NEWKEY + 3, H = BIOS_NEWKEY + 4
+;     ld      hl, (BIOS_NEWKEY + 3)
     
-    ld      de, ASCII_CODES_KEYBOARD + (8 * 3)
+;     ld      de, ASCII_CODES_KEYBOARD + (8 * 3)
 
-    xor     a ; ld      a, 0
+;     xor     a ; ld      a, 0
 
-    bit     0, l
-    jp      z, .bit_0
+;     bit     0, l
+;     jp      z, .bit_0
 
-    bit     1, l
-    jp      z, .bit_1
+;     bit     1, l
+;     jp      z, .bit_1
 
-    bit     2, l
-    jp      z, .bit_2
+;     bit     2, l
+;     jp      z, .bit_2
 
-    bit     3, l
-    jp      z, .bit_3
+;     bit     3, l
+;     jp      z, .bit_3
 
-    bit     4, l
-    jp      z, .bit_4
+;     bit     4, l
+;     jp      z, .bit_4
 
-    bit     5, l
-    jp      z, .bit_5
+;     bit     5, l
+;     jp      z, .bit_5
 
-    bit     6, l
-    jp      z, .bit_6
+;     bit     6, l
+;     jp      z, .bit_6
 
-    bit     7, l
-    jp      z, .bit_7
+;     bit     7, l
+;     jp      z, .bit_7
 
-    ; ------
+;     ; ------
 
-    ld      a, 8
+;     ld      a, 8
 
-    bit     0, h
-    jp      z, .bit_0
+;     bit     0, h
+;     jp      z, .bit_0
 
-    bit     1, h
-    jp      z, .bit_1
+;     bit     1, h
+;     jp      z, .bit_1
 
-    bit     2, h
-    jp      z, .bit_2
+;     bit     2, h
+;     jp      z, .bit_2
 
-    bit     3, h
-    jp      z, .bit_3
+;     bit     3, h
+;     jp      z, .bit_3
 
-    bit     4, h
-    jp      z, .bit_4
+;     bit     4, h
+;     jp      z, .bit_4
 
-    bit     5, h
-    jp      z, .bit_5
+;     bit     5, h
+;     jp      z, .bit_5
 
-    bit     6, h
-    jp      z, .bit_6
+;     bit     6, h
+;     jp      z, .bit_6
 
-    bit     7, h
-    jp      z, .bit_7
+;     bit     7, h
+;     jp      z, .bit_7
 
 
-    ; no key pressed
-    xor     a
-    ret
+;     ; no key pressed
+;     xor     a
+;     ret
 
-.bit_0:
-    add     7
-    jp      .return
+; .bit_0:
+;     add     7
+;     jp      .return
 
-.bit_1:
-    add     6
-    jp      .return
+; .bit_1:
+;     add     6
+;     jp      .return
 
-.bit_2:
-    add     5
-    jp      .return
+; .bit_2:
+;     add     5
+;     jp      .return
 
-.bit_3:
-    add     4
-    jp      .return
+; .bit_3:
+;     add     4
+;     jp      .return
 
-.bit_4:
-    add     3
-    jp      .return
+; .bit_4:
+;     add     3
+;     jp      .return
 
-.bit_5:
-    add     2
-    jp      .return
+; .bit_5:
+;     add     2
+;     jp      .return
 
-.bit_6:
-    ; add 1
-    inc     a
-    jp      .return
+; .bit_6:
+;     ; add 1
+;     inc     a
+;     jp      .return
 
-.bit_7:
-    ; add 0
-    jp      .return
+; .bit_7:
+;     ; add 0
+;     jp      .return
 
-.return:
+; .return:
 
-    ld      h, 0
-    ld      l, a
-    add     hl, de
-    ld      a, (hl)
+;     ld      h, 0
+;     ld      l, a
+;     add     hl, de
+;     ld      a, (hl)
 
-    ret
+;     ret
 
-ASCII_CODE_A: equ 65
+; ASCII_CODE_A: equ 65
+; ASCII_CODE_LOWERCASE_A: equ 97
 
-ASCII_CODES_KEYBOARD:
-    db   0,   0,   0,   0,   0,   0,   0,   0
-    db   0,   0,   0,   0,   0,   0,   0,   0
-    db   0,   0,   0,   0,   0,   0,   0,   0
-    db   ASCII_CODE_A + 9, ASCII_CODE_A + 8, ASCII_CODE_A + 7, ASCII_CODE_A + 6, ASCII_CODE_A + 5, ASCII_CODE_A + 4, ASCII_CODE_A + 3, ASCII_CODE_A + 2
-    db   ASCII_CODE_A + 17, ASCII_CODE_A + 16, ASCII_CODE_A + 15, ASCII_CODE_A + 14, ASCII_CODE_A + 13, ASCII_CODE_A + 12, ASCII_CODE_A + 11, ASCII_CODE_A + 10
-    db   0,   0,   0,   0,   0,   0,   0,   0
-    db   0,   0,   0,   0,   0,   0,   0,   0
-    db   0,   0,   0,   0,   0,   0,   0,   0
-    db   0,   0,   0,   0,   0,   0,   0,   0
+; ASCII_CODES_KEYBOARD:
+;     db   0,   0,   0,   0,   0,   0,   0,   0
+;     db   0,   0,   0,   0,   0,   0,   0,   0
+;     db   0,   0,   0,   0,   0,   0,   0,   0
+;     db   ASCII_CODE_A + 9, ASCII_CODE_A + 8, ASCII_CODE_A + 7, ASCII_CODE_A + 6, ASCII_CODE_A + 5, ASCII_CODE_A + 4, ASCII_CODE_A + 3, ASCII_CODE_A + 2
+;     db   ASCII_CODE_A + 17, ASCII_CODE_A + 16, ASCII_CODE_A + 15, ASCII_CODE_A + 14, ASCII_CODE_A + 13, ASCII_CODE_A + 12, ASCII_CODE_A + 11, ASCII_CODE_A + 10
+;     db   0,   0,   0,   0,   0,   0,   0,   0
+;     db   0,   0,   0,   0,   0,   0,   0,   0
+;     db   0,   0,   0,   0,   0,   0,   0,   0
+;     db   0,   0,   0,   0,   0,   0,   0,   0
