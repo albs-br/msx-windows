@@ -1,6 +1,7 @@
 ; Input
 ;   IX = base addr of this process slot on RAM
 
-    ; code here
+    ; clear keyboard buffer
+    call    BIOS_KILBUF
     
     ret

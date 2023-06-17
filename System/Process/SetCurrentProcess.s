@@ -2,11 +2,20 @@
 ;   HL = addr of process header
 _SET_CURRENT_PROCESS:
 
+    ; TODO:
+    ; if there is a current process, run "LoseFocus" event of it
+
     ; set curr proc to process
     ld      (OS.currentProcessAddr), hl
 
     push    hl  ; IX = HL
     pop     ix
+
+    ; run process "GetFocus" event
+    ld      e, (ix + PROCESS_STRUCT_IX.getFocusAddr)         ; process.GetFocus addr (low)
+    ld      d, (ix + PROCESS_STRUCT_IX.getFocusAddr + 1)     ; process.GetFocus addr (high)
+    call    JP_DE
+    
 
     push    hl
         ; get layer number
