@@ -159,7 +159,7 @@ _MOUSE_CLICK:
 
 ; --------------------------------------
 
-; click on the button MAximize/Restore
+; click on the button Maximize/Restore
 .click_WindowMaximizeButton:
 
     ; get process addr from process id in C register

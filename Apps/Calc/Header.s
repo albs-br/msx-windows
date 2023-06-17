@@ -52,6 +52,8 @@ Calc:
 .workAddr:		        dw Calc_Work
 .drawAddr:		        dw Calc_Draw
 .clickAddr:		        dw Calc_Click
+.getFocusAddr:		    dw Calc_GetFocus
+.loseFocusAddr:		    dw Calc_LoseFocus
 .closeAddr:		        dw Calc_Close
 
 .iconAddr:		        dw Calc_Icon
@@ -73,6 +75,12 @@ Calc_Draw:
 
 Calc_Click:
     INCLUDE "Apps/Calc/Click.s"
+
+Calc_GetFocus:
+    INCLUDE "Apps/Calc/GetFocus.s"
+
+Calc_LoseFocus:
+    INCLUDE "Apps/Calc/LoseFocus.s"
 
 Calc_Close:
     INCLUDE "Apps/Calc/Close.s"

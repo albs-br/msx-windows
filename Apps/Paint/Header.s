@@ -52,6 +52,8 @@ Paint:
 .workAddr:		        dw Paint_Work
 .drawAddr:		        dw Paint_Draw
 .clickAddr:		        dw Paint_Click
+.getFocusAddr:		    dw Paint_GetFocus
+.loseFocusAddr:		    dw Paint_LoseFocus
 .closeAddr:		        dw Paint_Close
 
 .iconAddr:		        dw Paint_Icon
@@ -73,6 +75,12 @@ Paint_Draw:
 
 Paint_Click:
     INCLUDE "Apps/Paint/Click.s"
+
+Paint_GetFocus:
+    INCLUDE "Apps/Paint/GetFocus.s"
+
+Paint_LoseFocus:
+    INCLUDE "Apps/Paint/LoseFocus.s"
 
 Paint_Close:
     INCLUDE "Apps/Paint/Close.s"

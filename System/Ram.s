@@ -152,7 +152,7 @@ OS:
 ; TODO: this is wasting space (put inside process slot 0)
 Process_struct:
 .processId:		        rb 1		    ; 255: empty
-.windowState:	        rb 1		    ; 0: minimized, 1: restored, 2: maximized
+.windowState:	        rb 1		    ; check WINDOW_STATE constant values
 .x:			            rb 1
 .y:			            rb 1
 .width:		            rb 1
@@ -180,6 +180,8 @@ Process_struct:
 .workAddr:		        rw 1
 .drawAddr:		        rw 1
 .clickAddr:		        rw 1
+.getFocusAddr:	        rw 1
+.loseFocusAddr:	        rw 1
 .closeAddr:		        rw 1
 
 .iconAddr:		        rw 1     ; Icon: 9x 8x8 pixels (see _INIT_DESKTOP for more info on positioning rules)
@@ -227,11 +229,13 @@ PROCESS_STRUCT_IX:
 .vertScrollbarEnabled:  equ Process_struct.vertScrollbarEnabled    - Process_struct
 .vertScrollbarPosition: equ Process_struct.vertScrollbarPosition   - Process_struct
 
-.openAddr:		        equ Process_struct.openAddr    - Process_struct
-.workAddr:		        equ Process_struct.workAddr    - Process_struct
-.drawAddr:		        equ Process_struct.drawAddr    - Process_struct
-.clickAddr:		        equ Process_struct.clickAddr   - Process_struct
-.closeAddr:		        equ Process_struct.closeAddr   - Process_struct
+.openAddr:		        equ Process_struct.openAddr         - Process_struct
+.workAddr:		        equ Process_struct.workAddr         - Process_struct
+.drawAddr:		        equ Process_struct.drawAddr         - Process_struct
+.clickAddr:		        equ Process_struct.clickAddr        - Process_struct
+.getFocusAddr:	        equ Process_struct.getFocusAddr     - Process_struct
+.loseFocusAddr:	        equ Process_struct.loseFocusAddr    - Process_struct
+.closeAddr:		        equ Process_struct.closeAddr        - Process_struct
 
 .iconAddr:		        equ Process_struct.iconAddr   - Process_struct
 

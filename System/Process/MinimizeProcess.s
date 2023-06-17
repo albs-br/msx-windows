@@ -6,8 +6,12 @@ _MINIMIZE_PROCESS:
     push    hl
     pop     ix
 
-    ; save window state
+    ; if (windowState == MINIMIZED) ret
     ld      a, (ix + PROCESS_STRUCT_IX.windowState)
+    cp      WINDOW_STATE.MINIMIZED
+    ret     z
+
+    ; save window state
     ld      (ix + PROCESS_STRUCT_IX.previousWindowState), a
 
     ; set status = minimized

@@ -21,16 +21,18 @@ ram_watch   add     0xC023      -type byte       -desc BotRig_Y_Min      -format
 # OS.mouseOver_tileToBeRestored: equ 0C32Dh ; last def. pass 3
 # OS.mouseOver_NAMTBL_addr: equ 0C32Eh ; last def. pass 3
 
-# ram_watch   add     0xC60f      -type byte       -desc p0_id      -format hex
-# ram_watch   add     0xC649      -type byte       -desc p1_id      -format hex
-# ram_watch   add     0xC683      -type byte       -desc p2_id      -format hex
-# ram_watch   add     0xC6bd      -type byte       -desc p3_id      -format hex
-# 
-# ram_watch   add     0xC610      -type byte       -desc _p0_state      -format dec
-# ram_watch   add     0xC64a      -type byte       -desc _p1_state      -format dec
-# ram_watch   add     0xC684      -type byte       -desc _p2_state      -format dec
-# ram_watch   add     0xC6be      -type byte       -desc _p3_state      -format dec
-# 
+# OS.processes: equ 0C614h ; last def. pass 3
+
+ram_watch   add     0xC614      -type byte       -desc p0_id      -format hex
+ram_watch   add     0xC64e      -type byte       -desc p1_id      -format hex
+ram_watch   add     0xC688      -type byte       -desc p2_id      -format hex
+ram_watch   add     0xC6c2      -type byte       -desc p3_id      -format hex
+
+ram_watch   add     0xC615      -type byte       -desc _p0_state      -format dec
+ram_watch   add     0xC64f      -type byte       -desc _p1_state      -format dec
+ram_watch   add     0xC689      -type byte       -desc _p2_state      -format dec
+ram_watch   add     0xC6c3      -type byte       -desc _p3_state      -format dec
+
 # ram_watch   add     0xc648      -type byte       -desc __p0_prevState      -format dec
 # ram_watch   add     0xC682      -type byte       -desc __p1_prevState      -format dec
 # ram_watch   add     0xC6bc      -type byte       -desc __p2_prevState      -format dec

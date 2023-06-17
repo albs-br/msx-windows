@@ -52,6 +52,8 @@ Notepad:
 .workAddr:		        dw Notepad_Work
 .drawAddr:		        dw Notepad_Draw
 .clickAddr:		        dw Notepad_Click
+.getFocusAddr:		    dw Notepad_GetFocus
+.loseFocusAddr:		    dw Notepad_LoseFocus
 .closeAddr:		        dw Notepad_Close
 
 .iconAddr:		        dw Notepad_Icon
@@ -73,6 +75,12 @@ Notepad_Draw:
 
 Notepad_Click:
     INCLUDE "Apps/Notepad/Click.s"
+
+Notepad_GetFocus:
+    INCLUDE "Apps/Notepad/GetFocus.s"
+
+Notepad_LoseFocus:
+    INCLUDE "Apps/Notepad/LoseFocus.s"
 
 Notepad_Close:
     INCLUDE "Apps/Notepad/Close.s"
