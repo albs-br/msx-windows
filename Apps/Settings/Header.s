@@ -18,10 +18,10 @@ Settings:
                         db TILE_FONT_REVERSED_LOWERCASE_A + 19 ; 't'
                         db TILE_FONT_REVERSED_LOWERCASE_A + 19 ; 't'
                         db TILE_FONT_REVERSED_LOWERCASE_A + 8  ; 'i'
+                        db TILE_FONT_REVERSED_LOWERCASE_A + 13 ; 'n'
+                        db TILE_FONT_REVERSED_LOWERCASE_A + 6  ; 'g'
+                        db TILE_FONT_REVERSED_LOWERCASE_A + 18 ; 's'
                         db 0 ; end of string ; TODO
-                        db 0
-                        db 0
-                        db 0
                         db 0
                         db 0
                         db 0

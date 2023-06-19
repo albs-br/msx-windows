@@ -37,17 +37,17 @@
 
     db TILE_LINE_VERTICAL
 
-    db TILE_FONT_LOWERCASE_A + 21 ; 'v'
-    db TILE_FONT_LOWERCASE_A + 8  ; 'i'
-    db TILE_FONT_LOWERCASE_A + 3  ; 'd'
-    db TILE_FONT_LOWERCASE_A + 4  ; 'e'
+    db TILE_FONT_LOWERCASE_A + 12 ; 'm'
     db TILE_FONT_LOWERCASE_A + 14 ; 'o'
+    db TILE_FONT_LOWERCASE_A + 20 ; 'u'
+    db TILE_FONT_LOWERCASE_A + 18 ; 's'
+    db TILE_FONT_LOWERCASE_A + 4  ; 'e'
 
     db TILE_LINE_VERTICAL
 
-    db TILE_FONT_LOWERCASE_A + 21 ; 'v'
+    db TILE_FONT_LOWERCASE_A + 19 ; 't'
     db TILE_FONT_LOWERCASE_A + 8  ; 'i'
-    db TILE_FONT_LOWERCASE_A + 3  ; 'd'
+    db TILE_FONT_LOWERCASE_A + 12 ; 'm'
     db TILE_FONT_LOWERCASE_A + 4  ; 'e'
 
     db TILE_LINE_VERTICAL
