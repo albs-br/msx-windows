@@ -14,7 +14,7 @@
 
     ; draw calc display and keypad
     ld		hl, Settings_Data.SETTINGS_TABS                        ; RAM address (source)
-    ld      b, 14    ; size of line
+    ld      b, 18    ; size of line
     ld      iyl, 3  ; number of lines
     call    DRAW_ON_WINDOW_USEFUL_AREA
 

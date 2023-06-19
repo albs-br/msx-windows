@@ -223,7 +223,7 @@ _UPDATE_SCREEN_MAPPING_WINDOW.outerLoop_1: equ 04A6Dh ; last def. pass 3
 _GET_PROCESS_BY_ID: equ 05548h ; last def. pass 3
 Settings_Work: equ 05FF0h ; last def. pass 3
 BIOS_H_RSET: equ 0FE26h ; last def. pass 3
-Execute.OS_MainLoop: equ 06083h ; last def. pass 3
+Execute.OS_MainLoop: equ 0608Eh ; last def. pass 3
 OS.mouseX: equ 0C003h ; last def. pass 3
 SPRITE_INDEX_CURSOR_0: equ 00h ; last def. pass 3
 _MOUSE_CLICK.click_WindowMinimizeButton: equ 04DC3h ; last def. pass 3
@@ -256,7 +256,7 @@ BIOS_DOT: equ 0F6B5h ; last def. pass 3
 BIOS_VOICCQ: equ 0FA75h ; last def. pass 3
 Paint_Close: equ 05F47h ; last def. pass 3
 _MOUSE_CLICK: equ 04D29h ; last def. pass 3
-Execute: equ 06078h ; last def. pass 3
+Execute: equ 06083h ; last def. pass 3
 BIOS_ESTBLS: equ 0FB1Dh ; last def. pass 3
 _INIT_DESKTOP: equ 04756h ; last def. pass 3
 _DRAW_WINDOW_MAXIMIZED.loop_2: equ 049A0h ; last def. pass 3
@@ -283,7 +283,7 @@ Settings_Close: equ 06004h ; last def. pass 3
 Notepad_Draw.cont_1: equ 05CABh ; last def. pass 3
 VDP_COMMAND_LMMV: equ 080h ; last def. pass 3
 REG21SAV: equ 0FFF4h ; last def. pass 3
-Settings.EndProgramData: equ 06078h ; last def. pass 3
+Settings.EndProgramData: equ 06083h ; last def. pass 3
 BIOS_H_DSKF: equ 0FE12h ; last def. pass 3
 BIOS_CONLO: equ 0F66Ah ; last def. pass 3
 _LOAD_ICON_INVERTED_FROM_APP_HEADER.loop_200: equ 047EEh ; last def. pass 3
@@ -454,7 +454,7 @@ BIOS_TEMPST: equ 0F67Ah ; last def. pass 3
 Settings.windowTitle: equ 05FBFh ; last def. pass 3
 TILE_OPEN_ROUND_BRACKETS: equ 08Ah ; last def. pass 3
 Paint_Draw: equ 05F07h ; last def. pass 3
-Execute.skip: equ 0609Fh ; last def. pass 3
+Execute.skip: equ 060AAh ; last def. pass 3
 BIOS_PRMFLG: equ 0F7B4h ; last def. pass 3
 _MOUSE_CLICK.click_WindowTitleBar: equ 04DAEh ; last def. pass 3
 Execute_VDP_HMMM.vdpReady: equ 04208h ; last def. pass 3
@@ -1295,7 +1295,7 @@ DisableSprites: equ 04162h ; last def. pass 3
 _DRAW_TASKBAR_CLOCK.skipTensOfHours: equ 046EDh ; last def. pass 3
 BIOS_CSRY: equ 0F3DCh ; last def. pass 3
 BIOS_CSRX: equ 0F3DDh ; last def. pass 3
-Execute.noCurrentProcess: equ 060B3h ; last def. pass 3
+Execute.noCurrentProcess: equ 060BEh ; last def. pass 3
 EnableRomPage2: equ 04074h ; last def. pass 3
 BIOS_ERRFLG: equ 0F414h ; last def. pass 3
 BIOS_H_COPY: equ 0FE08h ; last def. pass 3
