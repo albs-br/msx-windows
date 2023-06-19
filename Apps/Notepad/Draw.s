@@ -1,31 +1,8 @@
 ; Input
 ;   IX = base addr of this process slot on RAM
 
-    ; get variables from process
-    ; ld      l, (ix + PROCESS_STRUCT_IX.x) ; process.x
-    ; ld      h, (ix + PROCESS_STRUCT_IX.y) ; process.y
-    
-    ; call    _CONVERT_COL_LINE_TO_LINEAR
-    
-    ; ld      bc, NAMTBL + (32 * 2) + 1; two lines below and one column right
-    ; add     hl, bc
-
     ; --- draw vertical scrollbar
-    ld      a, (ix + PROCESS_STRUCT_IX.windowState)
-    cp      WINDOW_STATE.RESTORED
-    jp      z, .isRestored_1
-
-    ; window maximized
-    ld      hl, NAMTBL + 32 + 31 ; last column of second line
-    jp      .cont_1
-
-.isRestored_1:
-    call    _GET_WINDOW_BASE_NAMTBL
-    ld      b, 0
-    ld      c, (ix + PROCESS_STRUCT_IX.width)
-    add     hl, bc
-    ld      bc, -3 ; back 3 cols (one for left border, two for right border)
-    add     hl, bc
+    call    GET_WINDOW_NAMTBL_LAST_USEFUL_COLUMN
 
 .cont_1:
     call    BIOS_SETWRT
@@ -33,8 +10,8 @@
     ld      a, TILE_ARROW_UP
     out     (c), a
 
-    ld      a, (ix + PROCESS_STRUCT_IX.height)
-    sub     5
+    call    GET_WINDOW_USEFUL_HEIGHT
+    sub     2 ; sub 1 because of the up arrow, sub 1 because of the down arrow 
     ld      b, a
     ld      de, 32
     add     hl, de ; next line
@@ -53,7 +30,7 @@
     ; ------
 
 
-    call    _GET_WINDOW_BASE_NAMTBL
+    call    GET_USEFUL_WINDOW_BASE_NAMTBL
 
     call    BIOS_SETWRT
 

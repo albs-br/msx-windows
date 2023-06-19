@@ -39,13 +39,12 @@ _CONVERT_COL_LINE_TO_LINEAR:
     ret
 
 
-; TODO: remove _ on name start, as this routine is public
 ; Input:
 ;   IX = addr of process header
 ; Output:
 ;   HL = VRAM NAMTBL addr position of top left of useful area 
 ;        of window (area that the process can use)
-_GET_WINDOW_BASE_NAMTBL:
+GET_USEFUL_WINDOW_BASE_NAMTBL:
 
     ; if (windowState == MAXIMIZED) ...
     ld      a, (ix + PROCESS_STRUCT_IX.windowState)
@@ -101,20 +100,107 @@ _GET_WINDOW_TITLE_BASE_NAMTBL:
     ret
 
 
-; TODO:
+
 ; Input:
 ;   IX = addr of process header
 ; Output:
 ;   A = width in tiles (1-32)
 GET_WINDOW_USEFUL_WIDTH:
+    ld      a, (ix + PROCESS_STRUCT_IX.windowState)
+    cp      WINDOW_STATE.RESTORED
+    jp      z, .isRestored
+
+    ; window maximized
+    ld      a, 32
+    
+    ret
+
+.isRestored:
+    ld      a, (ix + PROCESS_STRUCT_IX.width)
+    sub     3 ; 1 for left border, 2 for right border
+
     ret
 
 
 
-; TODO:
 ; Input:
 ;   IX = addr of process header
 ; Output:
 ;   A = width in tiles (1-22)
 GET_WINDOW_USEFUL_HEIGHT:
+
+    ld      a, (ix + PROCESS_STRUCT_IX.windowState)
+    cp      WINDOW_STATE.RESTORED
+    jp      z, .isRestored
+
+    ; window maximized
+    ld      a, 24 - 2 - 1 ; 2 for taskbar, 1 for title
+    
+    ret
+
+.isRestored:
+    ld      a, (ix + PROCESS_STRUCT_IX.height)
+    sub     3 ; 2 for window title, 1 for window bottom
+
+    ret
+
+
+
+; TODO: test it
+; Input:
+;   IX = addr of process header
+; Output:
+;   A = last useful column (0-31)
+GET_WINDOW_LAST_USEFUL_COLUMN:
+    ld      a, (ix + PROCESS_STRUCT_IX.windowState)
+    cp      WINDOW_STATE.RESTORED
+    jp      z, .isRestored
+
+    ; window maximized
+    ld      a, 31
+    
+    ret
+
+.isRestored:
+    ld      a, (ix + PROCESS_STRUCT_IX.x)
+    ld      b, (ix + PROCESS_STRUCT_IX.width)
+    sub     4
+    add     b
+
+    ret
+
+
+
+; Input:
+;   IX = addr of process header
+; Output:
+;   HL = VRAM NAMTBL addr position of top left of useful area 
+;        of window (area that the process can use)
+GET_WINDOW_NAMTBL_LAST_USEFUL_COLUMN:
+
+    ; if (windowState == MAXIMIZED) ...
+    ld      a, (ix + PROCESS_STRUCT_IX.windowState)
+    cp      WINDOW_STATE.MAXIMIZED
+    jp      z, .isMaximized
+
+    ; get variables from process
+    ld      a, (ix + PROCESS_STRUCT_IX.x) ; process.x
+    ld      b, (ix + PROCESS_STRUCT_IX.width)
+    add     b
+    sub     2 ; discount 2 columns of border right
+    ld      l, a
+
+    ld      h, (ix + PROCESS_STRUCT_IX.y) ; process.y
+    
+    call    _CONVERT_COL_LINE_TO_LINEAR
+    
+    ld      bc, NAMTBL + (32 * 2); two lines below
+    add     hl, bc
+
+    ret
+
+
+.isMaximized:
+    ld      hl, NAMTBL + 32 + 31 ; last column of screen, one line below top
+
     ret

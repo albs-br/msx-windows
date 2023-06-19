@@ -1,7 +1,7 @@
 ; Input
 ;   IX = base addr of this process slot on RAM
 
-    call    _GET_WINDOW_BASE_NAMTBL
+    call    GET_USEFUL_WINDOW_BASE_NAMTBL
 
     ; if (windowState == MAXIMIZED) HL++
     ld      a, (ix + PROCESS_STRUCT_IX.windowState)

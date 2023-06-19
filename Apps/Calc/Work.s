@@ -11,7 +11,7 @@
     ; ld      bc, NAMTBL + (32 * 4) + 1; 4 lines below and one column right
     ; add     hl, bc
 
-    call    _GET_WINDOW_BASE_NAMTBL
+    call    GET_USEFUL_WINDOW_BASE_NAMTBL
 
     ld      bc, (32 * 2) ; two lines below
     add     hl, bc
