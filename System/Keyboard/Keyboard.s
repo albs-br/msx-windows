@@ -26,10 +26,15 @@ _READ_KEYBOARD:
     bit     2, a
     ret     nz
 
+    ; -----------
+
     ; L = BIOS_NEWKEY + 3, H = BIOS_NEWKEY + 4
     ld      hl, (BIOS_NEWKEY + 3)
 
-    push    hl
+    ; C = BIOS_NEWKEY + 5, B = BIOS_NEWKEY + 6
+    ld      bc, (BIOS_NEWKEY + 5)
+
+    push    hl, bc
         ; --- line 4
         bit     3, h ; 'N' key
         jp      z, .keyPressed_N
@@ -41,12 +46,17 @@ _READ_KEYBOARD:
         bit     0, l ; 'C' key
         jp      z, .keyPressed_C
 
+        ; --- line 5
+        bit     0, c ; 'S' key
+        jp      z, .keyPressed_S
+
         .continue:
-    pop     hl
+    pop     bc, hl
 
 
     ; update old keyboard state
     ld      (OS.oldKeyboardMatrix + 3), hl
+    ld      (OS.oldKeyboardMatrix + 5), bc
 
     ret
 
@@ -82,6 +92,18 @@ _READ_KEYBOARD:
 
     ; execute key pressed code here
     ld      hl, Calc.Header
+    call    _LOAD_PROCESS
+
+    jp      .continue
+
+.keyPressed_S:
+    ; check if key was previously released
+    ld      a, (OS.oldKeyboardMatrix + 5)
+    bit     0, a ; 'S' key
+    jp      z, .continue
+
+    ; execute key pressed code here
+    ld      hl, Settings.Header
     call    _LOAD_PROCESS
 
     jp      .continue
