@@ -106,11 +106,16 @@ _MOUSE_CLICK:
 
     ; get process addr from process id in C register
     call    _GET_PROCESS_BY_ID
-    call    z, _SET_CURRENT_PROCESS
     ret     nz
 
-    ; TODO
+    push    hl ; IX = HL
+        call    z, _SET_CURRENT_PROCESS
+    pop     ix
+
     ; call "Click" event of the process
+    ld      e, (ix + PROCESS_STRUCT_IX.clickAddr)         ; process.Click addr (low)
+    ld      d, (ix + PROCESS_STRUCT_IX.clickAddr + 1)     ; process.Click addr (high)
+    call    JP_DE
 
     ret
 
