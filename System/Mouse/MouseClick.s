@@ -146,6 +146,12 @@ _MOUSE_CLICK:
     ; TODO:
     ; ignore click on the first 6 lines of title
 
+    ; ---- if double click, maximize/restore app
+    ld      a, (OS.isDoubleClick)
+    or      a
+    jp      nz, .click_WindowMaximizeButton
+
+
     ; get process addr from process id in C register
     call    _GET_PROCESS_BY_ID
     push    hl
