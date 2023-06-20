@@ -50,7 +50,27 @@ _MOUSE_CLICK:
     ld      (OS.oldMouseButton_1), a
 
 
-    ; ----- 
+    ; ----- mouse click code starts here
+
+    ; check for double click
+    ld      de, (OS.mouseLastClick_Jiffy)
+    ld      hl, (BIOS_JIFFY)
+    ld      (OS.mouseLastClick_Jiffy), hl ; update MouseLastClick_Jiffy
+    xor     a ; clear carry flag
+    sbc     hl, de ; HL receives the difference of current JIFFY and last click JIFFY
+    ; if (HL < n) isDoubleClick else isNotDoubleClick
+    ld      de, MOUSE_DOUBLE_CLICK_INTERVAL
+    call    BIOS_DCOMPR         ; Compare Contents Of HL & DE, Set Z-Flag IF (HL == DE), Set CY-Flag IF (HL < DE)
+    jp      nc, .isNotDoubleClick
+    ; isDoubleClick
+    ld      a, 1
+    jp      .continue_1
+.isNotDoubleClick:
+    xor     a ; reset isDoubleClick
+.continue_1:
+    ld      (OS.isDoubleClick), a
+
+
 
     ; get screenMapping value under mouse cursor
     ld      a, (OS.currentTileMouseOver)
@@ -393,6 +413,16 @@ _CHECK_CLICK_DESKTOP_ICON:
     cp      l ;4 * 8
     jp      nc, .not_click_icon
 
+    ; ---- if double click, open app
+    ld      a, (OS.isDoubleClick)
+    or      a
+    jp      z, .isNotDoubleClick_1
+    push    ix ; HL = IX
+    pop     hl
+    call    _LOAD_PROCESS
+    jp      .retNZ
+.isNotDoubleClick_1:
+
     ; ---- if clicked, select icon
 
     push    ix, hl, de, bc
@@ -411,6 +441,7 @@ _CHECK_CLICK_DESKTOP_ICON:
 
     call    _UPDATE_SCREEN
 
+.retNZ:
     ld      a, 1 ; return NZ (icon clicked)
     or      a
     ret

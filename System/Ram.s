@@ -57,6 +57,10 @@ OS:
 .oldMouseButton_1:      rb 1
 .oldMouseButton_2:      rb 1
 
+.mouseLastClick_Jiffy:  rw 1
+.isDoubleClick:         rb 1
+
+
 .isDraggingWindow:      rb 1
 .dragOffset_X:          rb 1    ; these two "dragOffset" vars are used both on windows drag and resize
 .dragOffset_Y:          rb 1

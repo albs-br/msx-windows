@@ -22,3 +22,5 @@ MOUSE_ON_JOYPORT_1: equ 0x1310
 MOUSE_ON_JOYPORT_2: equ 0x6C20
 
 MOUSE_PORT:     equ MOUSE_ON_JOYPORT_1
+
+MOUSE_DOUBLE_CLICK_INTERVAL: equ 30 ; number of frames between clicks to be considered a double click

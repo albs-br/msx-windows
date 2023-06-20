@@ -46,6 +46,7 @@ _INIT_RAM:
     ld      (OS.mouseButton_2), a
     ld      (OS.oldMouseButton_1), a
     ld      (OS.oldMouseButton_2), a
+    ld      (OS.isDoubleClick), a
     
     ld      (OS.isDraggingWindow), a
     ld      (OS.dragOffset_X), a
@@ -53,6 +54,9 @@ _INIT_RAM:
     ld      (OS.isResizingWindow), a
     ld      (OS.resizeWindowCorner_BottomRight_X_Min), a
     ld      (OS.resizeWindowCorner_BottomRight_Y_Min), a
+
+    ld      hl, 0
+    ld      (OS.mouseLastClick_Jiffy), hl
 
     ; set window corners sprites vars
     ld      a, SPRITE_INDEX_WINDOW_TOP_LEFT
