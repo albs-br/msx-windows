@@ -187,8 +187,6 @@ _DO_DRAG_WINDOW:
     ld      b, a
     ld      a, (OS.mouseY)
     sub     b
-    ; TODO: fix bug (when dragging up and down a tall window)
-    ; jp      c, $ ;debug .lessThanMinWidth ; if (dragOffset_Y > mouseY)
 
     ; if(windowCorner_TopLeft_Y > 191) windowCorner_TopLeft_Y = 6
     cp      191
@@ -202,17 +200,26 @@ _DO_DRAG_WINDOW:
     ld      (OS.windowCorner_TopLeft_Y), a
 
     ; A now has OS.windowCorner_TopLeft_Y
-    ; if ( ( windowCorner_TopLeft_Y + (process.height * 8) ) > (191 - 16)) windowCorner_TopLeft_Y = (191 - 16) - (process.height * 8)
-    ld      b, a
+    ; ----- if ( ( windowCorner_TopLeft_Y + (process.height * 8) ) > (191 - 16)) windowCorner_TopLeft_Y = (191 - 16) - (process.height * 8)
+
+    ; do operation in 16 bits, to fix bug when dragging down a tall window
+    ld      l, a
+    ld      h, 0x80 ; put current A value in the middle of the 16 bits range 
+                    ; (the same as doing the operation with signed numbers)
+
     ld      a, (ix + PROCESS_STRUCT_IX.height)
     add     a ; mult by 8 to convert to pixels
     add     a
     add     a
     ld      c, a
-    add     b
+    ld      b, 0
 
-    cp      191 - 9
+    add     hl, bc
+
+    ld      de, 0x80b6 ; 0x8000 + 191 - 9
+    call    BIOS_DCOMPR         ; Compare Contents Of HL & DE, Set Z-Flag IF (HL == DE), Set CY-Flag IF (HL < DE)
     jp      c, .skip_5
+
 
     ; windowCorner_TopLeft_Y = (191 - 16) - (process.height * 8)
     ld      a, 191 - 9
