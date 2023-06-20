@@ -143,8 +143,6 @@ _MOUSE_CLICK:
 
 .click_WindowTitleBar:
 
-    ; TODO:
-    ; ignore click on the first 6 lines of title
 
     ; ---- if double click, maximize/restore app
     ld      a, (OS.isDoubleClick)
@@ -157,6 +155,22 @@ _MOUSE_CLICK:
     push    hl
         call    z, _SET_CURRENT_PROCESS
     pop     ix
+
+    ; TODO: fix it
+    ; ; ignore click on the first 6 lines of title
+    ; ; if (mouseY < ((windowY*8) + 6)) ret
+    ; ld      a, (ix + PROCESS_STRUCT_IX.y)
+    ; ; ld  (TempWord), ix;debug
+    ; ; ld  (Temp), a;debug
+    ; add     a ; mult by 8 to convert to pixels
+    ; add     a
+    ; add     a
+    ; add     6
+    ; ld      b, a
+    ; ; ld  (Temp), a;debug
+    ; ld      a, (OS.mouseY)
+    ; cp      b
+    ; ret     c
 
     call    _START_DRAG_WINDOW
 
