@@ -137,3 +137,31 @@ LIMITADD:
 	add	    a, a	; move bit 7 to carry flag
 	sbc	    a, a	; carry set -> a=255   carry not set -> a=0
 	ret	    		;
+
+
+
+; convert mouse position in pixels (x, y) to tiles (col, line)
+; Inputs: nothing
+; Output:
+;	L = column (0-31)
+;	H = line (0-23)
+CONVERT_MOUSE_POSITION_IN_PIXELS_TO_TILES:
+    ld      a, (OS.mouseY)
+    ; dec     a       ; because of the Y + 1 TMS9918 bug
+
+    ; divide by 8
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    ld      h, a
+
+
+    ld      a, (OS.mouseX)
+
+    ; divide by 8
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    ld      l, a
+
+	ret
