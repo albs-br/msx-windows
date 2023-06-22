@@ -51,22 +51,16 @@
     ld      a, TILE_ARROW_LEFT
     out     (c), a
 
-;     call    GET_WINDOW_USEFUL_WIDTH
-;     sub     3
-;     ld      b, a
-;     ld      de, 32
-;     add     hl, de ; next line
-; .loop_2:
-;     call    BIOS_SETWRT
-;     ld      a, TILE_DOTS_VERTICAL
-;     out     (c), a
-;     add     hl, de ; next line
-;     djnz    .loop_2
+    call    GET_WINDOW_USEFUL_WIDTH
+    sub     3 ; decrease 2 for left and right arrows, plus 1
+    ld      b, a
+.loop_2:
+    ld      a, TILE_DOTS_HORIZONTAL
+    out     (c), a
+    djnz    .loop_2
 
-;     call    BIOS_SETWRT
-;     ld      c, PORT_0
-;     ld      a, TILE_ARROW_DOWN
-;     out     (c), a
+    ld      a, TILE_ARROW_RIGHT
+    out     (c), a
 
     ; -------------------------------- Draw text
 

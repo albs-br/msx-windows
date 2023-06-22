@@ -117,7 +117,7 @@ GET_WINDOW_USEFUL_WIDTH:
 
 .isRestored:
     ld      a, (ix + PROCESS_STRUCT_IX.width)
-    sub     3 ; 1 for left border, 2 for right border
+    sub     2 ; 1 for left border, 1 for right border
 
     ret
 
