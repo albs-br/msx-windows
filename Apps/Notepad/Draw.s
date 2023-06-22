@@ -4,14 +4,13 @@
     ; --- draw vertical scrollbar
     call    GET_WINDOW_NAMTBL_LAST_USEFUL_COLUMN
 
-.cont_1:
     call    BIOS_SETWRT
     ld      c, PORT_0
     ld      a, TILE_ARROW_UP
     out     (c), a
 
     call    GET_WINDOW_USEFUL_HEIGHT
-    sub     2 ; sub 1 because of the up arrow, sub 1 because of the down arrow 
+    sub     3 ; sub 1 because of the up arrow, sub 1 because of the down arrow 
     ld      b, a
     ld      de, 32
     add     hl, de ; next line
@@ -28,6 +27,48 @@
     out     (c), a
 
     ; ------
+
+    ; --- draw horizontal scrollbar
+    ; call    GET_WINDOW_NAMTBL_LAST_USEFUL_COLUMN
+    call    GET_USEFUL_WINDOW_BASE_NAMTBL
+    push    hl
+        call    GET_WINDOW_USEFUL_HEIGHT
+        sub     1
+        ld      h, 0
+        ld      l, a
+        add     hl, hl ; mult by 32 to convert from columns to lines
+        add     hl, hl
+        add     hl, hl
+        add     hl, hl
+        add     hl, hl
+        ex      de, hl
+    pop     hl
+    add     hl, de
+
+
+    call    BIOS_SETWRT
+    ld      c, PORT_0
+    ld      a, TILE_ARROW_LEFT
+    out     (c), a
+
+;     call    GET_WINDOW_USEFUL_WIDTH
+;     sub     3
+;     ld      b, a
+;     ld      de, 32
+;     add     hl, de ; next line
+; .loop_2:
+;     call    BIOS_SETWRT
+;     ld      a, TILE_DOTS_VERTICAL
+;     out     (c), a
+;     add     hl, de ; next line
+;     djnz    .loop_2
+
+;     call    BIOS_SETWRT
+;     ld      c, PORT_0
+;     ld      a, TILE_ARROW_DOWN
+;     out     (c), a
+
+    ; -------------------------------- Draw text
 
 
     call    GET_USEFUL_WINDOW_BASE_NAMTBL

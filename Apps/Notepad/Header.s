@@ -10,7 +10,7 @@ Notepad:
 .width:		            db 14
 .height:		        db 8
 .minWidth:		        db 12
-.minHeight:		        db 6
+.minHeight:		        db 7
 
 .windowTitle:
                         db TILE_FONT_REVERSED_LOWERCASE_A + 13 ; 'n'

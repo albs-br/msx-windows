@@ -174,7 +174,7 @@ GET_WINDOW_LAST_USEFUL_COLUMN:
 ; Input:
 ;   IX = addr of process header
 ; Output:
-;   HL = VRAM NAMTBL addr position of top left of useful area 
+;   HL = VRAM NAMTBL addr position of top RIGHT of useful area 
 ;        of window (area that the process can use)
 GET_WINDOW_NAMTBL_LAST_USEFUL_COLUMN:
 
