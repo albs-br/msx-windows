@@ -27,6 +27,10 @@ _CLOSE_PROCESS:
 
 
 
+    ; TODO:
+    ; clear variables area of this process slot
+
+
     push    hl
         ;  ------ clear this process slot (fill with 0xff)
         ld      a, 0xff
@@ -45,6 +49,8 @@ _CLOSE_PROCESS:
         ldir
         ; -------
     pop     hl
+
+
 
     call    _DISABLE_MOUSE_OVER
     ; ; ---------- disable mouse over

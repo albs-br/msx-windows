@@ -86,9 +86,9 @@ Execute:
 .OS_MainLoop:
 
 
-    ; debug
-    call    _GET_NUMBER_OF_PROCESSES_OPENED
-    ld      (Temp), a
+    ; ; debug
+    ; call    _GET_NUMBER_OF_PROCESSES_OPENED
+    ; ld      (Temp), a
 
     ; --- mouse events
     call    _DRAW_MOUSE_CURSOR

@@ -9,7 +9,7 @@ Settings:
 .y:			            db 2
 .width:		            db 20
 .height:		        db 16
-.minWidth:		        db 12
+.minWidth:		        db 20
 .minHeight:		        db 6
 
 .windowTitle:

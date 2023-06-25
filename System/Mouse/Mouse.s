@@ -140,12 +140,12 @@ LIMITADD:
 
 
 
-; convert mouse position in pixels (x, y) to tiles (col, line)
+; get mouse position in pixels (x, y) convert it to tiles (col, line), and return it
 ; Inputs: nothing
 ; Output:
 ;	L = column (0-31)
 ;	H = line (0-23)
-CONVERT_MOUSE_POSITION_IN_PIXELS_TO_TILES:
+GET_MOUSE_POSITION_IN_TILES:
     ld      a, (OS.mouseY)
     ; dec     a       ; because of the Y + 1 TMS9918 bug
 
