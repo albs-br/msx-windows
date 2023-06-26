@@ -76,4 +76,69 @@
     ld      iyl, 1  ; number of lines
     call    DRAW_ON_WINDOW_USEFUL_AREA
 
+
+
+    ; Draw time
+    call    .DrawClock
+
+
+
+    ret
+
+
+
+; draw system time on right of taskbar
+.DrawClock:
+
+    call    GET_USEFUL_WINDOW_BASE_NAMTBL
+    ld      de, 2 + (32 * 5)
+    add     hl, de
+    call    BIOS_SETWRT
+    ld      c, PORT_0
+
+
+    ld      b, TILE_FONT_NUMBERS_0
+
+    ; tens of hours digit
+    ld      a, (OS.currentTime_Hours)
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    or      a
+    jp      z, .skipTensOfHours ; if tens of hours == 0 not print 
+    add     b ; convert digit in BCD to tile number
+    jp      .continue
+.skipTensOfHours:
+    ld      a, TILE_EMPTY
+.continue:
+    out     (c), a
+
+    ; units of hours digit
+    ld      a, (OS.currentTime_Hours)
+    and     0000 1111 b
+    add     b ; convert digit in BCD to tile number
+    out     (c), a
+
+    ; write char ':'
+    nop
+    nop
+    ld      a, TILE_COLON ; char ':'
+    out     (c), a
+
+    ; tens of hours digit
+    ld      a, (OS.currentTime_Minutes)
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    add     b ; convert digit in BCD to tile number
+    out     (c), a
+    
+    ; units of hours digit
+    ld      a, (OS.currentTime_Minutes)
+    and     0000 1111 b
+    add     b ; convert digit in BCD to tile number
+    out     (c), a
+
     ret

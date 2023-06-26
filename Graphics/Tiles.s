@@ -1512,7 +1512,8 @@ TILE_SLASH: equ TILE_FONT_SYMBOLS + 11
     db 01100000 b
     db 01000000 b
     db 00000000 b
-    ; -------------------- char #26
+
+TILE_COLON: equ TILE_FONT_SYMBOLS + 12
     db 00000000 b
     db 00000000 b
     db 00011000 b
