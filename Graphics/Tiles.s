@@ -1522,7 +1522,8 @@ TILE_COLON: equ TILE_FONT_SYMBOLS + 12
     db 00011000 b
     db 00011000 b
     db 00000000 b
-    ; -------------------- char #27
+
+TILE_SEMICOLON: equ TILE_FONT_SYMBOLS + 13
     db 00000000 b
     db 00000000 b
     db 00011000 b
@@ -1749,7 +1750,7 @@ TILE_COLOR_15: equ TILE_EMPTY
 
 TILE_PATTERNS.size: equ $ - TILE_PATTERNS
 
-; TILE_PATTERNS.size: 0x533h (169 tiles)
+; TILE_PATTERNS.size: 0x560h (172 tiles)
 
 ; ----------------------------
 
