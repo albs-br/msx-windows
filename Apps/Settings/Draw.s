@@ -12,10 +12,10 @@
 
     ex      de, hl
 
-    ; draw calc display and keypad
+    ; draw tabs
     ld		hl, Settings_Data.SETTINGS_TABS                        ; RAM address (source)
-    ld      b, 18    ; size of line
-    ld      iyl, 3  ; number of lines
+    ld      b, 18       ; size of line
+    ld      iyl, 3      ; number of lines
     call    DRAW_ON_WINDOW_USEFUL_AREA
 
 
@@ -87,7 +87,7 @@
 
 
 
-; draw system time on right of taskbar
+; draw system time on window
 .DrawClock:
 
     call    GET_USEFUL_WINDOW_BASE_NAMTBL
@@ -126,7 +126,7 @@
     ld      a, TILE_COLON ; char ':'
     out     (c), a
 
-    ; tens of hours digit
+    ; tens of minutes digit
     ld      a, (OS.currentTime_Minutes)
     srl     a ; shift right n, bit 7 = 0, carry = 0
     srl     a ; shift right n, bit 7 = 0, carry = 0
@@ -135,8 +135,29 @@
     add     b ; convert digit in BCD to tile number
     out     (c), a
     
-    ; units of hours digit
+    ; units of minutes digit
     ld      a, (OS.currentTime_Minutes)
+    and     0000 1111 b
+    add     b ; convert digit in BCD to tile number
+    out     (c), a
+
+    ; write char ':'
+    nop
+    nop
+    ld      a, TILE_COLON ; char ':'
+    out     (c), a
+
+    ; tens of seconds digit
+    ld      a, (OS.currentTime_Seconds)
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    add     b ; convert digit in BCD to tile number
+    out     (c), a
+    
+    ; units of seconds digit
+    ld      a, (OS.currentTime_Seconds)
     and     0000 1111 b
     add     b ; convert digit in BCD to tile number
     out     (c), a
