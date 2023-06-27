@@ -282,7 +282,7 @@ _MOUSE_CLICK:
 
     ld      h, 3 * 8                                                    ; icon tile top left X
     ld      l, 17 * 8                                                   ; icon tile top left Y
-    ld      ix, Settings.Header                                          ; process header addr on ROM
+    ld      ix, Settings.Header                                         ; process header addr on ROM
     ld		de, PATTBL + (512 * 8) + (TILE_BASE_DESKTOP_ICON_0 * 8)     ; icon VRAM PATTBL address (destiny)
     ld      bc, OS.desktop_Tiles + 512                                  ; icon name base NAMTBL buffer addr
     call    _CHECK_CLICK_DESKTOP_ICON
@@ -312,7 +312,11 @@ _MOUSE_CLICK:
 
     ld      a, (OS.mouseX)
     
-    ; if (mouseX >= 20*8)
+    ; if (mouseX >= 26*8)
+    cp      26 * 8
+    jp      nc, .click_Taskbar_Clock
+
+    ; else if (mouseX >= 20*8)
     cp      20 * 8
     ld      hl, (OS.taskbar_Button_3_Process_addr)
     jp      nc, .click_Taskbar_button
@@ -366,6 +370,39 @@ _MOUSE_CLICK:
     add     hl, de
     djnz    .loop_1
     
+    ret
+
+
+.click_Taskbar_Clock:
+    ; ---- if double click, open settings app
+    ld      a, (OS.isDoubleClick)
+    or      a
+    ret     z
+
+    ; ld      a, SETTINGS_TABS_VALUES.TAB_TIME
+    ld      hl, Settings.Header
+    call    _LOAD_PROCESS
+
+
+    ; ----- set current tab to Time
+
+    ld      ix, (OS.currentProcessAddr)
+
+    ; get RAM variables area of this process
+    ld      l, (ix + PROCESS_STRUCT_IX.ramStartAddr)
+    ld      h, (ix + PROCESS_STRUCT_IX.ramStartAddr + 1)
+
+    push    hl ; IY = HL
+    pop     iy
+
+    ld      a, SETTINGS_TABS_VALUES.TAB_TIME
+    ld      (iy + SETTINGS_VARS.TAB_SELECTED), a
+
+    ; call "Draw" event of this process
+    ld      e, (ix + PROCESS_STRUCT_IX.drawAddr)         ; process.Draw addr (low)
+    ld      d, (ix + PROCESS_STRUCT_IX.drawAddr + 1)     ; process.Draw addr (high)
+    call    JP_DE
+
     ret
 
 
