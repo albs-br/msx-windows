@@ -52,9 +52,35 @@
 
     db TILE_LINE_VERTICAL
 
-; -----
+; ------
 
-.TAB_VERTICAL_LINES:
+    db TILE_LINE_VERTICAL
+
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+
+    db TILE_LINE_VERTICAL
+
+; ------
+
     db TILE_LINE_VERTICAL
 
     db TILE_EMPTY
@@ -80,10 +106,171 @@
 
     db TILE_LINE_VERTICAL
 
+; ------
+
+    db TILE_LINE_VERTICAL
+
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+
+    db TILE_LINE_VERTICAL
+
+; ------
+
+    db TILE_LINE_VERTICAL
+
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+
+    db TILE_LINE_VERTICAL
+
+; ------
+
+    db TILE_LINE_VERTICAL
+
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+
+    db TILE_LINE_VERTICAL
+
+; ------
+
+    db TILE_LINE_VERTICAL
+
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+
+    db TILE_LINE_VERTICAL
+
+; ------
+
+    db TILE_LINE_VERTICAL
+
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+
+    db TILE_LINE_VERTICAL
+
+; ------
+
+    db TILE_LINE_VERTICAL
+
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+    db TILE_EMPTY
+
+    db TILE_LINE_VERTICAL
 
 ; -----
 
-.TAB_BOTTOM:
+; .TAB_BOTTOM:
     db TILE_LINE_BOTTOM_LEFT
 
     db TILE_LINE_HORIZONTAL
@@ -108,6 +295,63 @@
     db TILE_LINE_HORIZONTAL
 
     db TILE_LINE_BOTTOM_RIGHT
+
+; -----
+
+; .TAB_VERTICAL_LINES:
+;     db TILE_LINE_VERTICAL
+
+;     db TILE_EMPTY
+;     db TILE_EMPTY
+;     db TILE_EMPTY
+;     db TILE_EMPTY
+;     db TILE_EMPTY
+
+;     db TILE_EMPTY
+
+;     db TILE_EMPTY
+;     db TILE_EMPTY
+;     db TILE_EMPTY
+;     db TILE_EMPTY
+;     db TILE_EMPTY
+
+;     db TILE_EMPTY
+
+;     db TILE_EMPTY
+;     db TILE_EMPTY
+;     db TILE_EMPTY
+;     db TILE_EMPTY
+
+;     db TILE_LINE_VERTICAL
+
+
+; -----
+
+; .TAB_BOTTOM:
+;     db TILE_LINE_BOTTOM_LEFT
+
+;     db TILE_LINE_HORIZONTAL
+;     db TILE_LINE_HORIZONTAL
+;     db TILE_LINE_HORIZONTAL
+;     db TILE_LINE_HORIZONTAL
+;     db TILE_LINE_HORIZONTAL
+
+;     db TILE_LINE_HORIZONTAL
+
+;     db TILE_LINE_HORIZONTAL
+;     db TILE_LINE_HORIZONTAL
+;     db TILE_LINE_HORIZONTAL
+;     db TILE_LINE_HORIZONTAL
+;     db TILE_LINE_HORIZONTAL
+
+;     db TILE_LINE_HORIZONTAL
+
+;     db TILE_LINE_HORIZONTAL
+;     db TILE_LINE_HORIZONTAL
+;     db TILE_LINE_HORIZONTAL
+;     db TILE_LINE_HORIZONTAL
+
+;     db TILE_LINE_BOTTOM_RIGHT
 
 
 ; -----

@@ -15,7 +15,7 @@
     ; draw tabs
     ld		hl, Settings_Data.SETTINGS_TABS                        ; RAM address (source)
     ld      b, 18       ; size of line
-    ld      iyl, 3      ; number of lines
+    ld      iyl, 11     ; number of lines
     call    DRAW_ON_WINDOW_USEFUL_AREA
 
 

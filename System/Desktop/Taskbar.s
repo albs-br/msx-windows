@@ -182,7 +182,7 @@ _DRAW_TASKBAR_CLOCK:
     ld      a, TILE_FONT_REVERSED_SYMBOLS + 0 ; char ':'
     out     (c), a
 
-    ; tens of hours digit
+    ; tens of minutes digit
     ld      a, (OS.currentTime_Minutes)
     srl     a ; shift right n, bit 7 = 0, carry = 0
     srl     a ; shift right n, bit 7 = 0, carry = 0
@@ -191,7 +191,7 @@ _DRAW_TASKBAR_CLOCK:
     add     b ; convert digit in BCD to tile number
     out     (c), a
     
-    ; units of hours digit
+    ; units of minutes digit
     ld      a, (OS.currentTime_Minutes)
     and     0000 1111 b
     add     b ; convert digit in BCD to tile number
