@@ -9,4 +9,7 @@
     ; push    hl ; IY = HL
     ; pop     iy
 
+    ld      a, TILE_COLOR_1 ; black color
+    ld      (iy + PAINT_VARS.CURRENT_COLOR), a
+
     ret

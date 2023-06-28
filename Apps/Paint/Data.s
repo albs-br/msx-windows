@@ -68,3 +68,8 @@
     db TILE_EMPTY
     db TILE_LINE_VERTICAL
 
+
+; -----------------------------------------
+
+PAINT_VARS:
+    .CURRENT_COLOR: equ 0
