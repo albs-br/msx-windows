@@ -126,11 +126,11 @@ _LOAD_ICON_INVERTED_FROM_APP_HEADER:
         ld      h, (ix + PROCESS_STRUCT_IX.iconAddr + 1)
 
         ; ----- get icon pattern from app header and copy to RAM with all bits inverted
-        ld      de, TempIcon
+        ld      de, OS.tempIcon
         ld		bc, NUMBER_OF_TILES_PER_ICON * 8	                    ; Block length
         ldir
 
-        ld      hl, TempIcon
+        ld      hl, OS.tempIcon
         ld		b, NUMBER_OF_TILES_PER_ICON * 8
     .loop_100:
         ld      a, (hl)
@@ -140,7 +140,7 @@ _LOAD_ICON_INVERTED_FROM_APP_HEADER:
         djnz    .loop_100
 
         ; or-mask to get borders filled
-        ld      hl, TempIcon
+        ld      hl, OS.tempIcon
         ld      de, ICON_BORDERS_FILLED_OR_MASK
         ld		b, NUMBER_OF_TILES_PER_ICON * 8
     .loop_200:
@@ -157,7 +157,7 @@ _LOAD_ICON_INVERTED_FROM_APP_HEADER:
 
     pop     de
 
-    ld		hl, TempIcon                                            ; RAM address (source)
+    ld		hl, OS.tempIcon                                            ; RAM address (source)
     ;ld		de, PATTBL + (TILE_BASE_DESKTOP_ICON_1 * 8)		        ; VRAM address (destiny)
     ld		bc, NUMBER_OF_TILES_PER_ICON * 8	                    ; Block length
     call 	BIOS_LDIRVM

@@ -8,6 +8,15 @@ _CLOSE_PROCESS:
 
     ; call process "Close" event
     push    hl
+
+        ; get RAM variables area of this process
+        ld      l, (ix + PROCESS_STRUCT_IX.ramStartAddr)
+        ld      h, (ix + PROCESS_STRUCT_IX.ramStartAddr + 1)
+
+        push    hl ; IY = HL
+        pop     iy
+
+
         ld      e, (ix + PROCESS_STRUCT_IX.closeAddr)         ; process.Close addr (low)
         ld      d, (ix + PROCESS_STRUCT_IX.closeAddr + 1)     ; process.Close addr (high)
         call    JP_DE

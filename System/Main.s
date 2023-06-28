@@ -115,6 +115,13 @@ Execute:
     or      ixh
     jp      z, .noCurrentProcess     ; if (OS.currentProcessAddr == 0x0000) .noCurrentProcess
 
+    ; get RAM variables area of this process
+    ld      l, (ix + PROCESS_STRUCT_IX.ramStartAddr)
+    ld      h, (ix + PROCESS_STRUCT_IX.ramStartAddr + 1)
+
+    push    hl ; IY = HL
+    pop     iy
+
     ld      e, (ix + PROCESS_STRUCT_IX.workAddr)         ; process.Work addr (low)
     ld      d, (ix + PROCESS_STRUCT_IX.workAddr + 1)     ; process.Work addr (high)
     call    JP_DE

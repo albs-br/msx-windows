@@ -121,6 +121,13 @@ OS:
 
 .desktop_Tiles:                 rb 32 * 22
 
+; --- temp vars / debug
+.tempVar_1:  rb 1
+.tempVar_2:  rb 1
+.tempWord:   rw 1
+
+.tempIcon:   rb NUMBER_OF_TILES_PER_ICON * 8
+
 ; --- processes
 .currentProcessAddr:            rw 1    ; 0x0000 means empty current process
 .nextAvailableProcessAddr:      rw 1
@@ -254,13 +261,6 @@ PROCESS_STRUCT_IX:
 ; ----------------------------------------------------
 
 
-; temp vars / debug
-Temp:       rb 1
-TempWord:   rw 1
-
-; IsResizing: rb 1
-
-TempIcon:   rb NUMBER_OF_TILES_PER_ICON * 8
 
 
 

@@ -3,7 +3,7 @@
 _SET_CURRENT_PROCESS:
 
     ; TODO:
-    ; if there is a current process, run "LoseFocus" event of it
+    ; if is there a current process, run "LoseFocus" event of it
 
     ; set curr proc to process
     ld      (OS.currentProcessAddr), hl
@@ -11,11 +11,21 @@ _SET_CURRENT_PROCESS:
     push    hl  ; IX = HL
     pop     ix
 
-    ; run process "GetFocus" event
-    ld      e, (ix + PROCESS_STRUCT_IX.getFocusAddr)         ; process.GetFocus addr (low)
-    ld      d, (ix + PROCESS_STRUCT_IX.getFocusAddr + 1)     ; process.GetFocus addr (high)
-    call    JP_DE
-    
+    push    hl
+        ; get RAM variables area of this process
+        ld      l, (ix + PROCESS_STRUCT_IX.ramStartAddr)
+        ld      h, (ix + PROCESS_STRUCT_IX.ramStartAddr + 1)
+
+        push    hl ; IY = HL
+        pop     iy
+
+
+
+        ; run process "GetFocus" event
+        ld      e, (ix + PROCESS_STRUCT_IX.getFocusAddr)         ; process.GetFocus addr (low)
+        ld      d, (ix + PROCESS_STRUCT_IX.getFocusAddr + 1)     ; process.GetFocus addr (high)
+        call    JP_DE
+    pop     hl    
 
     push    hl
         ; get layer number

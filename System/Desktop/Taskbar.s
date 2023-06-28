@@ -39,7 +39,7 @@ _DRAW_TASKBAR_BUTTONS:
     ld      (OS.taskbar_Button_3_Process_addr), hl
 
     ld      hl, OS.taskbar_Button_0_Process_addr
-    ld      (TempWord), hl
+    ld      (OS.tempWord), hl
 
     ; loop through process slots drawing taskbar buttons
     ld      hl, OS.processes
@@ -57,7 +57,7 @@ _DRAW_TASKBAR_BUTTONS:
 
     ; link process addr to button for click
     push    de
-        ld      de, (TempWord)
+        ld      de, (OS.tempWord)
 
         ld      a, l
         ld      (de), a
@@ -66,7 +66,7 @@ _DRAW_TASKBAR_BUTTONS:
         ld      (de), a
         inc     de
 
-        ld      (TempWord), de
+        ld      (OS.tempWord), de
     pop     de
 
     push    hl, bc

@@ -1,5 +1,6 @@
 ; Input
 ;   IX = base addr of this process slot on RAM
+;   IY = base addr of variables area of this process
 
     ; call    READ_KEYBOARD
     ; or      a
@@ -21,12 +22,12 @@
     ; check if key is equal previous
 
 
-    ; get RAM variables area of this process
-    ld      l, (ix + PROCESS_STRUCT_IX.ramStartAddr)
-    ld      h, (ix + PROCESS_STRUCT_IX.ramStartAddr + 1)
+    ; ; get RAM variables area of this process
+    ; ld      l, (ix + PROCESS_STRUCT_IX.ramStartAddr)
+    ; ld      h, (ix + PROCESS_STRUCT_IX.ramStartAddr + 1)
 
-    push    hl ; IY = HL
-    pop     iy
+    ; push    hl ; IY = HL
+    ; pop     iy
 
 
     ; A = A - ASCII_CODE_LOWERCASE_A + TILE_FONT_LOWERCASE_A

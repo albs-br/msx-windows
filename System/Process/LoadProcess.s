@@ -172,6 +172,12 @@ _LOAD_PROCESS:
     call    nc, .resetNextWindow_XY ; if (A >= 8) .resetNextWindow_XY
 
 
+    ; get RAM variables area of this process
+    ld      l, (ix + PROCESS_STRUCT_IX.ramStartAddr)
+    ld      h, (ix + PROCESS_STRUCT_IX.ramStartAddr + 1)
+
+    push    hl ; IY = HL
+    pop     iy
 
     ; call process "Open" event
     ; ld      hl, (OS.currentProcessAddr)

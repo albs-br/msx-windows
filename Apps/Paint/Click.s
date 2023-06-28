@@ -1,5 +1,6 @@
 ; Input
 ;   IX = base addr of this process slot on RAM
+;   IY = base addr of variables area of this process
 
     call    GET_MOUSE_POSITION_IN_TILES
     ; ; ---- convert mouse position in pixels (x, y) to tiles (col, line)

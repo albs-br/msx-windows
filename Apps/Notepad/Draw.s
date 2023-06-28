@@ -1,5 +1,6 @@
 ; Input
 ;   IX = base addr of this process slot on RAM
+;   IY = base addr of variables area of this process
 
     ; --- draw vertical scrollbar
     call    GET_WINDOW_NAMTBL_LAST_USEFUL_COLUMN
@@ -73,12 +74,12 @@
     ; call    _DRAW_STRING
 
 
-    ; get RAM variables area of this process
-    ld      l, (ix + PROCESS_STRUCT_IX.ramStartAddr)
-    ld      h, (ix + PROCESS_STRUCT_IX.ramStartAddr + 1)
+    ; ; get RAM variables area of this process
+    ; ld      l, (ix + PROCESS_STRUCT_IX.ramStartAddr)
+    ; ld      h, (ix + PROCESS_STRUCT_IX.ramStartAddr + 1)
 
-    push    hl ; IY = HL
-    pop     iy
+    ; push    hl ; IY = HL
+    ; pop     iy
 
     ; ld      c, PORT_0
 

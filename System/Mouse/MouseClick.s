@@ -132,6 +132,13 @@ _MOUSE_CLICK:
         call    z, _SET_CURRENT_PROCESS
     pop     ix
 
+    ; get RAM variables area of this process
+    ld      l, (ix + PROCESS_STRUCT_IX.ramStartAddr)
+    ld      h, (ix + PROCESS_STRUCT_IX.ramStartAddr + 1)
+
+    push    hl ; IY = HL
+    pop     iy
+
     ; call "Click" event of the process
     ld      e, (ix + PROCESS_STRUCT_IX.clickAddr)         ; process.Click addr (low)
     ld      d, (ix + PROCESS_STRUCT_IX.clickAddr + 1)     ; process.Click addr (high)

@@ -3,10 +3,15 @@
 ;   HL = ROM start source address (CAUTION, use only _GET_WINDOW_BASE_NAMTBL or _GET_WINDOW_BASE_NAMTBL + 1)
 ;   DE = VRAM NAMTBL start destiny address
 ;   B = line width (0-31)
-;   IYL = number of lines
+;   C = number of lines
 DRAW_ON_WINDOW_USEFUL_AREA:
 
-    ld      iyh, 0 ; progressive line counter
+    ld      a, c
+    ld      (OS.tempVar_2), a
+
+    ; ld      iyh, 0 ; progressive line counter
+    xor     a
+    ld      (OS.tempVar_1), a
 
 .outerLoop:
 
@@ -24,7 +29,11 @@ DRAW_ON_WINDOW_USEFUL_AREA:
         sub     3 ; two line for title, one line for bottom
 
     .checkHeight:
-        cp      iyh
+        ; cp      iyh
+        push    hl
+            ld      hl, OS.tempVar_1
+            cp      (hl)
+        pop     hl
         ret     z ; if (A == iyh) ret
         ret     c ; if (A < iyh) ret
 
@@ -59,9 +68,15 @@ DRAW_ON_WINDOW_USEFUL_AREA:
         add     hl, bc
         ld      b, c
 
-        inc     iyh ; progressive line counter
+        ; inc     iyh ; progressive line counter
+        ld      a, (OS.tempVar_1) ; progressive line counter
+        inc     a
+        ld      (OS.tempVar_1), a
 
-    dec     iyl ; dec line counter
+    ; dec     iyl ; dec line counter
+    ld      a, (OS.tempVar_2) ; dec line counter
+    dec     a
+    ld      (OS.tempVar_2), a
     jp      nz, .outerLoop
 
     ret
