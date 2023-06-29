@@ -1,6 +1,7 @@
 
 NOTEPAD_VARS:
     .CURSOR_POSITION: equ 0
+    ; .KEYPRESSED: equ 1
     .TEXT_START: equ 1
 
 TEXT_END_OF_FILE: equ 255

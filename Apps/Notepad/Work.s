@@ -2,12 +2,8 @@
 ;   IX = base addr of this process slot on RAM
 ;   IY = base addr of variables area of this process
 
-    ; call    READ_KEYBOARD
-    ; or      a
-    ; ret     z
-
     call    BIOS_CHSNS ; Tests the status of the keyboard buffer; Output: Zero flag set if buffer is empty, otherwise not set
-    ret     z
+    jp      z, .return ; ret     z
 
     call    BIOS_CHGET
     ; check lowercase ASCII chars (97-122)
@@ -18,16 +14,22 @@
     cp      122 + 1
     ret     nc
 
-    ; TODO
-    ; check if key is equal previous
+    ; ld      d, a ; save char of keypressed
 
 
-    ; ; get RAM variables area of this process
-    ; ld      l, (ix + PROCESS_STRUCT_IX.ramStartAddr)
-    ; ld      h, (ix + PROCESS_STRUCT_IX.ramStartAddr + 1)
 
-    ; push    hl ; IY = HL
-    ; pop     iy
+    ; ; if(keypressed) ret
+    ; ld      a, (iy + NOTEPAD_VARS.KEYPRESSED)
+    ; or      a
+    ; ret     nz
+
+
+
+    ; ld      a, 1
+    ; ld      (iy + NOTEPAD_VARS.KEYPRESSED), a
+
+
+    ; ld      a, d ; restore char of keypressed
 
 
     ; A = A - ASCII_CODE_LOWERCASE_A + TILE_FONT_LOWERCASE_A
@@ -90,5 +92,11 @@
     ; ld      b, TILE_FONT_NUMBERS_0 + 0
     ; add     b
     ; out     (PORT_0), a
+
+    ret
+
+.return:
+    ; xor     a
+    ; ld      (iy + NOTEPAD_VARS.KEYPRESSED), a
 
     ret
