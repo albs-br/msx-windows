@@ -52,6 +52,30 @@
     ld      c, 1        ; number of lines
     call    DRAW_ON_WINDOW_USEFUL_AREA
 
+    ; --- draw label screen saver
+    call    GET_USEFUL_WINDOW_BASE_NAMTBL
+    ld      de, 1 + (32 * 4) ; 4 lines below, one tile to the right
+    add     hl, de
+    ex      de, hl
+
+    ld		hl, Settings_Data.LABEL_COMBO_SCREEN_SAVER                        ; RAM address (source)
+    ld      b, 12       ; size of line
+    ld      c, 1        ; number of lines
+    call    DRAW_ON_WINDOW_USEFUL_AREA
+
+
+    ; --- draw combo screen saver
+    call    GET_USEFUL_WINDOW_BASE_NAMTBL
+    ld      de, 1 + (32 * 5) ; 5 lines below, one tile to the right
+    add     hl, de
+    ex      de, hl
+
+    ld		hl, Settings_Data.COMBO_SCREEN_SAVER                        ; RAM address (source)
+    ld      b, 12       ; size of line
+    ld      c, 3        ; number of lines
+    call    DRAW_ON_WINDOW_USEFUL_AREA
+
+
     ret
 
 .drawCurrentTabMouse:
