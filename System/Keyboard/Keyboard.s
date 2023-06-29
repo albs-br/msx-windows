@@ -36,6 +36,9 @@ _READ_KEYBOARD:
 
     push    hl, bc
         ; --- line 4
+        bit     2, h ; 'M' key
+        jp      z, .keyPressed_M
+
         bit     3, h ; 'N' key
         jp      z, .keyPressed_N
 
@@ -59,6 +62,17 @@ _READ_KEYBOARD:
     ld      (OS.oldKeyboardMatrix + 5), bc
 
     ret
+
+.keyPressed_M:
+    ; check if key was previously released
+    ld      a, (OS.oldKeyboardMatrix + 4)
+    bit     2, a ; 'M' key
+    jp      z, .continue
+
+    ; execute key pressed code here
+    call    _MINIMIZE_ALL_PROCESSES
+
+    jp      .continue
 
 .keyPressed_N:
     ; check if key was previously released

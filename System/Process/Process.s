@@ -4,6 +4,7 @@
     INCLUDE "System/Process/MinimizeProcess.s"
     INCLUDE "System/Process/MaximizeProcess.s"
     INCLUDE "System/Process/RestoreProcess.s"
+    INCLUDE "System/Process/MinimizeAllProcesses.s"
 
 
 
