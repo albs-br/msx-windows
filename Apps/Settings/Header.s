@@ -13,14 +13,14 @@ Settings:
 .minHeight:		        db 6
 
 .windowTitle:
-                        db TILE_FONT_REVERSED_LOWERCASE_A + 18 ; 's'
-                        db TILE_FONT_REVERSED_LOWERCASE_A + 4  ; 'e'
-                        db TILE_FONT_REVERSED_LOWERCASE_A + 19 ; 't'
-                        db TILE_FONT_REVERSED_LOWERCASE_A + 19 ; 't'
-                        db TILE_FONT_REVERSED_LOWERCASE_A + 8  ; 'i'
-                        db TILE_FONT_REVERSED_LOWERCASE_A + 13 ; 'n'
-                        db TILE_FONT_REVERSED_LOWERCASE_A + 6  ; 'g'
-                        db TILE_FONT_REVERSED_LOWERCASE_A + 18 ; 's'
+                        db TILE_FONT_REVERSED_LOWERCASE_S
+                        db TILE_FONT_REVERSED_LOWERCASE_E
+                        db TILE_FONT_REVERSED_LOWERCASE_T
+                        db TILE_FONT_REVERSED_LOWERCASE_T
+                        db TILE_FONT_REVERSED_LOWERCASE_I
+                        db TILE_FONT_REVERSED_LOWERCASE_N
+                        db TILE_FONT_REVERSED_LOWERCASE_G
+                        db TILE_FONT_REVERSED_LOWERCASE_S
                         db 0 ; end of string ; TODO
                         db 0
                         db 0
@@ -30,17 +30,17 @@ Settings:
                         db 0
                         db 0
 .taskbarTitle:
-                        db TILE_FONT_REVERSED_LOWERCASE_A + 18 ; 's'
-                        db TILE_FONT_REVERSED_LOWERCASE_A + 4  ; 'e'
-                        db TILE_FONT_REVERSED_LOWERCASE_A + 19 ; 't'
+                        db TILE_FONT_REVERSED_LOWERCASE_S
+                        db TILE_FONT_REVERSED_LOWERCASE_E
+                        db TILE_FONT_REVERSED_LOWERCASE_T
                         db TILE_EMPTY_BLACK
 .iconTitle:
                         db TILE_EMPTY
-                        db TILE_FONT_LOWERCASE_A + 18 ; 's'
-                        db TILE_FONT_LOWERCASE_A + 4  ; 'e'
-                        db TILE_FONT_LOWERCASE_A + 19 ; 't'
-                        db TILE_FONT_LOWERCASE_A + 19 ; 't'
-                        db TILE_FONT_LOWERCASE_A + 8  ; 'i'
+                        db TILE_FONT_LOWERCASE_S
+                        db TILE_FONT_LOWERCASE_E
+                        db TILE_FONT_LOWERCASE_T
+                        db TILE_FONT_LOWERCASE_T
+                        db TILE_FONT_LOWERCASE_I
                         db TILE_EMPTY
 
 .isFixedSize:	        db 0
