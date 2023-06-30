@@ -1,35 +1,35 @@
 ; Input
 ;   IX = base addr of this process slot on RAM
 ;   IY = base addr of variables area of this process
+;   HL = click position in tiles relative to window useful area top left, L = column, H = line
 
 
 
     ; ------------- click on tabs
 
-    ; --- get click position in tiles relative to the window top left
-    call    GET_MOUSE_POSITION_IN_TILES
+    ; ; --- get click position in tiles relative to the window top left
+    ; call    GET_MOUSE_POSITION_IN_TILES
 
-    ; TODO: fix bug (this is working only on restored window)
-    ; adjust mouse position in tiles to be relative to window top left
-    ld      a, l
-    sub     (ix + PROCESS_STRUCT_IX.x)
-    ld      l, a
+    ; ; TODO: fix bug (this is working only on restored window)
+    ; ; adjust mouse position in tiles to be relative to window top left
+    ; ld      a, l
+    ; sub     (ix + PROCESS_STRUCT_IX.x)
+    ; ld      l, a
 
-    ld      a, h
-    sub     (ix + PROCESS_STRUCT_IX.y)
-    ld      h, a
-
+    ; ld      a, h
+    ; sub     (ix + PROCESS_STRUCT_IX.y)
+    ; ld      h, a
 
 
     ; if (y > 2) ret
     ld      a, h
-    cp      2 + 1 + 2 ; +2 because of the title
+    cp      2 + 1
     jp      nc, .notClickOnTabs ; ret     nc
 
 
     ; if (x <= 5) .ClickTab_Video
     ld      a, l
-    cp      5 + 1 + 1 ; +1 because of left border
+    cp      5 + 1
     jp      nc, .continue_1
 
     jp      .ClickTab_Video
@@ -38,7 +38,7 @@
 
     ; if (x <= 11) .ClickTab_Mouse
     ld      a, l
-    cp      11 + 1 + 1 ; +1 because of left border
+    cp      11 + 1
     jp      nc, .continue_2
 
     jp      .ClickTab_Mouse
@@ -47,7 +47,7 @@
 
     ; if (x <= 16) .ClickTab_Time
     ld      a, l
-    cp      16 + 1 + 1 ; +1 because of left border
+    cp      16 + 1
     jp      nc, .continue_3
 
     jp      .ClickTab_Time
@@ -71,7 +71,12 @@
     ; check if click is on checkbox ShowTicks
     ; if (y != 7) ret
     ld      a, h
-    cp      7 + 2
+    cp      7
+    ret     nz
+
+    ; if (x != 2) ret
+    ld      a, l
+    cp      2
     ret     nz
 
     ; ; if (x < ?) ret

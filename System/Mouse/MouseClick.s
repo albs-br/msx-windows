@@ -139,6 +139,30 @@ _MOUSE_CLICK:
     push    hl ; IY = HL
     pop     iy
 
+    ; ---------------- calc x, y in tiles/pixels of click relative to window top left useful area and pass to process
+    call    GET_MOUSE_POSITION_IN_TILES
+
+    ; adjust mouse position in tiles to be relative to window top left of useful area
+
+    ld      a, (ix + PROCESS_STRUCT_IX.windowState)         ; process.Click addr (low)
+    cp      WINDOW_STATE.RESTORED
+    ; if window is maximized, no need to adjust
+    jp      nz, .cont_1
+
+
+    ld      a, l
+    sub     (ix + PROCESS_STRUCT_IX.x)
+    dec     a ; window left border
+    ld      l, a
+
+    ld      a, h
+    sub     (ix + PROCESS_STRUCT_IX.y)
+    ld      h, a
+    dec     h ; window title (restored is 2 lines tall, maximized is 1 line tall)
+.cont_1:
+
+    dec     h ; window title
+
     ; call "Click" event of the process
     ld      e, (ix + PROCESS_STRUCT_IX.clickAddr)         ; process.Click addr (low)
     ld      d, (ix + PROCESS_STRUCT_IX.clickAddr + 1)     ; process.Click addr (high)
