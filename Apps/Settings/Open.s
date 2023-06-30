@@ -13,4 +13,8 @@
     ld      a, SETTINGS_TABS_VALUES.TAB_VIDEO
     ld      (iy + SETTINGS_VARS.TAB_SELECTED), a
 
+
+    xor     a
+    ld      (iy + SETTINGS_VARS.CHECKBOX_SHOW_TICKS_VALUE), a
+
     ret

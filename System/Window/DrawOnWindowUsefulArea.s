@@ -1,3 +1,5 @@
+; TODO make this work with all possible HL values
+
 ; Input:
 ;   IX = process header addr
 ;   HL = ROM start source address (CAUTION, use only _GET_WINDOW_BASE_NAMTBL or _GET_WINDOW_BASE_NAMTBL + 1)
@@ -34,8 +36,8 @@ DRAW_ON_WINDOW_USEFUL_AREA:
             ld      hl, OS.tempVar_1
             cp      (hl)
         pop     hl
-        ret     z ; if (A == iyh) ret
-        ret     c ; if (A < iyh) ret
+        ret     z ; if (A == progressive line counter) ret
+        ret     c ; if (A < progressive line counter) ret
 
         push    bc, hl, de
 

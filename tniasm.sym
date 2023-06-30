@@ -98,7 +98,7 @@ _DRAW_TASKBAR_BUTTONS.end_1: equ 046CBh ; last def. pass 3
 BIOS_NAMBAS: equ 0F922h ; last def. pass 3
 TILE_FONT_LOWERCASE_Z: equ 070h ; last def. pass 3
 BIOS_ROMA: equ 0FAFAh ; last def. pass 3
-Settings_Data.CURRENT_TAB_MOUSE_TILES: equ 06384h ; last def. pass 3
+Settings_Data.CURRENT_TAB_MOUSE_TILES: equ 063BBh ; last def. pass 3
 BIOS_H_NTFN: equ 0FF2Fh ; last def. pass 3
 BIOS_H_ISFL: equ 0FEDFh ; last def. pass 3
 OS.dragOffset_X: equ 0C022h ; last def. pass 3
@@ -109,7 +109,7 @@ BIOS_PROMPT: equ 0181h ; last def. pass 3
 TILE_SINGLE_QUOTE: equ 08Eh ; last def. pass 3
 _END_DRAG_WINDOW: equ 0520Ch ; last def. pass 3
 BIOS_NEWKEY: equ 0FBE5h ; last def. pass 3
-Settings_Click.ClickTab_Video: equ 0623Fh ; last def. pass 3
+Settings_Click.ClickTab_Video: equ 06276h ; last def. pass 3
 Settings.width: equ 060D5h ; last def. pass 3
 Paint.y: equ 05FF6h ; last def. pass 3
 BIOS_H_DGET: equ 0FE80h ; last def. pass 3
@@ -159,7 +159,7 @@ Settings_Open: equ 06109h ; last def. pass 3
 BIOS_BREAKX: equ 0B7h ; last def. pass 3
 BIOS_SETTXT: equ 078h ; last def. pass 3
 BIOS_FRCNEW: equ 0F3F5h ; last def. pass 3
-Settings_Click.continue_3: equ 0623Eh ; last def. pass 3
+Settings_Click.continue_3: equ 06252h ; last def. pass 3
 BIOS_OUTDLP: equ 014Dh ; last def. pass 3
 BIOS_CLPRIM: equ 0F38Ch ; last def. pass 3
 BIOS_DECTMP: equ 0F7F0h ; last def. pass 3
@@ -192,7 +192,7 @@ BIOS_TEMP9: equ 0F7B8h ; last def. pass 3
 _RESTORE_PROCESS: equ 055B8h ; last def. pass 3
 _MOUSE_OVER.continue_1: equ 050C3h ; last def. pass 3
 BIOS_SAVEND: equ 0F87Dh ; last def. pass 3
-Settings_Click.continue_2: equ 06235h ; last def. pass 3
+Settings_Click.continue_2: equ 06249h ; last def. pass 3
 BIOS_RSTMP: equ 0FB03h ; last def. pass 3
 Execute_VDP_YMMM: equ 04279h ; last def. pass 3
 Settings.clickAddr: equ 060FDh ; last def. pass 3
@@ -211,7 +211,7 @@ _READ_KEYBOARD.keyPressed_C: equ 04C94h ; last def. pass 3
 Settings.y: equ 060D4h ; last def. pass 3
 Settings.Header: equ 060D1h ; last def. pass 3
 Paint.ramSize: equ 06029h ; last def. pass 3
-Settings_Click: equ 06212h ; last def. pass 3
+Settings_Click: equ 06224h ; last def. pass 3
 BIOS_H_ERRF: equ 0FF02h ; last def. pass 3
 BIOS_INTFLG: equ 0FC9Bh ; last def. pass 3
 BIOS_H_CVD: equ 0FE49h ; last def. pass 3
@@ -239,16 +239,16 @@ BIOS_GRPNAM: equ 0F3C7h ; last def. pass 3
 TILE_BASE_INDEX_PROCESSES: equ 0D0h ; last def. pass 3
 BIOS_VDP_DW: equ 07h ; last def. pass 3
 VDP_LOGIC_OPERATION_OR: equ 02h ; last def. pass 3
-Settings_Icon: equ 06264h ; last def. pass 3
+Settings_Icon: equ 0629Bh ; last def. pass 3
 _LOAD_PROCESS.isOnProcessSlot_2: equ 0547Bh ; last def. pass 3
 BIOS_YSAVE: equ 0FB00h ; last def. pass 3
 Calc.iconTitle: equ 05EA3h ; last def. pass 3
 BIOS_DECTM2: equ 0F7F2h ; last def. pass 3
 _UPDATE_SCREEN_MAPPING_WINDOW.outerLoop_1: equ 04A88h ; last def. pass 3
 _GET_PROCESS_BY_ID: equ 05632h ; last def. pass 3
-Settings_Work: equ 0610Fh ; last def. pass 3
+Settings_Work: equ 06113h ; last def. pass 3
 BIOS_H_RSET: equ 0FE26h ; last def. pass 3
-Execute.OS_MainLoop: equ 063EEh ; last def. pass 3
+Execute.OS_MainLoop: equ 06425h ; last def. pass 3
 OS.mouseX: equ 0C003h ; last def. pass 3
 SPRITE_INDEX_CURSOR_0: equ 00h ; last def. pass 3
 _MOUSE_CLICK.click_WindowMinimizeButton: equ 04E33h ; last def. pass 3
@@ -283,7 +283,7 @@ BIOS_DOT: equ 0F6B5h ; last def. pass 3
 BIOS_VOICCQ: equ 0FA75h ; last def. pass 3
 Paint_Close: equ 06061h ; last def. pass 3
 _MOUSE_CLICK: equ 04D6Ah ; last def. pass 3
-Execute: equ 063E3h ; last def. pass 3
+Execute: equ 0641Ah ; last def. pass 3
 BIOS_ESTBLS: equ 0FB1Dh ; last def. pass 3
 _INIT_DESKTOP: equ 0475Fh ; last def. pass 3
 _DRAW_WINDOW_MAXIMIZED.loop_2: equ 049B2h ; last def. pass 3
@@ -308,10 +308,10 @@ Process_struct.height: equ 0D760h ; last def. pass 3
 BIOS_SETPLT: equ 014Dh ; last def. pass 3
 _MOUSE_CLICK.isNotDoubleClick: equ 04DBDh ; last def. pass 3
 _LOAD_PROCESS.cont_1001: equ 0548Ah ; last def. pass 3
-Settings_Close: equ 06263h ; last def. pass 3
+Settings_Close: equ 0629Ah ; last def. pass 3
 VDP_COMMAND_LMMV: equ 080h ; last def. pass 3
 REG21SAV: equ 0FFF4h ; last def. pass 3
-Settings.EndProgramData: equ 063E3h ; last def. pass 3
+Settings.EndProgramData: equ 0641Ah ; last def. pass 3
 BIOS_H_DSKF: equ 0FE12h ; last def. pass 3
 BIOS_CONLO: equ 0F66Ah ; last def. pass 3
 _LOAD_ICON_INVERTED_FROM_APP_HEADER.loop_200: equ 047F7h ; last def. pass 3
@@ -365,7 +365,7 @@ OS.nextWindow_x: equ 0C344h ; last def. pass 3
 WINDOW_STATE: equ 04322h ; last def. pass 3
 BIOS_MEMSIZ: equ 0F672h ; last def. pass 3
 Calc_Draw.skip_1: equ 05EF3h ; last def. pass 3
-Settings_Data: equ 062ACh ; last def. pass 3
+Settings_Data: equ 062E3h ; last def. pass 3
 BIOS_H_INDS: equ 0FE8Ah ; last def. pass 3
 SPRITE_INDEX_WINDOW_BOTTOM_RIGHT: equ 014h ; last def. pass 3
 BIOS_H_FORM: equ 0FFACh ; last def. pass 3
@@ -419,7 +419,7 @@ BIOS_NEWPAD: equ 01ADh ; last def. pass 3
 BIOS_GYPOS: equ 0FCB5h ; last def. pass 3
 BIOS_WRTPSG: equ 093h ; last def. pass 3
 MSXID3: equ 02Dh ; last def. pass 3
-Settings_Draw.skipTensOfHours: equ 061CDh ; last def. pass 3
+Settings_Draw.skipTensOfHours: equ 061DFh ; last def. pass 3
 TILE_FONT_UPPERCASE_T: equ 084h ; last def. pass 3
 BIOS_NWRVRM: equ 0177h ; last def. pass 3
 BIOS_GRPATR: equ 0F3CDh ; last def. pass 3
@@ -444,7 +444,7 @@ BIOS_GETPLT: equ 0149h ; last def. pass 3
 TILE_FONT_UPPERCASE_K: equ 07Bh ; last def. pass 3
 BIOS_INIGRP: equ 072h ; last def. pass 3
 BIOS_GETPNT: equ 0F3FAh ; last def. pass 3
-Settings_Click.ClickTab_Mouse: equ 06247h ; last def. pass 3
+Settings_Click.ClickTab_Mouse: equ 0627Eh ; last def. pass 3
 TILE_PATTERNS: equ 056B8h ; last def. pass 3
 Calc_Work: equ 05EC0h ; last def. pass 3
 BIOS_H_FRET: equ 0FF9Dh ; last def. pass 3
@@ -473,7 +473,7 @@ _DRAW_STRING.continue: equ 04A1Ch ; last def. pass 3
 TILE_FONT_UPPERCASE_Y: equ 089h ; last def. pass 3
 BIOS_ASPCT2: equ 0F40Dh ; last def. pass 3
 BIOS_INTVAL: equ 0FCA0h ; last def. pass 3
-Settings_Data.SETTINGS_TABS: equ 062ACh ; last def. pass 3
+Settings_Data.SETTINGS_TABS: equ 062E3h ; last def. pass 3
 Settings.iconTitle: equ 060EDh ; last def. pass 3
 BIOS_CALBAS: equ 0159h ; last def. pass 3
 TILE_LINE_TOP_LEFT: equ 014h ; last def. pass 3
@@ -487,7 +487,7 @@ BIOS_OLDINT: equ 0FB12h ; last def. pass 3
 TILE_COLON: equ 097h ; last def. pass 3
 _READ_KEYBOARD.continue: equ 04C5Ah ; last def. pass 3
 BIOS_TEMP3: equ 0F69Dh ; last def. pass 3
-Settings_Click.ClickTab_Time: equ 0624Fh ; last def. pass 3
+Settings_Click.ClickTab_Time: equ 06286h ; last def. pass 3
 _MOUSE_CLICK.click_Taskbar_button: equ 04F12h ; last def. pass 3
 _DRAW_WINDOW.endLoop_10: equ 04925h ; last def. pass 3
 BIOS_H_ISRE: equ 0FF2Ah ; last def. pass 3
@@ -500,7 +500,7 @@ BIOS_TEMPST: equ 0F67Ah ; last def. pass 3
 Settings.windowTitle: equ 060D9h ; last def. pass 3
 TILE_OPEN_ROUND_BRACKETS: equ 08Fh ; last def. pass 3
 Paint_Draw: equ 06032h ; last def. pass 3
-Execute.skip: equ 06404h ; last def. pass 3
+Execute.skip: equ 0643Bh ; last def. pass 3
 BIOS_PRMFLG: equ 0F7B4h ; last def. pass 3
 _MOUSE_CLICK.click_WindowTitleBar: equ 04E17h ; last def. pass 3
 Execute_VDP_HMMM.vdpReady: equ 04208h ; last def. pass 3
@@ -520,7 +520,7 @@ Calc.EndProgramData: equ 05FF3h ; last def. pass 3
 BIOS_FNKFLG: equ 0FBCEh ; last def. pass 3
 VDP_COMMAND_HMMM: equ 0D0h ; last def. pass 3
 TILE_CHECKBOX_UNCHECKED: equ 026h ; last def. pass 3
-Settings_GetFocus: equ 06261h ; last def. pass 3
+Settings_GetFocus: equ 06298h ; last def. pass 3
 BIOS_H_SAVE: equ 0FE6Ch ; last def. pass 3
 Fast_LDIR_Multiples_of_16.loop: equ 042FFh ; last def. pass 3
 PORT_0: equ 098h ; last def. pass 3
@@ -550,7 +550,7 @@ _UPDATE_SYSTEM_TIME.not13Hours: equ 056B0h ; last def. pass 3
 BIOS_TAPOON: equ 0EAh ; last def. pass 3
 Paint: equ 05FF3h ; last def. pass 3
 TILE_FONT_REVERSED_LOWERCASE_A: equ 032h ; last def. pass 3
-Settings_Data.CHECKBOX_SHOW_TICKS: equ 063D8h ; last def. pass 3
+Settings_Data.CHECKBOX_SHOW_TICKS: equ 0640Fh ; last def. pass 3
 BIOS_MINUPD: equ 0F3EFh ; last def. pass 3
 BIOS_ATRBAS: equ 0F928h ; last def. pass 3
 TILE_COLOR_7: equ 0A6h ; last def. pass 3
@@ -602,6 +602,7 @@ OS.windowCorner_BottomRight_X: equ 0C017h ; last def. pass 3
 _MOUSE_OVER.notOver_WindowButton: equ 05036h ; last def. pass 3
 _UPDATE_SCREEN_MAPPING_WINDOW_MAXIMIZED: equ 04AFBh ; last def. pass 3
 BIOS_CALATR: equ 087h ; last def. pass 3
+Settings_Click.isOnTimeTab: equ 0625Ch ; last def. pass 3
 BIOS_BIGFIL: equ 016Bh ; last def. pass 3
 BIOS_CAPST: equ 0FCABh ; last def. pass 3
 Paint.taskbarTitle: equ 0600Bh ; last def. pass 3
@@ -643,7 +644,7 @@ Calc_GetFocus: equ 05F00h ; last def. pass 3
 BIOS_GRPCGP: equ 0F3CBh ; last def. pass 3
 TILE_LINE_HORIZONTAL: equ 01Eh ; last def. pass 3
 Calc_Open: equ 05EBFh ; last def. pass 3
-Settings_Draw.drawCurrentTabMouse: equ 06171h ; last def. pass 3
+Settings_Draw.drawCurrentTabMouse: equ 06175h ; last def. pass 3
 BIOS_VOICAQ: equ 0F975h ; last def. pass 3
 Settings.drawAddr: equ 060FBh ; last def. pass 3
 BIOS_BOTTOM: equ 0FC48h ; last def. pass 3
@@ -770,9 +771,10 @@ BIOS_H_OUTD: equ 0FEE4h ; last def. pass 3
 TILE_CLOSE_ROUND_BRACKETS: equ 090h ; last def. pass 3
 REG12SAV: equ 0FFEBh ; last def. pass 3
 BIOS_CALLF: equ 030h ; last def. pass 3
-Settings_Click.continue_1: equ 0622Ch ; last def. pass 3
+Settings_Click.continue_1: equ 06240h ; last def. pass 3
 PPI.A: equ 0A8h ; last def. pass 3
 TILE_FONT_REVERSED_LOWERCASE_P: equ 041h ; last def. pass 3
+SETTINGS_VARS.CHECKBOX_SHOW_TICKS_VALUE: equ 01h ; last def. pass 3
 OS.mouseY: equ 0C002h ; last def. pass 3
 BIOS_ARG: equ 0F847h ; last def. pass 3
 GET_WINDOW_USEFUL_HEIGHT: equ 04BEBh ; last def. pass 3
@@ -834,7 +836,7 @@ VDP_LOGIC_OPERATION_AND: equ 01h ; last def. pass 3
 _GET_PROCESS_BY_ID.loop_1: equ 0563Ah ; last def. pass 3
 MOUSE_DOUBLE_CLICK_INTERVAL: equ 01Eh ; last def. pass 3
 Calc.windowTitle: equ 05E8Fh ; last def. pass 3
-Settings.EndProgramCode: equ 06264h ; last def. pass 3
+Settings.EndProgramCode: equ 0629Bh ; last def. pass 3
 TILE_DOTS_HORIZONTAL: equ 025h ; last def. pass 3
 BIOS_KANAMD: equ 0FCADh ; last def. pass 3
 Process_struct.iconAddr: equ 0D78Fh ; last def. pass 3
@@ -863,7 +865,7 @@ _LOAD_PROCESS.showAlertMaxProcessLimitReached: equ 054F5h ; last def. pass 3
 BIOS_ENDBUF: equ 0F660h ; last def. pass 3
 PPI.B: equ 0A9h ; last def. pass 3
 BIOS_INIMLT: equ 075h ; last def. pass 3
-Settings_LoseFocus: equ 06262h ; last def. pass 3
+Settings_LoseFocus: equ 06299h ; last def. pass 3
 BIOS_H_FING: equ 0FF7Ah ; last def. pass 3
 Calc.closeAddr: equ 05EB9h ; last def. pass 3
 BIOS_VARTAB: equ 0F6C2h ; last def. pass 3
@@ -877,7 +879,7 @@ _DRAW_TASKBAR_BUTTONS.loop_1: equ 04679h ; last def. pass 3
 BIOS_CGPBAS: equ 0F924h ; last def. pass 3
 _DRAW_STRING.setTileEmpty: equ 04A22h ; last def. pass 3
 BIOS_DORES: equ 0F664h ; last def. pass 3
-Settings_Data.COMBO_SCREEN_SAVER: equ 063B4h ; last def. pass 3
+Settings_Data.COMBO_SCREEN_SAVER: equ 063EBh ; last def. pass 3
 WTTR3: equ 053C5h ; last def. pass 3
 Notepad_Work: equ 05D6Dh ; last def. pass 3
 OS.processesVariablesArea_2: equ 0CF5Bh ; last def. pass 3
@@ -937,7 +939,7 @@ _MOUSE_CLICK.skip_1: equ 04D8Fh ; last def. pass 3
 BIOS_FORCLR: equ 0F3E9h ; last def. pass 3
 OS.dragOffset_Y: equ 0C023h ; last def. pass 3
 _DO_RESIZE_WINDOW.cont_10: equ 05321h ; last def. pass 3
-Settings.StartProgramData: equ 06264h ; last def. pass 3
+Settings.StartProgramData: equ 0629Bh ; last def. pass 3
 SPRPAT: equ 03800h ; last def. pass 3
 Process_struct.openAddr: equ 0D781h ; last def. pass 3
 ClearRamArea: equ 04020h ; last def. pass 3
@@ -952,6 +954,7 @@ OS.tempVar_1: equ 0C613h ; last def. pass 3
 BIOS_OLDKEY: equ 0FBDAh ; last def. pass 3
 CheckCollision_16x16_32x16.checkVerticalCollision: equ 041C4h ; last def. pass 3
 BIOS_STKTOP: equ 0F674h ; last def. pass 3
+Settings_Click.notClickOnTabs: equ 06253h ; last def. pass 3
 HOOK_SIZE: equ 05h ; last def. pass 3
 BIOS_FNKSW1: equ 0FBCDh ; last def. pass 3
 Notepad_Draw.isRestored: equ 05E21h ; last def. pass 3
@@ -960,7 +963,7 @@ NUMBER_OF_TILES_RESERVED_PER_PROCESS: equ 0Ch ; last def. pass 3
 BIOS_H_MKS: equ 0FE35h ; last def. pass 3
 TILE_LINE_MID_LEFT: equ 01Bh ; last def. pass 3
 Settings.minWidth: equ 060D7h ; last def. pass 3
-Settings_Data.LABEL_COMBO_SCREEN_SAVER: equ 063A8h ; last def. pass 3
+Settings_Data.LABEL_COMBO_SCREEN_SAVER: equ 063DFh ; last def. pass 3
 BIOS_CNPNTS: equ 0F936h ; last def. pass 3
 BIOS_ERAFNK: equ 0CCh ; last def. pass 3
 OS.windowCorner_BottomLeft_X: equ 0C013h ; last def. pass 3
@@ -969,7 +972,7 @@ CheckCollision_8x8_16x16.checkVerticalCollision: equ 041DFh ; last def. pass 3
 _READ_KEYBOARD.keyPressed_N: equ 04C72h ; last def. pass 3
 BIOS_MLTATR: equ 0F3D7h ; last def. pass 3
 BIOS_FILNAM: equ 0F866h ; last def. pass 3
-SETTINGS_VARS: equ 063E3h ; last def. pass 3
+SETTINGS_VARS: equ 0641Ah ; last def. pass 3
 BIOS_QUETAB: equ 0F959h ; last def. pass 3
 REG4SAV: equ 0F3E3h ; last def. pass 3
 BIOS_GRPACY: equ 0FCB9h ; last def. pass 3
@@ -999,7 +1002,7 @@ BIOS_H_CHRG: equ 0FF48h ; last def. pass 3
 BIOS_RSLREG: equ 0138h ; last def. pass 3
 _START_DRAG_WINDOW: equ 05104h ; last def. pass 3
 BIOS_ENDFOR: equ 0F6A1h ; last def. pass 3
-Settings_Draw.drawCurrentTabVideo: equ 0613Ah ; last def. pass 3
+Settings_Draw.drawCurrentTabVideo: equ 0613Eh ; last def. pass 3
 OS.windowCorner_TopLeft_Pattern: equ 0C00Ch ; last def. pass 3
 Calc.taskbarTitle: equ 05E9Fh ; last def. pass 3
 OS.currentTileMouseOver: equ 0C343h ; last def. pass 3
@@ -1031,7 +1034,7 @@ SPRITE_INDEX_WINDOW_TOP_RIGHT: equ 0Ch ; last def. pass 3
 Settings.taskbarTitle: equ 060E9h ; last def. pass 3
 _UPDATE_SCREEN.execute: equ 04A54h ; last def. pass 3
 BIOS_CURLIN: equ 0F41Ch ; last def. pass 3
-Settings_Click.return: equ 06257h ; last def. pass 3
+Settings_Click.return: equ 0628Eh ; last def. pass 3
 _INIT_VDP.loop_Colors: equ 04456h ; last def. pass 3
 BIOS_H_NULO: equ 0FE5Dh ; last def. pass 3
 EnableSprites: equ 0416Eh ; last def. pass 3
@@ -1047,7 +1050,7 @@ _DO_DRAG_WINDOW.skip_2: equ 051E9h ; last def. pass 3
 SetSprites16x16: equ 04128h ; last def. pass 3
 _MINIMIZE_PROCESS: equ 05575h ; last def. pass 3
 Wait_B_Vblanks.waitVBlank: equ 0409Ah ; last def. pass 3
-Settings_Draw.drawCurrentTabTime: equ 06184h ; last def. pass 3
+Settings_Draw.drawCurrentTabTime: equ 06188h ; last def. pass 3
 BIOS_DRWSCL: equ 0FCBCh ; last def. pass 3
 BIOS_H_DSPC: equ 0FDA9h ; last def. pass 3
 _MOUSE_OVER.notOver_ResizeCorner: equ 05022h ; last def. pass 3
@@ -1085,7 +1088,7 @@ BIOS_GETYPR: equ 028h ; last def. pass 3
 BIOS_H_KEYI: equ 0FD9Ah ; last def. pass 3
 TILE_LINE_MID_RIGHT: equ 016h ; last def. pass 3
 Paint_Data: equ 060AAh ; last def. pass 3
-Settings_Draw.continue: equ 061CFh ; last def. pass 3
+Settings_Draw.continue: equ 061E1h ; last def. pass 3
 BIOS_OUTDO: equ 018h ; last def. pass 3
 ClearVram_MSX2.loop_1: equ 04105h ; last def. pass 3
 PROCESS_STRUCT_IX.ramStartAddr: equ 038h ; last def. pass 3
@@ -1165,7 +1168,7 @@ Settings.StartProgramCode: equ 06109h ; last def. pass 3
 TILE_BASE_DESKTOP_ICON_0: equ 0BEh ; last def. pass 3
 Notepad.vertScrollbarPosition: equ 05D4Dh ; last def. pass 3
 BIOS_H_SCRE: equ 0FFC0h ; last def. pass 3
-SETTINGS_TABS_VALUES: equ 063E3h ; last def. pass 3
+SETTINGS_TABS_VALUES: equ 0641Ah ; last def. pass 3
 BIOS_GRPHED: equ 0FCA6h ; last def. pass 3
 Paint.iconTitle: equ 0600Fh ; last def. pass 3
 Calc_Data: equ 05F4Bh ; last def. pass 3
@@ -1248,11 +1251,11 @@ BIOS_CHGET: equ 09Fh ; last def. pass 3
 PORT_3: equ 09Bh ; last def. pass 3
 TILE_FONT_REVERSED_LOWERCASE_L: equ 03Dh ; last def. pass 3
 _UPDATE_SCREEN_MAPPING_WINDOW.loop_22: equ 04AB3h ; last def. pass 3
-Settings_Data.CURRENT_TAB_VIDEO_TILES: equ 06372h ; last def. pass 3
+Settings_Data.CURRENT_TAB_VIDEO_TILES: equ 063A9h ; last def. pass 3
 PROCESS_STRUCT_IX.closeAddr: equ 032h ; last def. pass 3
 Notepad_Data: equ 05E87h ; last def. pass 3
 Settings.minHeight: equ 060D8h ; last def. pass 3
-Settings_Draw.DrawClock: equ 061ACh ; last def. pass 3
+Settings_Draw.DrawClock: equ 061BEh ; last def. pass 3
 PROCESS_STRUCT_IX.windowState: equ 01h ; last def. pass 3
 _UPDATE_SYSTEM_TIME: equ 05679h ; last def. pass 3
 OS.windowCorner_TopLeft_Color: equ 0C00Dh ; last def. pass 3
@@ -1272,7 +1275,7 @@ VDP_COMMAND_SRCH: equ 060h ; last def. pass 3
 LIMITADD.CLIP: equ 053E3h ; last def. pass 3
 GTOFST: equ 053A1h ; last def. pass 3
 TILE_LINE_BOTTOM_LEFT: equ 018h ; last def. pass 3
-Settings_Draw: equ 06119h ; last def. pass 3
+Settings_Draw: equ 0611Dh ; last def. pass 3
 PROCESS_STRUCT_IX.clickAddr: equ 02Ch ; last def. pass 3
 BIOS_ENASCR: equ 044h ; last def. pass 3
 BIOS_H_ERAF: equ 0FDB8h ; last def. pass 3
@@ -1310,6 +1313,7 @@ SPRITE_INDEX_WINDOW_TOP_LEFT: equ 08h ; last def. pass 3
 Calc: equ 05E87h ; last def. pass 3
 BIOS_MEXBIH: equ 0FB07h ; last def. pass 3
 CLIPADD: equ 053C8h ; last def. pass 3
+Settings_Click.setCheckbox: equ 0626Eh ; last def. pass 3
 REG18SAV: equ 0FFF1h ; last def. pass 3
 Execute_VDP_HMMV: equ 0423Fh ; last def. pass 3
 BIOS_TAPIOF: equ 0E7h ; last def. pass 3
@@ -1393,7 +1397,7 @@ CheckCollision_16x16_32x16.y1IsLarger: equ 041CBh ; last def. pass 3
 BIOS_DRWANG: equ 0FCBDh ; last def. pass 3
 BIOS_CONTYP: equ 0F669h ; last def. pass 3
 BIOS_H_INIP: equ 0FDC7h ; last def. pass 3
-Settings_Data.CURRENT_TAB_TIME_TILES: equ 06396h ; last def. pass 3
+Settings_Data.CURRENT_TAB_TIME_TILES: equ 063CDh ; last def. pass 3
 _DRAW_TASKBAR_BUTTONS.printTileWhite: equ 046BBh ; last def. pass 3
 BIOS_H_KILL: equ 0FDFEh ; last def. pass 3
 PROCESS_STRUCT_IX.openAddr: equ 026h ; last def. pass 3
@@ -1415,7 +1419,7 @@ DisableSprites: equ 04162h ; last def. pass 3
 _DRAW_TASKBAR_CLOCK.skipTensOfHours: equ 046F6h ; last def. pass 3
 BIOS_CSRY: equ 0F3DCh ; last def. pass 3
 BIOS_CSRX: equ 0F3DDh ; last def. pass 3
-Execute.noCurrentProcess: equ 06421h ; last def. pass 3
+Execute.noCurrentProcess: equ 06458h ; last def. pass 3
 EnableRomPage2: equ 04074h ; last def. pass 3
 BIOS_ERRFLG: equ 0F414h ; last def. pass 3
 BIOS_H_COPY: equ 0FE08h ; last def. pass 3

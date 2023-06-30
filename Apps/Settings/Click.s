@@ -2,12 +2,6 @@
 ;   IX = base addr of this process slot on RAM
 ;   IY = base addr of variables area of this process
 
-    ; ; get RAM variables area of this process
-    ; ld      l, (ix + PROCESS_STRUCT_IX.ramStartAddr)
-    ; ld      h, (ix + PROCESS_STRUCT_IX.ramStartAddr + 1)
-
-    ; push    hl ; IY = HL
-    ; pop     iy
 
 
     ; ------------- click on tabs
@@ -15,6 +9,7 @@
     ; --- get click position in tiles relative to the window top left
     call    GET_MOUSE_POSITION_IN_TILES
 
+    ; TODO: fix bug (this is working only on restored window)
     ; adjust mouse position in tiles to be relative to window top left
     ld      a, l
     sub     (ix + PROCESS_STRUCT_IX.x)
@@ -29,7 +24,7 @@
     ; if (y > 2) ret
     ld      a, h
     cp      2 + 1 + 2 ; +2 because of the title
-    ret     nc
+    jp      nc, .notClickOnTabs ; ret     nc
 
 
     ; if (x <= 5) .ClickTab_Video
@@ -63,6 +58,47 @@
 
     ret
 
+.notClickOnTabs:
+
+    ld      a, (iy + SETTINGS_VARS.TAB_SELECTED)
+    cp      SETTINGS_TABS_VALUES.TAB_TIME
+    jp      z, .isOnTimeTab
+
+    ret
+
+.isOnTimeTab:
+
+    ; check if click is on checkbox ShowTicks
+    ; if (y != 7) ret
+    ld      a, h
+    cp      7 + 2
+    ret     nz
+
+    ; ; if (x < ?) ret
+    ; ld      a, l
+    ; cp      ?
+    ; ret     c
+
+    ; ; if (x >= ?) ret
+    ; ld      a, l
+    ; cp      ?
+    ; ret     nc
+
+    ; if (CHECKBOX_SHOW_TICKS_VALUE == 0) setCheckbox;
+    ld      a, (iy + SETTINGS_VARS.CHECKBOX_SHOW_TICKS_VALUE)
+    or      a
+    jp      z, .setCheckbox
+
+    ; else resetCheckbox;
+    xor     a
+    ld      (iy + SETTINGS_VARS.CHECKBOX_SHOW_TICKS_VALUE), a
+
+    jp      .return
+
+.setCheckbox:
+    ld      a, 1
+    ld      (iy + SETTINGS_VARS.CHECKBOX_SHOW_TICKS_VALUE), a
+    jp      .return
 
 .ClickTab_Video:
     ld      a, SETTINGS_TABS_VALUES.TAB_VIDEO
