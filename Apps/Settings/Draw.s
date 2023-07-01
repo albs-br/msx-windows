@@ -2,32 +2,16 @@
 ;   IX = base addr of this process slot on RAM
 ;   IY = base addr of variables area of this process
 
-    ; push    iy
-        call    GET_USEFUL_WINDOW_BASE_NAMTBL
+    call    GET_USEFUL_WINDOW_BASE_NAMTBL
 
-    ;     ; if (windowState == MAXIMIZED) HL++
-    ;     ld      a, (ix + PROCESS_STRUCT_IX.windowState)
-    ;     cp      WINDOW_STATE.MAXIMIZED
-    ;     jp      nz, .skip_1
-    ;     inc     hl
-    ; .skip_1:
+    ex      de, hl
 
-        ex      de, hl
+    ; draw tabs
+    ld		hl, Settings_Data.SETTINGS_TABS                        ; RAM address (source)
+    ld      b, 18       ; size of line
+    ld      c, 11       ; number of lines
+    call    DRAW_ON_WINDOW_USEFUL_AREA
 
-        ; draw tabs
-        ld		hl, Settings_Data.SETTINGS_TABS                        ; RAM address (source)
-        ld      b, 18       ; size of line
-        ld      c, 11       ; number of lines
-        call    DRAW_ON_WINDOW_USEFUL_AREA
-
-    ; pop     iy
-
-    ; ; get RAM variables area of this process
-    ; ld      l, (ix + PROCESS_STRUCT_IX.ramStartAddr)
-    ; ld      h, (ix + PROCESS_STRUCT_IX.ramStartAddr + 1)
-
-    ; push    hl ; IY = HL
-    ; pop     iy
 
 
     ld      a, (iy + SETTINGS_VARS.TAB_SELECTED)
@@ -211,5 +195,39 @@
     and     0000 1111 b
     add     b ; convert digit in BCD to tile number
     out     (c), a
+
+
+    ; if (checkboxShowTicks == false) ret
+    ld      a, (iy + SETTINGS_VARS.CHECKBOX_SHOW_TICKS_VALUE)
+    or      a
+    ret     z
+
+    ; ---- write system time ticks counter (in hex)
+    ld      a, (OS.timeCounter)
+    ld      d, a ; save A reg
+
+    ; write char '.'
+    ld      a, TILE_DOT ; char '.'
+    out     (c), a
+
+    
+    and     1111 0000 b
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    srl     a ; shift right n, bit 7 = 0, carry = 0
+    ld      b, TILE_FONT_NUMBERS_0 + 0
+    add     b
+    out     (PORT_0), a
+
+    ld      a, d ; restore a
+    and     0000 1111 b
+    ld      b, TILE_FONT_NUMBERS_0 + 0
+    add     b
+    out     (PORT_0), a
+
+
+
+
 
     ret
