@@ -203,14 +203,14 @@
     ret     z
 
     ; ---- write system time ticks counter (in hex)
-    ld      a, (OS.timeCounter)
-    ld      d, a ; save A reg
 
     ; write char '.'
     ld      a, TILE_DOT ; char '.'
     out     (c), a
 
     
+    ld      a, (OS.timeCounter)
+    ld      d, a ; save A reg
     and     1111 0000 b
     srl     a ; shift right n, bit 7 = 0, carry = 0
     srl     a ; shift right n, bit 7 = 0, carry = 0
