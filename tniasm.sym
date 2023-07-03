@@ -44,6 +44,7 @@ HTIMI: equ 0FD9Fh ; last def. pass 3
 BIOS_WINWID: equ 0FCA5h ; last def. pass 3
 BIOS_H_ERRP: equ 0FEFDh ; last def. pass 3
 _DO_RESIZE_WINDOW.lessThanMinWidth: equ 05325h ; last def. pass 3
+TICTACTOE_VARS: equ 06593h ; last def. pass 3
 RamEnd: equ 0D794h ; last def. pass 3
 _LOAD_PROCESS.isOnProcessSlot_1: equ 054B7h ; last def. pass 3
 BIOS_POSIT: equ 0C6h ; last def. pass 3
@@ -218,7 +219,8 @@ Settings.y: equ 06103h ; last def. pass 3
 Settings.Header: equ 06100h ; last def. pass 3
 Paint.ramSize: equ 06056h ; last def. pass 3
 Settings_Click: equ 06277h ; last def. pass 3
-TicTacToe_Close: equ 064B0h ; last def. pass 3
+TicTacToe_Open.innerLoop_1: equ 064C6h ; last def. pass 3
+TicTacToe_Close: equ 064EAh ; last def. pass 3
 BIOS_H_ERRF: equ 0FF02h ; last def. pass 3
 BIOS_INTFLG: equ 0FC9Bh ; last def. pass 3
 BIOS_H_CVD: equ 0FE49h ; last def. pass 3
@@ -255,13 +257,14 @@ _UPDATE_SCREEN_MAPPING_WINDOW.outerLoop_1: equ 04A9Eh ; last def. pass 3
 _GET_PROCESS_BY_ID: equ 0567Dh ; last def. pass 3
 Settings_Work: equ 06142h ; last def. pass 3
 BIOS_H_RSET: equ 0FE26h ; last def. pass 3
-Execute.OS_MainLoop: equ 06554h ; last def. pass 3
+Execute.OS_MainLoop: equ 0659Eh ; last def. pass 3
 OS.mouseX: equ 0C003h ; last def. pass 3
 SPRITE_INDEX_CURSOR_0: equ 00h ; last def. pass 3
 _MOUSE_CLICK.click_WindowMinimizeButton: equ 04E61h ; last def. pass 3
 TILE_WINDOW_MINIMIZE_BUTTON_PATTERN: equ 0575Bh ; last def. pass 3
 Settings.loseFocusAddr: equ 06130h ; last def. pass 3
 BIOS_BAKCLR: equ 0F3EAh ; last def. pass 3
+TicTacToe_Data.TILE_X_colors_size: equ 08h ; last def. pass 3
 BIOS_H_NEWS: equ 0FF3Eh ; last def. pass 3
 BIOS_HIMEM: equ 0FC4Ah ; last def. pass 3
 Wait_15_Vblanks.loop: equ 040A7h ; last def. pass 3
@@ -272,7 +275,7 @@ Paint_Click: equ 06079h ; last def. pass 3
 OS.processesVariablesArea: equ 0C757h ; last def. pass 3
 Wait_Vblank.loop: equ 040B7h ; last def. pass 3
 OS.processes: equ 0C663h ; last def. pass 3
-TicTacToe_LoseFocus: equ 064AFh ; last def. pass 3
+TicTacToe_LoseFocus: equ 064E9h ; last def. pass 3
 TILE_LINE_BOTTOM_RIGHT_SHADOW: equ 020h ; last def. pass 3
 TILE_FONT_REVERSED_LOWERCASE_D: equ 036h ; last def. pass 3
 TILE_COLOR_8: equ 0A8h ; last def. pass 3
@@ -291,7 +294,7 @@ BIOS_DOT: equ 0F6B5h ; last def. pass 3
 BIOS_VOICCQ: equ 0FA75h ; last def. pass 3
 Paint_Close: equ 06090h ; last def. pass 3
 _MOUSE_CLICK: equ 04D80h ; last def. pass 3
-Execute: equ 06549h ; last def. pass 3
+Execute: equ 06593h ; last def. pass 3
 BIOS_ESTBLS: equ 0FB1Dh ; last def. pass 3
 _INIT_DESKTOP: equ 0475Fh ; last def. pass 3
 _DRAW_WINDOW_MAXIMIZED.loop_2: equ 049C8h ; last def. pass 3
@@ -442,10 +445,10 @@ _GET_NEXT_AVAILABLE_PROCESS_ADDR.loop: equ 05660h ; last def. pass 3
 BIOS_BEEP: equ 0C0h ; last def. pass 3
 OS.windowCorner_TopLeft_X: equ 0C00Bh ; last def. pass 3
 Notepad.StartProgramCode: equ 05DB3h ; last def. pass 3
-TicTacToe.EndProgramCode: equ 064B1h ; last def. pass 3
+TicTacToe.EndProgramCode: equ 064EBh ; last def. pass 3
 TILE_COLOR_1: equ 04h ; last def. pass 3
 TILE_FONT_UPPERCASE_O: equ 080h ; last def. pass 3
-TicTacToe_Data: equ 064F9h ; last def. pass 3
+TicTacToe_Data: equ 06533h ; last def. pass 3
 BIOS_MAXFIL: equ 0F85Fh ; last def. pass 3
 TILE_FONT_LOWERCASE_G: equ 05Eh ; last def. pass 3
 TILE_WINDOW_TOP_RIGHT_CORNER_BOTTOM: equ 0Fh ; last def. pass 3
@@ -470,7 +473,7 @@ TicTacToe.iconTitle: equ 06480h ; last def. pass 3
 BIOS_ASPECT: equ 0F931h ; last def. pass 3
 NUMBER_OF_TILES_PER_ICON: equ 09h ; last def. pass 3
 VDP_COMMAND_STOP: equ 00h ; last def. pass 3
-TicTacToe_GetFocus: equ 064AEh ; last def. pass 3
+TicTacToe_GetFocus: equ 064E8h ; last def. pass 3
 BIOS_FLBMEM: equ 0FCAEh ; last def. pass 3
 BIOS_TEMPPT: equ 0F768h ; last def. pass 3
 _MOUSE_CLICK.return: equ 04E0Bh ; last def. pass 3
@@ -512,11 +515,10 @@ _MOUSE_CLICK.click_Desktop: equ 04E8Dh ; last def. pass 3
 PROCESS_STRUCT_IX.y: equ 03h ; last def. pass 3
 WAIT1: equ 0Ah ; last def. pass 3
 BIOS_TEMPST: equ 0F67Ah ; last def. pass 3
-TicTacToe_Data.PLAYFIELD: equ 064F9h ; last def. pass 3
 Settings.windowTitle: equ 06108h ; last def. pass 3
 TILE_OPEN_ROUND_BRACKETS: equ 090h ; last def. pass 3
 Paint_Draw: equ 0605Fh ; last def. pass 3
-Execute.skip: equ 0656Ah ; last def. pass 3
+Execute.skip: equ 065B4h ; last def. pass 3
 BIOS_PRMFLG: equ 0F7B4h ; last def. pass 3
 _MOUSE_CLICK.click_WindowTitleBar: equ 04E45h ; last def. pass 3
 Execute_VDP_HMMM.vdpReady: equ 04208h ; last def. pass 3
@@ -565,11 +567,13 @@ TILE_FONT_REVERSED_LOWERCASE_B: equ 034h ; last def. pass 3
 TASKBAR_INIT: equ 0471Fh ; last def. pass 3
 _UPDATE_SYSTEM_TIME.not13Hours: equ 056FBh ; last def. pass 3
 BIOS_TAPOON: equ 0EAh ; last def. pass 3
+TICTACTOE_VARS.CURRENT_PLAYER: equ 09h ; last def. pass 3
 Paint: equ 06020h ; last def. pass 3
 TILE_FONT_REVERSED_LOWERCASE_A: equ 033h ; last def. pass 3
 Settings_Data.CHECKBOX_SHOW_TICKS: equ 06459h ; last def. pass 3
 BIOS_MINUPD: equ 0F3EFh ; last def. pass 3
 BIOS_ATRBAS: equ 0F928h ; last def. pass 3
+TicTacToe_Data.TILE_X_pattern_size: equ 08h ; last def. pass 3
 TILE_COLOR_7: equ 0A7h ; last def. pass 3
 PROCESS_STRUCT_IX.iconAddr: equ 034h ; last def. pass 3
 TILE_FONT_REVERSED_LOWERCASE_PATTERNS: equ 0589Bh ; last def. pass 3
@@ -727,7 +731,7 @@ ClearRamArea.loop: equ 04021h ; last def. pass 3
 BIOS_VCBC: equ 0FB8Bh ; last def. pass 3
 BIOS_H_BINS: equ 0FE71h ; last def. pass 3
 BIOS_TXTATR: equ 0F3B9h ; last def. pass 3
-TicTacToe_Icon: equ 064B1h ; last def. pass 3
+TicTacToe_Icon: equ 064EBh ; last def. pass 3
 TicTacToe.minHeight: equ 0646Bh ; last def. pass 3
 Settings.processId: equ 06100h ; last def. pass 3
 BIOS_H_PARD: equ 0FEB2h ; last def. pass 3
@@ -738,6 +742,7 @@ TILE_BASE_DESKTOP_ICONS: equ 0BEh ; last def. pass 3
 OS.windowCorner_BottomLeft_Pattern: equ 0C014h ; last def. pass 3
 BIOS_RDPRIM: equ 0F380h ; last def. pass 3
 OS.mouseOver_tileToBeRestored: equ 0C348h ; last def. pass 3
+TicTacToe_Data.TILE_X_pattern: equ 06583h ; last def. pass 3
 Calc_Close: equ 05F2Fh ; last def. pass 3
 MSXID1: equ 02Bh ; last def. pass 3
 TILE_FONT_LOWERCASE_Y: equ 070h ; last def. pass 3
@@ -824,6 +829,7 @@ Notepad.StartProgramData: equ 05E92h ; last def. pass 3
 Execute_VDP_HMMM: equ 041FDh ; last def. pass 3
 TILE_MINUS: equ 095h ; last def. pass 3
 _MOUSE_CLICK.skip_100: equ 04D94h ; last def. pass 3
+TicTacToe_Data.PLAYFIELD_TILES: equ 06533h ; last def. pass 3
 TILE_FONT_LOWERCASE_I: equ 060h ; last def. pass 3
 BIOS_INLIN: equ 0B1h ; last def. pass 3
 BIOS_SUBROM: equ 015Ch ; last def. pass 3
@@ -842,7 +848,7 @@ SPRITE_PATTERNS.size: equ 0C0h ; last def. pass 3
 BIOS_CHPUT: equ 0A2h ; last def. pass 3
 Notepad.x: equ 05D7Dh ; last def. pass 3
 BIOS_OLDTXT: equ 0F6C0h ; last def. pass 3
-TicTacToe_Draw: equ 0649Eh ; last def. pass 3
+TicTacToe_Draw: equ 064CDh ; last def. pass 3
 REG23SAV: equ 0FFF6h ; last def. pass 3
 TicTacToe.taskbarTitle: equ 0647Ch ; last def. pass 3
 BIOS_DEFTBL: equ 0F6CAh ; last def. pass 3
@@ -872,6 +878,7 @@ BIOS_H_DOGR: equ 0FEF3h ; last def. pass 3
 TILE_STAR: equ 092h ; last def. pass 3
 BIOS_MAXUPD: equ 0F3ECh ; last def. pass 3
 OS.processesVariablesArea_0: equ 0C757h ; last def. pass 3
+TICTACTOE_VARS.PLAYFIELD: equ 00h ; last def. pass 3
 BIOS_PRMLN2: equ 0F74Eh ; last def. pass 3
 _CHECK_CLICK_DESKTOP_ICON.not_click_icon: equ 04FC1h ; last def. pass 3
 BIOS_CPLOTF: equ 0F938h ; last def. pass 3
@@ -964,7 +971,7 @@ BIOS_PRMSTK: equ 0F6E4h ; last def. pass 3
 PROCESS_STRUCT_IX.taskbarTitle: equ 018h ; last def. pass 3
 BIOS_RG5SAV: equ 0F3E4h ; last def. pass 3
 _MOUSE_CLICK.skip_1: equ 04DA5h ; last def. pass 3
-TicTacToe.StartProgramData: equ 064B1h ; last def. pass 3
+TicTacToe.StartProgramData: equ 064EBh ; last def. pass 3
 BIOS_FORCLR: equ 0F3E9h ; last def. pass 3
 OS.dragOffset_Y: equ 0C023h ; last def. pass 3
 _DO_RESIZE_WINDOW.cont_10: equ 05361h ; last def. pass 3
@@ -1004,7 +1011,7 @@ BIOS_FILNAM: equ 0F866h ; last def. pass 3
 SETTINGS_VARS: equ 06464h ; last def. pass 3
 BIOS_QUETAB: equ 0F959h ; last def. pass 3
 REG4SAV: equ 0F3E3h ; last def. pass 3
-TicTacToe_Work: equ 0649Dh ; last def. pass 3
+TicTacToe_Work: equ 064CCh ; last def. pass 3
 BIOS_GRPACY: equ 0FCB9h ; last def. pass 3
 BIOS_H_SAVD: equ 0FE94h ; last def. pass 3
 _CHECK_CLICK_DESKTOP_ICON.retNZ: equ 04FBDh ; last def. pass 3
@@ -1042,6 +1049,7 @@ BIOS_VDPSTA: equ 0131h ; last def. pass 3
 TILE_FONT_LOWERCASE_A: equ 058h ; last def. pass 3
 OS.processesVariablesArea_size: equ 01000h ; last def. pass 3
 Settings.iconAddr: equ 06134h ; last def. pass 3
+TicTacToe_Data.TILE_X_colors: equ 0658Bh ; last def. pass 3
 Calc.x: equ 05EDCh ; last def. pass 3
 _MOUSE_OVER.over_WindowMinimizeRestoreButton: equ 05032h ; last def. pass 3
 _MOUSE_OVER.skip_1: equ 04FE9h ; last def. pass 3
@@ -1118,6 +1126,7 @@ _DRAW_DESKTOP.innerLoop: equ 0486Fh ; last def. pass 3
 Calc_LoseFocus: equ 05F2Eh ; last def. pass 3
 BIOS_GETYPR: equ 028h ; last def. pass 3
 BIOS_H_KEYI: equ 0FD9Ah ; last def. pass 3
+TicTacToe_Open.innerLoop: equ 064B4h ; last def. pass 3
 TILE_LINE_MID_RIGHT: equ 016h ; last def. pass 3
 Paint_Data: equ 060D9h ; last def. pass 3
 Settings_Draw.continue: equ 06210h ; last def. pass 3
@@ -1129,7 +1138,7 @@ MSXID5: equ 02Fh ; last def. pass 3
 BIOS_CNSDFG: equ 0F3DEh ; last def. pass 3
 BIOS_H_NMI: equ 0FDD6h ; last def. pass 3
 Process_struct.vertScrollbarPosition: equ 0D77Ch ; last def. pass 3
-TicTacToe.EndProgramData: equ 06549h ; last def. pass 3
+TicTacToe.EndProgramData: equ 06593h ; last def. pass 3
 BIOS_VCBA: equ 0FB41h ; last def. pass 3
 PATTBL: equ 00h ; last def. pass 3
 BIOS_ARYTA2: equ 0F7B5h ; last def. pass 3
@@ -1154,7 +1163,7 @@ Settings.isFixedSize: equ 06123h ; last def. pass 3
 BIOS_PTRFLG: equ 0F6A9h ; last def. pass 3
 BIOS_CSCLXY: equ 0F941h ; last def. pass 3
 VDP_COMMAND_LINE: equ 070h ; last def. pass 3
-TicTacToe_Click: equ 064ADh ; last def. pass 3
+TicTacToe_Click: equ 064E7h ; last def. pass 3
 TILE_COMMA: equ 094h ; last def. pass 3
 BIOS_TXTCGP: equ 0F3B7h ; last def. pass 3
 TicTacToe_Open: equ 0649Ch ; last def. pass 3
@@ -1460,7 +1469,7 @@ DisableSprites: equ 04162h ; last def. pass 3
 _DRAW_TASKBAR_CLOCK.skipTensOfHours: equ 046F6h ; last def. pass 3
 BIOS_CSRY: equ 0F3DCh ; last def. pass 3
 BIOS_CSRX: equ 0F3DDh ; last def. pass 3
-Execute.noCurrentProcess: equ 06587h ; last def. pass 3
+Execute.noCurrentProcess: equ 065D1h ; last def. pass 3
 EnableRomPage2: equ 04074h ; last def. pass 3
 BIOS_ERRFLG: equ 0F414h ; last def. pass 3
 BIOS_H_COPY: equ 0FE08h ; last def. pass 3

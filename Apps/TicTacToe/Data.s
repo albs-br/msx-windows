@@ -1,5 +1,5 @@
 
-.PLAYFIELD:
+.PLAYFIELD_TILES:
 
     db TILE_EMPTY, TILE_EMPTY, TILE_EMPTY, TILE_EMPTY, TILE_EMPTY, TILE_EMPTY, TILE_EMPTY, TILE_EMPTY
     db TILE_EMPTY, TILE_EMPTY, TILE_EMPTY, TILE_EMPTY, TILE_EMPTY, TILE_EMPTY, TILE_EMPTY, TILE_EMPTY
@@ -16,9 +16,32 @@
 
     db TILE_EMPTY, TILE_EMPTY, TILE_LINE_VERTICAL, TILE_EMPTY, TILE_EMPTY, TILE_LINE_VERTICAL, TILE_EMPTY, TILE_EMPTY
     db TILE_EMPTY, TILE_EMPTY, TILE_LINE_VERTICAL, TILE_EMPTY, TILE_EMPTY, TILE_LINE_VERTICAL, TILE_EMPTY, TILE_EMPTY
+
+.TILE_X_pattern:
+    db 11100000 b
+    db 11100000 b
+    db 01110000 b
+    db 01110000 b
+    db 00111000 b
+    db 00111000 b
+    db 00011100 b
+    db 00011100 b
+.TILE_X_pattern_size: equ $ - .TILE_X_pattern
+
+.TILE_X_colors:
+    db 0x4f
+    db 0x4f
+    db 0x4f
+    db 0x4f
+    db 0x4f
+    db 0x4f
+    db 0x4f
+    db 0x4f
+.TILE_X_colors_size: equ $ - .TILE_X_colors
+
 
 ; -------------------------
 
-; TICTACTOE_VARS:
-;     .VAR_1: equ 0
-;     .VAR_2: equ 1
+TICTACTOE_VARS:
+    .PLAYFIELD:         equ 0   ; 3 * 3 = 9 bytes
+    .CURRENT_PLAYER:    equ 9
