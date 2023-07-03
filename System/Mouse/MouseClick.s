@@ -309,6 +309,16 @@ _MOUSE_CLICK:
     call    _CHECK_CLICK_DESKTOP_ICON
     ret     nz ; if icon clicked end processing
 
+    ; -------------- click icon 1x1 --------------------
+
+    ld      h, 11 * 8                                                   ; icon tile top left X
+    ld      l, 9 * 8                                                    ; icon tile top left Y
+    ld      ix, TicTacToe.Header                                        ; process header addr on ROM
+    ld		de, PATTBL + (256 * 8) + (TILE_BASE_DESKTOP_ICON_1 * 8)     ; icon VRAM PATTBL address (destiny)
+    ld      bc, OS.desktop_Tiles + 256 + 8                              ; icon name base NAMTBL buffer addr
+    call    _CHECK_CLICK_DESKTOP_ICON
+    ret     nz ; if icon clicked end processing
+
     ; -------------- click icon 0x2 --------------------
 
     ld      h, 3 * 8                                                    ; icon tile top left X

@@ -13,9 +13,17 @@ _INIT_DESKTOP:
     call    _LOAD_ICON_FROM_APP_HEADER
     ; call    _LOAD_ICON_INVERTED_FROM_APP_HEADER
 
+    ; ---
+
     ld      ix, Paint.Header
     ld		de, PATTBL + (256 * 8) + (TILE_BASE_DESKTOP_ICON_0 * 8)	; VRAM address (destiny)
     call    _LOAD_ICON_FROM_APP_HEADER
+
+    ld      ix, TicTacToe.Header
+    ld		de, PATTBL + (256 * 8) + (TILE_BASE_DESKTOP_ICON_1 * 8)	; VRAM address (destiny)
+    call    _LOAD_ICON_FROM_APP_HEADER
+
+    ; ---
 
     ld      ix, Settings.Header
     ld		de, PATTBL + (512 * 8) + (TILE_BASE_DESKTOP_ICON_0 * 8)	; VRAM address (destiny)
@@ -79,6 +87,12 @@ _INIT_DESKTOP:
     ld      ix, Paint.Header
     ld      a, TILE_BASE_DESKTOP_ICON_0
     ld      hl, OS.desktop_Tiles + (256)
+    call    _DRAW_DESKTOP_ICON
+
+    ; mid right icon
+    ld      ix, TicTacToe.Header
+    ld      a, TILE_BASE_DESKTOP_ICON_1
+    ld      hl, OS.desktop_Tiles + (256) + 8
     call    _DRAW_DESKTOP_ICON
 
 

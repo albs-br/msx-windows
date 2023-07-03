@@ -7,9 +7,9 @@ TicTacToe:
 .windowState:	        db WINDOW_STATE.RESTORED
 .x:			            db 2
 .y:			            db 2
-.width:		            db 12
+.width:		            db 14
 .height:		        db 15
-.minWidth:		        db 12
+.minWidth:		        db 14
 .minHeight:		        db 15
 
 .windowTitle:
