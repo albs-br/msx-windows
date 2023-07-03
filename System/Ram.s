@@ -197,7 +197,7 @@ Process_struct:
 
 .iconAddr:		        rw 1     ; Icon: 9x 8x8 pixels (see _INIT_DESKTOP for more info on positioning rules)
 
-.ramSize:		        rw 1     ; RAM space reserved for variables of this app
+.ramSize:		        rw 1     ; RAM space reserved for variables of this app (currently not used, vars space is fixed for now)
 ; estimated RAM for some apps:
 ; - calc: 2 * 6 bytes (fixed precision 5.1) = 12 bytes
 ; - spreadsheet: 1 cell = 4 bytes (fixed precision 3.1) + 1 byte for properties
@@ -210,7 +210,7 @@ Process_struct:
 
 ; these RAM and VRAM addresses are dinamically defined by OS on app startup
 .ramStartAddr:	        rw 1
-.vramStartTileAddr:	    rw 1
+.vramStartTile:	        rb 1
 
 .layer:					rb 1		; layer means the order in which the windows should be drawn
 										; desktop is drawn first, then window with layer = 0, then layer = 1, and so on
@@ -252,7 +252,7 @@ PROCESS_STRUCT_IX:
 
 ; TODO: other properties
 .ramStartAddr:	        equ Process_struct.ramStartAddr   - Process_struct
-.vramStartTileAddr:	    equ Process_struct.vramStartTileAddr   - Process_struct
+.vramStartTile:	        equ Process_struct.vramStartTile  - Process_struct
 
 .layer:					equ Process_struct.layer    	- Process_struct
 

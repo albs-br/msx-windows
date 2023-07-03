@@ -81,7 +81,7 @@ _LOAD_PROCESS:
 
     ld      ix, (OS.currentProcessAddr)
 
-    ; define ramStartAddr and vramStartTileAddr
+    ; define ramStartAddr and vramStartTile
     push    ix ; HL = IX
     pop     hl
 
@@ -105,27 +105,28 @@ _LOAD_PROCESS:
 
 .isOnProcessSlot_0:
     ld      hl, OS.processesVariablesArea_0
-    ;TODO
-    ; ld      de, TILE_BASE_INDEX_PROCESS_0
+    ld      a, TILE_BASE_INDEX_PROCESS_0
     jp      .saveRamStartAddr
 
 .isOnProcessSlot_1:
     ld      hl, OS.processesVariablesArea_1
+    ld      a, TILE_BASE_INDEX_PROCESS_1
     jp      .saveRamStartAddr
 
 .isOnProcessSlot_2:
     ld      hl, OS.processesVariablesArea_2
+    ld      a, TILE_BASE_INDEX_PROCESS_2
     jp      .saveRamStartAddr
 
 .isOnProcessSlot_3:
     ld      hl, OS.processesVariablesArea_3
+    ld      a, TILE_BASE_INDEX_PROCESS_3
     ; jp      .saveRamStartAddr
 
 .saveRamStartAddr:
     ld      (ix + PROCESS_STRUCT_IX.ramStartAddr), l
     ld      (ix + PROCESS_STRUCT_IX.ramStartAddr + 1), h
-    ; ld      (ix + PROCESS_STRUCT_IX.vramStartTileAddr), e
-    ; ld      (ix + PROCESS_STRUCT_IX.vramStartTileAddr + 1), d
+    ld      (ix + PROCESS_STRUCT_IX.vramStartTile), a
 
 .cont_1001:
 
