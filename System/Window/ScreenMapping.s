@@ -280,6 +280,8 @@ _INIT_SCREEN_MAPPING:
 ;     jp      nz, .loop_1
 
 
+    ld      hl, OS.screenMapping + (32*22)
+
     ld      a, SCREEN_MAPPING_TASKBAR ; 254
     ld      b, 32 * 2                   ; size of taskbar (2 last lines)
 .loop_2:

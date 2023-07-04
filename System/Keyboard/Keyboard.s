@@ -50,6 +50,9 @@ _READ_KEYBOARD:
         jp      z, .keyPressed_C
 
         ; --- line 5
+        bit     1, c ; 'T' key
+        jp      z, .keyPressed_T
+
         bit     0, c ; 'S' key
         jp      z, .keyPressed_S
 
@@ -118,6 +121,18 @@ _READ_KEYBOARD:
 
     ; execute key pressed code here
     ld      hl, Settings.Header
+    call    _LOAD_PROCESS
+
+    jp      .continue
+
+.keyPressed_T:
+    ; check if key was previously released
+    ld      a, (OS.oldKeyboardMatrix + 5)
+    bit     1, a ; 'T' key
+    jp      z, .continue
+
+    ; execute key pressed code here
+    ld      hl, TicTacToe.Header
     call    _LOAD_PROCESS
 
     jp      .continue

@@ -35,6 +35,24 @@
     db 00011100 b
     db 00011100 b
     db 00011100 b
+
+    db 10111101 b
+    db 10111101 b
+    db 10111101 b
+    db 10111101 b
+    db 10111101 b
+    db 10111101 b
+    db 10111101 b
+    db 10111101 b
+
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
+    db 11111111 b
 .TILE_X_pattern_size: equ $ - .TILE_X_pattern
 
 .TILE_X_color:
