@@ -26,19 +26,19 @@
     db 00111000 b
     db 00011100 b
     db 00011100 b
+
+    db 00011100 b
+    db 00011100 b
+    db 00011100 b
+    db 00011100 b
+    db 00011100 b
+    db 00011100 b
+    db 00011100 b
+    db 00011100 b
 .TILE_X_pattern_size: equ $ - .TILE_X_pattern
 
-.TILE_X_colors:
+.TILE_X_color:
     db 0x4f
-    db 0x4f
-    db 0x4f
-    db 0x4f
-    db 0x4f
-    db 0x4f
-    db 0x4f
-    db 0x4f
-.TILE_X_colors_size: equ $ - .TILE_X_colors
-
 
 ; -------------------------
 

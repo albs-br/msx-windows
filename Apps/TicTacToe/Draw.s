@@ -19,5 +19,7 @@
     ld      a,  (ix + PROCESS_STRUCT_IX.vramStartTile)
     out     (PORT_0), a
 
+    inc     a
+    out     (PORT_0), a
 
     ret
