@@ -67,6 +67,59 @@
     db 0x4f
     db 0x4f
 
+; ---
+
+.TILE_O_pattern_0:
+    db 10101010 b
+    db 01010101 b
+    db 10101010 b
+    db 01010101 b
+    db 10101010 b
+    db 01010101 b
+    db 10101010 b
+    db 01010101 b
+
+.TILE_O_pattern_1:
+    db 10101010 b
+    db 01010101 b
+    db 10101010 b
+    db 01010101 b
+    db 10101010 b
+    db 01010101 b
+    db 10101010 b
+    db 01010101 b
+
+.TILE_O_pattern_2:
+    db 10101010 b
+    db 01010101 b
+    db 10101010 b
+    db 01010101 b
+    db 10101010 b
+    db 01010101 b
+    db 10101010 b
+    db 01010101 b
+
+.TILE_O_pattern_3:
+    db 10101010 b
+    db 01010101 b
+    db 10101010 b
+    db 01010101 b
+    db 10101010 b
+    db 01010101 b
+    db 10101010 b
+    db 01010101 b
+
+.TILE_O_colors:
+    db 0x8f
+    db 0x8f
+    db 0x8f
+    db 0x8f
+    db 0x8f
+    db 0x8f
+    db 0x8f
+    db 0x8f
+
+
 ; -------------------------
 
 TICTACTOE_VARS:

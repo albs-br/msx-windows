@@ -27,6 +27,32 @@
 
 
 
+    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
+    add     4
+    ld		hl, TicTacToe_Data.TILE_O_pattern_0
+    ld      de, TicTacToe_Data.TILE_O_colors
+    call    SET_CUSTOM_TILE
+
+    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
+    add     5
+    ld		hl, TicTacToe_Data.TILE_O_pattern_1
+    ld      de, TicTacToe_Data.TILE_O_colors
+    call    SET_CUSTOM_TILE
+
+    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
+    add     6
+    ld		hl, TicTacToe_Data.TILE_O_pattern_2
+    ld      de, TicTacToe_Data.TILE_O_colors
+    call    SET_CUSTOM_TILE
+
+    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
+    add     7
+    ld		hl, TicTacToe_Data.TILE_O_pattern_3
+    ld      de, TicTacToe_Data.TILE_O_colors
+    call    SET_CUSTOM_TILE
+
+
+
     ; init playfield
     xor     a
     ld      b, 9
