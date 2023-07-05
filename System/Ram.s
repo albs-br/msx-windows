@@ -125,6 +125,7 @@ OS:
 .tempVar_1:  rb 1
 .tempVar_2:  rb 1
 .tempWord:   rw 1
+.tempWord_2: rw 1
 
 .tempIcon:   rb NUMBER_OF_TILES_PER_ICON * 8
 

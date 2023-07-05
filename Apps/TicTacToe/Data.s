@@ -17,7 +17,7 @@
     db TILE_EMPTY, TILE_EMPTY, TILE_LINE_VERTICAL, TILE_EMPTY, TILE_EMPTY, TILE_LINE_VERTICAL, TILE_EMPTY, TILE_EMPTY
     db TILE_EMPTY, TILE_EMPTY, TILE_LINE_VERTICAL, TILE_EMPTY, TILE_EMPTY, TILE_LINE_VERTICAL, TILE_EMPTY, TILE_EMPTY
 
-.TILE_X_pattern:
+.TILE_X_pattern_0:
     db 11100000 b
     db 11100000 b
     db 01110000 b
@@ -27,6 +27,7 @@
     db 00011100 b
     db 00011100 b
 
+.TILE_X_pattern_1:
     db 00011100 b
     db 00011100 b
     db 00011100 b
@@ -36,6 +37,7 @@
     db 00011100 b
     db 00011100 b
 
+.TILE_X_pattern_2:
     db 10111101 b
     db 10111101 b
     db 10111101 b
@@ -45,6 +47,7 @@
     db 10111101 b
     db 10111101 b
 
+.TILE_X_pattern_3:
     db 11111111 b
     db 11111111 b
     db 11111111 b
@@ -53,9 +56,15 @@
     db 11111111 b
     db 11111111 b
     db 11111111 b
-.TILE_X_pattern_size: equ $ - .TILE_X_pattern
 
-.TILE_X_color:
+.TILE_X_colors:
+    db 0x4f
+    db 0x4f
+    db 0x4f
+    db 0x4f
+    db 0x4f
+    db 0x4f
+    db 0x4f
     db 0x4f
 
 ; -------------------------
