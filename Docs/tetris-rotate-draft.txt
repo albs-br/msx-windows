@@ -1,0 +1,46 @@
+
+
+
+.currentPiece: rb 4*4
+
+.tempPiece: rb 4*4
+
+
+; Inputs:
+;	HL: source addr (line of 4 blocks)
+;	DE: destiny addr (column of 4 blocks)
+RotatePiece:
+
+ld	b, 4
+.loop:
+	ld	a, (hl)
+	ld	(de), a
+
+	; de = de + 4
+	inc	de
+	inc	de
+	inc	de
+	inc	de
+
+	inc	hl
+
+	djnz	.loop
+
+ret
+
+
+;RotatePiece:
+LineToCol:
+	ld	a, (ix + 0)
+	ld	(iy + 0), a
+
+	ld	a, (ix + 1)
+	ld	(iy + 4), a
+
+	ld	a, (ix + 2)
+	ld	(iy + 8), a
+
+	ld	a, (ix + 3)
+	ld	(iy + 12), a
+
+	ret

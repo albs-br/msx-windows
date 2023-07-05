@@ -79,8 +79,8 @@
     ; ld      a, 0
     ; ld      (iy + TICTACTOE_VARS.PLAYFIELD + 5), a
 
-    ld      a, 1
-    ld      (iy + TICTACTOE_VARS.PLAYFIELD + 6), a
+    ; ld      a, 1
+    ; ld      (iy + TICTACTOE_VARS.PLAYFIELD + 6), a
     ld      a, 2
     ld      (iy + TICTACTOE_VARS.PLAYFIELD + 7), a
     ld      a, 1

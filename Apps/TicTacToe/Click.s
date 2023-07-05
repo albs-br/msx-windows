@@ -33,17 +33,47 @@
     cp      6
     jp      z, .isCel_0_1
 
+    ; if (y == 8 || y == 9) isCel_0_2
+    cp      8
+    jp      z, .isCel_0_2
+    cp      9
+    jp      z, .isCel_0_2
+
     ret
 
+; .isCel_0_0:
+;     ld      a, (iy + TICTACTOE_VARS.PLAYFIELD)
+;     or      a
+;     ret     nz
+;     ld      (iy + TICTACTOE_VARS.PLAYFIELD), b
+;     jp      .drawAndReturn
+
 .isCel_0_0:
-    ld      (iy + TICTACTOE_VARS.PLAYFIELD), b
-    jp      .drawAndReturn
+    ld      de, TICTACTOE_VARS.PLAYFIELD + 0
+    jp      .setCell
 
 .isCel_0_1:
     ld      (iy + TICTACTOE_VARS.PLAYFIELD + 3), b
-    jp      .drawAndReturn
+    jp      .setCell
 
-.drawAndReturn:
+.isCel_0_2:
+    ld      (iy + TICTACTOE_VARS.PLAYFIELD + 6), b
+    jp      .setCell
+
+.setCell:
+    push    iy  ; HL = IY
+    pop     hl
+
+    ; go to correct cell
+    add     hl, de
+    
+    ; if cell is already occupied return
+    ld      a, (hl)
+    or      a
+    ret     nz
+
+    ld      (hl), b
+
     ; call "Draw" event of this process
     ld      e, (ix + PROCESS_STRUCT_IX.drawAddr)         ; process.Draw addr (low)
     ld      d, (ix + PROCESS_STRUCT_IX.drawAddr + 1)     ; process.Draw addr (high)
