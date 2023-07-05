@@ -64,6 +64,10 @@
     pop     iy
 
 
+    ld      a, 1
+    ld      (iy + TICTACTOE_VARS.CURRENT_PLAYER), a
+
+
     ; debug
     ; ld      a, 1
     ; ld      (iy + TICTACTOE_VARS.PLAYFIELD), a
@@ -81,9 +85,9 @@
 
     ; ld      a, 1
     ; ld      (iy + TICTACTOE_VARS.PLAYFIELD + 6), a
-    ld      a, 2
-    ld      (iy + TICTACTOE_VARS.PLAYFIELD + 7), a
-    ld      a, 1
-    ld      (iy + TICTACTOE_VARS.PLAYFIELD + 8), a
+    ; ld      a, 2
+    ; ld      (iy + TICTACTOE_VARS.PLAYFIELD + 7), a
+    ; ld      a, 1
+    ; ld      (iy + TICTACTOE_VARS.PLAYFIELD + 8), a
 
     ret
