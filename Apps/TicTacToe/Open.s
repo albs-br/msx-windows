@@ -65,23 +65,23 @@
 
 
     ; debug
-    ld      a, 1
-    ld      (iy + TICTACTOE_VARS.PLAYFIELD), a
-    ld      a, 2
-    ld      (iy + TICTACTOE_VARS.PLAYFIELD + 1), a
-    ld      a, 1
-    ld      (iy + TICTACTOE_VARS.PLAYFIELD + 2), a
+    ; ld      a, 1
+    ; ld      (iy + TICTACTOE_VARS.PLAYFIELD), a
+    ; ld      a, 2
+    ; ld      (iy + TICTACTOE_VARS.PLAYFIELD + 1), a
+    ; ld      a, 1
+    ; ld      (iy + TICTACTOE_VARS.PLAYFIELD + 2), a
 
-    ld      a, 1
-    ld      (iy + TICTACTOE_VARS.PLAYFIELD + 3), a
-    ld      a, 2
-    ld      (iy + TICTACTOE_VARS.PLAYFIELD + 4), a
-    ld      a, 0
-    ld      (iy + TICTACTOE_VARS.PLAYFIELD + 5), a
+    ; ld      a, 1
+    ; ld      (iy + TICTACTOE_VARS.PLAYFIELD + 3), a
+    ; ld      a, 2
+    ; ld      (iy + TICTACTOE_VARS.PLAYFIELD + 4), a
+    ; ld      a, 0
+    ; ld      (iy + TICTACTOE_VARS.PLAYFIELD + 5), a
 
     ld      a, 1
     ld      (iy + TICTACTOE_VARS.PLAYFIELD + 6), a
-    ld      a, 1
+    ld      a, 2
     ld      (iy + TICTACTOE_VARS.PLAYFIELD + 7), a
     ld      a, 1
     ld      (iy + TICTACTOE_VARS.PLAYFIELD + 8), a
