@@ -36,8 +36,23 @@ _CLOSE_PROCESS:
 
 
 
-    ; TODO:
-    ; clear variables area of this process slot
+    ; --- clear variables area of this process slot
+    push    hl
+        xor     a
+        ld      (iy + 0), a
+        
+        push    iy ; HL = IY
+        pop     hl
+        
+        push    hl
+            inc     hl ; DE = HL + 1
+            push    hl
+            pop     de
+        pop     hl
+        
+        ld      bc, OS.PROCESS_VARS_AREA_SIZE - 1
+        ldir
+    pop     hl
 
 
     push    hl

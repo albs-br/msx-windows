@@ -7,20 +7,6 @@
 
     ; ------------- click on tabs
 
-    ; ; --- get click position in tiles relative to the window top left
-    ; call    GET_MOUSE_POSITION_IN_TILES
-
-    ; ; TODO: fix bug (this is working only on restored window)
-    ; ; adjust mouse position in tiles to be relative to window top left
-    ; ld      a, l
-    ; sub     (ix + PROCESS_STRUCT_IX.x)
-    ; ld      l, a
-
-    ; ld      a, h
-    ; sub     (ix + PROCESS_STRUCT_IX.y)
-    ; ld      h, a
-
-
     ; if (y > 2) ret
     ld      a, h
     cp      2 + 1
