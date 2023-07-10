@@ -29,6 +29,10 @@ _INIT_DESKTOP:
     ld		de, PATTBL + (512 * 8) + (TILE_BASE_DESKTOP_ICON_0 * 8)	; VRAM address (destiny)
     call    _LOAD_ICON_FROM_APP_HEADER
 
+    ld      ix, Tetra.Header
+    ld		de, PATTBL + (512 * 8) + (TILE_BASE_DESKTOP_ICON_1 * 8)	; VRAM address (destiny)
+    call    _LOAD_ICON_FROM_APP_HEADER
+
     ; ---------------------------
 
     ; fill desktop with empty tiles
@@ -101,6 +105,12 @@ _INIT_DESKTOP:
     ld      ix, Settings.Header
     ld      a, TILE_BASE_DESKTOP_ICON_0
     ld      hl, OS.desktop_Tiles + (512)
+    call    _DRAW_DESKTOP_ICON
+
+    ; bottom right icon
+    ld      ix, Tetra.Header
+    ld      a, TILE_BASE_DESKTOP_ICON_1
+    ld      hl, OS.desktop_Tiles + (512) + 8
     call    _DRAW_DESKTOP_ICON
 
     ret

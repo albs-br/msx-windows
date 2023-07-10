@@ -49,6 +49,9 @@ _READ_KEYBOARD:
         bit     0, l ; 'C' key
         jp      z, .keyPressed_C
 
+        bit     2, l ; 'E' key
+        jp      z, .keyPressed_E
+
         ; --- line 5
         bit     1, c ; 'T' key
         jp      z, .keyPressed_T
@@ -109,6 +112,18 @@ _READ_KEYBOARD:
 
     ; execute key pressed code here
     ld      hl, Calc.Header
+    call    _LOAD_PROCESS
+
+    jp      .continue
+
+.keyPressed_E:
+    ; check if key was previously released
+    ld      a, (OS.oldKeyboardMatrix + 3)
+    bit     2, a ; 'E' key
+    jp      z, .continue
+
+    ; execute key pressed code here
+    ld      hl, Tetra.Header
     call    _LOAD_PROCESS
 
     jp      .continue

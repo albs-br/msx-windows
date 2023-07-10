@@ -26,9 +26,8 @@ SET_CUSTOM_TILE:
 
         call    BIOS_SETWRT
 
-        ; ld      hl, TicTacToe_Data.TILE_X_pattern
         ld      hl, (OS.tempWord)
-        ld      b, 8 ;TicTacToe_Data.TILE_X_pattern_size
+        ld      b, 8
     .innerLoop:
             outi
             jp      nz, .innerLoop ; this uses exactly 29 cycles (t-states)
@@ -40,9 +39,8 @@ SET_CUSTOM_TILE:
 
         call    BIOS_SETWRT
 
-        ; ld      a, (TicTacToe_Data.TILE_X_color)
         ld      hl, (OS.tempWord_2)
-        ld      b, 8 ;TicTacToe_Data.TILE_X_pattern_size
+        ld      b, 8
     .innerLoop_1:
             outi
             jp      nz, .innerLoop_1 ; this uses exactly 29 cycles (t-states)

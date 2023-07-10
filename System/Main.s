@@ -33,6 +33,7 @@ PageSize:	    equ	0x4000	        ; 16kB
     INCLUDE "Apps/Paint/Header.s"
     INCLUDE "Apps/Settings/Header.s"
     INCLUDE "Apps/TicTacToe/Header.s"
+    INCLUDE "Apps/Tetra/Header.s"
 
 
 
