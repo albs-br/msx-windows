@@ -25,6 +25,7 @@ BIOS_H_FIEL: equ 0FE2Bh ; last def. pass 3
 LIMITADD: equ 054B0h ; last def. pass 3
 _DRAW_DESKTOP_ICON.loop_1: equ 04841h ; last def. pass 3
 BIOS_FILNM2: equ 0F871h ; last def. pass 3
+TETRA_VARS.PIECE_X: equ 010h ; last def. pass 3
 TILE_FONT_NUMBERS_PATTERNS: equ 05A1Ch ; last def. pass 3
 BIOS_RAWPRT: equ 0F418h ; last def. pass 3
 BIOS_H_CRDO: equ 0FEE9h ; last def. pass 3
@@ -43,6 +44,7 @@ Notepad.openAddr: equ 05E4Ah ; last def. pass 3
 Calc.drawAddr: equ 05FADh ; last def. pass 3
 HTIMI: equ 0FD9Fh ; last def. pass 3
 BIOS_WINWID: equ 0FCA5h ; last def. pass 3
+TETRA_VARS.PLAYFIELD: equ 0E9h ; last def. pass 3
 BIOS_H_ERRP: equ 0FEFDh ; last def. pass 3
 _DO_RESIZE_WINDOW.lessThanMinWidth: equ 053BBh ; last def. pass 3
 TICTACTOE_VARS: equ 067FFh ; last def. pass 3
@@ -196,7 +198,7 @@ REG2SAV: equ 0F3E1h ; last def. pass 3
 BIOS_H_GONE: equ 0FF43h ; last def. pass 3
 _UPDATE_SCREEN.innerLoop: equ 04A67h ; last def. pass 3
 BIOS_PRSCNT: equ 0FB35h ; last def. pass 3
-Tetra_Close: equ 0683Dh ; last def. pass 3
+Tetra_Close: equ 068ACh ; last def. pass 3
 OS.processesVariablesArea_end: equ 0D759h ; last def. pass 3
 BIOS_H_CVI: equ 0FE3Fh ; last def. pass 3
 _GET_NEXT_AVAILABLE_PROCESS_ID.outerLoop: equ 056DDh ; last def. pass 3
@@ -215,7 +217,7 @@ Execute_VDP_YMMM: equ 04279h ; last def. pass 3
 Settings.clickAddr: equ 061D5h ; last def. pass 3
 BIOS_DISINT: equ 0FFCFh ; last def. pass 3
 Paint.clickAddr: equ 060F5h ; last def. pass 3
-Tetra.EndProgramCode: equ 0683Eh ; last def. pass 3
+Tetra.EndProgramCode: equ 068ADh ; last def. pass 3
 BIOS_ATRBYT: equ 0F3F2h ; last def. pass 3
 GTOFS2: equ 05479h ; last def. pass 3
 NOTEPAD_VARS.TEXT_START: equ 01h ; last def. pass 3
@@ -270,7 +272,7 @@ _UPDATE_SCREEN_MAPPING_WINDOW.outerLoop_1: equ 04AB4h ; last def. pass 3
 _GET_PROCESS_BY_ID: equ 05726h ; last def. pass 3
 Settings_Work: equ 061EBh ; last def. pass 3
 BIOS_H_RSET: equ 0FE26h ; last def. pass 3
-Execute.OS_MainLoop: equ 06891h ; last def. pass 3
+Execute.OS_MainLoop: equ 06952h ; last def. pass 3
 OS.mouseX: equ 0C003h ; last def. pass 3
 SPRITE_INDEX_CURSOR_0: equ 00h ; last def. pass 3
 _MOUSE_CLICK.click_WindowMinimizeButton: equ 04EE5h ; last def. pass 3
@@ -307,7 +309,7 @@ BIOS_DOT: equ 0F6B5h ; last def. pass 3
 BIOS_VOICCQ: equ 0FA75h ; last def. pass 3
 Paint_Close: equ 06139h ; last def. pass 3
 _MOUSE_CLICK: equ 04E04h ; last def. pass 3
-Execute: equ 06886h ; last def. pass 3
+Execute: equ 06947h ; last def. pass 3
 TicTacToe_Click.isCel_1_0: equ 066CCh ; last def. pass 3
 BIOS_ESTBLS: equ 0FB1Dh ; last def. pass 3
 _INIT_DESKTOP: equ 0475Fh ; last def. pass 3
@@ -315,6 +317,7 @@ _DRAW_WINDOW_MAXIMIZED.loop_2: equ 049DEh ; last def. pass 3
 BIOS_CYOFF: equ 0F947h ; last def. pass 3
 Process_struct.ramStartAddr: equ 0D791h ; last def. pass 3
 BIOS_CXOFF: equ 0F945h ; last def. pass 3
+Tetra_Open.loop: equ 06850h ; last def. pass 3
 BIOS_MLTCOL: equ 0F3D3h ; last def. pass 3
 _LOAD_PROCESS.isOnProcessSlot_0: equ 05545h ; last def. pass 3
 DRAW_ON_WINDOW_USEFUL_AREA.isRestored: equ 04B89h ; last def. pass 3
@@ -326,7 +329,7 @@ BIOS_GRPPAT: equ 0F3CFh ; last def. pass 3
 _LOAD_PROCESS.skip_0: equ 054E1h ; last def. pass 3
 _DRAW_MOUSE_CURSOR: equ 04D50h ; last def. pass 3
 BIOS_H_ISMI: equ 0FF7Fh ; last def. pass 3
-Tetra_LoseFocus: equ 0683Ch ; last def. pass 3
+Tetra_LoseFocus: equ 068ABh ; last def. pass 3
 _DO_DRAG_WINDOW.skip_3: equ 052A5h ; last def. pass 3
 _DRAW_WINDOW_MAXIMIZED: equ 049D4h ; last def. pass 3
 TILE_FONT_LOWERCASE_B: equ 059h ; last def. pass 3
@@ -384,7 +387,7 @@ _MOUSE_OVER.over_WindowCloseButton: equ 050A5h ; last def. pass 3
 LDIRVM_MSX2: equ 0417Ah ; last def. pass 3
 _INIT_INTERRUPT: equ 04322h ; last def. pass 3
 BIOS_H_LPTS: equ 0FFBBh ; last def. pass 3
-Tetra_Click: equ 0683Ah ; last def. pass 3
+Tetra_Click: equ 068A9h ; last def. pass 3
 Tetra.clickAddr: equ 0682Bh ; last def. pass 3
 OS.nextAvailableProcessAddr: equ 0C663h ; last def. pass 3
 BIOS_ESCCNT: equ 0FCA7h ; last def. pass 3
@@ -548,7 +551,7 @@ BIOS_TEMPST: equ 0F67Ah ; last def. pass 3
 Settings.windowTitle: equ 061B1h ; last def. pass 3
 TILE_OPEN_ROUND_BRACKETS: equ 090h ; last def. pass 3
 Paint_Draw: equ 06108h ; last def. pass 3
-Execute.skip: equ 068A7h ; last def. pass 3
+Execute.skip: equ 06968h ; last def. pass 3
 BIOS_PRMFLG: equ 0F7B4h ; last def. pass 3
 _MOUSE_CLICK.click_WindowTitleBar: equ 04EC9h ; last def. pass 3
 Execute_VDP_HMMM.vdpReady: equ 04208h ; last def. pass 3
@@ -635,7 +638,7 @@ TILE_WINDOW_RESIZE_CORNER_LEFT: equ 08h ; last def. pass 3
 MAX_PROCESS_ID: equ 03h ; last def. pass 3
 Calc.windowState: equ 05F84h ; last def. pass 3
 Seed: equ 0C000h ; last def. pass 3
-TETRA_VARS: equ 06886h ; last def. pass 3
+TETRA_VARS: equ 06947h ; last def. pass 3
 _MOUSE_CLICK.skip_20: equ 04FFFh ; last def. pass 3
 TILE_SHOW_DESKTOP_ICON: equ 013h ; last def. pass 3
 Tetra.width: equ 06803h ; last def. pass 3
@@ -679,6 +682,7 @@ NOTEPAD_VARS.CURSOR_POSITION: equ 00h ; last def. pass 3
 REG26SAV: equ 0FFFBh ; last def. pass 3
 BIOS_SCRMOD: equ 0FCAFh ; last def. pass 3
 TILE_LINE_CROSS: equ 01Fh ; last def. pass 3
+Tetra_Data.PIECE_SQUARE: equ 06937h ; last def. pass 3
 TILE_FONT_REVERSED_LOWERCASE_V: equ 048h ; last def. pass 3
 BIOS_NORUSE: equ 0FAFDh ; last def. pass 3
 BIOS_H_EVAL: equ 0FF70h ; last def. pass 3
@@ -756,7 +760,7 @@ _GET_WINDOW_TITLE_BASE_NAMTBL: equ 04C2Eh ; last def. pass 3
 TILE_FONT_LOWERCASE_PATTERNS: equ 05A6Ch ; last def. pass 3
 REG17SAV: equ 0FFF0h ; last def. pass 3
 BIOS_H_TOTE: equ 0FDBDh ; last def. pass 3
-Tetra.EndProgramData: equ 06886h ; last def. pass 3
+Tetra.EndProgramData: equ 06947h ; last def. pass 3
 BIOS_STRTMS: equ 099h ; last def. pass 3
 TILE_FONT_REVERSED_LOWERCASE_PATTERNS.size: equ 0D0h ; last def. pass 3
 BIOS_GSPSIZ: equ 08Ah ; last def. pass 3
@@ -789,7 +793,7 @@ BIOS_LOHCNT: equ 0F94Dh ; last def. pass 3
 BIOS_TEMP: equ 0F6A7h ; last def. pass 3
 _DRAW_STRING.loop: equ 04A3Eh ; last def. pass 3
 BIOS_EOL: equ 0168h ; last def. pass 3
-Tetra_Draw: equ 06839h ; last def. pass 3
+Tetra_Draw: equ 06869h ; last def. pass 3
 BIOS_PHYDIO: equ 0144h ; last def. pass 3
 BIOS_H_FINI: equ 0FF16h ; last def. pass 3
 TicTacToe.loseFocusAddr: equ 0653Dh ; last def. pass 3
@@ -926,7 +930,7 @@ OS.processesVariablesArea_0: equ 0C759h ; last def. pass 3
 TICTACTOE_VARS.PLAYFIELD: equ 00h ; last def. pass 3
 BIOS_PRMLN2: equ 0F74Eh ; last def. pass 3
 _CHECK_CLICK_DESKTOP_ICON.not_click_icon: equ 05057h ; last def. pass 3
-Tetra_Work: equ 06838h ; last def. pass 3
+Tetra_Work: equ 06868h ; last def. pass 3
 BIOS_CPLOTF: equ 0F938h ; last def. pass 3
 VDP_COMMAND_YMMM: equ 0E0h ; last def. pass 3
 BIOS_GRPRT: equ 089h ; last def. pass 3
@@ -1085,6 +1089,7 @@ TILE_FONT_LOWERCASE_Q: equ 068h ; last def. pass 3
 BIOS_RNDX: equ 0F857h ; last def. pass 3
 BIOS_SKPCNT: equ 0F94Fh ; last def. pass 3
 TILE_FONT_UPPERCASE_X: equ 089h ; last def. pass 3
+Tetra_Data.TILE_BLUE_colors: equ 0692Fh ; last def. pass 3
 BIOS_H_RETU: equ 0FF4Dh ; last def. pass 3
 BIOS_LSTMOD: equ 0FB20h ; last def. pass 3
 BIOS_H_NAME: equ 0FDF9h ; last def. pass 3
@@ -1109,6 +1114,7 @@ _MOUSE_OVER.skip_1: equ 0507Fh ; last def. pass 3
 Paint.windowState: equ 060CAh ; last def. pass 3
 BIOS_DATPTR: equ 0F6C8h ; last def. pass 3
 JP_IY: equ 042F1h ; last def. pass 3
+Tetra_Open.next: equ 06858h ; last def. pass 3
 BIOS_H_DSKI: equ 0FE17h ; last def. pass 3
 BIOS_LPTOUT: equ 0A5h ; last def. pass 3
 Notepad_Click: equ 05F34h ; last def. pass 3
@@ -1128,7 +1134,6 @@ BIOS_CURLIN: equ 0F41Ch ; last def. pass 3
 Settings_Click.return: equ 06381h ; last def. pass 3
 _INIT_VDP.loop_Colors: equ 04456h ; last def. pass 3
 BIOS_H_NULO: equ 0FE5Dh ; last def. pass 3
-Tetra_Data.TETRA_TILES: equ 06886h ; last def. pass 3
 EnableSprites: equ 0416Eh ; last def. pass 3
 BIOS_CGPNT: equ 0F91Fh ; last def. pass 3
 RandomNumber: equ 0418Bh ; last def. pass 3
@@ -1195,14 +1200,16 @@ Process_struct.vertScrollbarPosition: equ 0D77Eh ; last def. pass 3
 TicTacToe.EndProgramData: equ 067FFh ; last def. pass 3
 BIOS_VCBA: equ 0FB41h ; last def. pass 3
 TicTacToe_Data.TILE_O_colors: equ 067F7h ; last def. pass 3
-Tetra_GetFocus: equ 0683Bh ; last def. pass 3
+Tetra_GetFocus: equ 068AAh ; last def. pass 3
 PATTBL: equ 00h ; last def. pass 3
 BIOS_ARYTA2: equ 0F7B5h ; last def. pass 3
+TETRA_VARS.PIECE_Y: equ 011h ; last def. pass 3
 BIOS_PRMPRV: equ 0F74Ch ; last def. pass 3
 REG13SAV: equ 0FFECh ; last def. pass 3
 BIOS_H_FILE: equ 0FD7Bh ; last def. pass 3
 TILE_FONT_LOWERCASE_S: equ 06Ah ; last def. pass 3
 BIOS_PATWRK: equ 0FC40h ; last def. pass 3
+TETRA_VARS.CURRENT_PIECE: equ 00h ; last def. pass 3
 BIOS_H_TRMN: equ 0FF61h ; last def. pass 3
 BIOS_H_STKE: equ 0FEDAh ; last def. pass 3
 BIOS_CHGMDP: equ 01B5h ; last def. pass 3
@@ -1248,6 +1255,7 @@ BIOS_ENSTOP: equ 0FBB0h ; last def. pass 3
 BIOS_DSPFNK: equ 0CFh ; last def. pass 3
 BIOS_MODE: equ 0FAFCh ; last def. pass 3
 Execute_VDP_YMMM.vdpReady: equ 04284h ; last def. pass 3
+Tetra_Data.PLAYFIELD_TILES: equ 068F5h ; last def. pass 3
 _INIT_SYSTEM_TIME: equ 05751h ; last def. pass 3
 _DRAW_TASKBAR_BUTTONS: equ 0465Bh ; last def. pass 3
 BIOS_H_MERG: equ 0FE67h ; last def. pass 3
@@ -1322,7 +1330,7 @@ TILE_FONT_UPPERCASE_R: equ 083h ; last def. pass 3
 BIOS_RG4SAV: equ 0F3E3h ; last def. pass 3
 BIOS_RG7SAV: equ 0F3E6h ; last def. pass 3
 _MINIMIZE_ALL_PROCESSES.loop_1: equ 056C3h ; last def. pass 3
-Tetra.StartProgramData: equ 0683Eh ; last def. pass 3
+Tetra.StartProgramData: equ 068ADh ; last def. pass 3
 SETTINGS_TABS_VALUES.TAB_MOUSE: equ 01h ; last def. pass 3
 Settings: equ 061A9h ; last def. pass 3
 BIOS_GICINI: equ 090h ; last def. pass 3
@@ -1400,7 +1408,7 @@ Calc.minWidth: equ 05F89h ; last def. pass 3
 WINDOW_STATE.MAXIMIZED: equ 03h ; last def. pass 3
 Tetra.windowTitle: equ 06807h ; last def. pass 3
 PROCESS_STRUCT_IX.width: equ 04h ; last def. pass 3
-Tetra_Icon: equ 0683Eh ; last def. pass 3
+Tetra_Icon: equ 068ADh ; last def. pass 3
 BIOS_H_DEVN: equ 0FEC1h ; last def. pass 3
 _DRAW_DESKTOP_ICON_NAME_REVERSED.cont_1: equ 0486Fh ; last def. pass 3
 RamStart: equ 0C000h ; last def. pass 3
@@ -1446,6 +1454,7 @@ TILE_COLOR_14: equ 0AEh ; last def. pass 3
 Calc.openAddr: equ 05FA9h ; last def. pass 3
 Notepad.y: equ 05E27h ; last def. pass 3
 Process_struct.closeAddr: equ 0D78Bh ; last def. pass 3
+Tetra_Data.TILE_BLUE_pattern: equ 06927h ; last def. pass 3
 TILE_FONT_REVERSED_NUMBERS_0: equ 029h ; last def. pass 3
 REG0SAV: equ 0F3DFh ; last def. pass 3
 OS.oldKeyboardMatrix: equ 0C027h ; last def. pass 3
@@ -1503,7 +1512,7 @@ BIOS_CS120: equ 0F3FCh ; last def. pass 3
 BIOS_SETPAG: equ 013Dh ; last def. pass 3
 BIOS_ACPAGE: equ 0FAF6h ; last def. pass 3
 _MOUSE_OVER.updateScreenMiddle: equ 05168h ; last def. pass 3
-Tetra_Data: equ 06886h ; last def. pass 3
+Tetra_Data: equ 068F5h ; last def. pass 3
 TILE_BASE_INDEX_PROCESS_2: equ 0E8h ; last def. pass 3
 BIOS_RSFCB: equ 0FB04h ; last def. pass 3
 BIOS_LINTTB: equ 0FBB2h ; last def. pass 3
@@ -1541,7 +1550,7 @@ DisableSprites: equ 04162h ; last def. pass 3
 _DRAW_TASKBAR_CLOCK.skipTensOfHours: equ 046F6h ; last def. pass 3
 BIOS_CSRY: equ 0F3DCh ; last def. pass 3
 BIOS_CSRX: equ 0F3DDh ; last def. pass 3
-Execute.noCurrentProcess: equ 068C4h ; last def. pass 3
+Execute.noCurrentProcess: equ 06985h ; last def. pass 3
 EnableRomPage2: equ 04074h ; last def. pass 3
 Tetra.getFocusAddr: equ 0682Dh ; last def. pass 3
 BIOS_ERRFLG: equ 0F414h ; last def. pass 3

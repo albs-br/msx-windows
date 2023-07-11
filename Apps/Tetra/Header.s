@@ -33,7 +33,7 @@ Tetra:
                         db TILE_FONT_REVERSED_LOWERCASE_T
                         db TILE_FONT_REVERSED_LOWERCASE_E
                         db TILE_FONT_REVERSED_LOWERCASE_T
-                        db TILE_EMPTY_BLACK
+                        db TILE_FONT_REVERSED_LOWERCASE_R
 .iconTitle:
                         db TILE_EMPTY
                         db TILE_FONT_LOWERCASE_T
