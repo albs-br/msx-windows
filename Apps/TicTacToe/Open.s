@@ -2,51 +2,44 @@
 ;   IX = base addr of this process slot on RAM
 ;   IY = base addr of variables area of this process
 
-    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
+    xor     a
     ld		hl, TicTacToe_Data.TILE_X_pattern_0
     ld      de, TicTacToe_Data.TILE_X_colors
     call    SET_CUSTOM_TILE
 
-    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
-    inc     a
+    ld      a, 1
     ld		hl, TicTacToe_Data.TILE_X_pattern_1
     ld      de, TicTacToe_Data.TILE_X_colors
     call    SET_CUSTOM_TILE
 
-    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
-    add     2
+    ld      a, 2
     ld		hl, TicTacToe_Data.TILE_X_pattern_2
     ld      de, TicTacToe_Data.TILE_X_colors
     call    SET_CUSTOM_TILE
 
-    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
-    add     3
+    ld      a, 3
     ld		hl, TicTacToe_Data.TILE_X_pattern_3
     ld      de, TicTacToe_Data.TILE_X_colors
     call    SET_CUSTOM_TILE
 
 
 
-    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
-    add     4
+    ld      a, 4
     ld		hl, TicTacToe_Data.TILE_O_pattern_0
     ld      de, TicTacToe_Data.TILE_O_colors
     call    SET_CUSTOM_TILE
 
-    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
-    add     5
+    ld      a, 5
     ld		hl, TicTacToe_Data.TILE_O_pattern_1
     ld      de, TicTacToe_Data.TILE_O_colors
     call    SET_CUSTOM_TILE
 
-    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
-    add     6
+    ld      a, 6
     ld		hl, TicTacToe_Data.TILE_O_pattern_2
     ld      de, TicTacToe_Data.TILE_O_colors
     call    SET_CUSTOM_TILE
 
-    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
-    add     7
+    ld      a, 7
     ld		hl, TicTacToe_Data.TILE_O_pattern_3
     ld      de, TicTacToe_Data.TILE_O_colors
     call    SET_CUSTOM_TILE

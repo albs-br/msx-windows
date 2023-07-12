@@ -29,8 +29,46 @@ ld	b, 4
 ret
 
 
-;RotatePiece:
-LineToCol:
+; --- definitive code:
+
+; Inputs:
+;	HL: source addr (matrix of 4x4 blocks)
+;	DE: destiny addr (matrix of 4x4 blocks)
+.RotatePiece_Right:
+
+	push	ix, iy
+
+		push	hl ; IX = HL
+		pop	ix
+		push	de ; IY = DE
+		pop	iy
+
+		; line 0 to column 3
+		inc	iy ; IY += 3
+		inc	iy
+		inc	iy
+		call	.RotatePiece_LineToCol
+
+		; line 1 to column 2
+		inc	ix ; IX++
+		dec	iy ; IY--
+		call	.RotatePiece_LineToCol
+
+		; line 2 to column 1
+		inc	ix ; IX++
+		dec	iy ; IY--
+		call	.RotatePiece_LineToCol
+
+		; line 3 to column 0
+		inc	ix ; IX++
+		dec	iy ; IY--
+		call	.RotatePiece_LineToCol
+
+	pop	iy, ix
+
+	ret
+
+.RotatePiece_LineToCol:
 	ld	a, (ix + 0)
 	ld	(iy + 0), a
 

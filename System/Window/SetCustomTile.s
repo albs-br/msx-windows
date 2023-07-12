@@ -1,13 +1,20 @@
-; set custom tiles (tiles specific for this process)
+; Set custom tiles (tiles specific for this process)
+; Inputs:
+;   IX: process address
+;   A:  tile number (between 0 and 11, relative to this process)
+;   HL: pattern address on RAM
+;   DE: color address on RAM
 SET_CUSTOM_TILE:
 
-    ld  (OS.tempWord), hl
-    ld  (OS.tempWord_2), de
+    ld      b, (ix + PROCESS_STRUCT_IX.vramStartTile)
+    add     b
+
+    ld      (OS.tempWord), hl
+    ld      (OS.tempWord_2), de
 
     ; --- tile pattern
     ; calc PATTBL addr for custom tile
     ld      h, 0
-    ; ld      l, (ix + PROCESS_STRUCT_IX.vramStartTile)
     ld      l, a
 
     add     hl, hl ; multiply HL by 8
