@@ -12,6 +12,18 @@
     ld      de, Tetra_Data.TILE_RED_colors
     call    SET_CUSTOM_TILE
 
+    ; init empty playfield
+    ld      de, TETRA_VARS.PLAYFIELD
+    push    iy ; HL = IY
+    pop     hl
+    add     hl, de
+    xor     a
+    ld      b, 200
+.loop_1:
+    ld      (hl), a
+    inc     hl
+    djnz    .loop_1
+
     ; debug
     ; ---load piece
     ; push    ix, iy

@@ -13,7 +13,7 @@ SET_CUSTOM_TILE:
     ld      (OS.tempWord_2), de
 
     ; --- tile pattern
-    ; calc PATTBL addr for custom tile
+    ; calc PATTBL/COLTBL addr for custom tile
     ld      h, 0
     ld      l, a
 
@@ -23,7 +23,7 @@ SET_CUSTOM_TILE:
 
     ld      c, PORT_0
 
-    ex      de, hl
+    ex      de, hl ; DE = delta addr for PATTBL and COLTBL of this tile
 
     ld      b, 3 ; repeat for the 3 parts of the screen
 .loop:
@@ -52,6 +52,7 @@ SET_CUSTOM_TILE:
             outi
             jp      nz, .innerLoop_1 ; this uses exactly 29 cycles (t-states)
 
+        ; go to next third of screen
         ; DE += 256 * 8
         ex      de, hl
             ld      de, 256 * 8
