@@ -34,19 +34,43 @@
     ld      de, 32  ; next line
     add     hl, de
     
-    call    BIOS_SETWRT
-    ;ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile) ; blue tile
-    ld      a, (iy + TETRA_VARS.CURRENT_PIECE)
-    out     (PORT_0), a
+    push    hl
+        call    BIOS_SETWRT
+        ;ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile) ; blue tile
+        ld      a, (iy + TETRA_VARS.CURRENT_PIECE)
+        call    .drawPieceTile
+        ; out     (PORT_0), a
 
-    ld      a, (iy + TETRA_VARS.CURRENT_PIECE + 1)
-    out     (PORT_0), a
+        ld      a, (iy + TETRA_VARS.CURRENT_PIECE + 1)
+        call    .drawPieceTile
+        ; out     (PORT_0), a
 
-    ld      a, (iy + TETRA_VARS.CURRENT_PIECE + 2)
-    out     (PORT_0), a
+        ld      a, (iy + TETRA_VARS.CURRENT_PIECE + 2)
+        call    .drawPieceTile
+        ; out     (PORT_0), a
 
-    ld      a, (iy + TETRA_VARS.CURRENT_PIECE + 3)
-    out     (PORT_0), a
+        ld      a, (iy + TETRA_VARS.CURRENT_PIECE + 3)
+        call    .drawPieceTile
+        ; out     (PORT_0), a
+    pop     hl
+
+    ld      de, 32  ; next line
+    add     hl, de
+
+    push    hl
+        call    BIOS_SETWRT
+        ld      a, (iy + TETRA_VARS.CURRENT_PIECE + 4)
+        call    .drawPieceTile
+
+        ld      a, (iy + TETRA_VARS.CURRENT_PIECE + 5)
+        call    .drawPieceTile
+
+        ld      a, (iy + TETRA_VARS.CURRENT_PIECE + 6)
+        call    .drawPieceTile
+
+        ld      a, (iy + TETRA_VARS.CURRENT_PIECE + 7)
+        call    .drawPieceTile
+    pop     hl
 
 
     ; ; debug
@@ -56,4 +80,14 @@
     ; out     (PORT_0), a
 
 
+    ret
+
+.drawPieceTile:
+    or      a
+    jp      nz, .drawPieceTile_nz
+
+    ld      a, TILE_EMPTY_BLACK
+
+.drawPieceTile_nz:
+    out     (PORT_0), a
     ret
