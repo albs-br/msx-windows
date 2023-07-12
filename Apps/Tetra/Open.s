@@ -3,8 +3,14 @@
 ;   IY = base addr of variables area of this process
 
     ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
-    ld		hl, Tetra_Data.TILE_BLUE_pattern
+    ld		hl, Tetra_Data.TILE_pattern
     ld      de, Tetra_Data.TILE_BLUE_colors
+    call    SET_CUSTOM_TILE
+
+    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
+    inc     a
+    ld		hl, Tetra_Data.TILE_pattern
+    ld      de, Tetra_Data.TILE_RED_colors
     call    SET_CUSTOM_TILE
 
     ; debug
@@ -20,7 +26,8 @@
     add     hl, de
     ex      de, hl
 
-    ld      hl, Tetra_Data.PIECE_SQUARE
+    ; ld      hl, Tetra_Data.PIECE_SQUARE
+    ld      hl, Tetra_Data.PIECE_I
 
     ld      b, 16
 .loop:
@@ -28,7 +35,12 @@
     or      a
     jp      z, .next
 
-    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile) ; blue tile
+    ; ; blue tile
+    ; ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
+    
+    ; red tile
+    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
+    inc     a
 
 .next:
     ld      (de), a

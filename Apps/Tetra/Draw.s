@@ -9,7 +9,7 @@
     ; draw empty playfield
     ld		hl, Tetra_Data.PLAYFIELD_TILES        ; RAM address (source)
     ld      b, 10    ; size of line
-    ld      c, 5     ; number of lines
+    ld      c, 20    ; number of lines
     call    DRAW_ON_WINDOW_USEFUL_AREA
 
     ; ---- draw current piece
@@ -72,6 +72,41 @@
         call    .drawPieceTile
     pop     hl
 
+    ld      de, 32  ; next line
+    add     hl, de
+
+    push    hl
+        call    BIOS_SETWRT
+        ld      a, (iy + TETRA_VARS.CURRENT_PIECE + 8)
+        call    .drawPieceTile
+
+        ld      a, (iy + TETRA_VARS.CURRENT_PIECE + 9)
+        call    .drawPieceTile
+
+        ld      a, (iy + TETRA_VARS.CURRENT_PIECE + 10)
+        call    .drawPieceTile
+
+        ld      a, (iy + TETRA_VARS.CURRENT_PIECE + 11)
+        call    .drawPieceTile
+    pop     hl
+
+    ld      de, 32  ; next line
+    add     hl, de
+
+    push    hl
+        call    BIOS_SETWRT
+        ld      a, (iy + TETRA_VARS.CURRENT_PIECE + 12)
+        call    .drawPieceTile
+
+        ld      a, (iy + TETRA_VARS.CURRENT_PIECE + 13)
+        call    .drawPieceTile
+
+        ld      a, (iy + TETRA_VARS.CURRENT_PIECE + 14)
+        call    .drawPieceTile
+
+        ld      a, (iy + TETRA_VARS.CURRENT_PIECE + 15)
+        call    .drawPieceTile
+    pop     hl
 
     ; ; debug
     ; call    GET_USEFUL_WINDOW_BASE_NAMTBL
