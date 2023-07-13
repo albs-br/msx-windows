@@ -18,7 +18,7 @@
     pop     hl
     add     hl, de
     xor     a
-    ld      b, 200
+    ld      b, 10 * TETRA_CONSTANTS.PLAYFIELD_HEIGHT
 .loop_1:
     ld      (hl), a
     inc     hl

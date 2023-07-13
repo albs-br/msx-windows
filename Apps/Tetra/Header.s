@@ -8,9 +8,9 @@ Tetra:
 .x:			            db 2
 .y:			            db 2
 .width:		            db 14
-.height:		        db 15
+.height:		        db 22
 .minWidth:		        db 14
-.minHeight:		        db 15
+.minHeight:		        db 22
 
 .windowTitle:
                         db TILE_FONT_REVERSED_LOWERCASE_T

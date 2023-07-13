@@ -24,9 +24,7 @@
     pop     de
 
 
-    ; TODO:
-    ; if(window.height < 20) C = window.height; else C = 20;
-    ld      c, 20    ; number of lines
+    ld      c, TETRA_CONSTANTS.PLAYFIELD_HEIGHT    ; number of lines
 .outerLoop_1:
     call    BIOS_SETWRT
 
