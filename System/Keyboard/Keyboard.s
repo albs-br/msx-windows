@@ -34,7 +34,10 @@ _READ_KEYBOARD:
     ; C = BIOS_NEWKEY + 5, B = BIOS_NEWKEY + 6
     ld      bc, (BIOS_NEWKEY + 5)
 
-    push    hl, bc
+    ; ; E = BIOS_NEWKEY + 7, D = BIOS_NEWKEY + 8
+    ; ld      de, (BIOS_NEWKEY + 7)
+
+    push    hl, bc, de
         ; --- line 4
         bit     2, h ; 'M' key
         jp      z, .keyPressed_M
@@ -60,12 +63,13 @@ _READ_KEYBOARD:
         jp      z, .keyPressed_S
 
         .continue:
-    pop     bc, hl
+    pop     de, bc, hl
 
 
     ; update old keyboard state
     ld      (OS.oldKeyboardMatrix + 3), hl
     ld      (OS.oldKeyboardMatrix + 5), bc
+    ; ld      (OS.oldKeyboardMatrix + 7), de
 
     ret
 

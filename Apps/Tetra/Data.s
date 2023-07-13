@@ -69,7 +69,9 @@
 ; -------------------------
 
 TETRA_VARS:
-    .CURRENT_PIECE:     equ 0   ; 4 * 4 = 16 bytes
-    .PIECE_X:           equ 16  ; 1 byte
-    .PIECE_Y:           equ 17  ; 1 byte
-    .PLAYFIELD:         equ 33 ; 10 * 20 = 200 bytes
+    .CURRENT_PIECE:         equ 0   ; 4 * 4 = 16 bytes
+    .PIECE_X:               equ 16  ; 1 byte
+    .PIECE_Y:               equ 17  ; 1 byte
+    .OLD_KEYBOARD_LINE_8:   equ 18  ; 1 byte
+    .PLAYFIELD:             equ 34  ; 10 * 20 = 200 bytes
+    .PLAYFIELD_BUFFER:      equ 234 ; 10 * 20 = 200 bytes
