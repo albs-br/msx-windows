@@ -46,11 +46,51 @@
 
 .piece_Right:
 
-    ; TODO
-    ; check if new piece position is valid
+    ld      d, (iy + TETRA_VARS.PIECE_X)
+    inc     d
+    ld      e, (iy + TETRA_VARS.PIECE_Y)
+    call    .isPiecePositionValid
+    ret     z
 
     ld      a, (iy + TETRA_VARS.PIECE_X)
     inc     a
     ld      (iy + TETRA_VARS.PIECE_X), a
 
+    ret
+
+; check if new piece position is valid
+.isPiecePositionValid:
+
+    ; --- loop through all tiles of the 4x4 current piece matrix
+    ld      bc, TETRA_VARS.CURRENT_PIECE
+    push    iy ; HL = IY
+    pop     hl
+    add     hl, bc
+
+    ld      b, 4 ; 4x4 matrix line
+    ld      c, 0 ; matrix column counter
+.isPiecePositionValid_loop:
+    ld      a, (hl)
+    or      a
+    jp      z, .isPiecePositionValid_next
+
+    ; check if tile is inside playfield boundaries
+    ; if ((D + C) > 9) .return_Z
+    ld      a, d
+    add     c
+    cp      9
+    jp      nc, .return_Z
+
+.isPiecePositionValid_next:
+    inc     hl
+    inc     c
+    djnz    .isPiecePositionValid_loop
+
+    ; return NZ (piece position is valid)
+    xor     a
+    inc     a
+    ret
+
+.return_Z:
+    xor     a
     ret

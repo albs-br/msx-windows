@@ -10,6 +10,26 @@
     ; ld      c, 20    ; number of lines
     ; call    DRAW_ON_WINDOW_USEFUL_AREA
 
+    ; --- copy from playfield to playfield buffer
+
+    ; set DE to destiny
+    ld      de, TETRA_VARS.PLAYFIELD_BUFFER
+    push    iy ; HL = IY
+    pop     hl
+    add     hl, de
+    push    hl
+
+        ; set HL to source
+        ld      de, TETRA_VARS.PLAYFIELD
+        push    iy ; HL = IY
+        pop     hl
+        add     hl, de
+    pop     de
+    
+    ld      bc, 10 * TETRA_CONSTANTS.PLAYFIELD_HEIGHT
+    ldir
+
+
 
     ; ---- draw current piece on playfield buffer
     ; adjust y position
@@ -103,10 +123,7 @@
 
 
 
-.debug_1111:
-
-
-    ; draw playfield from playfield buffer
+    ; draw playfield on screen from playfield buffer
     ld      de, TETRA_VARS.PLAYFIELD_BUFFER
     push    iy ; HL = IY
     pop     hl

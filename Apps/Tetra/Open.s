@@ -46,8 +46,8 @@
     add     hl, de
     ex      de, hl
 
-    ld      hl, Tetra_Data.PIECE_SQUARE
-    ;ld      hl, Tetra_Data.PIECE_I
+    ;ld      hl, Tetra_Data.PIECE_SQUARE
+    ld      hl, Tetra_Data.PIECE_I
 
     ld      b, 16
 .loop:
