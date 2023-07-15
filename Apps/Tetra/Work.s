@@ -28,9 +28,10 @@
 
     ret
 
+; ---------
+
 .keyPressed_Right:
     ; check if key was previously released
-    ; ld      a, (OS.oldKeyboardMatrix + 8)
     ld      a, (iy + TETRA_VARS.OLD_KEYBOARD_LINE_8)
     bit     7, a ; right key
     jp      z, .continue
@@ -41,8 +42,31 @@
     jp      .continue
 
 .keyPressed_Left:
-    ; TODO
+    ; check if key was previously released
+    ld      a, (iy + TETRA_VARS.OLD_KEYBOARD_LINE_8)
+    bit     4, a ; left key
+    jp      z, .continue
+
+    ; execute key pressed code here
+    call    .piece_Left
+
     jp      .continue
+
+; ----------
+
+.piece_Left:
+
+    ld      d, (iy + TETRA_VARS.PIECE_X)
+    dec     d
+    ld      e, (iy + TETRA_VARS.PIECE_Y)
+    call    .isPiecePositionValid
+    ret     z
+
+    ld      a, (iy + TETRA_VARS.PIECE_X)
+    dec     a
+    ld      (iy + TETRA_VARS.PIECE_X), a
+
+    ret
 
 .piece_Right:
 
@@ -67,7 +91,7 @@
     pop     hl
     add     hl, bc
 
-    ld      b, 4 ; 4x4 matrix line
+    ld      b, 4 * 4 ; matrix size
     ld      c, 0 ; matrix column counter
 .isPiecePositionValid_loop:
     ld      a, (hl)
@@ -78,12 +102,21 @@
     ; if ((D + C) > 9) .return_Z
     ld      a, d
     add     c
-    cp      9
+    cp      9 + 1
     jp      nc, .return_Z
+
+    ; if ((D + C) < 0) .return_Z
+    ld      a, d
+    add     c
+    cp      0
+    jp      c, .return_Z
 
 .isPiecePositionValid_next:
     inc     hl
-    inc     c
+    ld      a, c
+    inc     a
+    and     0000 0011 b ; keep in the 0-3 range
+    ld      c, a
     djnz    .isPiecePositionValid_loop
 
     ; return NZ (piece position is valid)

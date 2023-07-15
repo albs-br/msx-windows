@@ -55,7 +55,7 @@
     ; ld      de, 32  ; next line
     ; add     hl, de
 
-    push    hl
+    ;push    hl
         ld      a, (iy + TETRA_VARS.CURRENT_PIECE)
         call    .drawPieceTile
 
@@ -67,12 +67,12 @@
 
         ld      a, (iy + TETRA_VARS.CURRENT_PIECE + 3)
         call    .drawPieceTile
-    pop     hl
+    ;pop     hl
 
-    ld      de, 10  ; next line
+    ld      de, 10 - 4 ; next line
     add     hl, de
 
-    push    hl
+    ; push    hl
         ld      a, (iy + TETRA_VARS.CURRENT_PIECE + 4)
         call    .drawPieceTile
 
@@ -84,12 +84,12 @@
 
         ld      a, (iy + TETRA_VARS.CURRENT_PIECE + 7)
         call    .drawPieceTile
-    pop     hl
+    ; pop     hl
 
-    ld      de, 10  ; next line
+    ld      de, 10 - 4 ; next line
     add     hl, de
 
-    push    hl
+    ; push    hl
         ld      a, (iy + TETRA_VARS.CURRENT_PIECE + 8)
         call    .drawPieceTile
 
@@ -101,9 +101,9 @@
 
         ld      a, (iy + TETRA_VARS.CURRENT_PIECE + 11)
         call    .drawPieceTile
-    pop     hl
+    ; pop     hl
 
-    ld      de, 10  ; next line
+    ld      de, 10 - 4 ; next line
     add     hl, de
 
     ; push    hl
@@ -174,8 +174,6 @@
     ret
 
 .drawPieceTile:
-    inc     hl
-
     or      a
     jp      nz, .drawPieceTile_cont
 
@@ -183,4 +181,5 @@
 
 .drawPieceTile_cont:
     ld      (hl), a
+    inc     hl
     ret
