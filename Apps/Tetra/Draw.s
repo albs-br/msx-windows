@@ -146,7 +146,7 @@
         .loop_1:
             ld      a, (de)
             or      a
-            jp      nz, .drawPlayfield_cont
+            jr      nz, .drawPlayfield_cont
 
             ld      a, TILE_EMPTY_BLACK
         .drawPlayfield_cont:
@@ -175,7 +175,7 @@
 
 .drawPieceTile:
     or      a
-    jp      nz, .drawPieceTile_cont
+    jr      nz, .drawPieceTile_cont
 
     ld      a, TILE_EMPTY_BLACK
 

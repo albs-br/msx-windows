@@ -2,7 +2,6 @@
 ;   IX = base addr of this process slot on RAM
 ;   IY = base addr of variables area of this process
 
-
     
     ld      a, (BIOS_NEWKEY + 8)
 
@@ -20,6 +19,21 @@
 
     ; update old keyboard state
     ld      (iy + TETRA_VARS.OLD_KEYBOARD_LINE_8), a
+
+    ; ; do below code only at each 4 frames
+    ; ld      a, (BIOS_JIFFY)
+    ; and     1111 1111 b
+    ; ret     nz
+
+    ; ld      d, (iy + TETRA_VARS.PIECE_X)
+    ; ld      e, (iy + TETRA_VARS.PIECE_Y)
+    ; inc     e
+    ; call    .isPiecePositionValid
+    ; ret     z
+
+    ; ld      a, (iy + TETRA_VARS.PIECE_Y)
+    ; inc     a
+    ; ld      (iy + TETRA_VARS.PIECE_Y), a
 
     ; call "Draw" event of this process
     ld      e, (ix + PROCESS_STRUCT_IX.drawAddr)         ; process.Draw addr (low)
@@ -66,6 +80,11 @@
     dec     a
     ld      (iy + TETRA_VARS.PIECE_X), a
 
+    ; ; call "Draw" event of this process
+    ; ld      e, (ix + PROCESS_STRUCT_IX.drawAddr)         ; process.Draw addr (low)
+    ; ld      d, (ix + PROCESS_STRUCT_IX.drawAddr + 1)     ; process.Draw addr (high)
+    ; call    JP_DE
+
     ret
 
 .piece_Right:
@@ -80,9 +99,20 @@
     inc     a
     ld      (iy + TETRA_VARS.PIECE_X), a
 
+    ; ; call "Draw" event of this process
+    ; ld      e, (ix + PROCESS_STRUCT_IX.drawAddr)         ; process.Draw addr (low)
+    ; ld      d, (ix + PROCESS_STRUCT_IX.drawAddr + 1)     ; process.Draw addr (high)
+    ; call    JP_DE
+
     ret
 
-; check if new piece position is valid
+; Check if new piece position is valid
+; Inputs:
+;   D: piece x
+;   E: piece y
+; Output:
+;   Z: not valid
+;   NZ: valid
 .isPiecePositionValid:
 
     ; --- loop through all tiles of the 4x4 current piece matrix
@@ -94,11 +124,14 @@
     ld      b, 4 * 4 ; matrix size
     ld      c, 0 ; matrix column counter
 .isPiecePositionValid_loop:
+    ; check if this matrix position position has tile or is empty
     ld      a, (hl)
     or      a
     jp      z, .isPiecePositionValid_next
 
     ; check if tile is inside playfield boundaries
+    
+    ; --- check X
     ; if ((D + C) > 9) .return_Z
     ld      a, d
     add     c
@@ -110,6 +143,19 @@
     add     c
     cp      0
     jp      c, .return_Z
+
+    ; ; --- check Y
+    ; ; if ((E + (C >> 2)) >= PLAYFIELD_HEIGHT) .return_Z
+    ; ld      a, c ; get column
+    ; srl     a
+    ; srl     a
+
+    ; ld      a, e
+    ; add     c
+    ; cp      0
+    ; jp      c, .return_Z
+
+
 
 .isPiecePositionValid_next:
     inc     hl
