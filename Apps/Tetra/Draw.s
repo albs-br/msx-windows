@@ -33,13 +33,19 @@
 
     ; ---- draw current piece on playfield buffer
     ; adjust y position
-    ld      h, 0
-    ld      l, (iy + TETRA_VARS.PIECE_Y)
-    add     hl, hl  ; multiply by 32
-    add     hl, hl
-    add     hl, hl
-    add     hl, hl
-    add     hl, hl
+
+    ; HL = PIECE_Y * PLAYFIELD_WIDTH
+    ld      hl, 0
+    ld      de, TETRA_CONSTANTS.PLAYFIELD_WIDTH
+    ld      a, (iy + TETRA_VARS.PIECE_Y)
+    or      a
+    jp      z, .skip_Mult
+    ld      b, a
+.loop_Mult:
+    add     hl, de
+    djnz    .loop_Mult    
+.skip_Mult:
+
     push    hl
         ld      de, TETRA_VARS.PLAYFIELD_BUFFER
         push    iy ; HL = IY

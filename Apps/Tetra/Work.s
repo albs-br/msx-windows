@@ -26,10 +26,19 @@
     ; update old keyboard state
     ld      (iy + TETRA_VARS.OLD_KEYBOARD_LINE_8), a
 
-    ; ; do below code only at each n frames
+    ; do below code only at each n frames
     ; ld      a, (BIOS_JIFFY)
-    ; and     1111 1111 b
-    ; ret     nz
+    ; and     0011 1111 b
+    ; jp      nz, .draw
+    
+    ld      a, (iy + TETRA_VARS.COUNTER)
+    inc     a
+    ld      (iy + TETRA_VARS.COUNTER), a
+    cp      60
+    jp      nz, .draw
+
+    xor     a
+    ld      (iy + TETRA_VARS.COUNTER), a
 
     ; ld      d, (iy + TETRA_VARS.PIECE_X)
     ; ld      e, (iy + TETRA_VARS.PIECE_Y)
@@ -37,10 +46,9 @@
     ; call    .isPiecePositionValid
     ; ret     z
 
-    ; ld      a, (iy + TETRA_VARS.PIECE_Y)
-    ; inc     a
-    ; ld      (iy + TETRA_VARS.PIECE_Y), a
+    inc     (iy + TETRA_VARS.PIECE_Y)
 
+.draw:
     ; call "Draw" event of this process
     ld      e, (ix + PROCESS_STRUCT_IX.drawAddr)         ; process.Draw addr (low)
     ld      d, (ix + PROCESS_STRUCT_IX.drawAddr + 1)     ; process.Draw addr (high)
@@ -80,6 +88,8 @@
 
     ; execute key pressed code here
 
+    ; --- rotate piece
+
     ; HL = TETRA_VARS.CURRENT_PIECE
     push    iy
     pop     hl
@@ -98,6 +108,9 @@
     push    hl, de
         call    .RotatePiece_Right
     pop     hl, de
+
+    ; TODO:
+    ; check if new piece position is valid
 
     ; CURRENT_PIECE = CURRENT_PIECE_TEMP
     ld      bc, 4 * 4
