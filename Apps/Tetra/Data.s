@@ -72,6 +72,31 @@
     db  1, 1, 0, 0
     db  0, 0, 0, 0
 
+.PIECE_J:
+    db  0, 1, 0, 0
+    db  0, 1, 0, 0
+    db  1, 1, 0, 0
+    db  0, 0, 0, 0
+
+.PIECE_T:
+    db  0, 1, 0, 0
+    db  1, 1, 1, 0
+    db  0, 0, 0, 0
+    db  0, 0, 0, 0
+
+.PIECE_Z:
+    db  0, 1, 0, 0
+    db  1, 1, 0, 0
+    db  1, 0, 0, 0
+    db  0, 0, 0, 0
+
+.PIECE_S:
+    db  1, 0, 0, 0
+    db  1, 1, 0, 0
+    db  0, 1, 0, 0
+    db  0, 0, 0, 0
+
+
 ; -------------------------
 
 TETRA_VARS:
@@ -80,12 +105,26 @@ TETRA_VARS:
     .PIECE_Y:               equ 17  ; 1 byte
     .OLD_KEYBOARD_LINE_8:   equ 18  ; 1 byte
     .COUNTER:               equ 19  ; 1 byte
-    .PLAYFIELD:             equ 35  ; 10 * 20 = 200 bytes ; TODO: if TETRA_CONSTANTS.PLAYFIELD_HEIGHT is less than 20, there will be some bytes wasted here
-    .PLAYFIELD_BUFFER:      equ 235 ; 10 * 20 = 200 bytes
-    .CURRENT_PIECE_TEMP:    equ 435 ; 4 * 4 = 16 bytes
+    .CURRENT_PIECE_TYPE:    equ 20  ; 1 byte
+    
+    ; TODO: wasted space here
+
+    .PLAYFIELD:             equ 40  ; 10 * 20 = 200 bytes ; TODO: if TETRA_CONSTANTS.PLAYFIELD_HEIGHT is less than 20, there will be some bytes wasted here
+    
+    .PLAYFIELD_BUFFER:      equ 240 ; 10 * 20 = 200 bytes
+    
+    .CURRENT_PIECE_TEMP:    equ 440 ; 4 * 4 = 16 bytes
 
 ;--------------------------
 
 TETRA_CONSTANTS:
     .PLAYFIELD_WIDTH:       equ 10
     .PLAYFIELD_HEIGHT:      equ 18
+
+    .PIECE_TYPE_SQUARE:     equ 0
+    .PIECE_TYPE_I:          equ 1
+    .PIECE_TYPE_L:          equ 2
+    .PIECE_TYPE_J:          equ 3
+    .PIECE_TYPE_T:          equ 4
+    .PIECE_TYPE_Z:          equ 5
+    .PIECE_TYPE_S:          equ 6

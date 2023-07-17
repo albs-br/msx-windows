@@ -26,7 +26,7 @@
         add     hl, de
     pop     de
     
-    ld      bc, 10 * TETRA_CONSTANTS.PLAYFIELD_HEIGHT
+    ld      bc, TETRA_CONSTANTS.PLAYFIELD_WIDTH * TETRA_CONSTANTS.PLAYFIELD_HEIGHT
     ldir
 
 
@@ -75,7 +75,7 @@
         call    .drawPieceTile
     ;pop     hl
 
-    ld      de, 10 - 4 ; next line
+    ld      de, TETRA_CONSTANTS.PLAYFIELD_WIDTH - 4 ; next line
     add     hl, de
 
     ; push    hl
@@ -92,7 +92,7 @@
         call    .drawPieceTile
     ; pop     hl
 
-    ld      de, 10 - 4 ; next line
+    ld      de, TETRA_CONSTANTS.PLAYFIELD_WIDTH - 4 ; next line
     add     hl, de
 
     ; push    hl
@@ -109,7 +109,7 @@
         call    .drawPieceTile
     ; pop     hl
 
-    ld      de, 10 - 4 ; next line
+    ld      de, TETRA_CONSTANTS.PLAYFIELD_WIDTH - 4 ; next line
     add     hl, de
 
     ; push    hl
@@ -148,7 +148,7 @@
     call    BIOS_SETWRT
 
     push    hl
-            ld      b, 10    ; size of line
+            ld      b, TETRA_CONSTANTS.PLAYFIELD_WIDTH    ; size of line
         .loop_1:
             ld      a, (de)
             or      a

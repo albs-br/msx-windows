@@ -239,38 +239,46 @@
 
 	push	ix, iy
 
+
 		push	hl ; IX = HL
 		pop	    ix
 		push	de ; IY = DE
 		pop	    iy
 
 		; line 0 to column 3
-		inc	    iy ; IY += 3
-		inc	    iy
-		inc	    iy
+        ld      bc, 3 ; IY += 3
+        add     iy, bc
+		; inc	    iy ; IY += 3
+		; inc	    iy
+		; inc	    iy
 		call	.RotatePiece_LineToCol
 
+        inc     c ; BC = 4
+
 		; line 1 to column 2
-		inc	    ix ; IX+=4
-		inc	    ix
-		inc	    ix
-		inc	    ix
+		; inc	    ix ; IX+=4
+		; inc	    ix
+		; inc	    ix
+		; inc	    ix
+        add     ix, bc ; IX += 4
 		dec	    iy ; IY--
 		call	.RotatePiece_LineToCol
 
 		; line 2 to column 1
-		inc	    ix ; IX+=4
-		inc	    ix
-		inc	    ix
-		inc	    ix
+		; inc	    ix ; IX+=4
+		; inc	    ix
+		; inc	    ix
+		; inc	    ix
+        add     ix, bc ; IX += 4
 		dec	    iy ; IY--
 		call	.RotatePiece_LineToCol
 
 		; line 3 to column 0
-		inc	    ix ; IX+=4
-		inc	    ix
-		inc	    ix
-		inc	    ix
+		; inc	    ix ; IX+=4
+		; inc	    ix
+		; inc	    ix
+		; inc	    ix
+        add     ix, bc ; IX += 4
 		dec	    iy ; IY--
 		call	.RotatePiece_LineToCol
 

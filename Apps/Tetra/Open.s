@@ -25,7 +25,7 @@
         ex      de, hl
     pop     hl
     xor     a
-    ld      b, 10 * TETRA_CONSTANTS.PLAYFIELD_HEIGHT
+    ld      b, TETRA_CONSTANTS.PLAYFIELD_WIDTH * TETRA_CONSTANTS.PLAYFIELD_HEIGHT
 .loop_1:
     ld      (hl), a
     ld      (de), a
@@ -35,20 +35,33 @@
 
     ; debug
     ; ---load piece
-    ; push    ix, iy
-    ;     ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile) ; blue tile
-    ;     ld      (iy + TETRA_VARS.CURRENT_PIECE), a
-    ; pop     iy, ix
 
-    push    iy ; DE = IY + TETRA_VARS.CURRENT_PIECE
-    pop     hl
-    ld      de, TETRA_VARS.CURRENT_PIECE
-    add     hl, de
-    ex      de, hl
-
+    ; ---- parameters
+    ld      a, TETRA_CONSTANTS.PIECE_TYPE_SQUARE
+    
     ;ld      hl, Tetra_Data.PIECE_SQUARE
     ; ld      hl, Tetra_Data.PIECE_I
     ld      hl, Tetra_Data.PIECE_L
+
+    ; blue tile
+    ld      c, (ix + PROCESS_STRUCT_IX.vramStartTile)
+    
+    ; ; red tile
+    ; ld      c, (ix + PROCESS_STRUCT_IX.vramStartTile)
+    ; inc     c
+
+
+    ; --- subroutine
+
+    ld      (iy + TETRA_VARS.CURRENT_PIECE_TYPE), a
+
+    push    hl
+        push    iy ; DE = IY + TETRA_VARS.CURRENT_PIECE
+        pop     hl
+        ld      de, TETRA_VARS.CURRENT_PIECE
+        add     hl, de
+        ex      de, hl
+    pop     hl
 
     ld      b, 16
 .loop:
@@ -56,12 +69,7 @@
     or      a
     jp      z, .next
 
-    ; blue tile
-    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
-    
-    ; ; red tile
-    ; ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
-    ; inc     a
+    ld      a, c
 
 .next:
     ld      (de), a
@@ -76,5 +84,14 @@
     ld      a, 0
     ld      (iy + TETRA_VARS.PIECE_Y), a
 
+    xor     a
+    ld      (iy + TETRA_VARS.COUNTER), a
 
+    ret
+
+; Inputs:
+;   A: piece type number
+;   HL: addr of 4x4 matrix with piece
+;   C: tile number
+.LoadPiece:
     ret
