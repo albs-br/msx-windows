@@ -2,7 +2,10 @@
 ;   IX = base addr of this process slot on RAM
 ;   IY = base addr of variables area of this process
 
-    
+
+    ; ld      a, 8                    ; 8th line
+    ; call    BIOS_SNSMAT             ; Read Data Of Specified Line From Keyboard Matrix
+
     ld      a, (BIOS_NEWKEY + 8)
 
     push    af
@@ -13,6 +16,9 @@
         bit     4, a    ; check if left key is pressed
         jp      z, .keyPressed_Left
 
+        bit     5, a    ; check if up key is pressed
+        jp      z, .keyPressed_Up
+
         .continue:
 
     pop     af
@@ -20,7 +26,7 @@
     ; update old keyboard state
     ld      (iy + TETRA_VARS.OLD_KEYBOARD_LINE_8), a
 
-    ; ; do below code only at each 4 frames
+    ; ; do below code only at each n frames
     ; ld      a, (BIOS_JIFFY)
     ; and     1111 1111 b
     ; ret     nz
@@ -56,13 +62,46 @@
     jp      .continue
 
 .keyPressed_Left:
-    ; check if key was previously released
-    ld      a, (iy + TETRA_VARS.OLD_KEYBOARD_LINE_8)
-    bit     4, a ; left key
-    jp      z, .continue
+    ; ; check if key was previously released
+    ; ld      a, (iy + TETRA_VARS.OLD_KEYBOARD_LINE_8)
+    ; bit     4, a ; left key
+    ; jp      z, .continue
 
     ; execute key pressed code here
     call    .piece_Left
+
+    jp      .continue
+
+.keyPressed_Up:
+    ; check if key was previously released
+    ld      a, (iy + TETRA_VARS.OLD_KEYBOARD_LINE_8)
+    bit     5, a ; up key
+    jp      z, .continue
+
+    ; execute key pressed code here
+
+    ; HL = TETRA_VARS.CURRENT_PIECE
+    push    iy
+    pop     hl
+    ld      de, TETRA_VARS.CURRENT_PIECE
+    add     hl, de
+
+    push    hl
+        ; DE = TETRA_VARS.CURRENT_PIECE_TEMP
+        push    iy
+        pop     hl
+        ld      de, TETRA_VARS.CURRENT_PIECE_TEMP
+        add     hl, de
+        ex      de, hl
+    pop     hl
+
+    push    hl, de
+        call    .RotatePiece_Right
+    pop     hl, de
+
+    ; CURRENT_PIECE = CURRENT_PIECE_TEMP
+    ld      bc, 4 * 4
+    ldir
 
     jp      .continue
 
@@ -76,9 +115,11 @@
     call    .isPiecePositionValid
     ret     z
 
-    ld      a, (iy + TETRA_VARS.PIECE_X)
-    dec     a
-    ld      (iy + TETRA_VARS.PIECE_X), a
+    ; ld      a, (iy + TETRA_VARS.PIECE_X)
+    ; dec     a
+    ; ld      (iy + TETRA_VARS.PIECE_X), a
+
+    dec     (iy + TETRA_VARS.PIECE_X)
 
     ; ; call "Draw" event of this process
     ; ld      e, (ix + PROCESS_STRUCT_IX.drawAddr)         ; process.Draw addr (low)
@@ -95,9 +136,11 @@
     call    .isPiecePositionValid
     ret     z
 
-    ld      a, (iy + TETRA_VARS.PIECE_X)
-    inc     a
-    ld      (iy + TETRA_VARS.PIECE_X), a
+    ; ld      a, (iy + TETRA_VARS.PIECE_X)
+    ; inc     a
+    ; ld      (iy + TETRA_VARS.PIECE_X), a
+
+    inc     (iy + TETRA_VARS.PIECE_X)
 
     ; ; call "Draw" event of this process
     ; ld      e, (ix + PROCESS_STRUCT_IX.drawAddr)         ; process.Draw addr (low)
@@ -173,3 +216,66 @@
 .return_Z:
     xor     a
     ret
+
+; ---------------------------------
+
+; Inputs:
+;	HL: source addr (matrix of 4x4 blocks)
+;	DE: destiny addr (matrix of 4x4 blocks)
+.RotatePiece_Right:
+
+	push	ix, iy
+
+		push	hl ; IX = HL
+		pop	    ix
+		push	de ; IY = DE
+		pop	    iy
+
+		; line 0 to column 3
+		inc	    iy ; IY += 3
+		inc	    iy
+		inc	    iy
+		call	.RotatePiece_LineToCol
+
+		; line 1 to column 2
+		inc	    ix ; IX+=4
+		inc	    ix
+		inc	    ix
+		inc	    ix
+		dec	    iy ; IY--
+		call	.RotatePiece_LineToCol
+
+		; line 2 to column 1
+		inc	    ix ; IX+=4
+		inc	    ix
+		inc	    ix
+		inc	    ix
+		dec	    iy ; IY--
+		call	.RotatePiece_LineToCol
+
+		; line 3 to column 0
+		inc	    ix ; IX+=4
+		inc	    ix
+		inc	    ix
+		inc	    ix
+		dec	    iy ; IY--
+		call	.RotatePiece_LineToCol
+
+	pop	    iy, ix
+
+	ret
+
+.RotatePiece_LineToCol:
+	ld	    a, (ix + 0)
+	ld	    (iy + 0), a
+
+	ld	    a, (ix + 1)
+	ld	    (iy + 4), a
+
+	ld	    a, (ix + 2)
+	ld	    (iy + 8), a
+
+	ld	    a, (ix + 3)
+	ld	    (iy + 12), a
+
+	ret

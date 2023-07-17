@@ -81,6 +81,7 @@ TETRA_VARS:
     .OLD_KEYBOARD_LINE_8:   equ 18  ; 1 byte
     .PLAYFIELD:             equ 34  ; 10 * 20 = 200 bytes ; TODO: if TETRA_CONSTANTS.PLAYFIELD_HEIGHT is less than 20, there will be some bytes wasted here
     .PLAYFIELD_BUFFER:      equ 234 ; 10 * 20 = 200 bytes
+    .CURRENT_PIECE_TEMP:    equ 434 ; 4 * 4 = 16 bytes
 
 ;--------------------------
 
