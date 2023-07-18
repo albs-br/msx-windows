@@ -105,12 +105,23 @@
         ex      de, hl
     pop     hl
 
+
+    ; if (CURRENT_PIECE_TYPE == PIECE_TYPE_SQUARE) ret
+    ld      a, (iy + TETRA_VARS.CURRENT_PIECE_TYPE)
+    cp      TETRA_CONSTANTS.PIECE_TYPE_SQUARE
+    jp      z, .continue
+
     push    hl, de
         call    .RotatePiece_Right
-    pop     hl, de
 
-    ; TODO:
-    ; check if new piece position is valid
+        ; check if new piece position is valid
+        ld      d, (iy + TETRA_VARS.PIECE_X)
+        ld      e, (iy + TETRA_VARS.PIECE_Y)
+        ld      bc, TETRA_VARS.CURRENT_PIECE_TEMP
+        call    .isPiecePositionValid
+
+    pop     hl, de ; invert HL & DE
+    jp      z, .continue
 
     ; CURRENT_PIECE = CURRENT_PIECE_TEMP
     ld      bc, 4 * 4
@@ -125,6 +136,7 @@
     ld      d, (iy + TETRA_VARS.PIECE_X)
     dec     d
     ld      e, (iy + TETRA_VARS.PIECE_Y)
+    ld      bc, TETRA_VARS.CURRENT_PIECE
     call    .isPiecePositionValid
     ret     z
 
@@ -146,6 +158,7 @@
     ld      d, (iy + TETRA_VARS.PIECE_X)
     inc     d
     ld      e, (iy + TETRA_VARS.PIECE_Y)
+    ld      bc, TETRA_VARS.CURRENT_PIECE
     call    .isPiecePositionValid
     ret     z
 
@@ -164,6 +177,7 @@
 
 ; Check if new piece position is valid
 ; Inputs:
+;   BC: delta addr of 4x4 piece matrix (TETRA_VARS.CURRENT_PIECE or TETRA_VARS.CURRENT_PIECE_TEMP)
 ;   D: piece x
 ;   E: piece y
 ; Output:
@@ -172,54 +186,60 @@
 .isPiecePositionValid:
 
     ; --- loop through all tiles of the 4x4 current piece matrix
-    ld      bc, TETRA_VARS.CURRENT_PIECE
+    ; ld      bc, TETRA_VARS.CURRENT_PIECE
     push    iy ; HL = IY
     pop     hl
     add     hl, bc
 
-    ld      b, 4 * 4 ; matrix size
-    ld      c, 0 ; matrix column counter
-.isPiecePositionValid_loop:
-    ; check if this matrix position position has tile or is empty
-    ld      a, (hl)
-    or      a
-    jp      z, .isPiecePositionValid_next
+    ld      b, 0 ; matrix line counter 
+.isPiecePositionValid_outerLoop:
+        ld      c, 0 ; matrix column counter
+    .isPiecePositionValid_innerLoop:
+        ; check if this matrix position position has tile or is empty
+        ld      a, (hl)
+        or      a
+        jp      z, .isPiecePositionValid_next
 
-    ; check if tile is inside playfield boundaries
-    
-    ; --- check X
-    ; if ((D + C) > 9) .return_Z
-    ld      a, d
-    add     c
-    cp      9 + 1
-    jp      nc, .return_Z
+        ; check if tile is inside playfield boundaries
+        
+        ; --- check X
+        ; if ((D + C) > 9) .return_Z
+        ld      a, d
+        add     c
+        cp      9 + 1
+        jp      nc, .return_Z
 
-    ; if ((D + C) < 0) .return_Z
-    ld      a, d
-    add     c
-    cp      0
-    jp      c, .return_Z
+        ; if ((D + C) < 0) .return_Z
+        ld      a, d    ; TODO: this line isn't necessary
+        add     c       ; TODO: this line isn't necessary
+        cp      0
+        jp      c, .return_Z
 
-    ; ; --- check Y
-    ; ; if ((E + (C >> 2)) >= PLAYFIELD_HEIGHT) .return_Z
-    ; ld      a, c ; get column
-    ; srl     a
-    ; srl     a
+        ; ; --- check Y
+        ; if ((E + B) >= PLAYFIELD_HEIGHT) .return_Z
+        ; ld      a, b
+        ; add       e
+        ; cp        PLAYFIELD_HEIGHT
+        ; jp        nc, .return_Z
 
-    ; ld      a, e
-    ; add     c
-    ; cp      0
-    ; jp      c, .return_Z
+    .isPiecePositionValid_next:
+        inc     hl ; next piece matrix position
+
+        inc     c
+        ld      a, c
+        cp      4
+        jp      z, .isPiecePositionValid_nextLine
+
+        jp      .isPiecePositionValid_innerLoop
 
 
+.isPiecePositionValid_nextLine:
+    inc     b
+    ld      a, b
+    cp      4
+    jp      nz, .isPiecePositionValid_outerLoop
 
-.isPiecePositionValid_next:
-    inc     hl
-    ld      a, c
-    inc     a
-    and     0000 0011 b ; keep in the 0-3 range
-    ld      c, a
-    djnz    .isPiecePositionValid_loop
+    ; if passed by all lines and columns and not found any invalid, return valid
 
     ; return NZ (piece position is valid)
     xor     a
@@ -237,8 +257,11 @@
 ;	DE: destiny addr (matrix of 4x4 blocks)
 .RotatePiece_Right:
 
-	push	ix, iy
+    ; TODO:
+    ; if (CURRENT_PIECE_TYPE == PIECE_TYPE_I) rotatePiece_4x4 else rotatePiece_3x3
 
+	; --- Rotate piece 4x4
+    push	ix, iy
 
 		push	hl ; IX = HL
 		pop	    ix
@@ -248,36 +271,21 @@
 		; line 0 to column 3
         ld      bc, 3 ; IY += 3
         add     iy, bc
-		; inc	    iy ; IY += 3
-		; inc	    iy
-		; inc	    iy
 		call	.RotatePiece_LineToCol
 
         inc     c ; BC = 4
 
 		; line 1 to column 2
-		; inc	    ix ; IX+=4
-		; inc	    ix
-		; inc	    ix
-		; inc	    ix
         add     ix, bc ; IX += 4
 		dec	    iy ; IY--
 		call	.RotatePiece_LineToCol
 
 		; line 2 to column 1
-		; inc	    ix ; IX+=4
-		; inc	    ix
-		; inc	    ix
-		; inc	    ix
         add     ix, bc ; IX += 4
 		dec	    iy ; IY--
 		call	.RotatePiece_LineToCol
 
 		; line 3 to column 0
-		; inc	    ix ; IX+=4
-		; inc	    ix
-		; inc	    ix
-		; inc	    ix
         add     ix, bc ; IX += 4
 		dec	    iy ; IY--
 		call	.RotatePiece_LineToCol
@@ -285,6 +293,37 @@
 	pop	    iy, ix
 
 	ret
+
+
+	; ; --- Rotate piece 3x3
+    ; push	ix, iy
+
+	; 	push	hl ; IX = HL
+	; 	pop	    ix
+	; 	push	de ; IY = DE
+	; 	pop	    iy
+
+	; 	; line 0 to column 2
+    ;     ld      bc, 2 ; IY += 2
+    ;     add     iy, bc
+	; 	call	.RotatePiece_3x3_LineToCol
+
+    ;     inc     c ; BC = 4
+
+	; 	; line 1 to column 1
+    ;     add     ix, bc ; IX += 4
+	; 	dec	    iy ; IY--
+	; 	call	.RotatePiece_3x3_LineToCol
+
+	; 	; line 2 to column 0
+    ;     add     ix, bc ; IX += 4
+	; 	dec	    iy ; IY--
+	; 	call	.RotatePiece_3x3_LineToCol
+
+	; pop	    iy, ix
+
+    ; ret
+
 
 .RotatePiece_LineToCol:
 	ld	    a, (ix + 0)
@@ -300,3 +339,15 @@
 	ld	    (iy + 12), a
 
 	ret
+
+; .RotatePiece_3x3_LineToCol:
+; 	ld	    a, (ix + 0)
+; 	ld	    (iy + 0), a
+
+; 	ld	    a, (ix + 1)
+; 	ld	    (iy + 4), a
+
+; 	ld	    a, (ix + 2)
+; 	ld	    (iy + 8), a
+
+; 	ret

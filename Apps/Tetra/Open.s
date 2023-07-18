@@ -36,24 +36,43 @@
     ; debug
     ; ---load piece
 
-    ; ---- parameters
-    ld      a, TETRA_CONSTANTS.PIECE_TYPE_SQUARE
+    ; ; load piece square
+    ; ld      c, TETRA_CONSTANTS.PIECE_TYPE_SQUARE
+    ; ld      hl, Tetra_Data.PIECE_SQUARE
+    ; ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)       ; blue tile
+    ; call    .LoadPiece
+
+
     
-    ;ld      hl, Tetra_Data.PIECE_SQUARE
-    ; ld      hl, Tetra_Data.PIECE_I
-    ld      hl, Tetra_Data.PIECE_L
+    ; ld      hl, Tetra_Data.PIECE_L
 
-    ; blue tile
-    ld      c, (ix + PROCESS_STRUCT_IX.vramStartTile)
+    ; load piece I
+    ld      c, TETRA_CONSTANTS.PIECE_TYPE_I
+    ld      hl, Tetra_Data.PIECE_I
+    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
+    inc     a   ; red tile
+    call    .LoadPiece
+
+
+    ; init vars
+    ld      a, 2
+    ld      (iy + TETRA_VARS.PIECE_X), a
     
-    ; ; red tile
-    ; ld      c, (ix + PROCESS_STRUCT_IX.vramStartTile)
-    ; inc     c
+    ld      a, 0
+    ld      (iy + TETRA_VARS.PIECE_Y), a
 
+    xor     a
+    ld      (iy + TETRA_VARS.COUNTER), a
 
-    ; --- subroutine
+    ret
 
-    ld      (iy + TETRA_VARS.CURRENT_PIECE_TYPE), a
+; Inputs:
+;   C: piece type number
+;   HL: addr of 4x4 matrix with piece
+;   A: tile number
+.LoadPiece:
+    ld      (iy + TETRA_VARS.CURRENT_PIECE_TYPE), c
+    ld      c, a
 
     push    hl
         push    iy ; DE = IY + TETRA_VARS.CURRENT_PIECE
@@ -77,21 +96,4 @@
     inc     de
     djnz    .loop
 
-    ; init vars
-    ld      a, 2
-    ld      (iy + TETRA_VARS.PIECE_X), a
-    
-    ld      a, 0
-    ld      (iy + TETRA_VARS.PIECE_Y), a
-
-    xor     a
-    ld      (iy + TETRA_VARS.COUNTER), a
-
-    ret
-
-; Inputs:
-;   A: piece type number
-;   HL: addr of 4x4 matrix with piece
-;   C: tile number
-.LoadPiece:
     ret
