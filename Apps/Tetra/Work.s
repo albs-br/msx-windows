@@ -46,7 +46,7 @@
     inc     e
     call    .isPiecePositionValid
     ret     z
-    ;jp      z, .fixPiece ; TODO
+    ;jp      z, .releasePiece ; TODO
 
     inc     (iy + TETRA_VARS.PIECE_Y)
 
@@ -312,11 +312,45 @@
 		dec	    iy ; IY--
 		call	.RotatePiece_3x3_LineToCol
 
+        ; IY is positioned at top left of destiny matrix
+
+        ; if first column is empty shift left the piece
+        ; (piece should always be left aligned)
+	    xor     a
+        add     (iy + 0)
+        add     (iy + 4)
+        add     (iy + 8)
+        jp      nz, .skip_ShiftPieceLeft
+
+	    ; -- shift piece 1 position left
+        ; first line
+        ld	    a, (iy + 1) ; cell[0] = cell[1]
+	    ld	    (iy + 0), a
+        ld	    a, (iy + 2) ; cell[1] = cell[2]
+	    ld	    (iy + 1), a
+        xor     a           ; cell[2] = 0
+	    ld	    (iy + 2), a
+
+        ; second line
+        ld	    a, (iy + 5)
+	    ld	    (iy + 4), a
+        ld	    a, (iy + 6)
+	    ld	    (iy + 5), a
+        xor     a
+	    ld	    (iy + 6), a
+
+        ; third line
+        ld	    a, (iy + 9)
+	    ld	    (iy + 8), a
+        ld	    a, (iy + 10)
+	    ld	    (iy + 9), a
+        xor     a
+	    ld	    (iy + 10), a
+
+    .skip_ShiftPieceLeft:
+
 	pop	    iy, ix
     
-    ; TODO:
-    ; if first column is empty shift left the piece
-    ; (piece should always be top-left aligned)
 
     ret
 
