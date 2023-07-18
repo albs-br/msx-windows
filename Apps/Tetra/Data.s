@@ -52,6 +52,16 @@
     db 0x89
     db 0x89
 
+.TILE_YELLOW_colors:
+    db 0xab
+    db 0xab
+    db 0xab
+    db 0xab
+    db 0xab
+    db 0xab
+    db 0xab
+    db 0xab
+
 ; -------------
 
 .PIECE_SQUARE:

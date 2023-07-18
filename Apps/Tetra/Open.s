@@ -12,6 +12,11 @@
     ld      de, Tetra_Data.TILE_RED_colors
     call    SET_CUSTOM_TILE
 
+    ld      a, 2
+    ld		hl, Tetra_Data.TILE_pattern
+    ld      de, Tetra_Data.TILE_YELLOW_colors
+    call    SET_CUSTOM_TILE
+
     ; init empty playfield and playfield buffer
     ld      de, TETRA_VARS.PLAYFIELD
     push    iy ; HL = IY
@@ -41,17 +46,20 @@
     ; ld      hl, Tetra_Data.PIECE_SQUARE
     ; ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)       ; blue tile
     ; call    .LoadPiece
-
-
     
-    ; ld      hl, Tetra_Data.PIECE_L
-
-    ; load piece I
-    ld      c, TETRA_CONSTANTS.PIECE_TYPE_I
-    ld      hl, Tetra_Data.PIECE_I
+    ; load piece L
+    ld      c, TETRA_CONSTANTS.PIECE_TYPE_L
+    ld      hl, Tetra_Data.PIECE_L
     ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
-    inc     a   ; red tile
+    add     2 ; yellow tile
     call    .LoadPiece
+
+    ; ; load piece I
+    ; ld      c, TETRA_CONSTANTS.PIECE_TYPE_I
+    ; ld      hl, Tetra_Data.PIECE_I
+    ; ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
+    ; inc     a   ; red tile
+    ; call    .LoadPiece
 
 
     ; init vars

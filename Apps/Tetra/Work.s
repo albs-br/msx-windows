@@ -34,17 +34,19 @@
     ld      a, (iy + TETRA_VARS.COUNTER)
     inc     a
     ld      (iy + TETRA_VARS.COUNTER), a
-    cp      60
+    cp      90 ; game speed (eg. 30 - 90)
     jp      nz, .draw
 
     xor     a
     ld      (iy + TETRA_VARS.COUNTER), a
 
-    ; ld      d, (iy + TETRA_VARS.PIECE_X)
-    ; ld      e, (iy + TETRA_VARS.PIECE_Y)
-    ; inc     e
-    ; call    .isPiecePositionValid
-    ; ret     z
+    ; ---- drop piece
+    ld      d, (iy + TETRA_VARS.PIECE_X)
+    ld      e, (iy + TETRA_VARS.PIECE_Y)
+    inc     e
+    call    .isPiecePositionValid
+    ret     z
+    ;jp      z, .fixPiece ; TODO
 
     inc     (iy + TETRA_VARS.PIECE_Y)
 
@@ -70,10 +72,10 @@
     jp      .continue
 
 .keyPressed_Left:
-    ; ; check if key was previously released
-    ; ld      a, (iy + TETRA_VARS.OLD_KEYBOARD_LINE_8)
-    ; bit     4, a ; left key
-    ; jp      z, .continue
+    ; check if key was previously released
+    ld      a, (iy + TETRA_VARS.OLD_KEYBOARD_LINE_8)
+    bit     4, a ; left key
+    jp      z, .continue
 
     ; execute key pressed code here
     call    .piece_Left
@@ -140,16 +142,7 @@
     call    .isPiecePositionValid
     ret     z
 
-    ; ld      a, (iy + TETRA_VARS.PIECE_X)
-    ; dec     a
-    ; ld      (iy + TETRA_VARS.PIECE_X), a
-
     dec     (iy + TETRA_VARS.PIECE_X)
-
-    ; ; call "Draw" event of this process
-    ; ld      e, (ix + PROCESS_STRUCT_IX.drawAddr)         ; process.Draw addr (low)
-    ; ld      d, (ix + PROCESS_STRUCT_IX.drawAddr + 1)     ; process.Draw addr (high)
-    ; call    JP_DE
 
     ret
 
@@ -162,16 +155,7 @@
     call    .isPiecePositionValid
     ret     z
 
-    ; ld      a, (iy + TETRA_VARS.PIECE_X)
-    ; inc     a
-    ; ld      (iy + TETRA_VARS.PIECE_X), a
-
     inc     (iy + TETRA_VARS.PIECE_X)
-
-    ; ; call "Draw" event of this process
-    ; ld      e, (ix + PROCESS_STRUCT_IX.drawAddr)         ; process.Draw addr (low)
-    ; ld      d, (ix + PROCESS_STRUCT_IX.drawAddr + 1)     ; process.Draw addr (high)
-    ; call    JP_DE
 
     ret
 
@@ -203,24 +187,25 @@
         ; check if tile is inside playfield boundaries
         
         ; --- check X
-        ; if ((D + C) > 9) .return_Z
         ld      a, d
         add     c
+
+        ; if ((D + C) > 9) .return_Z
         cp      9 + 1
         jp      nc, .return_Z
 
         ; if ((D + C) < 0) .return_Z
-        ld      a, d    ; TODO: this line isn't necessary
-        add     c       ; TODO: this line isn't necessary
         cp      0
         jp      c, .return_Z
+        ; cp      -1
+        ; jp      z, .return_Z
 
-        ; ; --- check Y
+        ; --- check Y
         ; if ((E + B) >= PLAYFIELD_HEIGHT) .return_Z
-        ; ld      a, b
-        ; add       e
-        ; cp        PLAYFIELD_HEIGHT
-        ; jp        nc, .return_Z
+        ld      a, b
+        add     e
+        cp      TETRA_CONSTANTS.PLAYFIELD_HEIGHT
+        jp      nc, .return_Z
 
     .isPiecePositionValid_next:
         inc     hl ; next piece matrix position
@@ -257,12 +242,16 @@
 ;	DE: destiny addr (matrix of 4x4 blocks)
 .RotatePiece_Right:
 
-    ; TODO:
     ; if (CURRENT_PIECE_TYPE == PIECE_TYPE_I) rotatePiece_4x4 else rotatePiece_3x3
+    ld      a, (iy + TETRA_VARS.CURRENT_PIECE_TYPE)
+    cp      TETRA_CONSTANTS.PIECE_TYPE_I
+    jp      nz, .rotatePiece_3x3_Right
 
 	; --- Rotate piece 4x4
     push	ix, iy
 
+        ; IX: source
+        ; IY: dest
 		push	hl ; IX = HL
 		pop	    ix
 		push	de ; IY = DE
@@ -294,35 +283,42 @@
 
 	ret
 
+.rotatePiece_3x3_Right:
+	; --- Rotate piece 3x3
+    push	ix, iy
 
-	; ; --- Rotate piece 3x3
-    ; push	ix, iy
+        ; IX: source
+        ; IY: dest
+		push	hl ; IX = HL
+		pop	    ix
+		push	de ; IY = DE
+		pop	    iy
 
-	; 	push	hl ; IX = HL
-	; 	pop	    ix
-	; 	push	de ; IY = DE
-	; 	pop	    iy
+		; line 0 to column 2
+        ld      bc, 2 ; IY += 2
+        add     iy, bc
+		call	.RotatePiece_3x3_LineToCol
 
-	; 	; line 0 to column 2
-    ;     ld      bc, 2 ; IY += 2
-    ;     add     iy, bc
-	; 	call	.RotatePiece_3x3_LineToCol
+        inc     c ; BC = 4
+        inc     c
 
-    ;     inc     c ; BC = 4
+		; line 1 to column 1
+        add     ix, bc ; IX += 4
+		dec	    iy ; IY--
+		call	.RotatePiece_3x3_LineToCol
 
-	; 	; line 1 to column 1
-    ;     add     ix, bc ; IX += 4
-	; 	dec	    iy ; IY--
-	; 	call	.RotatePiece_3x3_LineToCol
+		; line 2 to column 0
+        add     ix, bc ; IX += 4
+		dec	    iy ; IY--
+		call	.RotatePiece_3x3_LineToCol
 
-	; 	; line 2 to column 0
-    ;     add     ix, bc ; IX += 4
-	; 	dec	    iy ; IY--
-	; 	call	.RotatePiece_3x3_LineToCol
+	pop	    iy, ix
+    
+    ; TODO:
+    ; if first column is empty shift left the piece
+    ; (piece should always be top-left aligned)
 
-	; pop	    iy, ix
-
-    ; ret
+    ret
 
 
 .RotatePiece_LineToCol:
@@ -340,14 +336,14 @@
 
 	ret
 
-; .RotatePiece_3x3_LineToCol:
-; 	ld	    a, (ix + 0)
-; 	ld	    (iy + 0), a
+.RotatePiece_3x3_LineToCol:
+	ld	    a, (ix + 0)
+	ld	    (iy + 0), a
 
-; 	ld	    a, (ix + 1)
-; 	ld	    (iy + 4), a
+	ld	    a, (ix + 1)
+	ld	    (iy + 4), a
 
-; 	ld	    a, (ix + 2)
-; 	ld	    (iy + 8), a
+	ld	    a, (ix + 2)
+	ld	    (iy + 8), a
 
-; 	ret
+	ret
