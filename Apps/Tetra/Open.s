@@ -38,6 +38,17 @@
     inc     de
     djnz    .loop_1
 
+
+
+    ; debug
+    ld      de, TETRA_VARS.PLAYFIELD + 9 + (17*10)
+    push    iy ; HL = IY
+    pop     hl
+    add     hl, de
+    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
+    ld      (hl), a
+
+
     ; debug
     ; ---load piece
 
@@ -63,12 +74,6 @@
 
 
     ; init vars
-    ld      a, 2
-    ld      (iy + TETRA_VARS.PIECE_X), a
-    
-    ld      a, 0
-    ld      (iy + TETRA_VARS.PIECE_Y), a
-
     xor     a
     ld      (iy + TETRA_VARS.COUNTER), a
 
@@ -103,5 +108,13 @@
     inc     hl
     inc     de
     djnz    .loop
+
+
+    ; init piece vars
+    ld      a, 2
+    ld      (iy + TETRA_VARS.PIECE_X), a
+    
+    ld      a, 0
+    ld      (iy + TETRA_VARS.PIECE_Y), a
 
     ret

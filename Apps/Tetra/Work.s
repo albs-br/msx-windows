@@ -34,7 +34,7 @@
     ld      a, (iy + TETRA_VARS.COUNTER)
     inc     a
     ld      (iy + TETRA_VARS.COUNTER), a
-    cp      90 ; game speed (eg. 30 - 90)
+    cp      30 ; game speed (eg. 30 - 90)
     jp      nz, .draw
 
     xor     a
@@ -45,8 +45,8 @@
     ld      e, (iy + TETRA_VARS.PIECE_Y)
     inc     e
     call    .isPiecePositionValid
-    ret     z
-    ;jp      z, .releasePiece ; TODO
+    ; ret     z
+    jp      z, .releasePiece
 
     inc     (iy + TETRA_VARS.PIECE_Y)
 
@@ -57,6 +57,32 @@
     call    JP_DE
 
     ret
+
+; ----------
+
+.releasePiece:
+
+    call    Tetra_Draw.ConvertPiece_XY_ToLinear
+
+    ; HL += PLAYFIELD
+    push    hl
+        ld      de, TETRA_VARS.PLAYFIELD
+        push    iy ; HL = IY
+        pop     hl
+        add     hl, de
+    pop     de
+    add     hl, de
+
+    call    Tetra_Draw.PutPieceIntoPlayfield
+
+
+    ; load piece square
+    ld      c, TETRA_CONSTANTS.PIECE_TYPE_SQUARE
+    ld      hl, Tetra_Data.PIECE_SQUARE
+    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)       ; blue tile
+    call    Tetra_Open.LoadPiece
+
+    jp      .draw
 
 ; ---------
 
