@@ -2,6 +2,11 @@
 ;   IX = base addr of this process slot on RAM
 ;   IY = base addr of variables area of this process
 
+    ; init seed of random numbers
+    ld      a, (BIOS_JIFFY)
+    or      0x80
+    ld      (Seed), a
+
     xor     a
     ld		hl, Tetra_Data.TILE_pattern
     ld      de, Tetra_Data.TILE_BLUE_colors
@@ -49,28 +54,7 @@
     ld      (hl), a
 
 
-    ; debug
-    ; ---load piece
-
-    ; ; load piece square
-    ; ld      c, TETRA_CONSTANTS.PIECE_TYPE_SQUARE
-    ; ld      hl, Tetra_Data.PIECE_SQUARE
-    ; ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)       ; blue tile
-    ; call    .LoadPiece
-    
-    ; load piece L
-    ld      c, TETRA_CONSTANTS.PIECE_TYPE_L
-    ld      hl, Tetra_Data.PIECE_L
-    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
-    add     2 ; yellow tile
-    call    .LoadPiece
-
-    ; ; load piece I
-    ; ld      c, TETRA_CONSTANTS.PIECE_TYPE_I
-    ; ld      hl, Tetra_Data.PIECE_I
-    ; ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
-    ; inc     a   ; red tile
-    ; call    .LoadPiece
+    call    .LoadRandomPiece
 
 
     ; init vars
@@ -78,6 +62,55 @@
     ld      (iy + TETRA_VARS.COUNTER), a
 
     ret
+
+; ------
+.LoadRandomPiece:
+
+    ; generate random number between 1 and 7
+    call    RandomNumber
+    and     0000 0111 b ; keep value in the 0-7 range
+    or      a           ; repeat if A=0
+    jp      z, .LoadRandomPiece
+
+    cp      1
+    jp      z, .loadPiece_Square
+
+    cp      2
+    jp      z, .loadPiece_L
+
+    cp      3
+    jp      z, .loadPiece_I
+
+    ; TODO
+    ; else ; debug
+    jp      z, .loadPiece_I
+
+    ret
+
+.loadPiece_Square:
+    ld      c, TETRA_CONSTANTS.PIECE_TYPE_SQUARE
+    ld      hl, Tetra_Data.PIECE_SQUARE
+    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)       ; blue tile
+    call    .LoadPiece
+    ret
+    
+.loadPiece_L:
+    ld      c, TETRA_CONSTANTS.PIECE_TYPE_L
+    ld      hl, Tetra_Data.PIECE_L
+    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
+    add     2 ; yellow tile
+    call    .LoadPiece
+    ret
+
+.loadPiece_I:
+    ld      c, TETRA_CONSTANTS.PIECE_TYPE_I
+    ld      hl, Tetra_Data.PIECE_I
+    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
+    inc     a   ; red tile
+    call    .LoadPiece
+    ret
+; TODO
+; ---------
 
 ; Inputs:
 ;   C: piece type number

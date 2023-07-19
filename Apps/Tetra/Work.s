@@ -75,12 +75,7 @@
 
     call    Tetra_Draw.PutPieceIntoPlayfield
 
-
-    ; load piece square
-    ld      c, TETRA_CONSTANTS.PIECE_TYPE_SQUARE
-    ld      hl, Tetra_Data.PIECE_SQUARE
-    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)       ; blue tile
-    call    Tetra_Open.LoadPiece
+    call    Tetra_Open.LoadRandomPiece
 
     jp      .draw
 

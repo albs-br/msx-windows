@@ -167,12 +167,11 @@
 
 .drawPieceTile:
     or      a
-    jr      nz, .drawPieceTile_cont
-
-    ld      a, TILE_EMPTY_BLACK
+    jr      z, .drawPieceTile_ignore
 
 .drawPieceTile_cont:
     ld      (hl), a
+.drawPieceTile_ignore:
     inc     hl
     ret
 
