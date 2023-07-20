@@ -190,6 +190,23 @@
 ;   NZ: valid
 .isPiecePositionValid:
 
+    ; TODO:
+    ; ; save IX
+    ; push    ix
+    ; pop     hl
+    ; ld      (OS.tempWord), l
+    ; ld      (OS.tempWord + 1), h
+
+    ; TODO:
+    ; IX = linear position of piece on PLAYFIELD
+    ; push      bc, de
+    ; call    .ConvertPiece_XY_ToLinear
+    ; ld        bc, PLAYFIELD
+    ; add       hl, bc
+    ; pop       de, bc
+    ; push    hl
+    ; pop     ix
+
     ; --- loop through all tiles of the 4x4 current piece matrix
     ; ld      bc, TETRA_VARS.CURRENT_PIECE
     push    iy ; HL = IY
@@ -205,30 +222,39 @@
         or      a
         jp      z, .isPiecePositionValid_next
 
-        ; check if tile is inside playfield boundaries
+        ; ------- check if tile is inside playfield boundaries
         
         ; --- check X
         ld      a, d
         add     c
 
-        ; if ((D + C) > 9) .return_Z
+        ; if ((D + C) > 9) .return_Invalid
         cp      9 + 1
-        jp      nc, .return_Z
+        jp      nc, .return_Invalid
 
-        ; if ((D + C) < 0) .return_Z
+        ; if ((D + C) < 0) .return_Invalid
         cp      0
-        jp      c, .return_Z
+        jp      c, .return_Invalid
         ; cp      -1
-        ; jp      z, .return_Z
+        ; jp      z, .return_Invalid
 
         ; --- check Y
-        ; if ((E + B) >= PLAYFIELD_HEIGHT) .return_Z
+        ; if ((E + B) >= PLAYFIELD_HEIGHT) .return_Invalid
         ld      a, b
         add     e
         cp      TETRA_CONSTANTS.PLAYFIELD_HEIGHT
-        jp      nc, .return_Z
+        jp      nc, .return_Invalid
+
+        ; TODO
+        ; ------- check if tile is over an ocuppied playfield cell
+        ; ld    a, (ix)
+        ; or    a
+        ; jp      nz, .return_Invalid
 
     .isPiecePositionValid_next:
+        ; TODO:
+        ; IX ++
+
         inc     hl ; next piece matrix position
 
         inc     c
@@ -240,6 +266,9 @@
 
 
 .isPiecePositionValid_nextLine:
+    ; TODO:
+    ; IX += PLAYFIELD_WIDTH - 4
+
     inc     b
     ld      a, b
     cp      4
@@ -247,12 +276,19 @@
 
     ; if passed by all lines and columns and not found any invalid, return valid
 
+
+    ; TODO:
+    ; restore IX
+
     ; return NZ (piece position is valid)
     xor     a
     inc     a
     ret
 
-.return_Z:
+.return_Invalid:
+    ; TODO:
+    ; restore IX
+
     xor     a
     ret
 
@@ -369,6 +405,17 @@
 	    ld	    (iy + 10), a
 
     .skip_ShiftPieceLeft:
+
+        ; clear last column and last line
+        xor     a
+        ld	    (iy + 3), a
+        ld	    (iy + 7), a
+        ld	    (iy + 11), a
+        ld	    (iy + 15), a
+        ld	    (iy + 12), a
+        ld	    (iy + 13), a
+        ld	    (iy + 14), a
+
 
 	pop	    iy, ix
     

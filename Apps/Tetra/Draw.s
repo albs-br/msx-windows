@@ -178,7 +178,7 @@
 ; ------
 
 ; Input:
-;   IY shoulud point to process vars addr
+;   IY should point to process vars addr
 ; Output:
 ;   HL: linear addr of piece on playfield
 .ConvertPiece_XY_ToLinear:

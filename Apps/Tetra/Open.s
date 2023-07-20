@@ -83,7 +83,7 @@
 
     ; TODO
     ; else ; debug
-    jp      z, .loadPiece_I
+    jp      .loadPiece_I
 
     ret
 
@@ -117,6 +117,25 @@
 ;   HL: addr of 4x4 matrix with piece
 ;   A: tile number
 .LoadPiece:
+
+    ; clear current piece
+    push    hl, bc, iy
+        ; HL = TETRA_VARS.CURRENT_PIECE_TEMP
+        push    iy
+        pop     hl
+        ld      de, TETRA_VARS.CURRENT_PIECE_TEMP
+        add     hl, de
+
+        ld      c, 0
+        ld      b, 16
+        .LoadPiece_loop:
+            ld      (iy + TETRA_VARS.CURRENT_PIECE), c
+            ld      (hl), c
+            inc     iy
+            inc     hl
+            djnz    .LoadPiece_loop
+    pop     iy, bc, hl
+
     ld      (iy + TETRA_VARS.CURRENT_PIECE_TYPE), c
     ld      c, a
 
@@ -134,6 +153,13 @@
     or      a
     jp      z, .next
 
+;     jp      nz, .setTile
+
+;     ; set empty tile
+;     ; xor     a
+;     jp      .next
+
+; .setTile:
     ld      a, c
 
 .next:
