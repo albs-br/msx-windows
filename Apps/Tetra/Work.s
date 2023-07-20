@@ -193,22 +193,26 @@
 ;   NZ: valid
 .isPiecePositionValid:
 
-    ; TODO:
-    ; ; save IX
-    ; push    ix
-    ; pop     hl
-    ; ld      (OS.tempWord), l
-    ; ld      (OS.tempWord + 1), h
+    ; save IX
+    push    ix
+    pop     hl
+    ld      (OS.tempWord), hl
 
-    ; TODO:
-    ; IX = linear position of piece on PLAYFIELD
-    ; push      bc, de
-    ;   call    .ConvertPiece_XY_ToLinear
-    ;   ld        bc, PLAYFIELD
-    ;   add       hl, bc
-    ; pop       de, bc
-    ; push    hl
-    ; pop     ix
+    ; IX = addr of linear position of piece on PLAYFIELD
+    push      bc, de
+        call      Tetra_Draw.ConvertPiece_DE_ToLinear
+
+        ld        bc, TETRA_VARS.PLAYFIELD
+        add       hl, bc
+        
+        push      hl ; IX = HL
+        pop       ix
+        
+        push      iy ; BC = IY
+        pop       bc
+
+        add       ix, bc
+    pop       de, bc
 
     ; --- loop through all tiles of the 4x4 current piece matrix
     ; ld      bc, TETRA_VARS.CURRENT_PIECE
@@ -238,8 +242,6 @@
         ; if ((D + C) < 0) .return_Invalid
         cp      0
         jp      c, .return_Invalid
-        ; cp      -1
-        ; jp      z, .return_Invalid
 
         ; --- check Y
         ; if ((E + B) >= PLAYFIELD_HEIGHT) .return_Invalid
@@ -248,16 +250,14 @@
         cp      TETRA_CONSTANTS.PLAYFIELD_HEIGHT
         jp      nc, .return_Invalid
 
-        ; TODO
         ; ------- check if tile is over an ocuppied playfield cell
-        ; ld    a, (ix)
-        ; or    a
-        ; jp      nz, .return_Invalid
+        ld      a, (ix)
+        or      a
+        jp      nz, .return_Invalid
 
     .isPiecePositionValid_next:
-        ; ; TODO:
-        ; ; IX ++
-        ; inc     ix
+        ; IX ++
+        inc     ix
 
         inc     hl ; next piece matrix position
 
@@ -270,12 +270,11 @@
 
 
 .isPiecePositionValid_nextLine:
-    ; ; TODO:
-    ; ; IX += PLAYFIELD_WIDTH - 4
-    ; push    bc
-    ;     ld      bc, PLAYFIELD_WIDTH - 4
-    ;     add     ix, bc
-    ; pop     bc
+    ; IX += PLAYFIELD_WIDTH - 4
+    push    bc
+        ld      bc, TETRA_CONSTANTS.PLAYFIELD_WIDTH - 4
+        add     ix, bc
+    pop     bc
 
     inc     b
     ld      a, b
@@ -285,10 +284,8 @@
     ; if passed by all lines and columns and not found any invalid, return valid
 
 
-    ; ; TODO:
-    ; ; restore IX
-    ; ld      ixl, (OS.tempWord)
-    ; ld      ixh, (OS.tempWord + 1)
+    ; restore IX
+    ld      ix, (OS.tempWord)
 
     ; return NZ (piece position is valid)
     xor     a
@@ -296,10 +293,8 @@
     ret
 
 .return_Invalid:
-    ; ; TODO:
-    ; ; restore IX
-    ; ld      ixl, (OS.tempWord)
-    ; ld      ixh, (OS.tempWord + 1)
+    ; restore IX
+    ld      ix, (OS.tempWord)
 
     xor     a
     ret

@@ -66,13 +66,13 @@
 
 
 
-    ; debug
-    ld      de, TETRA_VARS.PLAYFIELD + 9 + (17*10)
-    push    iy ; HL = IY
-    pop     hl
-    add     hl, de
-    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
-    ld      (hl), a
+    ; ; debug
+    ; ld      de, TETRA_VARS.PLAYFIELD + 9 + (17*10)
+    ; push    iy ; HL = IY
+    ; pop     hl
+    ; add     hl, de
+    ; ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
+    ; ld      (hl), a
 
 
     call    .LoadRandomPiece

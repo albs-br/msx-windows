@@ -202,3 +202,41 @@
     add     hl, de
 
     ret
+
+
+
+
+; Input:
+;   D: piece x
+;   E: piece y
+; Output:
+;   HL: linear addr of piece on playfield
+.ConvertPiece_DE_ToLinear:
+
+    ld      a, d
+    ld      (OS.tempVar_1), a ; x
+    
+    ld      a, e
+    ld      (OS.tempVar_2), a ; y
+
+    ; adjust y position
+    ; HL = PIECE_Y * PLAYFIELD_WIDTH
+    ld      hl, 0
+    ld      de, TETRA_CONSTANTS.PLAYFIELD_WIDTH
+    ld      a, (OS.tempVar_2)
+    or      a
+    jp      z, .ConvertPiece_DE_ToLinear_skip_Mult
+    ld      b, a
+.ConvertPiece_DE_ToLinear_loop_Mult:
+    add     hl, de
+    djnz    .ConvertPiece_DE_ToLinear_loop_Mult
+.ConvertPiece_DE_ToLinear_skip_Mult:
+
+    ; adjust x position
+    ld      d, 0
+    ; ld      e, (iy + TETRA_VARS.PIECE_X)
+    ld      a, (OS.tempVar_1)
+    ld      e, a
+    add     hl, de
+
+    ret
