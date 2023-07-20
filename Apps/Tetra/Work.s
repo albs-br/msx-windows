@@ -44,6 +44,7 @@
     ld      d, (iy + TETRA_VARS.PIECE_X)
     ld      e, (iy + TETRA_VARS.PIECE_Y)
     inc     e
+    ld      bc, TETRA_VARS.CURRENT_PIECE
     call    .isPiecePositionValid
     ; ret     z
     jp      z, .releasePiece
@@ -180,6 +181,8 @@
 
     ret
 
+; ------------------------------------
+
 ; Check if new piece position is valid
 ; Inputs:
 ;   BC: delta addr of 4x4 piece matrix (TETRA_VARS.CURRENT_PIECE or TETRA_VARS.CURRENT_PIECE_TEMP)
@@ -200,9 +203,9 @@
     ; TODO:
     ; IX = linear position of piece on PLAYFIELD
     ; push      bc, de
-    ; call    .ConvertPiece_XY_ToLinear
-    ; ld        bc, PLAYFIELD
-    ; add       hl, bc
+    ;   call    .ConvertPiece_XY_ToLinear
+    ;   ld        bc, PLAYFIELD
+    ;   add       hl, bc
     ; pop       de, bc
     ; push    hl
     ; pop     ix
@@ -252,8 +255,9 @@
         ; jp      nz, .return_Invalid
 
     .isPiecePositionValid_next:
-        ; TODO:
-        ; IX ++
+        ; ; TODO:
+        ; ; IX ++
+        ; inc     ix
 
         inc     hl ; next piece matrix position
 
@@ -266,8 +270,12 @@
 
 
 .isPiecePositionValid_nextLine:
-    ; TODO:
-    ; IX += PLAYFIELD_WIDTH - 4
+    ; ; TODO:
+    ; ; IX += PLAYFIELD_WIDTH - 4
+    ; push    bc
+    ;     ld      bc, PLAYFIELD_WIDTH - 4
+    ;     add     ix, bc
+    ; pop     bc
 
     inc     b
     ld      a, b
@@ -277,8 +285,10 @@
     ; if passed by all lines and columns and not found any invalid, return valid
 
 
-    ; TODO:
-    ; restore IX
+    ; ; TODO:
+    ; ; restore IX
+    ; ld      ixl, (OS.tempWord)
+    ; ld      ixh, (OS.tempWord + 1)
 
     ; return NZ (piece position is valid)
     xor     a
@@ -286,8 +296,10 @@
     ret
 
 .return_Invalid:
-    ; TODO:
-    ; restore IX
+    ; ; TODO:
+    ; ; restore IX
+    ; ld      ixl, (OS.tempWord)
+    ; ld      ixh, (OS.tempWord + 1)
 
     xor     a
     ret

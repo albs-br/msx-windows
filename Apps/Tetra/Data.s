@@ -32,15 +32,15 @@
     db 01111111 b
     db 01111111 b
 
-.TILE_BLUE_colors:
-    db 0x47
-    db 0x47
-    db 0x47
-    db 0x47
-    db 0x47
-    db 0x47
-    db 0x47
-    db 0x47
+.TILE_LIGHT_BLUE_colors:
+    db 0x7f
+    db 0x7f
+    db 0x7f
+    db 0x7f
+    db 0x7f
+    db 0x7f
+    db 0x7f
+    db 0x7f
 
 .TILE_RED_colors:
     db 0x89
@@ -62,45 +62,85 @@
     db 0xab
     db 0xab
 
+.TILE_PURPLE_colors:
+    db 0xdf
+    db 0xdf
+    db 0xdf
+    db 0xdf
+    db 0xdf
+    db 0xdf
+    db 0xdf
+    db 0xdf
+
+.TILE_GRAY_colors:
+    db 0xef
+    db 0xef
+    db 0xef
+    db 0xef
+    db 0xef
+    db 0xef
+    db 0xef
+    db 0xef
+
+.TILE_GREEN_colors:
+    db 0xc3
+    db 0xc3
+    db 0xc3
+    db 0xc3
+    db 0xc3
+    db 0xc3
+    db 0xc3
+    db 0xc3
+
+.TILE_BLUE_colors:
+    db 0x47
+    db 0x47
+    db 0x47
+    db 0x47
+    db 0x47
+    db 0x47
+    db 0x47
+    db 0x47
+
 ; -------------
 
-.PIECE_SQUARE:
+.PIECE_SQUARE: ; light blue
     db  1, 1, 0, 0
     db  1, 1, 0, 0
     db  0, 0, 0, 0
     db  0, 0, 0, 0
 
-.PIECE_I:
+.PIECE_I: ; red
     db  1, 0, 0, 0
     db  1, 0, 0, 0
     db  1, 0, 0, 0
     db  1, 0, 0, 0
 
-.PIECE_L:
+.PIECE_L: ; yellow
     db  1, 0, 0, 0
     db  1, 0, 0, 0
     db  1, 1, 0, 0
     db  0, 0, 0, 0
 
-.PIECE_J:
+.PIECE_J: ; purple
     db  0, 1, 0, 0
     db  0, 1, 0, 0
     db  1, 1, 0, 0
     db  0, 0, 0, 0
 
-.PIECE_T:
+.PIECE_T: ; gray
     db  0, 1, 0, 0
     db  1, 1, 1, 0
     db  0, 0, 0, 0
     db  0, 0, 0, 0
 
-.PIECE_Z:
+.PIECE_Z: ; green
     db  0, 1, 0, 0
     db  1, 1, 0, 0
     db  1, 0, 0, 0
     db  0, 0, 0, 0
 
-.PIECE_S:
+.PIECE_S: ; blue
     db  1, 0, 0, 0
     db  1, 1, 0, 0
     db  0, 1, 0, 0

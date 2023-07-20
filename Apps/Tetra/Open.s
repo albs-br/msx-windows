@@ -7,9 +7,10 @@
     or      0x80
     ld      (Seed), a
 
+    ; load custom tiles
     xor     a
     ld		hl, Tetra_Data.TILE_pattern
-    ld      de, Tetra_Data.TILE_BLUE_colors
+    ld      de, Tetra_Data.TILE_LIGHT_BLUE_colors
     call    SET_CUSTOM_TILE
 
     ld      a, 1
@@ -20,6 +21,26 @@
     ld      a, 2
     ld		hl, Tetra_Data.TILE_pattern
     ld      de, Tetra_Data.TILE_YELLOW_colors
+    call    SET_CUSTOM_TILE
+
+    ld      a, 3
+    ld		hl, Tetra_Data.TILE_pattern
+    ld      de, Tetra_Data.TILE_PURPLE_colors
+    call    SET_CUSTOM_TILE
+
+    ld      a, 4
+    ld		hl, Tetra_Data.TILE_pattern
+    ld      de, Tetra_Data.TILE_GRAY_colors
+    call    SET_CUSTOM_TILE
+
+    ld      a, 5
+    ld		hl, Tetra_Data.TILE_pattern
+    ld      de, Tetra_Data.TILE_GREEN_colors
+    call    SET_CUSTOM_TILE
+
+    ld      a, 6
+    ld		hl, Tetra_Data.TILE_pattern
+    ld      de, Tetra_Data.TILE_BLUE_colors
     call    SET_CUSTOM_TILE
 
     ; init empty playfield and playfield buffer
@@ -76,24 +97,43 @@
     jp      z, .loadPiece_Square
 
     cp      2
-    jp      z, .loadPiece_L
-
-    cp      3
     jp      z, .loadPiece_I
 
-    ; TODO
-    ; else ; debug
-    jp      .loadPiece_I
+    cp      3
+    jp      z, .loadPiece_L
+
+    cp      4
+    jp      z, .loadPiece_J
+
+    cp      5
+    jp      z, .loadPiece_T
+
+    cp      6
+    jp      z, .loadPiece_Z
+
+    cp      7
+    jp      z, .loadPiece_S
+
+    ; ; else
+    ; jp      .loadPiece_I
 
     ret
 
 .loadPiece_Square:
     ld      c, TETRA_CONSTANTS.PIECE_TYPE_SQUARE
     ld      hl, Tetra_Data.PIECE_SQUARE
-    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)       ; blue tile
+    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)       ; light blue tile
     call    .LoadPiece
     ret
     
+.loadPiece_I:
+    ld      c, TETRA_CONSTANTS.PIECE_TYPE_I
+    ld      hl, Tetra_Data.PIECE_I
+    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
+    inc     a   ; red tile
+    call    .LoadPiece
+    ret
+
 .loadPiece_L:
     ld      c, TETRA_CONSTANTS.PIECE_TYPE_L
     ld      hl, Tetra_Data.PIECE_L
@@ -102,14 +142,40 @@
     call    .LoadPiece
     ret
 
-.loadPiece_I:
-    ld      c, TETRA_CONSTANTS.PIECE_TYPE_I
-    ld      hl, Tetra_Data.PIECE_I
+.loadPiece_J:
+    ld      c, TETRA_CONSTANTS.PIECE_TYPE_J
+    ld      hl, Tetra_Data.PIECE_J
     ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
-    inc     a   ; red tile
+    add     3 ; purple tile
     call    .LoadPiece
     ret
-; TODO
+
+.loadPiece_T:
+    ld      c, TETRA_CONSTANTS.PIECE_TYPE_T
+    ld      hl, Tetra_Data.PIECE_T
+    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
+    add     4 ; gray tile
+    call    .LoadPiece
+    ret
+
+.loadPiece_Z:
+    ld      c, TETRA_CONSTANTS.PIECE_TYPE_Z
+    ld      hl, Tetra_Data.PIECE_Z
+    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
+    add     5 ; green tile
+    call    .LoadPiece
+    ret
+
+.loadPiece_S:
+    ld      c, TETRA_CONSTANTS.PIECE_TYPE_S
+    ld      hl, Tetra_Data.PIECE_S
+    ld      a, (ix + PROCESS_STRUCT_IX.vramStartTile)
+    add     6 ; blue tile
+    call    .LoadPiece
+    ret
+
+
+
 ; ---------
 
 ; Inputs:
