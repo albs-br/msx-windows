@@ -177,6 +177,7 @@
 
 ; ------
 
+; Convert real X,Y of piece into linear addr on playfield 
 ; Input:
 ;   IY should point to process vars addr
 ; Output:
@@ -205,7 +206,7 @@
 
 
 
-
+; Convert X,Y of piece passed by parameters into linear addr on playfield 
 ; Input:
 ;   D: piece x
 ;   E: piece y
@@ -234,7 +235,6 @@
 
     ; adjust x position
     ld      d, 0
-    ; ld      e, (iy + TETRA_VARS.PIECE_X)
     ld      a, (OS.tempVar_1)
     ld      e, a
     add     hl, de

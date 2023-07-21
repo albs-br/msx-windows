@@ -76,9 +76,146 @@
 
     call    Tetra_Draw.PutPieceIntoPlayfield
 
+    ; repeat 4x as it is the max piece height
+    call    .CheckFullLines
+    call    .CheckFullLines
+    call    .CheckFullLines
+    call    .CheckFullLines
+
     call    Tetra_Open.LoadRandomPiece
 
     jp      .draw
+
+; ---------
+
+.CheckFullLines:
+    ; HL = PLAYFIELD
+    push    iy
+    pop     hl
+    ld      bc, TETRA_VARS.PLAYFIELD
+    add     hl, bc
+    
+    ; DE = PLAYFIELD + (WIDTH * HEIGHT)
+    push    hl
+        ; ld      b, TETRA_CONSTANTS.PLAYFIELD_HEIGHT
+        ; .loop_10:
+        ;     ld      de, TETRA_CONSTANTS.PLAYFIELD_WIDTH
+        ;     add     hl, de
+        ;     djnz    .loop_10
+        ld      de, TETRA_CONSTANTS.PLAYFIELD_WIDTH * TETRA_CONSTANTS.PLAYFIELD_HEIGHT
+        add     hl, de
+        ex      de, hl
+    pop     hl
+
+    ld      (OS.tempWord_3), de ; save DE
+
+.nextLine_10:
+
+    ld      de, (OS.tempWord_3) ; restore DE
+
+    ; check if playfield ended
+    call    BIOS_DCOMPR         ; Compare Contents Of HL & DE, Set Z-Flag IF (HL == DE), Set CY-Flag IF (HL < DE)
+    ret     nc  ; HL >= DE
+
+    ld      c, 0 ; counter for filled cells
+    ld      b, TETRA_CONSTANTS.PLAYFIELD_WIDTH
+.loop_2:
+    ld      a, (hl)
+    or      a
+    jp      z, .emptyCell    
+
+    inc     c ; filled cell
+
+.emptyCell:
+
+    inc     hl
+    djnz    .loop_2
+
+    ; check if line is full
+    ld      a, c
+    cp      TETRA_CONSTANTS.PLAYFIELD_WIDTH
+    jp      nz, .nextLine_10
+
+    ; -------------- remove line
+
+    ; save return addr
+    ; HL is positioned at start of the line after the line to be removed
+    ld      (OS.tempWord), hl
+
+    ; tempWord_1 = PLAYFIELD addr
+    push    iy
+    pop     hl
+    ld      bc, TETRA_VARS.PLAYFIELD
+    add     hl, bc
+    ld      (OS.tempWord_1), hl
+
+    ; tempWord_2 = PLAYFIELD BUFFER addr
+    push    iy
+    pop     hl
+    ld      bc, TETRA_VARS.PLAYFIELD_BUFFER
+    add     hl, bc
+    ld      (OS.tempWord_2), hl
+
+    ; --- copy PLAYFIELD to PLAYFIELD BUFFER
+    ld      hl, (OS.tempWord_1) ; HL = PLAYFIELD address
+    ld      de, (OS.tempWord_2) ; DE = PLAYFIELD BUFFER address
+    ld      bc, TETRA_CONSTANTS.PLAYFIELD_WIDTH * TETRA_CONSTANTS.PLAYFIELD_HEIGHT
+    ldir
+
+    ; ------------ copy line 0-current_line to line 1-current_line,
+    ; efectivelly removing the line and malink all blocks above fall 1 line
+
+    ; DE = PLAYFIELD BUFFER address + WIDTH
+    ld      hl, (OS.tempWord_2) ; HL = PLAYFIELD BUFFER address
+    ld      de, TETRA_CONSTANTS.PLAYFIELD_WIDTH
+    add     hl, de
+    ex      de, hl
+
+    ; --- BC = tempword - (PLAYFIELD addr + WIDTH)
+    ; HL = PLAYFIELD addr + WIDTH
+    ld      hl, (OS.tempWord_1) ; HL = PLAYFIELD address
+    ld      bc, TETRA_CONSTANTS.PLAYFIELD_WIDTH
+    add     hl, bc
+
+    push    hl ; BC = HL
+    pop     bc
+
+    ld      hl, (OS.tempWord)
+
+    xor     a
+    sbc     hl, bc
+
+    push    hl ; BC = HL
+    pop     bc
+
+
+
+    ld      hl, (OS.tempWord_1) ; HL = PLAYFIELD address
+
+    ldir    ; copy BC bytes from HL to DE
+
+    ; ----------------
+
+    ; --- clear first line of PLAYFIELD BUFFER
+    ld      hl, (OS.tempWord_2) ; HL = PLAYFIELD BUFFER address
+
+    xor     a
+    ld      b, TETRA_CONSTANTS.PLAYFIELD_WIDTH
+.loop_20:
+        ld      (hl), a
+        inc     hl
+        djnz    .loop_20
+
+    ld      hl, (OS.tempWord) ; restore return addr
+
+    ; --- copy PLAYFIELD BUFFER back to PLAYFIELD
+    ld      hl, (OS.tempWord_2) ; HL = PLAYFIELD BUFFER address
+    ld      de, (OS.tempWord_1) ; DE = PLAYFIELD address
+    ld      bc, TETRA_CONSTANTS.PLAYFIELD_WIDTH * TETRA_CONSTANTS.PLAYFIELD_HEIGHT
+    ldir
+
+    jp      .nextLine_10
+
 
 ; ---------
 
