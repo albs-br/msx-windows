@@ -19,6 +19,9 @@
         bit     5, a    ; check if up key is pressed
         jp      z, .keyPressed_Up
 
+        ; TODO:
+        ; key down
+
         .continue:
 
     pop     af

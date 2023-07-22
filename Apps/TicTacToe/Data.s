@@ -17,7 +17,37 @@
     db TILE_EMPTY, TILE_EMPTY, TILE_LINE_VERTICAL, TILE_EMPTY, TILE_EMPTY, TILE_LINE_VERTICAL, TILE_EMPTY, TILE_EMPTY
     db TILE_EMPTY, TILE_EMPTY, TILE_LINE_VERTICAL, TILE_EMPTY, TILE_EMPTY, TILE_LINE_VERTICAL, TILE_EMPTY, TILE_EMPTY
 
-.TILE_X_pattern_0:
+.TILE_X_pattern_0: ; top left
+    db 00111000 b
+    db 00111000 b
+    db 00011100 b
+    db 00011100 b
+    db 00001110 b
+    db 00001110 b
+    db 00000111 b
+    db 00000111 b
+
+.TILE_X_pattern_1: ; top right
+    db 00011100 b
+    db 00011100 b
+    db 00111000 b
+    db 00111000 b
+    db 01110000 b
+    db 01110000 b
+    db 11100000 b
+    db 11100000 b
+
+.TILE_X_pattern_2: ; bottom left
+    db 00000111 b
+    db 00000111 b
+    db 00001110 b
+    db 00001110 b
+    db 00011100 b
+    db 00011100 b
+    db 00111000 b
+    db 00111000 b
+
+.TILE_X_pattern_3: ; bottom right
     db 11100000 b
     db 11100000 b
     db 01110000 b
@@ -26,36 +56,6 @@
     db 00111000 b
     db 00011100 b
     db 00011100 b
-
-.TILE_X_pattern_1:
-    db 00011100 b
-    db 00011100 b
-    db 00011100 b
-    db 00011100 b
-    db 00011100 b
-    db 00011100 b
-    db 00011100 b
-    db 00011100 b
-
-.TILE_X_pattern_2:
-    db 10111101 b
-    db 10111101 b
-    db 10111101 b
-    db 10111101 b
-    db 10111101 b
-    db 10111101 b
-    db 10111101 b
-    db 10111101 b
-
-.TILE_X_pattern_3:
-    db 11111111 b
-    db 11111111 b
-    db 11111111 b
-    db 11111111 b
-    db 11111111 b
-    db 11111111 b
-    db 11111111 b
-    db 11111111 b
 
 .TILE_X_colors:
     db 0x4f
@@ -70,44 +70,44 @@
 ; ---
 
 .TILE_O_pattern_0:
-    db 10101010 b
-    db 01010101 b
-    db 10101010 b
-    db 01010101 b
-    db 10101010 b
-    db 01010101 b
-    db 10101010 b
-    db 01010101 b
+    db 00000011 b
+    db 00001111 b
+    db 00011100 b
+    db 00110000 b
+    db 01100000 b
+    db 01100000 b
+    db 11000000 b
+    db 11000000 b
 
 .TILE_O_pattern_1:
-    db 10101010 b
-    db 01010101 b
-    db 10101010 b
-    db 01010101 b
-    db 10101010 b
-    db 01010101 b
-    db 10101010 b
-    db 01010101 b
+    db 11000000 b
+    db 11110000 b
+    db 00111000 b
+    db 00001100 b
+    db 00000110 b
+    db 00000110 b
+    db 00000011 b
+    db 00000011 b
 
 .TILE_O_pattern_2:
-    db 10101010 b
-    db 01010101 b
-    db 10101010 b
-    db 01010101 b
-    db 10101010 b
-    db 01010101 b
-    db 10101010 b
-    db 01010101 b
+    db 11000000 b
+    db 11000000 b
+    db 01100000 b
+    db 01100000 b
+    db 00110000 b
+    db 00011100 b
+    db 00001111 b
+    db 00000011 b
 
 .TILE_O_pattern_3:
-    db 10101010 b
-    db 01010101 b
-    db 10101010 b
-    db 01010101 b
-    db 10101010 b
-    db 01010101 b
-    db 10101010 b
-    db 01010101 b
+    db 00000011 b
+    db 00000011 b
+    db 00000110 b
+    db 00000110 b
+    db 00001100 b
+    db 00111000 b
+    db 11110000 b
+    db 11000000 b
 
 .TILE_O_colors:
     db 0x8f
