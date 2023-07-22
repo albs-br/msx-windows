@@ -87,6 +87,9 @@
 
     call    Tetra_Open.LoadRandomPiece
 
+    ; TODO:
+    ; check if new piece is valid, if invalid then game is over
+
     jp      .draw
 
 ; ---------

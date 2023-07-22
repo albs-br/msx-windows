@@ -18,44 +18,44 @@
     db TILE_EMPTY, TILE_EMPTY, TILE_LINE_VERTICAL, TILE_EMPTY, TILE_EMPTY, TILE_LINE_VERTICAL, TILE_EMPTY, TILE_EMPTY
 
 .TILE_X_pattern_0: ; top left
-    db 00111000 b
+    db 11000000 b
+    db 11100000 b
+    db 01110000 b
     db 00111000 b
     db 00011100 b
-    db 00011100 b
-    db 00001110 b
     db 00001110 b
     db 00000111 b
-    db 00000111 b
+    db 00000011 b
 
 .TILE_X_pattern_1: ; top right
-    db 00011100 b
+    db 00000011 b
+    db 00000111 b
+    db 00001110 b
     db 00011100 b
     db 00111000 b
-    db 00111000 b
-    db 01110000 b
     db 01110000 b
     db 11100000 b
-    db 11100000 b
+    db 11000000 b
 
 .TILE_X_pattern_2: ; bottom left
-    db 00000111 b
+    db 00000011 b
     db 00000111 b
     db 00001110 b
-    db 00001110 b
-    db 00011100 b
     db 00011100 b
     db 00111000 b
-    db 00111000 b
+    db 01110000 b
+    db 11100000 b
+    db 11000000 b
 
 .TILE_X_pattern_3: ; bottom right
-    db 11100000 b
+    db 11000000 b
     db 11100000 b
     db 01110000 b
-    db 01110000 b
-    db 00111000 b
     db 00111000 b
     db 00011100 b
-    db 00011100 b
+    db 00001110 b
+    db 00000111 b
+    db 00000011 b
 
 .TILE_X_colors:
     db 0x4f
