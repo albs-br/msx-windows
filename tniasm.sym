@@ -890,8 +890,13 @@ TILE_FONT_UPPERCASE_M: equ 07Eh ; last def. pass 3
 BIOS_H_OUTD: equ 0FEE4h ; last def. pass 3
 TILE_CLOSE_ROUND_BRACKETS: equ 091h ; last def. pass 3
 REG12SAV: equ 0FFEBh ; last def. pass 3
+<<<<<<< HEAD
 BIOS_CALLF: equ 030h ; last def. pass 3
 Settings_Click.continue_1: equ 0633Ch ; last def. pass 3
+=======
+BIOS_CALLF: equ 030h ; last def. pass 3TILE_PATTERNS.size
+Settings_Click.continue_1: equ 06335h ; last def. pass 3
+>>>>>>> 0bfa2a37c38cc6e8b4b8134d8f210a2482cc1150
 PPI.A: equ 0A8h ; last def. pass 3
 TILE_FONT_REVERSED_LOWERCASE_P: equ 042h ; last def. pass 3
 SETTINGS_VARS.CHECKBOX_SHOW_TICKS_VALUE: equ 01h ; last def. pass 3

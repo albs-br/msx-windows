@@ -1838,7 +1838,9 @@ TILE_COLOR_15: equ TILE_EMPTY
 
 TILE_PATTERNS.size: equ $ - TILE_PATTERNS
 
-; TILE_PATTERNS.size: 0x560h (172 tiles)
+; TILE_PATTERNS.size: 0x578 (175 tiles)
+
+; tiles available: 189 - 175 = 24
 
 ; ----------------------------
 
