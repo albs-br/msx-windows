@@ -1,9 +1,13 @@
 ; Default VRAM tables for Screen 2
-NAMTBL:     equ 0x1800  ; to 0x1aff (768 bytes)
 PATTBL:     equ 0x0000  ; to 0x17ff (6144 bytes)
+NAMTBL:     equ 0x1800  ; to 0x1aff (768 bytes)
+SPRATR:     equ 0x1b00  ; to 0x1b7f (128 bytes)
+
+NAMTBL_ALT: equ 0x1c00  ; to 0x1eff (768 bytes)
+
 COLTBL:     equ 0x2000  ; to 0x37ff (6144 bytes)
 SPRPAT:     equ 0x3800  ; to 0x3fff (2048 bytes)
-SPRATR:     equ 0x1b00  ; to 0x1b7f (128 bytes)
+
 
 
 _INIT_VDP:
@@ -23,6 +27,16 @@ _INIT_VDP:
     call    BIOS_CHGMOD
 
     call    SetSprites16x16
+
+    ;                   1    1
+    ;                   4    0 8 7       0
+    ; NAMTBL_A: 0x1800 0001 1000 0000 0000 b
+    ; NAMTBL_B: 0x1000 0001 0000 0000 0000 b
+    ; set NAMTBL to 0x1800
+	ld		c, 2	               		; VDP Register Number (0..27, 32..46)
+	ld		b, 0000 0110 b   	        ; Data To Write
+    call 	BIOS_WRTVDP        		    ; 
+
 
     call    BIOS_DISSCR
 
