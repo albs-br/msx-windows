@@ -6,7 +6,7 @@ Proof of concept for the viability of a mouse oriented OS with GUI, as Windows 3
 Video demonstration:
 https://www.youtube.com/watch?v=q2wZaBPbj4M
 
-[![IMAGE ALT TEXT](https://www.youtube.com/watch?v=q2wZaBPbj4M/0.jpg)](https://www.youtube.com/watch?v=q2wZaBPbj4M "MSX Windows")
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/q2wZaBPbj4M/0.jpg)](https://www.youtube.com/watch?v=q2wZaBPbj4M "MSX Windows")
 
 Use it online on Webmsx:
 https://webmsx.org/?ROM=https://github.com/albs-br/msx-windows/releases/download/v.0.61.0/msx-windows.rom&MACHINE=MSX1A&FAST_BOOT=1&MOUSE_MODE=1
