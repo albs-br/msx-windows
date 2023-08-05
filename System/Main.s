@@ -11,6 +11,7 @@ PageSize:	    equ	0x4000	        ; 16kB
     INCLUDE "Include/CommonRoutines.s"
 
 ; System
+System_Code_Start:
     INCLUDE "System/Constants.s"
     INCLUDE "System/Interrupt.s"
     INCLUDE "System/Init/Init.s"
@@ -20,20 +21,26 @@ PageSize:	    equ	0x4000	        ; 16kB
     INCLUDE "System/Mouse/Mouse.s"
     INCLUDE "System/Process/Process.s"
     INCLUDE "System/Time/Time.s"
+System_Code_Size: equ $ - System_Code_Start ; currently 5047 bytes
+
 
 ; Assets
+Assets_Start:
     ; INCLUDE "Fonts/Atari_Regular.s"
     INCLUDE "Graphics/Tiles.s"
     INCLUDE "Graphics/Sprites.s"
+Assets_Size: equ $ - Assets_Start ; currently 1656 bytes
 
 
 ; Apps
+Apps_Start:
     INCLUDE "Apps/Notepad/Header.s"
     INCLUDE "Apps/Calc/Header.s"
     INCLUDE "Apps/Paint/Header.s"
     INCLUDE "Apps/Settings/Header.s"
     INCLUDE "Apps/TicTacToe/Header.s"
     INCLUDE "Apps/Tetra/Header.s"
+Apps_Size: equ $ - Apps_Start ; currently 4080 bytes
 
 
 
@@ -44,53 +51,13 @@ Execute:
     ld      sp, (BIOS_HIMEM)    ; init SP
     ei
 
-    ; routines named in uppercase means they are OS rotines (unless started by "BIOS_")
+    ; routines named in uppercase means they are OS routines (unless started by "BIOS_")
     ; _ on start means private routines (internal to the OS) while absence of underline means public routines (can be called by apps)
 
     call    _INIT
 
-    ; ; DEBUG
-    ; ld      hl, Notepad.Header
-    ; call    _LOAD_PROCESS
-
-    ; ; DEBUG
-    ; ld      hl, Calc.Header
-    ; call    _LOAD_PROCESS
-
-    ; ; DEBUG
-    ; ld      hl, Calc.Header
-    ; call    _LOAD_PROCESS
-
-    ; ; DEBUG
-    ; ld      hl, Calc.Header
-    ; call    _LOAD_PROCESS
-
-    ; ; debug 
-    ; ; set curr proc to process on first slot
-    ; ld      hl, OS.process_slot_1
-    ; ;ld      (OS.currentProcessAddr), hl
-    ; call    _SET_CURRENT_PROCESS
-    
-    ; ; DEBUG
-    ; ; ld      hl, (OS.currentProcessAddr)
-    ; ld      l, 10       ; col number (0-31)
-    ; ld      h, 0       ; line number (0-23)
-    ; call    _DRAW_WINDOW
-
-    ; ld      l, 5       ; col number (0-31)
-    ; ld      h, 6       ; line number (0-23)
-    ; call    _DRAW_WINDOW
-
-    ; ld      l, 0       ; col number (0-31)
-    ; ld      h, 12       ; line number (0-23)
-    ; call    _DRAW_WINDOW
-
 .OS_MainLoop:
 
-
-    ; ; debug
-    ; call    _GET_NUMBER_OF_PROCESSES_OPENED
-    ; ld      (Temp), a
 
     ; --- mouse events
     call    _DRAW_MOUSE_CURSOR
@@ -132,7 +99,7 @@ Execute:
     jp      .OS_MainLoop
 
 
-
+    ; current ROM size: 11648 bytes (some things may be compressed, mainly tiles (2kb))
     db      "End ROM started at 0x4000"
 
 	ds PageSize - ($ - 0x4000), 255	; Fill the unused area with 0xff

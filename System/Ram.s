@@ -1,7 +1,7 @@
 ; ------------------- RAM usage
 
-; OS variables                  1855 bytes
-; process slots                 4 * 244 bytes = 976 bytes
+; OS variables                  1641 bytes
+; process slots                 4 * 61 bytes = 244 bytes
 ; process variables space       4 * ? bytes =        ? bytes
 
 ; start of RAM: 0xc000 (49152)

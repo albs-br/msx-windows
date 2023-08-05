@@ -36,7 +36,6 @@ _DRAW_WINDOW:
 
 
     ; first line of title bar
-    ;ld  hl, NAMTBL + 10 + (0 * 32) ; DEBUG x=10, y=1
     push    hl
         call    BIOS_SETWRT
         
