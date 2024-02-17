@@ -5,6 +5,8 @@ PageSize:	    equ	0x4000	        ; 16kB
 ; Compilation address
     org 0x4000
 
+ROM_Start:
+
     INCLUDE "Include/RomHeader.s"
     INCLUDE "Include/MsxBios.s"
     INCLUDE "Include/MsxConstants.s"
@@ -101,6 +103,8 @@ Execute:
 
     ; current ROM size: 11648 bytes (some things may be compressed, mainly tiles (2kb))
     db      "End ROM started at 0x4000"
+
+ROM_Size: equ $ - ROM_Start
 
 	ds PageSize - ($ - 0x4000), 255	; Fill the unused area with 0xff
 
