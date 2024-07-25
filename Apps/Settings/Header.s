@@ -35,13 +35,13 @@ Settings:
                         db TILE_FONT_REVERSED_LOWERCASE_T
                         db TILE_EMPTY_BLACK
 .iconTitle:
-                        db TILE_EMPTY
                         db TILE_FONT_LOWERCASE_S
                         db TILE_FONT_LOWERCASE_E
                         db TILE_FONT_LOWERCASE_T
                         db TILE_FONT_LOWERCASE_T
                         db TILE_FONT_LOWERCASE_I
-                        db TILE_EMPTY
+                        db TILE_FONT_LOWERCASE_N
+                        db TILE_FONT_LOWERCASE_G
 
 .isFixedSize:	        db 0
 .vertScrollbarEnabled:	db 0

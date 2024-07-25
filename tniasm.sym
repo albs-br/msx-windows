@@ -46,6 +46,7 @@ Notepad.openAddr: equ 05D77h ; last def. pass 3
 Calc.drawAddr: equ 05EDAh ; last def. pass 3
 HTIMI: equ 0FD9Fh ; last def. pass 3
 BIOS_WINWID: equ 0FCA5h ; last def. pass 3
+ROM_Start: equ 04000h ; last def. pass 3
 TETRA_VARS.PLAYFIELD: equ 028h ; last def. pass 3
 BIOS_H_ERRP: equ 0FEFDh ; last def. pass 3
 _DO_RESIZE_WINDOW.lessThanMinWidth: equ 052E8h ; last def. pass 3
@@ -141,6 +142,7 @@ Tetra_Work.isPiecePositionValid_innerLoop: equ 06A22h ; last def. pass 3
 BIOS_FILTAB: equ 0F860h ; last def. pass 3
 CheckCollision_8x8_16x16.x1IsLarger: equ 041DAh ; last def. pass 3
 GET_WINDOW_LAST_USEFUL_COLUMN: equ 04B95h ; last def. pass 3
+ROM_Size: equ 02D9Bh ; last def. pass 3
 TicTacToe_Open.loop_1: equ 064CEh ; last def. pass 3
 TILE_FONT_SYMBOLS: equ 08Ch ; last def. pass 3
 Tetra_Work.loop_2: equ 06916h ; last def. pass 3

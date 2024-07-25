@@ -51,4 +51,4 @@ I tried to make a minimalist design with only 2 colors (and a little of gray on 
 This OS could have been a firmware for the very first MSXs of 1983, with only 16kb of RAM! It would be be crazy, as this kind of user experience turned out to be common only 10 years later on machines 40 times more powerful.
 
 OS variables amount to just 1855 bytes, that means around 11% of the 16kb of RAM, such a small overhead for a graphic OS.
-And I had zero to small worries with optimization. ROM size (OS and apps is under 12 kb). Apps are not fully implemented yet.
+And I had little to none worries with optimization. ROM size (OS and apps are under 12 kb). Apps are not fully implemented yet.

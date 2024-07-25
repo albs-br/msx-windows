@@ -6,7 +6,7 @@
         {
             "label": "assembly",
             "type": "shell",
-            "command": "C:\\Program Files\\tniasm045\\tniasm.exe",
+            "command": "C:\\Users\\Public\\msx\\tniasm\\tniasm.exe", //"C:\\Program Files\\tniasm045\\tniasm.exe",
                 "args": [
                     {
                       "value": "System\\Main.s",
@@ -21,7 +21,7 @@
             }
         },
         {
-            "command": "C:\\Program Files\\openMSX\\openmsx.exe",
+            "command": "C:\\Users\\Public\\msx\\openmsx\\openmsx.exe", //"C:\\Program Files\\openMSX\\openmsx.exe",
                 "args": [
                     {
                         "value": "${workspaceFolder}\\msx-windows.rom",
@@ -39,27 +39,25 @@
                         //"value": "-machine Panasonic_FS-A1WSX",         // MSX 2+ with turbo
                         //"value": "-machine Panasonic_FS-A1GT",          // MSX Turbo R
                         
-                        "quoting": "escape"
+                        "quoting": "weak"
                     },
                     // {
                     //     "value": "-romtype ASCII16",
-                    //     //"value": "-romtype ASCII8",
-                    //     "quoting": "escape"
+                    //     "quoting": "weak"
                     // },
                     // {
                     //     //"value": "-script ${workspaceFolder}\\msx-wings_debug.tcl",
                     //     "value": "-script ${workspaceFolder}\\profiler.tcl",
-                    //     "quoting": "escape"
+                    //     "quoting": "weak"
                     // },
                     {
                         "value": "-script ${workspaceFolder}\\msx-windows_debug.tcl",
-                        "quoting": "escape"
+                        "quoting": "weak"
                     },
                     {
                         "value": "-script ${workspaceFolder}\\add_mouse.tcl",
-                        "quoting": "escape"
+                        "quoting": "weak"
                     }
-
                 ],
             "label": "run openmsx",
             "type": "shell",
