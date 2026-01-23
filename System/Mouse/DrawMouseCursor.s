@@ -186,9 +186,6 @@ _DRAW_MOUSE_CURSOR:
 
     ld      (OS.currentTileMouseOver), a
 
-    ; ; debug
-    ; cp      SCREEN_MAPPING_TASKBAR
-    ; jp      z, .mouseOverTaskbar
 
 
 

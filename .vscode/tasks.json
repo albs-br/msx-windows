@@ -59,7 +59,6 @@
                         "value": "-script ${workspaceFolder}\\add_mouse.tcl",
                         "quoting": "weak"
                     }
-
                 ],
             "label": "run openmsx",
             "type": "shell",

@@ -1,9 +1,13 @@
 ; Default VRAM tables for Screen 2
-NAMTBL:     equ 0x1800  ; to 0x1aff (768 bytes)
 PATTBL:     equ 0x0000  ; to 0x17ff (6144 bytes)
+NAMTBL:     equ 0x1800  ; to 0x1aff (768 bytes)
+SPRATR:     equ 0x1b00  ; to 0x1b7f (128 bytes)
+
+NAMTBL_ALT: equ 0x1c00  ; to 0x1eff (768 bytes)
+
 COLTBL:     equ 0x2000  ; to 0x37ff (6144 bytes)
 SPRPAT:     equ 0x3800  ; to 0x3fff (2048 bytes)
-SPRATR:     equ 0x1b00  ; to 0x1b7f (128 bytes)
+
 
 
 _INIT_VDP:
@@ -23,6 +27,16 @@ _INIT_VDP:
     call    BIOS_CHGMOD
 
     call    SetSprites16x16
+
+    ;                   1    1
+    ;                   4    0 8 7       0
+    ; NAMTBL_A: 0x1800 0001 1000 0000 0000 b
+    ; NAMTBL_B: 0x1000 0001 0000 0000 0000 b
+    ; set NAMTBL to 0x1800
+	ld		c, 2	               		; VDP Register Number (0..27, 32..46)
+	ld		b, 0000 0110 b   	        ; Data To Write
+    call 	BIOS_WRTVDP        		    ; 
+
 
     call    BIOS_DISSCR
 
@@ -87,28 +101,6 @@ _INIT_VDP:
     call    .fillTileColor
 
 
-    ; ; load NAMTBL
-    ; ld		hl, NAMTBL_INIT         ; RAM address (source)
-    ; ld		de, NAMTBL		        ; VRAM address (destiny)
-    ; ld		bc, NAMTBL_INIT.size	; Block length
-    ; call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
-
-    ; ; DEBUG
-    ; ; load NAMTBL (1st)
-    ; ld		hl, NAMTBL_TEST        ; RAM address (source)
-    ; ld		de, NAMTBL		        ; VRAM address (destiny)
-    ; ld		bc, NAMTBL_TEST.size	; Block length
-    ; call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
-    ; ; load NAMTBL (2nd)
-    ; ld		hl, NAMTBL_TEST        ; RAM address (source)
-    ; ld		de, NAMTBL + 256		        ; VRAM address (destiny)
-    ; ld		bc, NAMTBL_TEST.size	; Block length
-    ; call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
-    ; ; load NAMTBL (3rd)
-    ; ld		hl, NAMTBL_TEST        ; RAM address (source)
-    ; ld		de, NAMTBL + 512		        ; VRAM address (destiny)
-    ; ld		bc, NAMTBL_TEST.size	; Block length
-    ; call 	BIOS_LDIRVM        	    ; Block transfer to VRAM from memory
 
     ; load SPRPAT
     ld		hl, SPRITE_PATTERNS         ; RAM address (source)
@@ -116,11 +108,6 @@ _INIT_VDP:
     ld		bc, SPRITE_PATTERNS.size    ; Block length
     call 	BIOS_LDIRVM        	        ; Block transfer to VRAM from memory
 
-    ; ; load SPRATR
-    ; ld		hl, SPRATR_TEST         ; RAM address (source)
-    ; ld		de, SPRATR		            ; VRAM address (destiny)
-    ; ld		bc, SPRATR_TEST.size    ; Block length
-    ; call 	BIOS_LDIRVM        	        ; Block transfer to VRAM from memory
 
     call    BIOS_ENASCR
 
@@ -152,85 +139,3 @@ _INIT_VDP:
     jp      nz, .loop_Colors
 
     ret
-
-; SPRATR_TEST:
-;     ; Y, X, patterm, color
-;     db 100, 100, 0 * 4, 1
-;     db 100, 100, 1 * 4, 15
-;     db 208, 0  , 0    ,0        ; 208 on Y value hides this sprite and all afterwards
-; .size: equ $ - SPRATR_TEST
-
-; debug: small window to test tiles
-NAMTBL_TEST:
-    db TILE_EMPTY
-    db TILE_EMPTY
-    db TILE_WINDOW_TITLE_TOP_LEFT
-    db TILE_WINDOW_TITLE_MIDDLE_TOP
-    db TILE_WINDOW_TITLE_MIDDLE_TOP
-    db TILE_WINDOW_TITLE_MIDDLE_TOP
-    db TILE_WINDOW_TITLE_MIDDLE_TOP
-    db TILE_WINDOW_TOP_RIGHT_CORNER_TOP
-    db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-
-    db TILE_EMPTY
-    db TILE_EMPTY
-    db TILE_WINDOW_TITLE_BOTTOM_LEFT
-    db TILE_WINDOW_TITLE_MIDDLE_BOTTOM
-    db TILE_WINDOW_MINIMIZE_BUTTON
-    db TILE_WINDOW_MAXIMIZE_BUTTON
-    db TILE_WINDOW_CLOSE_BUTTON
-    db TILE_WINDOW_TOP_RIGHT_CORNER_BOTTOM
-    db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-
-    db TILE_EMPTY
-    db TILE_EMPTY
-    db TILE_WINDOW_BORDER_LEFT
-    db TILE_FONT_LOWERCASE_A + 0
-    db TILE_FONT_LOWERCASE_A + 25
-    db TILE_FONT_NUMBERS_0 + 0
-    db TILE_FONT_NUMBERS_0 + 9
-    db TILE_WINDOW_BORDER_RIGHT
-    db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-
-    db TILE_EMPTY
-    db TILE_EMPTY
-    db TILE_WINDOW_BORDER_LEFT
-    db TILE_FONT_UPPERCASE_A + 0
-    db TILE_FONT_UPPERCASE_A + 25
-    db TILE_FONT_REVERSED_SYMBOLS + 0
-    db TILE_EMPTY
-    db TILE_WINDOW_BORDER_RIGHT
-    db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-
-    db TILE_EMPTY
-    db TILE_EMPTY
-    db TILE_WINDOW_BORDER_LEFT
-    ; db TILE_FONT_REVERSED_SYMBOLS + 0
-    ; db TILE_FONT_REVERSED_NUMBERS_0 + 8
-    db TILE_FONT_REVERSED_LOWERCASE_A + 0
-    db TILE_FONT_REVERSED_LOWERCASE_A + 25
-    db TILE_FONT_REVERSED_NUMBERS_0 + 0
-    db TILE_FONT_REVERSED_NUMBERS_0 + 9
-    db TILE_WINDOW_RESIZE_CORNER_TOP
-    db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-
-    db TILE_EMPTY
-    db TILE_EMPTY
-    db TILE_WINDOW_BORDER_BOTTOM_LEFT
-    db TILE_WINDOW_BORDER_MIDDLE_BOTTOM
-    db TILE_WINDOW_BORDER_MIDDLE_BOTTOM
-    db TILE_WINDOW_BORDER_MIDDLE_BOTTOM
-    db TILE_WINDOW_RESIZE_CORNER_LEFT
-    db TILE_WINDOW_RESIZE_CORNER_RIGHT
-    db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-
-    db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-
-.size: equ $ - NAMTBL_TEST
-
-
-; ; debug
-; NAMTBL_TEST_1:
-;     db TILE_LINE_TOP_LEFT, TILE_LINE_TOP_RIGHT
-;     db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-; .size: $ - NAMTBL_TEST_1
